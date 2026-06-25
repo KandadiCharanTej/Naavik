@@ -64,19 +64,20 @@ export function ProblemSection() {
             
             <Reveal delay={100}>
               <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-[2rem] leading-[1.15]">
-                Juggling college updates<br className="hidden sm:inline" />
-                across 7 different apps?<br />
-                <span className="text-primary">That's just exhausting.</span>
+                You're managing college life
+              across 7 different apps. <br />
+                That's not productivity. <br />
+                <span className="text-primary">That's exhaustion.</span>
               </h2>
             </Reveal>
 
             <Reveal delay={200}>
               <div className="mt-6 space-y-4 text-base text-muted-foreground leading-relaxed">
                 <p>
-                  Engineering students spend hours chasing links, begging seniors for notes, and missing hackathon deadlines. We put everything in one clean place so you can focus on building.
+                  Engineering students in India spend more time <span className="font-semibold text-foreground italic">finding</span> information than actually using it. Naviko fixes that.
                 </p>
-                <p className="text-sm font-semibold text-foreground/80 mt-6 pt-4 border-t border-border">
-                  How much time do you waste checking these daily?
+                <p className="text-sm font-medium text-foreground/80 mt-8 pt-4 border-t border-border">
+                  Here's what your day looks like now — and what it could look like.
                 </p>
               </div>
             </Reveal>

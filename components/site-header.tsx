@@ -46,7 +46,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <WaitlistButton size="sm" id="header-waitlist-btn">
-            Reserve Early Access
+            Get Early Access
           </WaitlistButton>
         </div>
 
@@ -76,7 +76,7 @@ export function SiteHeader() {
             ))}
             <div className="mt-3 flex flex-col gap-2">
               <WaitlistButton id="mobile-header-waitlist-btn">
-                Reserve Early Access
+                Get Early Access
               </WaitlistButton>
             </div>
           </nav>

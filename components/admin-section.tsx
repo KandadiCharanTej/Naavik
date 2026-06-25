@@ -5,13 +5,10 @@ import { AdminButton } from '@/components/cta-buttons'
 import { Reveal } from '@/components/reveal'
 
 const benefits = [
-  'Verified Badge',
-  'Early Access',
-  'Build Your College Space',
-  'Work With the Founders',
-  'Leadership Experience',
-  'Certificate of Contribution',
-  'Help students in your college',
+  'Verified Founding Admin badge on your profile',
+  'Direct line to Naviko founders — your feedback shapes the product',
+  'First access to every new feature before anyone else',
+  'Real leadership experience: you\'ll be running your campus\'s tech hub',
 ]
 
 export function AdminSection() {

@@ -20,14 +20,14 @@ export function ProductWalkthrough() {
     <section id="walkthrough" className="scroll-mt-20 py-16 sm:py-28 lg:py-36 bg-white relative">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="SEE NAVIKO IN ACTION"
+          eyebrow="INTERACTIVE DEMO"
           title={
             <>
-              Explore{' '}
-              <span className="text-primary">Naviko.</span>
+              Explore the{' '}
+              <span className="text-primary">Naviko Workspace.</span>
             </>
           }
-          description="Click through the panels to preview how Naviko organizes your opportunities, resources, and campus."
+          description="Click through the panels to see how Naviko organises your opportunities, resources, and community."
         />
 
         {/* Dynamic explore block */}
@@ -67,7 +67,7 @@ export function ProductWalkthrough() {
                   <span className="h-3 w-3 rounded-full bg-amber-400/80" />
                   <span className="h-3 w-3 rounded-full bg-emerald-400/80" />
                   <span className="ml-3 text-[10px] text-muted-foreground font-semibold uppercase tracking-wider bg-muted/60 px-2 py-0.5 rounded select-none">
-                    Concept Preview
+                    workspace_preview
                   </span>
                 </div>
                 <div className="h-5 w-5 rounded-full bg-primary/20" />
@@ -193,7 +193,7 @@ export function ProductWalkthrough() {
                 <div className="mt-6 pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
                   <p>All campus resources are uploaded and verified by student admins.</p>
                   <WaitlistButton size="sm" id="walkthrough-waitlist-btn">
-                    Reserve Early Access →
+                    Get Early Access
                   </WaitlistButton>
                 </div>
 

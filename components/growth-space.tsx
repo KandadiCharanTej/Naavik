@@ -123,37 +123,37 @@ export function GrowthSpace() {
               Growth Space
             </span>
             <h2 className="mt-5 text-xl font-extrabold tracking-tight text-foreground sm:text-2xl lg:text-[1.75rem] leading-[1.25]">
-              Meet builders outside your campus. <span className="text-primary">Find teammates. Win hackathons.</span>
+              Most students in TG & AP only know people from their own campus. <span className="text-primary">That's 200+ colleges worth of teammates they've never met.</span>
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-relaxed text-muted-foreground">
-              Don't limit yourself to your classroom. Connect with developers, designers, and founders from colleges across Telangana & Andhra Pradesh.
+              Growth Space connects you with developers, designers, and builders from colleges across the state — for hackathons, projects, and ideas that go further than your campus.
             </p>
 
             <div className="mt-8 space-y-6">
               <div className="flex items-start gap-4">
-                <span className="text-xl leading-none select-none mt-0.5">🎯</span>
+                <span className="text-xl leading-none select-none mt-0.5">🌐</span>
                 <div>
-                  <h3 className="text-sm font-bold text-foreground">Opportunities matched to you</h3>
+                  <h3 className="text-sm font-bold text-foreground">Opportunity Hub</h3>
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                    Internships, scholarships, and hackathons filtered by your branch and semester. No generic jobs. Only what you qualify for.
+                    National internships, Google Gen Scholarship, Smart India Hackathon — opportunities that never reach your college noticeboard are surfaced here, filtered by your branch and semester.
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <span className="text-xl leading-none select-none mt-0.5">⚡</span>
+                <span className="text-xl leading-none select-none mt-0.5">👥</span>
                 <div>
-                  <h3 className="text-sm font-bold text-foreground">One-click team finder</h3>
+                  <h3 className="text-sm font-bold text-foreground">Cross-Campus Teams</h3>
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                    Need a developer for Smart India Hackathon? Post your project outline and recruit verified builders from other campuses instantly.
+                    Hackathon deadline in 72 hours and your class has no designer? Post on Growth Space. Students from CBIT, VNRVJIET, and JNTUH are looking for the same teammates you need.
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <span className="text-xl leading-none select-none mt-0.5">🚀</span>
+                <span className="text-xl leading-none select-none mt-0.5">💡</span>
                 <div>
-                  <h3 className="text-sm font-bold text-foreground">Build your co-founding team</h3>
+                  <h3 className="text-sm font-bold text-foreground">Co-Founder Match</h3>
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                    Have a startup idea? Find co-founders, showcase your builds, and get noticed by early-stage student hubs.
+                    You have the idea. Someone in another college has the skill you're missing. Post your concept, browse builders, and start something real.
                   </p>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export function GrowthSpace() {
 
             <div className="mt-8 w-full">
               <WaitlistButton size="lg" className="w-full sm:w-auto" id="growth-space-keynote-btn">
-                Reserve Early Access →
+                Join the Network →
               </WaitlistButton>
             </div>
           </div>

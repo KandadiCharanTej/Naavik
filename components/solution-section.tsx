@@ -8,43 +8,37 @@ const features = [
   {
     icon: Briefcase,
     title: 'Opportunities',
-    desc: 'Discover internships, hackathons, and workshops matched to your interests.',
-    examples: ['Microsoft Internship', 'Google Solution Challenge', 'Smart India Hackathon'],
+    desc: "Stop scrolling LinkedIn hoping something appears. Naviko surfaces internships, hackathons, and scholarships filtered by branch & year — so you only see what's relevant to you.",
     color: 'text-blue-600 bg-blue-50 border-blue-100 group-hover:bg-blue-600 group-hover:text-white',
   },
   {
     icon: BookOpen,
     title: 'Study Vault',
-    desc: 'Get organized study materials, lab records, and notes from your campus.',
-    examples: ['DBMS Unit 1-5 Notes', 'Basic Electrical Lab Manual', 'OS Semester 4 PYQs'],
+    desc: 'Your college\'s entire knowledge base — organized. PYQs, unit-wise notes, lab manuals, and exam prep, uploaded and verified by trusted student admins. No more begging seniors on WhatsApp at midnight.',
     color: 'text-indigo-600 bg-indigo-50 border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white',
   },
   {
     icon: Rocket,
     title: 'Projects',
-    desc: 'Showcase your builds to find teammates and get noticed by recruiters.',
-    examples: ['AI Chatbot (Next.js)', 'Campus Navigation App', 'IoT Smart Home System'],
+    desc: "Your projects deserve an audience beyond your professor. Showcase what you've built to peers, startup founders, and recruiters who are actively looking for student developers.",
     color: 'text-rose-600 bg-rose-50 border-rose-100 group-hover:bg-rose-600 group-hover:text-white',
   },
   {
     icon: Users,
-    title: 'Connect & Team Finder',
-    desc: 'Find developers, designers, and project partners across colleges.',
-    examples: ['SIH Hackathon Designer', 'Flutter App Co-Founder', 'Frontend React Developer'],
+    title: 'Connect',
+    desc: 'Hackathon deadline in 3 days and no team? Find developers, designers, and researchers from colleges across Telangana & AP — with the exact skills your project needs.',
     color: 'text-emerald-600 bg-emerald-50 border-emerald-100 group-hover:bg-emerald-600 group-hover:text-white',
   },
   {
     icon: Building2,
-    title: 'College Space',
-    desc: 'Your college space for updates, resources, and events from your own campus.',
-    examples: ['CBIT Tech Fest Registration', 'JNTUH HackFest Announcement', 'VNRVJIET Lab Exam Dates'],
+    title: 'College Workspace',
+    desc: 'Your campus, digitally organized. A private, verified space for your college — official announcements, event updates, and resources moderated by your campus admin. No noise. No spam.',
     color: 'text-amber-600 bg-amber-50 border-amber-100 group-hover:bg-amber-600 group-hover:text-white',
   },
   {
     icon: Trophy,
-    title: 'Leaderboard & Streaks',
-    desc: 'Share verified study notes to build reputation and gain campus recognition.',
-    examples: ['Weekly Top Contributors', 'Verified Study Note Badges', 'Resource Sharing Streaks'],
+    title: 'Leaderboards',
+    desc: 'Good contributions don\'t go unnoticed. Upload notes, share resources, and earn points that build your reputation on campus. The students who help others get recognized.',
     color: 'text-purple-600 bg-purple-50 border-purple-100 group-hover:bg-purple-600 group-hover:text-white',
   },
 ]
@@ -55,8 +49,8 @@ export function SolutionSection() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="FEATURES"
-          title="Everything you need. One place."
-          description="Six tools that replace the dozen apps you're juggling right now."
+          title="Six tools. One workspace. Zero friction."
+          description="We replaced messy messaging groups and scattered folders with six core student utilities."
         />
 
         <div className="mt-12 sm:mt-16 grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
@@ -77,20 +71,6 @@ export function SolutionSection() {
                   <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                     {feat.desc}
                   </p>
-                  
-                  {/* Real Examples bullet list */}
-                  <div className="mt-4 pt-4 border-t border-border/40">
-                    <p className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground mb-2">Examples</p>
-                    <ul className="space-y-1">
-                      {feat.examples.map((ex, idx) => (
-                        <li key={idx} className="text-xs text-foreground/80 flex items-center gap-1.5">
-                          <span className="text-[8px] text-primary">•</span>
-                          {ex}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
                 </div>
               </div>
             </Reveal>
