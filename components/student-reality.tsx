@@ -94,7 +94,7 @@ export function StudentReality() {
             {/* Naviko Unified Space Screen */}
             <div className={`w-full lg:w-1/2 relative transition-all duration-500 ${isUnified ? 'scale-100 opacity-100' : 'scale-95 opacity-30'}`}>
               <p className="absolute -top-6 left-0 text-[10px] font-bold uppercase tracking-wider text-primary flex items-center gap-1">
-                <Check className="h-3.5 w-3.5" /> Unified Naviko OS
+                <Check className="h-3.5 w-3.5" /> Unified Naviko Space
               </p>
 
               <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-lg text-left">
@@ -105,7 +105,7 @@ export function StudentReality() {
                     <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
                     <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   </div>
-                  <span className="text-[9px] text-muted-foreground">naviko.os</span>
+                  <span className="text-[9px] text-muted-foreground">naviko.app</span>
                 </div>
 
                 {/* Dashboard feed preview */}
@@ -136,10 +136,10 @@ export function StudentReality() {
           {/* Keynote Quote */}
           <div className="mt-8 text-center max-w-xl mx-auto border-t border-border/50 pt-6">
             <p className="text-sm font-bold text-foreground">
-              "We replace fragmented tabs with a single keyboard-driven workspace."
+              "We replace fragmented tabs with a single workspace."
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              Naviko OS groups information contextually based on your branch and year.
+              Naviko groups updates contextually based on your branch and year.
             </p>
           </div>
 

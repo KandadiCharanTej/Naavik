@@ -26,10 +26,10 @@ export function SiteFooter() {
           <div className="max-w-xs text-left">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              The unified student OS for engineering students in Telangana &amp; Andhra Pradesh.
+              One place for everything engineering students need.
             </p>
             <p className="mt-2 text-xs text-muted-foreground/85 flex items-center gap-1">
-              Made with care in Hyderabad. 🤍
+              Built in Telangana &amp; Andhra Pradesh. 🤍
             </p>
           </div>
 
