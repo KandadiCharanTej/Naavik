@@ -3,12 +3,12 @@ import { Resend } from 'resend'
 let resendClient: Resend | null = null
 
 /** Lazily initialise the Resend client. */
-export function getResend(): Resend {
+export function getResend(): Resend | null {
   if (resendClient) return resendClient
 
   const key = process.env.RESEND_API_KEY
   if (!key) {
-    throw new Error('Missing RESEND_API_KEY environment variable')
+    return null
   }
 
   resendClient = new Resend(key)
@@ -18,6 +18,10 @@ export function getResend(): Resend {
 /** Send the welcome email to a new waitlist member. */
 export async function sendWelcomeEmail(to: string, name: string) {
   const resend = getResend()
+  if (!resend) {
+    console.warn('Skipping welcome email: RESEND_API_KEY is not defined.')
+    return
+  }
   const from = process.env.RESEND_FROM_EMAIL || 'Naviko <noreply@naviko.app>'
   const instagramUrl =
     process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/naviko.app'
