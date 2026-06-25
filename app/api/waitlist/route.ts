@@ -117,10 +117,9 @@ export async function POST(request: NextRequest) {
 
     // Insert into waitlist
     const { error: insertError } = await supabase.from('waitlist').insert({
-      name: cleanName,
+      full_name: cleanName,
       email: cleanEmail,
       college: cleanCollege,
-      position,
     })
 
     if (insertError) {

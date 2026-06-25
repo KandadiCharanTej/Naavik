@@ -27,10 +27,10 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1)
 
-    // Search across name, email, and college
+    // Search across full_name, email, and college
     if (search) {
       query = query.or(
-        `name.ilike.%${search}%,email.ilike.%${search}%,college.ilike.%${search}%`,
+        `full_name.ilike.%${search}%,email.ilike.%${search}%,college.ilike.%${search}%`,
       )
     }
 
@@ -44,8 +44,17 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    const usersMapped = (data ?? []).map((user, index) => ({
+      id: user.id,
+      name: user.full_name,
+      email: user.email,
+      college: user.college,
+      position: offset + index + 1,
+      created_at: user.created_at,
+    }))
+
     return NextResponse.json({
-      users: data ?? [],
+      users: usersMapped,
       total: count ?? 0,
       page,
       limit,

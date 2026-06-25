@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await supabase
       .from('waitlist')
-      .select('position, name, email, college, created_at')
-      .order('position', { ascending: true })
+      .select('full_name, email, college, created_at')
+      .order('created_at', { ascending: true })
 
     if (error) {
       console.error('Dashboard export error:', error)
@@ -27,9 +27,9 @@ export async function GET(request: NextRequest) {
 
     // Build CSV
     const headers = ['Position', 'Name', 'Email', 'College', 'Joined']
-    const rows = (data ?? []).map((row) => [
-      row.position,
-      `"${(row.name || '').replace(/"/g, '""')}"`,
+    const rows = (data ?? []).map((row, index) => [
+      index + 1,
+      `"${(row.full_name || '').replace(/"/g, '""')}"`,
       row.email,
       `"${(row.college || '').replace(/"/g, '""')}"`,
       new Date(row.created_at).toISOString().split('T')[0],
