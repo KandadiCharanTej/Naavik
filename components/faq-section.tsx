@@ -10,31 +10,27 @@ import {
 const faqs = [
   {
     q: 'What is Naviko?',
-    a: 'Naviko is a unified student workspace for engineering students in Telangana and Andhra Pradesh. It combines internship discovery, study resources, peer networking, and campus updates — all in one place, personalised to your branch and year.',
+    a: 'One place for everything engineering students need — opportunities, study resources, peer connections, and campus updates. Built specifically for colleges in Telangana & AP.',
   },
   {
     q: 'When will it launch?',
-    a: "We're in active development. The waitlist is open now. Early members get first access when we launch campus-by-campus. Sign up and you'll be notified the moment your college goes live.",
+    a: "We are launching campus-by-campus soon. Reserve early access now to secure your spot and get notified the moment your college goes live.",
   },
   {
     q: 'Is it free?',
-    a: 'Yes — and always will be for students. We may offer premium features later, but the core platform stays free. Forever.',
+    a: 'Yes, Naviko is completely free for students. No hidden costs or catches.',
   },
   {
     q: 'Which colleges are supported?',
-    a: "We're starting in Telangana and Andhra Pradesh. Colleges are activated one by one as student admins join. If your college isn't live yet, applying to be a founding admin is the fastest way to change that.",
+    a: 'We are starting in Telangana and Andhra Pradesh. Workspaces are activated once a verified student admin joins to set up their campus.',
   },
   {
-    q: 'Can I become a college admin?',
-    a: "Yes — and we're actively looking for founding admins right now. You need to be currently enrolled at your college. Apply via the \"Become a Campus Admin\" page. We personally review every application.",
+    q: 'Can I help launch my college?',
+    a: 'Yes! Apply to be a Founding Campus Admin. You will help build your college hub and coordinate with the founders directly.',
   },
   {
-    q: 'How is Naviko different from LinkedIn or Internshala?',
-    a: "LinkedIn and Internshala are built for the job market. Naviko is built for your college life. We're not a job board — we're a workspace. Campus-specific resources, peer study networks, hackathon team-finding, and campus announcements — things LinkedIn simply doesn't do.",
-  },
-  {
-    q: 'I have a suggestion. How do I share it?',
-    a: "We're all ears. Reach out via our community page or email us directly. Every suggestion from early members gets reviewed personally by the founders.",
+    q: 'How is this different from WhatsApp or LinkedIn?',
+    a: 'WhatsApp is full of spam and unorganized notes. LinkedIn is full of corporate fluff. Naviko is built purely for engineering students to find notes, partners, and internships without the noise.',
   },
 ]
 
