@@ -8,7 +8,7 @@ const features = [
   {
     icon: Briefcase,
     title: 'Opportunities',
-    desc: "Stop scrolling LinkedIn hoping something appears. Naviko surfaces internships, hackathons, and scholarships filtered by branch & year — so you only see what's relevant to you.",
+    desc: "Stop scrolling LinkedIn hoping something appears. Naavik surfaces internships, hackathons, and scholarships filtered by branch & year — so you only see what's relevant to you.",
     color: 'text-blue-600 bg-blue-50 border-blue-100 group-hover:bg-blue-600 group-hover:text-white',
   },
   {

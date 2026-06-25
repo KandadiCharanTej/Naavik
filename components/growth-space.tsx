@@ -53,7 +53,7 @@ export function GrowthSpace() {
                     </div>
                     <p className="text-xs font-bold text-foreground">Rahul K.</p>
                     <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">
-                      "Looking for a React Native dev for SIH hackathon. Initial prototype is ready."
+                      &quot;Looking for a React Native dev for SIH hackathon. Initial prototype is ready.&quot;
                     </p>
                   </div>
                 </Reveal>
@@ -72,7 +72,7 @@ export function GrowthSpace() {
                     </div>
                     <p className="text-xs font-bold text-foreground">Sai Kumar</p>
                     <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">
-                      "Hey Rahul! I build in React Native and want to work on a real build. Let's connect."
+                      &quot;Hey Rahul! I build in React Native and want to work on a real build. Let&apos;s connect.&quot;
                     </p>
                   </div>
                 </Reveal>
@@ -123,7 +123,7 @@ export function GrowthSpace() {
               Growth Space
             </span>
             <h2 className="mt-5 text-xl font-extrabold tracking-tight text-foreground sm:text-2xl lg:text-[1.75rem] leading-[1.25]">
-              Most students in TG & AP only know people from their own campus. <span className="text-primary">That's 200+ colleges worth of teammates they've never met.</span>
+              Most students in TG & AP only know people from their own campus. <span className="text-primary">That&apos;s 200+ colleges worth of teammates they&apos;ve never met.</span>
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-relaxed text-muted-foreground">
               Growth Space connects you with developers, designers, and builders from colleges across the state — for hackathons, projects, and ideas that go further than your campus.
@@ -153,7 +153,7 @@ export function GrowthSpace() {
                 <div>
                   <h3 className="text-sm font-bold text-foreground">Co-Founder Match</h3>
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                    You have the idea. Someone in another college has the skill you're missing. Post your concept, browse builders, and start something real.
+                    You have the idea. Someone in another college has the skill you&apos;re missing. Post your concept, browse builders, and start something real.
                   </p>
                 </div>
               </div>

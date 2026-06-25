@@ -6,7 +6,7 @@ import { Reveal } from '@/components/reveal'
 
 const benefits = [
   'Verified Founding Admin badge on your profile',
-  'Direct line to Naviko founders — your feedback shapes the product',
+  'Direct line to Naavik founders — your feedback shapes the product',
   'First access to every new feature before anyone else',
   'Real leadership experience: you\'ll be running your campus\'s tech hub',
 ]
@@ -24,12 +24,12 @@ export function AdminSection() {
         </span>
         
         <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem] leading-[1.15] max-w-3xl">
-          Your campus doesn't have Naviko yet.<br />
+          Your campus doesn&apos;t have Naavik yet.<br />
           You could be the reason it does.
         </h2>
         
         <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-          We activate campuses one at a time — and only when a student steps up to run it. If that's you, here's what you get.
+          We activate campuses one at a time — and only when a student steps up to run it. If that&apos;s you, here&apos;s what you get.
         </p>
 
         {/* Dynamic Join block */}

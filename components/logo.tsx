@@ -1,7 +1,8 @@
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 /**
- * Naviko wordmark.
+ * Naavik wordmark.
  * - Renders the exact uploaded brand logo asset images.
  */
 export function Logo({
@@ -23,9 +24,12 @@ export function Logo({
   const logoSrc = theme === 'light' ? '/logos/naviko-dark.png' : '/logos/naviko-light.png'
 
   return (
-    <img
+    <Image
       src={logoSrc}
-      alt="Naviko"
+      alt="Naavik"
+      width={180}
+      height={68}
+      priority
       className={cn('h-17 w-auto object-contain shrink-0', className)}
     />
   )

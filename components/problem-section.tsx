@@ -64,20 +64,20 @@ export function ProblemSection() {
             
             <Reveal delay={100}>
               <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-[2rem] leading-[1.15]">
-                You're managing college life
+                You&apos;re managing college life
               across 7 different apps. <br />
-                That's not productivity. <br />
-                <span className="text-primary">That's exhaustion.</span>
+                That&apos;s not productivity. <br />
+                <span className="text-primary">That&apos;s exhaustion.</span>
               </h2>
             </Reveal>
 
             <Reveal delay={200}>
               <div className="mt-6 space-y-4 text-base text-muted-foreground leading-relaxed">
                 <p>
-                  Engineering students in India spend more time <span className="font-semibold text-foreground italic">finding</span> information than actually using it. Naviko fixes that.
+                  Engineering students in India spend more time <span className="font-semibold text-foreground italic">finding</span> information than actually using it. Naavik fixes that.
                 </p>
                 <p className="text-sm font-medium text-foreground/80 mt-8 pt-4 border-t border-border">
-                  Here's what your day looks like now — and what it could look like.
+                  Here&apos;s what your day looks like now — and what it could look like.
                 </p>
               </div>
             </Reveal>

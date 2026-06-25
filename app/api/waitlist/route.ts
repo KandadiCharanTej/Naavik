@@ -138,10 +138,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send welcome email (non-blocking — don't fail the request)
-    sendWelcomeEmail(cleanEmail, cleanName).catch((err) =>
-      console.error('Failed to send welcome email:', err),
-    )
+    // Send welcome email after successful database insert
+    try {
+      await sendWelcomeEmail(cleanEmail, cleanName)
+    } catch (err) {
+      console.error('Failed to send welcome email:', err)
+    }
 
     return NextResponse.json({ success: true, position })
   } catch (error) {

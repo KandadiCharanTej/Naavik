@@ -1,5 +1,5 @@
 /**
- * Naviko Launch email template — for use when the platform launches.
+ * Naavik Launch email template — for use when the platform launches.
  * Call this from a script or API route when you're ready to notify all waitlist users.
  */
 export function buildLaunchHtml(name: string, launchUrl: string): string {
@@ -15,20 +15,20 @@ export function buildLaunchHtml(name: string, launchUrl: string): string {
         <!-- Header -->
         <tr><td style="padding:32px 32px 0;">
           <p style="margin:0;font-size:20px;font-weight:600;color:#1a1a2e;letter-spacing:-0.3px;">
-            Navik<span style="color:#7c3aed;">o</span>
+            Naavi<span style="color:#7c3aed;">k</span>
           </p>
         </td></tr>
 
         <!-- Body -->
         <tr><td style="padding:24px 32px 32px;">
           <h1 style="margin:0 0 16px;font-size:24px;font-weight:600;color:#1a1a2e;">
-            Naviko is Live! 🚀
+            Naavik is Live! 🚀
           </h1>
           <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#555;">
             Hey ${name},
           </p>
           <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#555;">
-            The day is here — Naviko is officially live. As one of our earliest supporters, you get first access to the platform.
+            The day is here — Naavik is officially live. As one of our earliest supporters, you get first access to the platform.
           </p>
           <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#555;">
             Explore opportunities, find resources for your semester, connect with students from your college and beyond — all in one place.
@@ -39,7 +39,7 @@ export function buildLaunchHtml(name: string, launchUrl: string): string {
             <tr><td style="background:#7c3aed;border-radius:8px;padding:14px 28px;">
               <a href="${launchUrl}" target="_blank" rel="noopener noreferrer"
                  style="color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;display:inline-block;">
-                Get Started on Naviko →
+                Get Started on Naavik →
               </a>
             </td></tr>
           </table>
@@ -52,7 +52,7 @@ export function buildLaunchHtml(name: string, launchUrl: string): string {
         <!-- Footer -->
         <tr><td style="padding:20px 32px;border-top:1px solid #f0f0f0;background:#fafafa;">
           <p style="margin:0;font-size:12px;color:#999;text-align:center;">
-            © ${new Date().getFullYear()} Naviko · Built by students, for students · Hyderabad
+            © ${new Date().getFullYear()} Naavik · Built by students, for students · Hyderabad
           </p>
         </td></tr>
 

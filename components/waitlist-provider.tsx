@@ -133,7 +133,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
                 Waitlist position: <span className="font-semibold text-primary">#{position}</span>
               </p>
               <p className="mt-2 text-sm text-muted-foreground text-pretty">
-                Thank you for your interest. We&apos;re building Naviko in the
+                Thank you for your interest. We&apos;re building Naavik in the
                 open and will email you as soon as there&apos;s something to try.
               </p>
               <div className="mt-6 flex w-full flex-col gap-2">
@@ -226,7 +226,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
                   )}
                 </Button>
                 <p className="text-center text-xs text-muted-foreground">
-                  Free for students. We&apos;ll only email about Naviko.
+                  Free for students. We&apos;ll only email about Naavik.
                 </p>
               </form>
             </>

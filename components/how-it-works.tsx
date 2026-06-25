@@ -7,7 +7,7 @@ const steps = [
     icon: UserPlus,
     step: '01',
     title: 'Create Your Profile',
-    desc: 'Sign up with your college email. Set your branch, year, and skills. Naviko personalises your feed from day one.',
+    desc: 'Sign up with your college email. Set your branch, year, and skills. Naavik personalises your feed from day one.',
   },
   {
     icon: Compass,

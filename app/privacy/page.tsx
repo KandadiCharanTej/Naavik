@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Logo } from '@/components/logo'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Naviko',
+  title: 'Privacy Policy — Naavik',
   description: 'How we collect and protect your early access waitlist information.',
   robots: { index: false, follow: false },
 }
@@ -23,15 +24,15 @@ export default function PrivacyPage() {
       <div className="mx-auto max-w-xl w-full">
         {/* Header */}
         <header className="mb-10 flex items-center justify-between border-b border-border pb-6">
-          <a href="/" className="inline-flex items-center" aria-label="Naviko Home">
+          <Link href="/" className="inline-flex items-center" aria-label="Naavik Home">
             <Logo />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/"
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Back to home
-          </a>
+          </Link>
         </header>
 
         {/* Content */}
@@ -43,7 +44,7 @@ export default function PrivacyPage() {
 
           <div className="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Naviko is built by and for engineering students. We respect your privacy and only request data that helps us build a better platform for you.
+              Naavik is built by and for engineering students. We respect your privacy and only request data that helps us build a better platform for you.
             </p>
 
             <div>
@@ -82,7 +83,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-base font-semibold text-foreground">4. Opt-Out</h2>
               <p className="mt-2">
-                If you ever want to be removed from the waitlist, simply email us at <strong>hello@naviko.app</strong> and we will delete your record immediately.
+                If you ever want to be removed from the waitlist, simply email us at <strong>hello@naavik.app</strong> and we will delete your record immediately.
               </p>
             </div>
           </div>
@@ -90,7 +91,7 @@ export default function PrivacyPage() {
       </div>
 
       <footer className="mt-16 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Naviko · Made in Hyderabad
+        © {new Date().getFullYear()} Naavik · Made in Hyderabad
       </footer>
     </div>
   )

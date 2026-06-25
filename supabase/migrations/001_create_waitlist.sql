@@ -1,4 +1,4 @@
--- Waitlist table for Naviko early access signups
+-- Waitlist table for Naavik early access signups
 CREATE TABLE IF NOT EXISTS waitlist (
   id BIGSERIAL PRIMARY KEY,
   name TEXT NOT NULL,

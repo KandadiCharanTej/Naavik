@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Logo } from '@/components/logo'
 import { InstagramIcon } from '@/components/instagram-icon'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naviko.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.app'
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/'
 const LINKEDIN_URL = 'https://linkedin.com/'
 
@@ -36,7 +36,7 @@ function ThankYouInner() {
   const position = searchParams.get('position')
   const [copied, setCopied] = useState(false)
 
-  const shareText = `I just reserved early access to Naviko! It's one place for everything engineering students need — opportunities, notes, and projects. Join the waitlist here: ${SITE_URL}`
+  const shareText = `I just reserved early access to Naavik! It's one place for everything engineering students need — opportunities, notes, and projects. Join the waitlist here: ${SITE_URL}`
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SITE_URL)}`
 
@@ -67,10 +67,10 @@ function ThankYouInner() {
 
         {/* Heading & Subtitle */}
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl leading-tight">
-          🎉 You're on the Early Access List!
+          🎉 You&apos;re on the Early Access List!
         </h1>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground max-w-md">
-          Thanks for joining Naviko. You're now one of the first students helping shape the future of Naviko. We'll email you as soon as Early Access opens.
+          Thanks for joining Naavik. You&apos;re now one of the first students helping shape the future of Naavik. We&apos;ll email you as soon as Early Access opens.
         </p>
 
         {/* Live Waitlist Position Card (Only if available) */}
@@ -95,11 +95,11 @@ function ThankYouInner() {
             </li>
             <li className="flex items-start gap-2.5 text-xs text-muted-foreground">
               <span className="text-primary font-bold mt-0.5">•</span>
-              <span>We'll email you when Early Access is ready.</span>
+              <span>We&apos;ll email you when Early Access is ready.</span>
             </li>
             <li className="flex items-start gap-2.5 text-xs text-muted-foreground">
               <span className="text-primary font-bold mt-0.5">•</span>
-              <span>We'll occasionally share important updates.</span>
+              <span>We&apos;ll occasionally share important updates.</span>
             </li>
             <li className="flex items-start gap-2.5 text-xs text-muted-foreground">
               <span className="text-primary font-bold mt-0.5">•</span>

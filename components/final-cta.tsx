@@ -16,7 +16,7 @@ export function FinalCta() {
           />
           <div className="relative flex flex-col items-center">
             <h2 className="mx-auto max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl leading-[1.1]">
-              Naviko is being built right now.<br />
+              Naavik is being built right now.<br />
               The students who join early<br className="hidden sm:inline" />
               will shape what it becomes.
             </h2>

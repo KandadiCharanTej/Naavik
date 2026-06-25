@@ -24,10 +24,10 @@ export function ProductWalkthrough() {
           title={
             <>
               Explore the{' '}
-              <span className="text-primary">Naviko Workspace.</span>
+              <span className="text-primary">Naavik Workspace.</span>
             </>
           }
-          description="Click through the panels to see how Naviko organises your opportunities, resources, and community."
+          description="Click through the panels to see how Naavik organises your opportunities, resources, and community."
         />
 
         {/* Dynamic explore block */}

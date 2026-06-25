@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': 'text/csv',
-        'Content-Disposition': `attachment; filename="naviko-waitlist-${new Date().toISOString().split('T')[0]}.csv"`,
+        'Content-Disposition': `attachment; filename="naavik-waitlist-${new Date().toISOString().split('T')[0]}.csv"`,
       },
     })
   } catch (error) {

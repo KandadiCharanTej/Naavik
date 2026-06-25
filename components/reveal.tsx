@@ -23,11 +23,17 @@ export function Reveal({
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -40px 0px' })
 
-  const Component = motion.create(as as 'div')
+  const MotionComponent = as === 'section'
+    ? motion.section
+    : as === 'span'
+    ? motion.span
+    : as === 'li'
+    ? motion.li
+    : motion.div
 
   return (
-    <Component
-      ref={ref}
+    <MotionComponent
+      ref={ref as any}
       className={cn(className)}
       variants={variants}
       initial="hidden"
@@ -39,6 +45,6 @@ export function Reveal({
       }}
     >
       {children}
-    </Component>
+    </MotionComponent>
   )
 }

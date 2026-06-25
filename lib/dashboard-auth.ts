@@ -15,7 +15,7 @@ export function generateSessionToken(): string {
     rand: crypto.randomBytes(8).toString('hex'),
   })
 
-  const key = crypto.scryptSync(password, 'naviko-dashboard-salt', 32)
+  const key = crypto.scryptSync(password, 'naavik-dashboard-salt', 32)
   const iv = crypto.randomBytes(16)
   const cipher = crypto.createCipheriv(ALGORITHM, key, iv)
   let encrypted = cipher.update(payload, 'utf8', 'hex')
@@ -37,7 +37,7 @@ export function validateSessionToken(token: string): boolean {
     const [ivHex, encrypted] = token.split(':')
     if (!ivHex || !encrypted) return false
 
-    const key = crypto.scryptSync(password, 'naviko-dashboard-salt', 32)
+    const key = crypto.scryptSync(password, 'naavik-dashboard-salt', 32)
     const iv = Buffer.from(ivHex, 'hex')
     const decipher = crypto.createDecipheriv(ALGORITHM, key, iv)
     let decrypted = decipher.update(encrypted, 'hex', 'utf8')

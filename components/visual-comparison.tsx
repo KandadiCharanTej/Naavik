@@ -6,12 +6,12 @@ import { Reveal } from '@/components/reveal'
 
 export function VisualComparison() {
   return (
-    <section id="why-naviko" className="scroll-mt-20 border-t border-border py-20 sm:py-28 bg-[#FAFAFC]">
+    <section id="why-naavik" className="scroll-mt-20 border-t border-border py-20 sm:py-28 bg-[#FAFAFC]">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="THE CONTRAST"
-          title="Why we are building Naviko."
-          description="Standard college life is scattered across a dozen apps. Naviko consolidates it all into a single, clean workspace."
+          title="Why we are building Naavik."
+          description="Standard college life is scattered across a dozen apps. Naavik consolidates it all into a single, clean workspace."
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-2">
@@ -49,7 +49,7 @@ export function VisualComparison() {
                 </div>
                 <div className="flex-1 text-left min-w-0">
                   <p className="text-xs font-bold text-foreground truncate">Google Drive Notes Link</p>
-                  <p className="text-[11px] text-muted-foreground truncate">"Access Denied." You find out the night before your final exam.</p>
+                  <p className="text-[11px] text-muted-foreground truncate">&quot;Access Denied.&quot; You find out the night before your final exam.</p>
                 </div>
                 <span className="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full whitespace-nowrap">
                   Access Denied
@@ -72,11 +72,11 @@ export function VisualComparison() {
             </div>
           </Reveal>
 
-          {/* Right: The Naviko Way */}
+          {/* Right: The Naavik Way */}
           <Reveal delay={200} className="relative overflow-hidden rounded-3xl border border-primary/20 bg-white p-8 sm:p-10 shadow-sm">
             <div className="absolute top-0 right-0 h-40 w-40 bg-primary/5 rounded-full blur-3xl -z-10" />
             <div className="flex items-center gap-2 text-emerald-600">
-              <span className="text-xs font-bold uppercase tracking-wider">🟢 THE NAVIKO FUTURE</span>
+              <span className="text-xs font-bold uppercase tracking-wider">🟢 THE NAAVIK FUTURE</span>
             </div>
             <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground">
               A focused, structured workspace

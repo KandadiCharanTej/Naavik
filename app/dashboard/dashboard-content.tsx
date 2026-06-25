@@ -41,7 +41,8 @@ export function DashboardContent() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const saved = localStorage.getItem('naviko-dashboard-token')
+    const saved = localStorage.getItem('naavik-dashboard-token')
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setToken(saved)
     setIsLoading(false)
   }, [])
@@ -59,7 +60,7 @@ export function DashboardContent() {
   }
 
   return <DashboardView token={token} onLogout={() => {
-    localStorage.removeItem('naviko-dashboard-token')
+    localStorage.removeItem('naavik-dashboard-token')
     setToken(null)
   }} />
 }
@@ -88,7 +89,7 @@ function LoginView({ onLogin }: { onLogin: (token: string) => void }) {
         return
       }
 
-      localStorage.setItem('naviko-dashboard-token', data.token)
+      localStorage.setItem('naavik-dashboard-token', data.token)
       onLogin(data.token)
     } catch {
       setError('Something went wrong')
@@ -191,6 +192,7 @@ function DashboardView({
   }, [token, page, search])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     Promise.all([fetchStats(), fetchUsers()]).finally(() => setLoading(false))
   }, [fetchStats, fetchUsers])
 
@@ -202,7 +204,7 @@ function DashboardView({
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `naviko-waitlist-${new Date().toISOString().split('T')[0]}.csv`
+      a.download = `naavik-waitlist-${new Date().toISOString().split('T')[0]}.csv`
       a.click()
       URL.revokeObjectURL(url)
       toast.success('CSV downloaded!')

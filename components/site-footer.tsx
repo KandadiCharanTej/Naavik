@@ -2,7 +2,7 @@ import { Logo } from '@/components/logo'
 import { ADMIN_FORM_URL, INSTAGRAM_URL } from '@/lib/constants'
 import { InstagramIcon } from '@/components/instagram-icon'
 
-const TWITTER_URL = 'https://twitter.com/naviko_app'
+const TWITTER_URL = 'https://twitter.com/naavik_app'
 
 function TwitterIcon({ className }: { className?: string }) {
   return (
@@ -117,7 +117,7 @@ export function SiteFooter() {
 
         {/* Bottom copyright */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row">
-          <p>© 2026 Naviko. Built by students, for students.</p>
+          <p>© 2026 Naavik. Built by students, for students.</p>
         </div>
       </div>
     </footer>

@@ -12,18 +12,18 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naviko.app'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Naviko — One platform for engineering students',
-    template: '%s | Naviko',
+    default: 'Naavik — One platform for engineering students',
+    template: '%s | Naavik',
   },
   description:
-    'Naviko is an early-stage student ecosystem being built for engineering students in Telangana & Andhra Pradesh. Join early access and help shape it.',
+    'Naavik is an early-stage student ecosystem being built for engineering students in Telangana & Andhra Pradesh. Join early access and help shape it.',
   keywords: [
-    'Naviko',
+    'Naavik',
     'engineering students',
     'student platform',
     'Telangana',
@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     'internships',
     'early access',
   ],
-  authors: [{ name: 'Naviko', url: siteUrl }],
-  creator: 'Naviko',
+  authors: [{ name: 'Naavik', url: siteUrl }],
+  creator: 'Naavik',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: siteUrl,
-    siteName: 'Naviko',
-    title: 'Naviko — One platform for engineering students',
+    siteName: 'Naavik',
+    title: 'Naavik — One platform for engineering students',
     description:
       'An early-stage student ecosystem for engineering students in Telangana & Andhra Pradesh. Join early access.',
     images: [
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: 'Naviko — One platform for engineering students',
+        alt: 'Naavik — One platform for engineering students',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Naviko — One platform for engineering students',
+    title: 'Naavik — One platform for engineering students',
     description:
       'An early-stage student ecosystem for engineering students in Telangana & Andhra Pradesh.',
     images: [`${siteUrl}/og-image.png`],
@@ -94,7 +94,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'Naviko',
+              name: 'Naavik',
               url: siteUrl,
               description:
                 'An early-stage student ecosystem for engineering students in Telangana & Andhra Pradesh.',
@@ -111,7 +111,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'Naviko',
+              name: 'Naavik',
               url: siteUrl,
               logo: `${siteUrl}/icon.svg`,
               description:

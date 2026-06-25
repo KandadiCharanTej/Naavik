@@ -28,7 +28,7 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="#" className="flex items-center" aria-label="Naviko home">
+        <a href="#" className="flex items-center" aria-label="Naavik home">
           <Logo />
         </a>
 

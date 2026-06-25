@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Logo } from '@/components/logo'
 
 export const metadata: Metadata = {
-  title: 'Terms of Use — Naviko',
-  description: 'Terms and conditions for using the Naviko validation website.',
+  title: 'Terms of Use — Naavik',
+  description: 'Terms and conditions for using the Naavik validation website.',
   robots: { index: false, follow: false },
 }
 
@@ -23,15 +24,15 @@ export default function TermsPage() {
       <div className="mx-auto max-w-xl w-full">
         {/* Header */}
         <header className="mb-10 flex items-center justify-between border-b border-border pb-6">
-          <a href="/" className="inline-flex items-center" aria-label="Naviko Home">
+          <Link href="/" className="inline-flex items-center" aria-label="Naavik Home">
             <Logo />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/"
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Back to home
-          </a>
+          </Link>
         </header>
 
         {/* Content */}
@@ -43,7 +44,7 @@ export default function TermsPage() {
 
           <div className="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Welcome to the Naviko early access validation page. By browsing this page or signing up, you agree to these basic terms.
+              Welcome to the Naavik early access validation page. By browsing this page or signing up, you agree to these basic terms.
             </p>
 
             <div>
@@ -63,7 +64,7 @@ export default function TermsPage() {
             <div>
               <h2 className="text-base font-semibold text-foreground">3. Intellectual Property</h2>
               <p className="mt-2">
-                All designs, logos, and custom code on this landing page are owned by the Naviko team. Copying or reverse engineering this design for commercial purposes is not allowed.
+                All designs, logos, and custom code on this landing page are owned by the Naavik team. Copying or reverse engineering this design for commercial purposes is not allowed.
               </p>
             </div>
 
@@ -78,7 +79,7 @@ export default function TermsPage() {
       </div>
 
       <footer className="mt-16 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Naviko · Made in Hyderabad
+        © {new Date().getFullYear()} Naavik · Made in Hyderabad
       </footer>
     </div>
   )

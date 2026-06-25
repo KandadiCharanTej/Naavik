@@ -64,10 +64,10 @@ export function CollegeSpace() {
               COLLEGE SPACE
             </span>
             <h2 className="mt-5 text-xl font-extrabold tracking-tight text-foreground sm:text-2xl lg:text-[1.75rem] leading-[1.25]">
-              Your campus's notes, events, and updates — <br /><span className="text-primary">in one verified place.</span>
+              Your campus&apos;s notes, events, and updates — <br /><span className="text-primary">in one verified place.</span>
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              Every college on Naviko gets its own private workspace. Think of it as your campus's organized digital hub — for resources, announcements, and community, all in one tab.
+              Every college on Naavik gets its own private workspace. Think of it as your campus&apos;s organized digital hub — for resources, announcements, and community, all in one tab.
             </p>
 
             {/* "What you get" 4-item horizontal strip */}
@@ -83,7 +83,7 @@ export function CollegeSpace() {
                 <span className="text-lg">📢</span>
                 <div>
                   <h4 className="text-xs font-bold text-foreground">Campus Events</h4>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">Official updates before they're buried</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">Official updates before they&apos;re buried</p>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -97,7 +97,7 @@ export function CollegeSpace() {
                 <span className="text-lg">🏆</span>
                 <div>
                   <h4 className="text-xs font-bold text-foreground">Contributor Board</h4>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">See who's helping most</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">See who&apos;s helping most</p>
                 </div>
               </div>
             </div>
@@ -108,9 +108,9 @@ export function CollegeSpace() {
               <div className="flex gap-3">
                 <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-primary">We don't create empty workspaces.</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-primary">We don&apos;t create empty workspaces.</h4>
                   <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                    Each college is activated only after a verified student admin joins and takes responsibility for it. Quality matters more than scale. Your workspace will be real or it won't exist.
+                    Each college is activated only after a verified student admin joins and takes responsibility for it. Quality matters more than scale. Your workspace will be real or it won&apos;t exist.
                   </p>
                 </div>
               </div>
@@ -147,9 +147,9 @@ export function CollegeSpace() {
 
             {/* Soft bottom CTA */}
             <div className="mt-6 flex flex-col sm:flex-row items-start gap-1">
-              <span className="text-xs text-muted-foreground">Don't see your college?</span>
+              <span className="text-xs text-muted-foreground">Don&apos;t see your college?</span>
               <a href="#become-admin" className="text-xs text-primary font-semibold hover:underline flex items-center gap-0.5">
-                Apply to bring Naviko to your campus <ChevronRight className="h-3 w-3" />
+                Apply to bring Naavik to your campus <ChevronRight className="h-3 w-3" />
               </a>
             </div>
           </div>

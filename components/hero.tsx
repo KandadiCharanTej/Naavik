@@ -70,7 +70,7 @@ export function Hero() {
         {/* Subtitle */}
         <Reveal delay={150}>
           <p className="mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty">
-            Naviko brings internships, study vaults, peer networks, and campus updates
+            Naavik brings internships, study vaults, peer networks, and campus updates
             into one focused workspace — built specifically for engineering students
             in Telangana & Andhra Pradesh.
           </p>
@@ -79,7 +79,7 @@ export function Hero() {
         {/* Action CTAs */}
         <Reveal delay={200} className="mt-8 flex flex-col gap-3.5 w-full sm:w-auto sm:flex-row justify-center items-center">
           <WaitlistButton size="lg" id="hero-waitlist-btn">
-            Join the Waitlist — It's Free
+            Join the Waitlist — It&apos;s Free
           </WaitlistButton>
           
           <a

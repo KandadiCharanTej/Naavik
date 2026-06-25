@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Naviko — One platform for engineering students',
-    short_name: 'Naviko',
+    name: 'Naavik — One platform for engineering students',
+    short_name: 'Naavik',
     description:
       'An early-stage student ecosystem for engineering students in Telangana & Andhra Pradesh.',
     start_url: '/',

@@ -9,8 +9,8 @@ import {
 
 const faqs = [
   {
-    q: 'What is Naviko?',
-    a: 'Naviko is a unified student workspace for engineering students in Telangana and Andhra Pradesh. It combines internship discovery, study resources, peer networking, and campus updates — all in one place, personalised to your branch and year.',
+    q: 'What is Naavik?',
+    a: 'Naavik is a unified student workspace for engineering students in Telangana and Andhra Pradesh. It combines internship discovery, study resources, peer networking, and campus updates — all in one place, personalised to your branch and year.',
   },
   {
     q: 'When will it launch?',
@@ -29,8 +29,8 @@ const faqs = [
     a: "Yes — and we're actively looking for founding admins right now. You need to be currently enrolled at your college. Apply via the \"Become a Campus Admin\" page. We personally review every application.",
   },
   {
-    q: 'How is Naviko different from LinkedIn or Internshala?',
-    a: "LinkedIn and Internshala are built for the job market. Naviko is built for your college life. We're not a job board — we're a workspace. Campus-specific resources, peer study networks, hackathon team-finding, and campus announcements — things LinkedIn simply doesn't do.",
+    q: 'How is Naavik different from LinkedIn or Internshala?',
+    a: "LinkedIn and Internshala are built for the job market. Naavik is built for your college life. We're not a job board — we're a workspace. Campus-specific resources, peer study networks, hackathon team-finding, and campus announcements — things LinkedIn simply doesn't do.",
   },
   {
     q: 'I have a suggestion. How do I share it?',
