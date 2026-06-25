@@ -105,7 +105,10 @@ export function Hero() {
           <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-primary/10 to-accent/15 blur-3xl opacity-60 rounded-full" />
           
           {/* Main App Preview */}
-          <div className="hover:scale-[1.01] transition-transform duration-500 shadow-2xl rounded-2xl border border-border bg-white overflow-hidden">
+          <div className="hover:scale-[1.01] transition-transform duration-500 shadow-2xl rounded-2xl border border-border bg-white overflow-hidden relative">
+            <div className="absolute top-3 right-3 z-20 bg-slate-900/90 text-[#FAFAFC] border border-slate-800 text-[9px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md shadow-md select-none">
+              Concept preview · design in progress
+            </div>
             <ConceptPreview />
           </div>
 

@@ -20,11 +20,11 @@ export function AdminSection() {
         
         {/* Pitch info */}
         <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/5 px-2.5 py-1 rounded-full">
-          Founding Team
+          FOUNDING TEAM
         </span>
         
         <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem] leading-[1.15] max-w-3xl">
-          Your campus doesn't have Naviko yet. <br />
+          Your campus doesn't have Naviko yet.<br />
           You could be the reason it does.
         </h2>
         
@@ -38,19 +38,20 @@ export function AdminSection() {
             
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary mb-3">
-                <ShieldCheck className="h-4.5 w-4.5" /> Founding Admin Program
+                <ShieldCheck className="h-4.5 w-4.5" /> FOUNDING ADMIN PROGRAM
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
                 You will shape how engineering students at your college find opportunities and share knowledge.
               </p>
               
-              <AdminButton size="lg" id="admin-section-keynote-btn">
+              <AdminButton variant="default" size="lg" id="admin-section-keynote-btn">
                 Apply to Be a Campus Admin →
               </AdminButton>
 
-              <p className="text-[11px] text-muted-foreground mt-4 italic">
-                Admin spots are limited per college. We review every application.
-              </p>
+              <div className="text-[11px] text-muted-foreground mt-4 leading-normal italic">
+                <p>Admin spots are limited per college.</p>
+                <p>We review every application personally.</p>
+              </div>
             </div>
 
             <div className="space-y-4">
@@ -71,3 +72,4 @@ export function AdminSection() {
     </section>
   )
 }
+

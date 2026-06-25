@@ -58,20 +58,17 @@ export function ProblemSection() {
           
           {/* Left Column: Storytelling content */}
           <div className="lg:col-span-5 flex flex-col justify-center">
-            <Reveal delay={50} className="text-xs font-semibold uppercase tracking-wider text-primary">
-              The Problem
+            <Reveal delay={50} className="text-xs font-bold uppercase tracking-wider text-primary">
+              THE PROBLEM
             </Reveal>
             
             <Reveal delay={100}>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl leading-[1.1]">
-                You're managing college life across 7 different apps.
+                You're managing college life <br />
+                across 7 different apps. <br />
+                That's not productivity. <br />
+                <span className="text-primary">That's exhaustion.</span>
               </h2>
-            </Reveal>
-            
-            <Reveal delay={150}>
-              <p className="mt-3 text-lg font-medium text-red-500">
-                That's not productivity. That's exhaustion.
-              </p>
             </Reveal>
 
             <Reveal delay={200}>

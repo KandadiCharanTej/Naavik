@@ -20,14 +20,14 @@ export function ProductWalkthrough() {
     <section id="walkthrough" className="scroll-mt-20 py-16 sm:py-28 lg:py-36 bg-white relative">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Interactive Demo"
+          eyebrow="INTERACTIVE DEMO"
           title={
             <>
               Explore the{' '}
               <span className="text-primary">Naviko Workspace.</span>
             </>
           }
-          description="Take a quick tour of how Naviko simplifies student developer databases, files, and community announcements."
+          description="Click through the panels to see how Naviko organises your opportunities, resources, and community."
         />
 
         {/* Dynamic explore block */}

@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkles, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Sparkles, Calendar, CheckCircle2, Clock, Circle } from 'lucide-react'
 import { SectionHeading } from '@/components/section-heading'
 import { Reveal } from '@/components/reveal'
 
@@ -18,9 +18,9 @@ const nextFeatures = [
 ]
 
 const futureFeatures = [
-  { title: 'AI Assistant', desc: 'Quick semantic search across notes and study vaults.' },
-  { title: 'Recruiters', desc: 'Get direct internship offers based on your builds.' },
-  { title: 'Placement Hub', desc: 'Read verified interview reviews from your seniors.' },
+  { title: 'AI Study Assistant', desc: 'Quick semantic search across notes and study vaults.' },
+  { title: 'Recruiter Hub', desc: 'Get direct internship offers based on your builds.' },
+  { title: 'Placement Experiences', desc: 'Read verified interview reviews from your seniors.' },
   { title: 'Clubs & Alumni', desc: 'Connect with active student chapters and graduates.' },
 ]
 
@@ -32,7 +32,7 @@ export function RoadmapSection() {
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Roadmap"
+          eyebrow="ROADMAP"
           title="Here's what we're shipping — and what's coming."
           description="We build in public and prioritise what students actually ask for. This is our live roadmap."
         />
@@ -43,17 +43,17 @@ export function RoadmapSection() {
           <Reveal delay={100} className="rounded-2xl border border-border bg-white p-6 shadow-sm flex flex-col justify-between hover:border-primary/20 transition-all duration-300">
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-border/40 pb-4">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Sparkles className="h-3.5 w-3.5" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-primary">Launching with Beta</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Launching with Beta</span>
               </div>
               
               <ul className="space-y-4 text-left">
                 {betaFeatures.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
                     <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 mt-0.5">
-                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      <CheckCircle2 className="h-3 w-3" />
                     </span>
                     <div>
                       <h4 className="text-xs font-bold text-foreground leading-tight">{item.title}</h4>
@@ -70,7 +70,7 @@ export function RoadmapSection() {
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-border/40 pb-4">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
-                  <Calendar className="h-3.5 w-3.5" />
+                  <Clock className="h-3.5 w-3.5" />
                 </span>
                 <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Next Updates</span>
               </div>
@@ -79,7 +79,7 @@ export function RoadmapSection() {
                 {nextFeatures.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
                     <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-indigo-600 mt-0.5">
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <Clock className="h-3 w-3" />
                     </span>
                     <div>
                       <h4 className="text-xs font-bold text-foreground leading-tight">{item.title}</h4>
@@ -96,7 +96,7 @@ export function RoadmapSection() {
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-border/40 pb-4">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
-                  <Calendar className="h-3.5 w-3.5" />
+                  <Circle className="h-3.5 w-3.5" />
                 </span>
                 <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">On the Roadmap</span>
               </div>
@@ -105,7 +105,7 @@ export function RoadmapSection() {
                 {futureFeatures.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
                     <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-muted/40 text-muted-foreground mt-0.5">
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <Circle className="h-3 w-3" />
                     </span>
                     <div>
                       <h4 className="text-xs font-bold text-foreground leading-tight">{item.title}</h4>
@@ -122,3 +122,4 @@ export function RoadmapSection() {
     </section>
   )
 }
+

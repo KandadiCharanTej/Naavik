@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { ShieldCheck, ChevronRight } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
-import { AdminButton } from '@/components/cta-buttons'
 
 const collegesData = {
   cbit: {
@@ -51,7 +50,7 @@ const collegesData = {
 }
 
 export function CollegeSpace() {
-  const [selectedCollege, setSelectedCollege] = useState<'cbit' | 'jntuh' | 'vnrvjiet'>('cbit')
+  const [selectedCollege, setSelectedCollege] = useState<'cbit' | 'jntuh' | 'vnrvjiet'>('vnrvjiet')
   const data = collegesData[selectedCollege]
 
   return (
@@ -62,21 +61,66 @@ export function CollegeSpace() {
           {/* Left: Pitch & College Switcher Selector */}
           <div className="lg:col-span-5 flex flex-col items-start text-left">
             <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/5 px-2.5 py-1 rounded-full">
-              College Space
+              COLLEGE SPACE
             </span>
             <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem] leading-[1.15]">
-              Your campus has its own room.
+              Your campus's notes, events,<br />and updates — in one verified place.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Every college on Naviko gets a private, verified workspace — moderated by a student admin, activated only when a real student takes responsibility for it.
+              Every college on Naviko gets its own private workspace. Think of it as your campus's organized digital hub — for resources, announcements, and community, all in one tab.
             </p>
-            <p className="mt-4 text-sm text-muted-foreground italic">
-              We don't create ghost campuses. Each workspace goes live only after a verified founding admin joins and takes ownership. Quality matters more than scale.
-            </p>
+
+            {/* "What you get" 4-item horizontal strip */}
+            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-b border-border/60 py-6 w-full">
+              <div className="flex gap-2">
+                <span className="text-lg">📁</span>
+                <div>
+                  <h4 className="text-xs font-bold text-foreground">Semester Notes</h4>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">Organized by branch & year</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-lg">📢</span>
+                <div>
+                  <h4 className="text-xs font-bold text-foreground">Campus Events</h4>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">Official updates before they're buried</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-lg">📄</span>
+                <div>
+                  <h4 className="text-xs font-bold text-foreground">PYQ Archive</h4>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">Exam prep, always current</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-lg">🏆</span>
+                <div>
+                  <h4 className="text-xs font-bold text-foreground">Contributor Board</h4>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">See who's helping most</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Trust statement Callout Box */}
+            <div className="mt-6 w-full rounded-2xl border border-primary/20 bg-primary/[0.02] p-5 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/[0.03] rounded-full translate-x-8 -translate-y-8" />
+              <div className="flex gap-3">
+                <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-primary">We don't create empty workspaces.</h4>
+                  <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                    Each college is activated only after a verified student admin joins and takes responsibility for it. Quality matters more than scale. Your workspace will be real or it won't exist.
+                  </p>
+                </div>
+              </div>
+            </div>
 
             {/* Clickable Switcher tabs */}
             <div className="mt-8 space-y-3.5 w-full">
-              <p className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">Select a Demo Campus Workspace</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">
+                → These campuses are live. Is yours next?
+              </p>
               {(Object.keys(collegesData) as Array<'cbit' | 'jntuh' | 'vnrvjiet'>).map((key) => {
                 const isActive = selectedCollege === key
                 return (
@@ -101,10 +145,12 @@ export function CollegeSpace() {
               })}
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-              <AdminButton size="default" id="college-space-launch-btn">
-                Apply to Be a Campus Admin
-              </AdminButton>
+            {/* Soft bottom CTA */}
+            <div className="mt-6 flex flex-col sm:flex-row items-start gap-1">
+              <span className="text-xs text-muted-foreground">Don't see your college?</span>
+              <a href="#become-admin" className="text-xs text-primary font-semibold hover:underline flex items-center gap-0.5">
+                Apply to bring Naviko to your campus <ChevronRight className="h-3 w-3" />
+              </a>
             </div>
           </div>
 
@@ -122,7 +168,7 @@ export function CollegeSpace() {
                     </div>
                     <div>
                       <p className="text-xs font-bold text-foreground">{data.name}</p>
-                      <p className="text-[9px] text-muted-foreground">Verified Student Workspace</p>
+                      <p className="text-[9px] text-muted-foreground">✓ Verified Student Workspace · Workspace Online</p>
                     </div>
                   </div>
                   <span className="flex items-center gap-1.5 text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
@@ -133,11 +179,23 @@ export function CollegeSpace() {
                 {/* Sub-grid workspace */}
                 <div className="grid sm:grid-cols-5 divide-x divide-border min-h-[280px]">
                   {/* channels */}
-                  <div className="hidden sm:block col-span-2 p-3 space-y-1.5 bg-[#FAFAFC] text-[11px] font-semibold text-muted-foreground text-left">
-                    <div className="bg-primary/5 text-primary rounded px-2.5 py-1.5 font-bold"># main-board</div>
-                    <div className="rounded px-2.5 py-1.5 hover:bg-muted/50 cursor-pointer"># study-vault</div>
-                    <div className="rounded px-2.5 py-1.5 hover:bg-muted/50 cursor-pointer"># event-board</div>
-                    <div className="rounded px-2.5 py-1.5 hover:bg-muted/50 cursor-pointer"># contributor-ladder</div>
+                  <div className="hidden sm:block col-span-2 p-3 space-y-2 bg-[#FAFAFC] text-[11px] font-semibold text-muted-foreground text-left">
+                    <div className="bg-primary/5 text-primary rounded px-2.5 py-1.5 font-bold flex flex-col">
+                      <span># main-board</span>
+                      <span className="text-[8px] font-normal text-muted-foreground mt-0.5">Campus announcements</span>
+                    </div>
+                    <div className="rounded px-2.5 py-1.5 hover:bg-muted/50 cursor-pointer flex flex-col">
+                      <span className="text-foreground"># study-vault</span>
+                      <span className="text-[8px] font-normal text-muted-foreground mt-0.5">Notes & PYQs</span>
+                    </div>
+                    <div className="rounded px-2.5 py-1.5 hover:bg-muted/50 cursor-pointer flex flex-col">
+                      <span className="text-foreground"># event-board</span>
+                      <span className="text-[8px] font-normal text-muted-foreground mt-0.5">Fests & deadlines</span>
+                    </div>
+                    <div className="rounded px-2.5 py-1.5 hover:bg-muted/50 cursor-pointer flex flex-col">
+                      <span className="text-foreground"># contributor-ladder</span>
+                      <span className="text-[8px] font-normal text-muted-foreground mt-0.5">Top contributors</span>
+                    </div>
                   </div>
 
                   {/* dynamic feed content */}

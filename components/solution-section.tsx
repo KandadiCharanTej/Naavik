@@ -48,7 +48,7 @@ export function SolutionSection() {
     <section id="features" className="scroll-mt-20 py-16 sm:py-28 lg:py-36 bg-white relative">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Features"
+          eyebrow="FEATURES"
           title="Six tools. One workspace. Zero friction."
           description="We replaced messy messaging groups and scattered folders with six core student utilities."
         />

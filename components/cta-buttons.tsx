@@ -37,11 +37,13 @@ export function AdminButton({
   size,
   id = 'admin-cta-btn',
   children = 'Become a College Admin',
+  variant = 'outline',
 }: {
   className?: string
   size?: 'sm' | 'default' | 'lg'
   id?: string
   children?: React.ReactNode
+  variant?: 'default' | 'outline' | 'secondary' | 'ghost'
 }) {
   return (
     <Button
@@ -54,7 +56,7 @@ export function AdminButton({
           onClick={trackAdminButtonClick}
         />
       }
-      variant="outline"
+      variant={variant}
       size={size}
       className={className}
       id={id}

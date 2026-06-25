@@ -31,7 +31,7 @@ export function HowItWorks() {
     >
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading 
-          eyebrow="How it works" 
+          eyebrow="HOW IT WORKS" 
           title="Up and running in under 3 minutes." 
           description="Simple, fast, and designed to fit into your busy engineering schedule."
         />

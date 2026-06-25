@@ -28,7 +28,7 @@ export function SiteFooter() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               The unified student OS for engineering students in Telangana &amp; Andhra Pradesh.
             </p>
-            <p className="mt-2 text-xs text-muted-foreground/80 flex items-center gap-1">
+            <p className="mt-2 text-xs text-muted-foreground/85 flex items-center gap-1">
               Made with care in Hyderabad. 🤍
             </p>
           </div>
@@ -107,8 +107,8 @@ export function SiteFooter() {
                     Instagram
                   </a>
                 </li>
-                <li className="text-sm text-muted-foreground/60 select-none">
-                  Discord (coming soon)
+                <li className="flex items-center gap-1.5 text-sm text-muted-foreground/60 select-none">
+                  Discord <span className="text-[8px] font-bold text-muted-foreground/80 bg-muted px-1.5 py-0.5 rounded">Coming soon</span>
                 </li>
               </ul>
             </div>
