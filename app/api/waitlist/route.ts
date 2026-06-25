@@ -120,6 +120,7 @@ export async function POST(request: NextRequest) {
       full_name: cleanName,
       email: cleanEmail,
       college: cleanCollege,
+      created_at: new Date().toISOString(),
     })
 
     if (insertError) {
