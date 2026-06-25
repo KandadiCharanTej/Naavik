@@ -60,9 +60,9 @@ export function Hero() {
         {/* Large Keynote Title (72px target, responsive) */}
         <Reveal delay={100}>
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-balance sm:text-6xl lg:text-[4.5rem] text-foreground">
-            Stop tab-switching. <br className="hidden sm:inline" />
+            One place for everything <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Start building.
+              engineering students need.
             </span>
           </h1>
         </Reveal>
@@ -70,31 +70,28 @@ export function Hero() {
         {/* Subtitle */}
         <Reveal delay={150}>
           <p className="mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty">
-            Naviko brings internships, study vaults, peer networks, and campus updates
-            into one focused workspace — built specifically for engineering students
-            in Telangana & Andhra Pradesh.
+            Discover opportunities, find notes, showcase projects, and stay connected with your campus. Built specifically for colleges in Telangana & Andhra Pradesh.
           </p>
         </Reveal>
 
         {/* Action CTAs */}
         <Reveal delay={200} className="mt-8 flex flex-col gap-3.5 w-full sm:w-auto sm:flex-row justify-center items-center">
           <WaitlistButton size="lg" id="hero-waitlist-btn">
-            Join the Waitlist — It's Free
+            Reserve Early Access →
           </WaitlistButton>
           
           <a
-            href="#how-it-works"
-            onClick={handleScrollToHowItWorks}
+            href="#become-admin"
             className="inline-flex items-center justify-center rounded-lg font-medium transition-colors border border-border bg-white text-foreground hover:bg-muted/50 h-11 px-6 text-sm shadow-xs w-full sm:w-auto cursor-pointer"
           >
-            See How It Works ↓
+            Become a Founding Campus Admin
           </a>
         </Reveal>
 
         {/* Small Disclaimer */}
         <Reveal delay={220} className="mt-4">
           <p className="text-xs text-muted-foreground">
-            Early concept — product in active development.
+            Concept Preview · Starting in Telangana & Andhra Pradesh.
           </p>
         </Reveal>
 
@@ -107,7 +104,7 @@ export function Hero() {
           {/* Main App Preview */}
           <div className="hover:scale-[1.01] transition-transform duration-500 shadow-2xl rounded-2xl border border-border bg-white overflow-hidden relative">
             <div className="absolute top-3 right-3 z-20 bg-slate-900/90 text-[#FAFAFC] border border-slate-800 text-[9px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md shadow-md select-none">
-              Concept preview · design in progress
+              Concept Preview
             </div>
             <ConceptPreview />
           </div>

@@ -122,8 +122,8 @@ export function GrowthSpace() {
             <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/5 px-2.5 py-1 rounded-full">
               Growth Space
             </span>
-            <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.25rem] leading-[1.15]">
-              Most students in TG & AP only know people from their own campus. That's 200+ colleges worth of teammates they've never met.
+            <h2 className="mt-5 text-xl font-extrabold tracking-tight text-foreground sm:text-2xl lg:text-[1.75rem] leading-[1.25]">
+              Most students in TG & AP only know people from their own campus. <span className="text-primary">That's 200+ colleges worth of teammates they've never met.</span>
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-relaxed text-muted-foreground">
               Growth Space connects you with developers, designers, and builders from colleges across the state — for hackathons, projects, and ideas that go further than your campus.

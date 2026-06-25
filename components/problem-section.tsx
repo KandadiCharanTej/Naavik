@@ -63,9 +63,9 @@ export function ProblemSection() {
             </Reveal>
             
             <Reveal delay={100}>
-              <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl leading-[1.1]">
-                You're managing college life <br />
-                across 7 different apps. <br />
+              <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-[2rem] leading-[1.15]">
+                You're managing college life
+              across 7 different apps. <br />
                 That's not productivity. <br />
                 <span className="text-primary">That's exhaustion.</span>
               </h2>

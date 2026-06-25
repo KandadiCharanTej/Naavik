@@ -63,10 +63,10 @@ export function CollegeSpace() {
             <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/5 px-2.5 py-1 rounded-full">
               COLLEGE SPACE
             </span>
-            <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-[2.5rem] leading-[1.15]">
-              Your campus's notes, events,<br />and updates — in one verified place.
+            <h2 className="mt-5 text-xl font-extrabold tracking-tight text-foreground sm:text-2xl lg:text-[1.75rem] leading-[1.25]">
+              Your campus's notes, events, and updates — <br /><span className="text-primary">in one verified place.</span>
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               Every college on Naviko gets its own private workspace. Think of it as your campus's organized digital hub — for resources, announcements, and community, all in one tab.
             </p>
 

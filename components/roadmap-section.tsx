@@ -5,23 +5,27 @@ import { SectionHeading } from '@/components/section-heading'
 import { Reveal } from '@/components/reveal'
 
 const betaFeatures = [
-  { title: 'Opportunities', desc: 'Find internships, hackathons, and scholarships.' },
-  { title: 'Study Vault', desc: 'Notes, PYQs, and semester study materials.' },
+  { title: 'Opportunities', desc: 'Discover internships, hackathons, and workshops.' },
+  { title: 'Resources', desc: 'Get study vaults, notes, and lab manuals.' },
   { title: 'Projects', desc: 'Showcase your builds to peers and founders.' },
-  { title: 'Connect & Team Finder', desc: 'Match with project partners and chat.' },
+  { title: 'Team Finder', desc: 'Find teammates and project partners.' },
+  { title: 'Student Profiles', desc: 'Create your professional student resume.' },
+  { title: 'Growth Feed', desc: 'Connect with students across campuses.' },
 ]
 
 const nextFeatures = [
-  { title: 'College Workspace', desc: 'A private, authenticated space for your campus.' },
-  { title: 'Campus Updates', desc: 'Announcements and fests from verified campus sources.' },
-  { title: 'Leaderboards', desc: 'Peer recognition for the top resource contributors.' },
+  { title: 'College Space', desc: 'Private organized workspace for your college.' },
+  { title: 'Campus Updates', desc: 'Official event & exam updates from your campus.' },
+  { title: 'Leaderboards', desc: 'Rankings for top resource contributors.' },
+  { title: 'Streaks', desc: 'Build daily study and contribution streaks.' },
 ]
 
 const futureFeatures = [
-  { title: 'AI Study Assistant', desc: 'Quick semantic search across notes and study vaults.' },
-  { title: 'Recruiter Hub', desc: 'Get direct internship offers based on your builds.' },
-  { title: 'Placement Experiences', desc: 'Read verified interview reviews from your seniors.' },
-  { title: 'Clubs & Alumni', desc: 'Connect with active student chapters and graduates.' },
+  { title: 'AI Assistant', desc: 'Instant semantic search over all notes.' },
+  { title: 'Recruiters', desc: 'Get direct internship hiring offers.' },
+  { title: 'Placement Experiences', desc: 'Verified senior interview walkthroughs.' },
+  { title: 'Clubs', desc: 'Connect with active student chapters.' },
+  { title: 'Alumni', desc: 'Find graduates from your college.' },
 ]
 
 export function RoadmapSection() {
@@ -33,20 +37,20 @@ export function RoadmapSection() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="ROADMAP"
-          title="Here's what we're shipping — and what's coming."
-          description="We build in public and prioritise what students actually ask for. This is our live roadmap."
+          title="What's shipping — and what's next."
+          description="We build in public. Here is our product roadmap, shaped directly by engineering students."
         />
 
         <div className="mt-16 grid gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
           
-          {/* Launching with Beta */}
+          {/* Available at Launch */}
           <Reveal delay={100} className="rounded-2xl border border-border bg-white p-6 shadow-sm flex flex-col justify-between hover:border-primary/20 transition-all duration-300">
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-border/40 pb-4">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Launching with Beta</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Available at Launch</span>
               </div>
               
               <ul className="space-y-4 text-left">
@@ -65,14 +69,14 @@ export function RoadmapSection() {
             </div>
           </Reveal>
 
-          {/* Next Updates */}
+          {/* Coming Soon */}
           <Reveal delay={150} className="rounded-2xl border border-border bg-white p-6 shadow-sm flex flex-col justify-between hover:border-primary/20 transition-all duration-300">
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-border/40 pb-4">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
                   <Clock className="h-3.5 w-3.5" />
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Next Updates</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Coming Soon</span>
               </div>
               
               <ul className="space-y-4 text-left">
@@ -91,14 +95,14 @@ export function RoadmapSection() {
             </div>
           </Reveal>
 
-          {/* On the Roadmap */}
+          {/* Future Updates */}
           <Reveal delay={200} className="rounded-2xl border border-border bg-white p-6 shadow-sm flex flex-col justify-between hover:border-primary/20 transition-all duration-300">
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-border/40 pb-4">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <Circle className="h-3.5 w-3.5" />
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">On the Roadmap</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Future Updates</span>
               </div>
               
               <ul className="space-y-4 text-left">
