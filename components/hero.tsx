@@ -25,7 +25,7 @@ export function Hero({ waitlistCount = 217 }: HeroProps) {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex flex-col text-center sm:text-left z-10 max-w-xl mx-auto lg:mx-0"
           >
-            <h1 className="text-[2rem] font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.05]">
+            <h1 className="text-[1.75rem] font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-[1.05]">
               Everything an engineering student needs.<br className="hidden sm:block" />
               <span className="text-primary"> In one place.</span>
             </h1>
@@ -67,21 +67,11 @@ export function Hero({ waitlistCount = 217 }: HeroProps) {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="relative mx-auto w-full max-w-[600px] lg:max-w-none flex flex-col gap-4 perspective-1000"
           >
-            {/* Clean Floating Wordmark Animation */}
-            <motion.div 
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-10 -right-6 lg:-right-10 z-20 hidden sm:flex h-[72px] items-center justify-center rounded-2xl border border-border/50 bg-white/80 backdrop-blur-xl px-8 shadow-2xl shadow-primary/10"
-            >
-              <Logo className="h-7 w-auto" />
-            </motion.div>
-
             <div className="relative rounded-[2rem] border border-border/80 bg-white shadow-2xl shadow-primary/5 overflow-hidden flex min-h-[520px]">
               {/* Sidebar */}
               <div className="w-60 shrink-0 border-r border-border/60 bg-[#FCFCFD] p-5 flex flex-col hidden sm:flex">
-                <div className="flex items-center gap-3 mb-10 px-2 mt-2">
-                  <div className="h-8 w-8 rounded-xl bg-primary flex items-center justify-center text-white text-sm font-extrabold shadow-md shadow-primary/20">N</div>
-                  <span className="text-lg font-extrabold text-foreground tracking-tight">Naavik</span>
+                <div className="flex items-center mb-10 px-2 mt-2">
+                  <Logo className="h-6 w-auto" />
                 </div>
 
                 <nav className="flex flex-col gap-1.5 flex-1">
