@@ -1,46 +1,73 @@
-'use client'
+import { Reveal } from '@/components/reveal'
+import { WaitlistButton } from '@/components/cta-buttons'
+import { getSupabaseAdmin } from '@/lib/supabase'
+import { headers } from 'next/headers'
 
-import { useWaitlist } from './waitlist-provider'
-
-interface FinalCtaProps {
-  waitlistCount?: number
+async function getWaitlistCount() {
+  try {
+    const supabase = getSupabaseAdmin()
+    const { count } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true })
+    return count ?? 0
+  } catch (e) {
+    return 128
+  }
 }
 
-export function FinalCta({ waitlistCount = 217 }: FinalCtaProps) {
-  const { open } = useWaitlist()
-  const percentage = Math.min(Math.floor((waitlistCount / 500) * 100), 100)
+export async function FinalCta() {
+  headers() // Opt into dynamic rendering
+
+  const waitlistCount = await getWaitlistCount()
+  const waitlistGoal = 500
+  const progressPercentage = Math.min(100, Math.round((waitlistCount / waitlistGoal) * 100))
 
   return (
-    <section className="bg-[#0F0F0F] pt-24 pb-12 sm:pt-32" id="final-cta">
-      <div className="mx-auto max-w-4xl px-5 text-center flex flex-col items-center">
-        <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl leading-tight">
-          Join the first students.
-        </h2>
-        <p className="mt-4 text-lg text-white/60">
-          Be first when your campus goes live.
-        </p>
+    <section className="bg-[var(--bg-dark)] py-[80px] lg:py-[140px]" id="final-cta">
+      <div className="mx-auto max-w-[1200px] px-5 flex flex-col items-center">
+        
+        <Reveal className="w-full text-center flex flex-col items-center">
+          
+          {/* Headline */}
+          <h2 className="text-[32px] md:text-[48px] font-extrabold text-white tracking-tight leading-[1.1] mb-4">
+            Naavik is being built right now.<br />
+            Join the first students.
+          </h2>
+          
+          {/* Subheadline */}
+          <p className="text-[18px] text-[#9CA3AF] mb-12">
+            Be first when your campus goes live.
+          </p>
 
-        <div className="mx-auto mt-12 w-full max-w-lg rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
-          <div className="flex items-center justify-between text-[13px] font-semibold text-white/80">
-            <span>{waitlistCount} / 500 Students Joined</span>
-            <span>{percentage}%</span>
+          {/* Progress Block */}
+          <div className="w-full max-w-[480px] flex flex-col items-center mb-10">
+            <p className="text-[15px] text-[#6B7280] mb-3 font-medium">
+              {waitlistCount} / {waitlistGoal} students have joined early access.
+            </p>
+            <div className="w-full bg-[#1F2937] rounded-full h-[8px] overflow-hidden">
+              <div 
+                className="h-full bg-[var(--purple-600)] transition-all duration-1000 ease-out rounded-full"
+                style={{ width: `${progressPercentage}%` }}
+              />
+            </div>
           </div>
-          <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-white/10">
-            <div 
-              className="h-full bg-primary transition-all duration-1000 ease-out rounded-full" 
-              style={{ width: `${percentage}%` }}
-            />
-          </div>
-        </div>
 
-        <div className="mt-12 mb-24 w-full">
-          <button 
-            onClick={open}
-            className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-8 py-5 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] sm:w-auto min-h-[52px]"
-          >
-            Reserve Early Access
-          </button>
-        </div>
+          {/* CTA Button */}
+          <div className="w-full max-w-[360px] flex flex-col items-center">
+            <WaitlistButton 
+              className="w-full !py-[18px] !px-[40px] !rounded-[12px] !text-[17px] !font-semibold !bg-[var(--purple-600)] hover:!bg-[#6D28D9] text-white transition-colors flex justify-center items-center h-auto"
+              id="final-cta-btn"
+            >
+              Join the First Students &rarr;
+            </WaitlistButton>
+            
+            <p className="text-[13px] text-[#6B7280] mt-4 font-medium">
+              No spam. One email when your campus is ready.
+            </p>
+          </div>
+
+        </Reveal>
+
       </div>
     </section>
   )

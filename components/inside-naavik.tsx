@@ -1,188 +1,231 @@
-import { ArrowRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { Reveal } from '@/components/reveal'
+import { ADMIN_FORM_URL } from '@/lib/constants'
+
+function MiniUICard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-white border border-border rounded-[10px] p-3 shadow-sm relative group overflow-hidden">
+      <div className="absolute top-3 right-3 text-[10px] text-[#9CA3AF] font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+        Preview
+      </div>
+      {children}
+    </div>
+  )
+}
 
 export function InsideNaavik() {
-  const growthCategories = [
-    {
-      title: '💼 Opportunities',
-      items: ['Internships', 'Hackathons', 'Workshops', 'Competitions', 'Scholarships'],
-      desc: 'Discover opportunities matched to your branch, year and interests.',
-      preview: (
-        <div className="group rounded-2xl border border-border bg-[#F9FAFB] p-6 shadow-sm hover:border-primary/30 transition-all cursor-pointer">
-          <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">Frontend Developer Intern</h4>
-          <p className="text-sm font-medium text-muted-foreground mt-1 mb-5">Remote · ₹35,000/month</p>
-          <div className="flex items-center justify-between border-t border-border pt-4">
-            <span className="text-[11px] font-bold text-orange-600 bg-orange-500/10 px-2.5 py-1 rounded-md uppercase tracking-wider">Deadline: 3 days</span>
-            <button className="text-sm font-bold text-primary flex items-center gap-1.5 group-hover:underline">Apply <ArrowRight className="h-4 w-4" /></button>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: '🚀 Projects',
-      items: ['Showcase Projects', 'Build Together', 'Team Finder'],
-      desc: 'Find teammates, collaborate on projects and build your portfolio.',
-      preview: (
-        <div className="group rounded-2xl border border-border bg-[#F9FAFB] p-6 shadow-sm hover:border-primary/30 transition-all cursor-pointer">
-          <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">AI Attendance App</h4>
-          <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mt-4 mb-3 border-t border-border pt-4">Looking for:</p>
-          <div className="flex flex-wrap gap-2">
-            <span className="text-[11px] font-bold bg-secondary/10 text-primary px-3 py-1.5 rounded-lg border border-border">Frontend Developer</span>
-            <span className="text-[11px] font-bold bg-secondary/10 text-primary px-3 py-1.5 rounded-lg border border-border">Backend Developer</span>
-            <span className="text-[11px] font-bold bg-secondary/10 text-primary px-3 py-1.5 rounded-lg border border-border">Designer</span>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: '🤝 Connect',
-      items: ['Students', 'Search', 'Networking', 'Public Feed'],
-      desc: 'Meet students across Telangana & Andhra Pradesh who share your interests.',
-      preview: (
-        <div className="group rounded-2xl border border-border bg-[#F9FAFB] p-6 shadow-sm hover:border-primary/30 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm border border-primary/20">SK</div>
-            <div>
-              <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">Sai Kumar</h4>
-              <p className="text-xs font-medium text-muted-foreground mt-0.5">CBIT • AI/ML</p>
-              <p className="text-[11px] font-bold text-emerald-600 mt-2 bg-emerald-500/10 inline-block px-2 py-0.5 rounded uppercase tracking-wider">Available for SIH Team</p>
-            </div>
-          </div>
-          <button className="text-sm font-bold text-primary flex items-center gap-1.5 group-hover:underline self-start sm:self-center">Connect <ArrowRight className="h-4 w-4" /></button>
-        </div>
-      )
-    }
+  const growthChips = [
+    '💼 Internships', '🏆 Hackathons', '🎓 Scholarships',
+    '🛠 Workshops', '💡 Startups', '🤝 Co-founders',
+    '🗂 Projects', '👥 Team Finder', '📅 Events'
   ]
 
-  const collegeCategories = [
-    {
-      title: '📚 Resources',
-      items: ['Notes', 'PYQs', 'Lab Manuals'],
-      desc: 'A structured vault of materials specifically for your college.',
-      preview: (
-        <div className="group rounded-2xl border border-border bg-[#F9FAFB] p-6 shadow-sm hover:border-emerald-500/30 transition-all cursor-pointer flex flex-col gap-4">
-          <div className="flex items-center gap-4 p-2 rounded-xl hover:bg-white transition-colors">
-            <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 text-base shadow-sm border border-emerald-500/20">📁</div>
-            <h4 className="text-sm font-bold text-foreground">DBMS Unit 4 Notes</h4>
-          </div>
-          <div className="flex items-center gap-4 p-2 rounded-xl hover:bg-white transition-colors">
-            <div className="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 text-base shadow-sm border border-emerald-500/20">📁</div>
-            <h4 className="text-sm font-bold text-foreground">Operating Systems Lab</h4>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: '📢 Campus Updates',
-      items: ['Announcements', 'Clubs', 'Communities', 'Events'],
-      desc: 'Never miss an important notice, event, or club deadline again.',
-      preview: (
-        <div className="group rounded-2xl border border-border bg-[#F9FAFB] p-6 shadow-sm hover:border-emerald-500/30 transition-all cursor-pointer">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-8 w-8 rounded-lg bg-orange-100 flex items-center justify-center text-sm shadow-sm border border-orange-200">🎪</div>
-            <h4 className="text-base font-bold text-foreground">Google Developer Student Club</h4>
-          </div>
-          <div className="flex items-center justify-between border-t border-border pt-4">
-            <p className="text-[11px] font-bold text-emerald-600 bg-emerald-500/10 px-2.5 py-1 rounded-md uppercase tracking-wider">Recruitments Open</p>
-            <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Deadline: Friday</p>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: '🏆 Community',
-      items: ['Leaderboards', 'Seniors', 'Alumni'],
-      desc: 'Earn reputation points for helping your college community.',
-      preview: (
-        <div className="group rounded-2xl border border-border bg-[#F9FAFB] p-6 shadow-sm hover:border-emerald-500/30 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 text-xl shadow-sm border border-amber-200">👑</div>
-            <div>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Top Contributor</p>
-              <h4 className="text-base font-bold text-foreground group-hover:text-emerald-600 transition-colors">Sai Kumar</h4>
-            </div>
-          </div>
-          <span className="text-sm font-bold text-emerald-600 bg-emerald-500/10 px-3 py-1.5 rounded-lg self-start sm:self-center">540 pts</span>
-        </div>
-      )
-    }
+  const collegeChips = [
+    '📁 Notes', '📄 PYQs', '🧪 Lab Manuals',
+    '📢 Announcements', '🎪 Clubs', '📅 Events',
+    '🎓 Seniors', '🏆 Leaderboard', '📚 Resources'
   ]
 
   return (
-    <section className="bg-white py-24 sm:py-32" id="inside-naavik">
-      <div className="mx-auto max-w-7xl px-5">
-        <div className="mx-auto max-w-2xl text-center mb-20">
-          <span className="text-xs font-bold tracking-wider text-primary uppercase bg-primary/5 px-3 py-1.5 rounded-full border border-primary/20">Inside Naavik</span>
-          <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-            Two spaces.<br className="hidden sm:block" /> Everything you need.
-          </h2>
+    <section className="bg-[var(--bg-gray)] py-[72px] lg:py-[120px]" id="inside-naavik">
+      <div className="mx-auto max-w-[1200px] px-5">
+        
+        {/* Header */}
+        <Reveal>
+          <div className="text-center mb-16">
+            <span className="eyebrow-label">INSIDE NAAVIK</span>
+            <h2 className="text-[32px] md:text-[40px] font-extrabold text-foreground tracking-tight">
+              Two spaces. Everything you need.
+            </h2>
+            <p className="mt-4 text-[17px] text-[#6B7280] max-w-[600px] mx-auto">
+              Naavik is organised into two core areas.<br className="hidden sm:block" /> Everything flows from these.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Two Cards Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          {/* LEFT CARD - GROWTH */}
+          <Reveal delay={100} className="w-full">
+            <div className="ui-preview-card !p-8 h-full flex flex-col">
+              <div className="flex flex-col items-start text-left">
+                <span className="text-[32px] mb-4">🌍</span>
+                <span className="text-[11px] text-[var(--purple-600)] uppercase tracking-wider font-bold mb-2">GROWTH</span>
+                <h3 className="text-[22px] font-bold text-[#111827] mb-1">Everything beyond your college.</h3>
+                <p className="text-[14px] text-[#6B7280] mb-4">Opportunities, teams, and connections across TG & AP.</p>
+                <span className="inline-flex items-center rounded-full border border-[var(--chip-growth-border)] bg-[var(--chip-growth-bg)] text-[var(--chip-growth-text)] px-3 py-1 text-[12px] font-medium">
+                  50+ opportunities monthly
+                </span>
+              </div>
+
+              <div className="h-px bg-[#F3F4F6] w-full my-6" />
+
+              <div className="flex flex-wrap gap-2">
+                {growthChips.map(chip => (
+                  <span key={chip} className="feature-chip chip-growth">{chip}</span>
+                ))}
+              </div>
+
+              <div className="h-px bg-[#F3F4F6] w-full my-6" />
+
+              <div className="flex flex-col gap-2 flex-grow">
+                {/* Internship */}
+                <MiniUICard>
+                  <div className="text-[11px] text-[var(--purple-600)] font-bold uppercase mb-1 flex justify-between">
+                    <span>💼 INTERNSHIP</span>
+                    <span className="text-orange-500 normal-case">2 days left</span>
+                  </div>
+                  <h4 className="text-[16px] font-semibold text-[#111827]">Full-Stack Developer Intern</h4>
+                  <p className="text-[13px] text-[#374151]">Razorpay &middot; Remote &middot; ₹35,000/month</p>
+                  <p className="text-[12px] text-[#6B7280] mt-0.5">CSE / IT &middot; 2nd & 3rd Year</p>
+                  <div className="mt-3 flex justify-between items-center">
+                    <button className="text-[12px] font-semibold text-[var(--purple-600)] flex items-center gap-1 hover:underline">
+                      Apply Now &rarr;
+                    </button>
+                  </div>
+                </MiniUICard>
+
+                {/* Hackathon */}
+                <MiniUICard>
+                  <div className="text-[11px] text-[var(--purple-600)] font-bold uppercase mb-1 flex justify-between">
+                    <span>🏆 HACKATHON</span>
+                    <span className="text-emerald-500 normal-case">Open now</span>
+                  </div>
+                  <h4 className="text-[16px] font-semibold text-[#111827]">Smart India Hackathon 2026</h4>
+                  <p className="text-[13px] text-[#374151]">Govt of India &middot; Hyderabad Centre</p>
+                  <p className="text-[12px] text-[#6B7280] mt-0.5">Prize: ₹2,00,000 &middot; Team of 4</p>
+                  <div className="mt-3 flex justify-between items-center">
+                    <button className="text-[12px] font-semibold text-[var(--purple-600)] flex items-center gap-1 hover:underline">
+                      Register &rarr;
+                    </button>
+                    <span className="text-[11px] text-[#6B7280]">Deadline: Aug 31</span>
+                  </div>
+                </MiniUICard>
+
+                {/* Team Finder */}
+                <MiniUICard>
+                  <div className="text-[11px] text-[var(--purple-600)] font-bold uppercase mb-1">
+                    <span>👥 TEAM FINDER</span>
+                  </div>
+                  <h4 className="text-[16px] font-semibold text-[#111827]">Need React Native Developer</h4>
+                  <p className="text-[13px] text-[#374151]">Smart India Hackathon &middot; SIH 2026</p>
+                  <p className="text-[12px] text-[#6B7280] mt-1 flex items-center gap-1.5">
+                    Rahul K. &middot; <span className="bg-muted px-1.5 py-0.5 rounded text-[10px] font-medium">CBIT</span> &middot; Hyderabad
+                  </p>
+                  <div className="mt-3">
+                    <button className="text-[12px] font-semibold text-[var(--purple-600)] flex items-center gap-1 hover:underline">
+                      View Post &rarr;
+                    </button>
+                  </div>
+                </MiniUICard>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* RIGHT CARD - COLLEGE */}
+          <Reveal delay={200} className="w-full">
+            <div className="ui-preview-card !p-8 h-full flex flex-col">
+              <div className="flex flex-col items-start text-left">
+                <span className="text-[32px] mb-4">🏫</span>
+                <span className="text-[11px] text-[var(--purple-600)] uppercase tracking-wider font-bold mb-2">COLLEGE</span>
+                <h3 className="text-[22px] font-bold text-[#111827] mb-1">Everything inside your college.</h3>
+                <p className="text-[14px] text-[#6B7280] mb-4">Notes, events, and resources — verified and organised.</p>
+                <span className="inline-flex items-center rounded-full border border-[var(--chip-college-border)] bg-[var(--chip-college-bg)] text-[var(--chip-college-text)] px-3 py-1 text-[12px] font-medium">
+                  Activated by a verified student admin
+                </span>
+              </div>
+
+              <div className="h-px bg-[#F3F4F6] w-full my-6" />
+
+              <div className="flex flex-wrap gap-2">
+                {collegeChips.map(chip => (
+                  <span key={chip} className="feature-chip chip-college">{chip}</span>
+                ))}
+              </div>
+
+              <div className="h-px bg-[#F3F4F6] w-full my-6" />
+
+              <div className="flex flex-col gap-2 mb-6">
+                {/* Study Resource */}
+                <MiniUICard>
+                  <div className="text-[11px] text-emerald-600 font-bold uppercase mb-1">
+                    <span>📁 STUDY RESOURCE</span>
+                  </div>
+                  <h4 className="text-[16px] font-semibold text-[#111827]">DBMS Previous Year Paper 2024</h4>
+                  <p className="text-[13px] text-[#374151]">CSE &middot; Semester 4 &middot; Uploaded by Senior Admin</p>
+                  <div className="mt-3">
+                    <button className="text-[12px] font-semibold text-[var(--purple-600)] flex items-center gap-1 hover:underline">
+                      Download PDF &rarr;
+                    </button>
+                  </div>
+                </MiniUICard>
+
+                {/* Campus Update */}
+                <MiniUICard>
+                  <div className="text-[11px] text-[var(--purple-600)] font-bold uppercase mb-1">
+                    <span>📢 CAMPUS UPDATE &middot; March 15–18</span>
+                  </div>
+                  <h4 className="text-[16px] font-semibold text-[#111827]">Convergence Tech Fest 2026</h4>
+                  <p className="text-[13px] text-[#374151]">IEEE Student Branch &middot; Prize Pool: ₹30,000</p>
+                  <div className="mt-3">
+                    <button className="text-[12px] font-semibold text-[var(--purple-600)] flex items-center gap-1 hover:underline">
+                      View Details &rarr;
+                    </button>
+                  </div>
+                </MiniUICard>
+
+                {/* Leaderboard */}
+                <MiniUICard>
+                  <div className="text-[11px] text-[var(--purple-600)] font-bold uppercase mb-1">
+                    <span>🏆 TOP CONTRIBUTORS — This Month</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5 mt-2">
+                    <div className="flex justify-between items-center text-[13px] font-medium text-[#111827]">
+                      <span>E. Sai</span>
+                      <span>490 pts &middot; 🥇</span>
+                    </div>
+                    <div className="flex justify-between items-center text-[13px] font-medium text-[#374151]">
+                      <span>V. Keerthi</span>
+                      <span>430 pts &middot; 🥈</span>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <button className="text-[12px] font-semibold text-[var(--purple-600)] flex items-center gap-1 hover:underline">
+                      See Full Board &rarr;
+                    </button>
+                  </div>
+                </MiniUICard>
+              </div>
+
+              {/* Trust Callout inside College card */}
+              <div className="mt-auto trust-callout text-[14px] text-[#111827] leading-relaxed">
+                <div className="font-bold mb-1">🛡️ Verified Workspaces Only</div>
+                <p>
+                  Each campus goes live only after a verified student admin activates it. 
+                  We don't create empty campuses. Quality over scale — always.
+                </p>
+              </div>
+
+            </div>
+          </Reveal>
+
         </div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          
-          {/* LEFT CARD — GROWTH */}
-          <div className="flex flex-col rounded-[2.5rem] border border-border bg-white shadow-2xl shadow-primary/5 overflow-hidden">
-            <div className="p-8 sm:p-12 border-b border-border bg-gradient-to-b from-secondary/10 to-transparent">
-              <span className="text-xs font-bold tracking-wider text-primary uppercase flex items-center gap-2 mb-4 bg-white/50 backdrop-blur-sm w-fit px-3 py-1.5 rounded-full border border-primary/10">
-                <span className="text-base">🌍</span> GROWTH
-              </span>
-              <h3 className="text-3xl font-extrabold text-foreground tracking-tight">Beyond your college.</h3>
-            </div>
-            
-            <div className="p-8 sm:p-12 flex flex-col gap-16">
-              {growthCategories.map((cat, i) => (
-                <div key={i} className="flex flex-col">
-                  <h4 className="text-xl font-extrabold text-foreground mb-3 flex items-center gap-2">
-                    {cat.title}
-                  </h4>
-                  <p className="text-base font-medium text-muted-foreground leading-relaxed mb-6">{cat.desc}</p>
-                  
-                  <ul className="flex flex-wrap gap-2.5 mb-6">
-                    {cat.items.map((item, j) => (
-                      <li key={j} className="text-xs font-bold text-muted-foreground bg-[#F9FAFB] border border-border px-3 py-1.5 rounded-lg hover:bg-secondary/10 transition-colors cursor-default">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {cat.preview}
-                </div>
-              ))}
-            </div>
+        {/* Apply CTA */}
+        <Reveal delay={300}>
+          <div className="mt-16 flex flex-col items-center justify-center text-center">
+            <p className="text-[15px] text-[#374151] mb-2">Don't see your college?</p>
+            <a 
+              href={ADMIN_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[15px] font-semibold text-[var(--purple-600)] hover:underline flex items-center gap-1 transition-colors"
+            >
+              &rarr; Apply to bring Naavik to your campus
+            </a>
           </div>
+        </Reveal>
 
-          {/* RIGHT CARD — COLLEGE */}
-          <div className="flex flex-col rounded-[2.5rem] border border-border bg-white shadow-2xl shadow-emerald-500/5 overflow-hidden">
-            <div className="p-8 sm:p-12 border-b border-border bg-gradient-to-b from-emerald-500/10 to-transparent">
-              <span className="text-xs font-bold tracking-wider text-emerald-600 uppercase flex items-center gap-2 mb-4 bg-white/50 backdrop-blur-sm w-fit px-3 py-1.5 rounded-full border border-emerald-500/10">
-                <span className="text-base">🏫</span> COLLEGE SPACE
-              </span>
-              <h3 className="text-3xl font-extrabold text-foreground tracking-tight">Inside your campus.</h3>
-            </div>
-            
-            <div className="p-8 sm:p-12 flex flex-col gap-16">
-              {collegeCategories.map((cat, i) => (
-                <div key={i} className="flex flex-col">
-                  <h4 className="text-xl font-extrabold text-foreground mb-3 flex items-center gap-2">
-                    {cat.title}
-                  </h4>
-                  <p className="text-base font-medium text-muted-foreground leading-relaxed mb-6">{cat.desc}</p>
-                  
-                  <ul className="flex flex-wrap gap-2.5 mb-6">
-                    {cat.items.map((item, j) => (
-                      <li key={j} className="text-xs font-bold text-muted-foreground bg-[#F9FAFB] border border-border px-3 py-1.5 rounded-lg hover:bg-emerald-500/5 transition-colors cursor-default">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {cat.preview}
-                </div>
-              ))}
-            </div>
-          </div>
-          
-        </div>
       </div>
     </section>
   )

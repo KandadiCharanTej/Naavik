@@ -1,115 +1,86 @@
 'use client'
 
 import { useState } from 'react'
+import { Reveal } from '@/components/reveal'
+import { Plus, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const FAQS = [
-  {
-    question: 'What is Naavik?',
-    answer:
-      'Naavik is a student app built for engineering students in Telangana and Andhra Pradesh. It gives you access to internships, hackathons, college study resources, a cross-campus student network, and campus updates — all in one place, personalised to your branch and semester. No more juggling 7 different apps.',
-  },
-  {
-    question: 'Is it free?',
-    answer:
-      'Yes. Naavik is completely free for students. No credit card needed, no free trial that expires, no hidden charges. It will remain free for students. We may introduce optional premium features in the future, but the core product will always be free.',
-  },
-  {
-    question: 'When will Naavik launch?',
-    answer:
-      "We're actively building Naavik with early student feedback right now. Everyone who joins Early Access will be notified personally before their campus goes live — you won't miss it. The more students who join early, the faster we can activate more colleges.",
-  },
-  {
-    question: 'Which colleges are supported?',
-    answer:
-      "We're starting in Telangana and Andhra Pradesh, activating campuses one at a time as student admins join. If your college isn't listed, it simply means no one from your campus has applied to become a founding admin yet. That can be you.",
-  },
-  {
-    question: 'How is Naavik different from LinkedIn or Internshala?',
-    answer:
-      "LinkedIn and Internshala are job boards built for professionals. Naavik is built for your college life. We have campus-specific notes, PYQs, lab records, and local announcements — things LinkedIn doesn't touch. Our opportunities are filtered by your branch, year, and semester — not just job title keywords. And our Team Finder connects you with students from colleges across your state, not just your class.",
-  },
-]
 
 export function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const faqs = [
+    {
+      question: 'What is Naavik?',
+      answer: 'Naavik is a student app built for engineering students in Telangana and Andhra Pradesh. It gives you access to internships, hackathons, college study resources, a cross-campus student network, and campus updates — all in one place, personalised to your branch and semester. No more juggling 7 different apps.',
+    },
+    {
+      question: 'Is it free?',
+      answer: 'Yes. Naavik is completely free for students. No credit card needed, no trial that expires, no hidden charges. It will remain free for students. We may introduce optional premium features in the future, but the core product will always be free.',
+    },
+    {
+      question: 'When will Naavik launch?',
+      answer: 'We\'re actively building Naavik with early student feedback right now. Everyone who joins Early Access will be notified personally before their campus goes live. The more students who join, the faster we can activate more colleges.',
+    },
+    {
+      question: 'Which colleges are supported?',
+      answer: 'We\'re starting in Telangana and Andhra Pradesh, activating campuses one at a time as student admins join. If your college isn\'t activated yet, it simply means no founding admin has applied from your campus. That can be you.',
+    },
+    {
+      question: 'How is Naavik different from LinkedIn or Internshala?',
+      answer: 'LinkedIn and Internshala are job boards built for professionals. Naavik is built for your college life. Campus-specific notes, PYQs, lab records, campus announcements — things LinkedIn doesn\'t touch. Opportunities filtered by your branch and year. A Team Finder for hackathons. A network of students across 200+ colleges in your state. They\'re job boards. We\'re your student workspace.',
+    },
+  ]
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section className="bg-white py-24 sm:py-32" id="faq">
-      <div className="mx-auto max-w-3xl px-5">
-        <div className="text-center sm:text-left mb-16">
-          <span className="text-xs font-bold tracking-wider text-primary uppercase bg-primary/5 px-3 py-1.5 rounded-full border border-primary/20">FAQ</span>
-          <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-            Questions, answered.
-          </h2>
-        </div>
+    <section className="bg-[var(--bg-gray)] py-[72px] lg:py-[120px]" id="faq">
+      <div className="mx-auto max-w-[800px] px-5 flex flex-col items-center">
+        
+        {/* Header */}
+        <Reveal className="w-full text-center">
+          <div className="mb-12">
+            <span className="eyebrow-label">FAQ</span>
+            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight">
+              Questions, answered.
+            </h2>
+          </div>
+        </Reveal>
 
-        <div className="flex flex-col gap-4">
-          {FAQS.map((faq, index) => {
-            const isOpen = openIndex === index
-            return (
-              <div
-                key={index}
-                className={cn(
-                  'rounded-2xl border transition-all duration-300',
-                  isOpen
-                    ? 'border-primary/20 bg-primary/5 shadow-sm'
-                    : 'border-border bg-[#F9FAFB] hover:border-primary/30',
-                )}
-              >
-                <button
-                  className="flex w-full items-center justify-between px-6 sm:px-8 py-6 text-left min-h-[72px]"
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
+        {/* Accordion */}
+        <Reveal delay={100} className="w-full">
+          <div className="flex flex-col gap-4">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index
+              return (
+                <div 
+                  key={index} 
+                  className="bg-white border border-[#E5E7EB] rounded-[12px] overflow-hidden transition-all duration-200 shadow-sm hover:border-[var(--purple-600)]"
                 >
-                  <span className={cn("text-base sm:text-lg font-bold transition-colors", isOpen ? "text-primary" : "text-foreground")}>
-                    {faq.question}
-                  </span>
-                  <span
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${index}`}
+                  >
+                    <span className="text-[16px] font-bold text-[#111827] pr-4">{faq.question}</span>
+                    <span className="text-[#6B7280] shrink-0">
+                      {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                    </span>
+                  </button>
+                  <div
+                    id={`faq-answer-${index}`}
                     className={cn(
-                      'ml-6 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-transform duration-300',
-                      isOpen ? 'rotate-180 border-primary/20 bg-white text-primary shadow-sm' : 'border-border bg-white text-muted-foreground',
+                      'px-6 pb-5 transition-all duration-200 ease-in-out',
+                      isOpen ? 'block' : 'hidden'
                     )}
                   >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2.5 4.5L6 8L9.5 4.5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial="collapsed"
-                      animate="open"
-                      exit="collapsed"
-                      variants={{
-                        open: { opacity: 1, height: "auto" },
-                        collapsed: { opacity: 0, height: 0 }
-                      }}
-                      transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    >
-                      <div className="px-6 sm:px-8 pb-8 pt-2 text-sm sm:text-base font-medium text-muted-foreground leading-relaxed">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )
-          })}
-        </div>
+                    <p className="text-[15px] text-[#374151] leading-[1.7]">{faq.answer}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </Reveal>
+
       </div>
     </section>
   )

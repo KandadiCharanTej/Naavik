@@ -1,87 +1,105 @@
-import { ADMIN_FORM_URL } from '@/lib/constants'
-import { FileText, Search, UserCheck, CheckCircle2, Rocket } from 'lucide-react'
+import { Reveal } from '@/components/reveal'
+import { AdminButton } from '@/components/cta-buttons'
 
 export function AdminSection() {
   const steps = [
-    { icon: FileText, label: 'Apply', desc: 'Fill the form' },
-    { icon: Search, label: 'Review', desc: 'Profile check' },
-    { icon: UserCheck, label: 'Interview', desc: 'Quick chat' },
-    { icon: CheckCircle2, label: 'Selected', desc: 'Welcome aboard' },
-    { icon: Rocket, label: 'Launch', desc: 'Your campus goes live' },
+    { num: '1', title: 'Apply', body: 'Submit in 5 minutes.' },
+    { num: '2', title: 'Review', body: 'We read every application. No automated rejections.' },
+    { num: '3', title: 'Selected', body: 'You\'ll hear from us personally within 7 days.' },
+    { num: '4', title: 'Onboarding', body: 'We walk you through the platform together.' },
+    { num: '5', title: 'Launch Your Campus', body: 'Your college workspace goes live. You run it.' },
+    { num: '6', title: 'Upload & Moderate', body: 'Add resources, post updates, build community.' },
+    { num: '✓', title: 'Verified Founding Admin', body: 'Your badge. Permanent.' }
   ]
 
   const benefits = [
-    'Verified Admin Badge on profile',
-    'Direct collaboration with founding team',
-    'Early access to new features',
-    'Leadership experience for resume',
+    { text: 'Verified Founding Admin badge on your Naavik profile' },
+    { text: 'Direct communication with Naavik founders — your feedback shapes what we build next' },
+    { text: 'First access to every new feature before anyone else on the platform' },
+    { text: 'Real leadership experience — you\'re building your campus\'s tech hub from scratch' }
   ]
 
   return (
-    <section className="bg-white py-24 sm:py-32 border-t border-border" id="admin">
-      <div className="mx-auto max-w-6xl px-5">
-        <div className="rounded-[2.5rem] border border-border bg-[#F9FAFB] p-8 sm:p-16 shadow-xl shadow-primary/5 flex flex-col lg:flex-row gap-16 items-center">
-          
-          <div className="flex-1 w-full text-center sm:text-left">
-            <span className="text-xs font-bold tracking-wider text-primary uppercase bg-primary/5 px-4 py-1.5 rounded-full border border-primary/20">Founding Team</span>
-            <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl leading-tight">
-              Lead Your Campus.
+    <section className="bg-[var(--bg-white)] py-[72px] lg:py-[120px]" id="admin">
+      <div className="mx-auto max-w-[1200px] px-5">
+        
+        {/* Header */}
+        <Reveal>
+          <div className="mb-16">
+            <span className="eyebrow-label">FOUNDING TEAM</span>
+            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight mb-6">
+              Lead Your College. Become a Campus Admin.
             </h2>
-            <p className="mt-5 text-base font-medium text-muted-foreground leading-relaxed max-w-md mx-auto sm:mx-0">
-              We are selecting one Admin per college to curate resources and verify updates. Build a powerful network before you graduate.
-            </p>
-            
-            <div className="mt-10">
-              <a href={ADMIN_FORM_URL} target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center rounded-xl bg-foreground px-8 py-4 text-base font-bold text-background shadow-lg transition-all hover:bg-foreground/90 hover:scale-[1.02] active:scale-[0.98] sm:w-auto">
-                Apply as Admin →
-              </a>
-            </div>
-
-            <div className="mt-12 flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Perks</h3>
-              <ul className="flex flex-col gap-3">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-[10px] font-bold text-emerald-600 border border-emerald-500/20">✓</span>
-                    <span className="text-sm font-bold text-foreground">
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            <div className="text-[16px] text-[#374151] max-w-[700px] leading-[1.7] space-y-4">
+              <p>
+                Campus Admins organise study resources, campus updates, and community activity for their college on Naavik. It's a real leadership role — not a form submission. You'll work directly with the Naavik team to build your campus from the ground up.
+              </p>
+              <p>
+                Admin spots are limited to one per college. We review every application personally and look for students who genuinely want to improve their campus experience.
+              </p>
             </div>
           </div>
+        </Reveal>
 
-          {/* Timeline UI */}
-          <div className="flex-1 w-full relative">
-            <div className="absolute top-8 bottom-8 left-[2.25rem] w-0.5 bg-border sm:hidden" />
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-8 relative z-10">
-              {/* Horizontal Line for Desktop */}
-              <div className="hidden sm:block absolute top-[2rem] left-8 right-8 h-0.5 bg-border z-[-1]" />
-              
-              {steps.map((step, index) => (
-                <div key={index} className="flex sm:flex-col items-center gap-6 sm:gap-4 group">
-                  <div className="h-16 w-16 rounded-2xl bg-white border border-border shadow-sm flex items-center justify-center text-muted-foreground group-hover:border-primary/50 group-hover:text-primary group-hover:shadow-md transition-all">
-                    <step.icon className="h-6 w-6" />
+        {/* Two Columns */}
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+          
+          {/* LEFT: The Journey */}
+          <Reveal delay={100} className="flex-1 w-full">
+            <h3 className="text-[13px] font-semibold uppercase tracking-widest text-[var(--purple-600)] mb-8">
+              The Journey
+            </h3>
+            
+            <div className="relative border-l border-dashed border-[#D1D5DB] ml-[13px] pl-8 pb-8 space-y-10">
+              {steps.map((step, i) => (
+                <div key={i} className="relative">
+                  {/* Step Number Circle */}
+                  <div className="absolute -left-[45px] top-0 w-[26px] h-[26px] rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[13px] font-bold">
+                    {step.num}
                   </div>
-                  <div className="sm:text-center flex-1">
-                    <h4 className="text-base font-bold text-foreground">{step.label}</h4>
-                    <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mt-1">{step.desc}</p>
-                  </div>
+                  
+                  <h4 className="text-[15px] font-semibold text-[#111827] leading-none mb-1.5">{step.title}</h4>
+                  <p className="text-[13px] text-[#6B7280]">{step.body}</p>
                 </div>
               ))}
             </div>
-            
-            <div className="mt-16 rounded-2xl border border-border bg-white p-6 shadow-sm flex items-start gap-4">
-              <div className="h-10 w-10 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">💡</div>
-              <div>
-                <h4 className="text-sm font-bold text-foreground mb-1">Time Commitment</h4>
-                <p className="text-sm font-medium text-muted-foreground leading-relaxed">About 2-3 hours per week. Mostly verifying notes and approving campus updates. No technical skills required.</p>
-              </div>
+
+            <div className="mt-8">
+              <AdminButton 
+                className="btn-primary"
+                id="admin-cta"
+              >
+                Become a Campus Admin &rarr;
+              </AdminButton>
+              <p className="text-[13px] text-[#6B7280] mt-3 leading-snug max-w-[250px]">
+                Less than 5 minutes to apply.<br />
+                We review every application personally.
+              </p>
             </div>
-          </div>
+          </Reveal>
+
+          {/* RIGHT: What You Get */}
+          <Reveal delay={200} className="flex-1 w-full lg:max-w-[480px]">
+            <h3 className="text-[13px] font-semibold uppercase tracking-widest text-[var(--purple-600)] mb-8">
+              What you get
+            </h3>
+            
+            <div className="flex flex-col gap-[20px]">
+              {benefits.map((benefit, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="w-[24px] h-[24px] shrink-0 rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[14px] font-bold mt-0.5">
+                    ✓
+                  </div>
+                  <p className="text-[15px] font-semibold text-[#111827] leading-[1.6]">
+                    {benefit.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
 
         </div>
+
       </div>
     </section>
   )

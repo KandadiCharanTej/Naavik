@@ -1,303 +1,339 @@
 'use client'
 
 import { useState } from 'react'
+import { Reveal } from '@/components/reveal'
+import { Home, Globe, Library, Users, FolderKanban, Search, Bell, Pin } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { LayoutDashboard, Compass, BookOpen, Layers, Users, UserCircle, Bell, Trophy, MessageSquare } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const TABS = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'opportunities', label: 'Opportunity Feed', icon: Compass },
-  { id: 'vault', label: 'Study Vault', icon: BookOpen },
-  { id: 'projects', label: 'Projects', icon: Layers },
-  { id: 'team', label: 'Team Finder', icon: Users },
-  { id: 'profile', label: 'Student Profile', icon: UserCircle },
-  { id: 'updates', label: 'College Updates', icon: MessageSquare },
-  { id: 'leaderboard', label: 'Leaderboard', icon: Trophy },
-  { id: 'notifications', label: 'Notifications', icon: Bell },
-]
 
 export function ProductPreview() {
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'opportunities' | 'notes' | 'team'>('dashboard')
+
+  const tabs = [
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'opportunities', label: 'Opportunities' },
+    { id: 'notes', label: 'Notes Library' },
+    { id: 'team', label: 'Team Finder' },
+  ] as const
 
   return (
-    <section className="bg-[#F9FAFB] py-24 sm:py-32 border-y border-border" id="product-preview">
-      <div className="mx-auto max-w-6xl px-4 sm:px-5">
-        <div className="text-center mb-16">
-          <span className="text-xs font-bold tracking-wider text-primary uppercase bg-primary/5 px-3 py-1 rounded-full border border-primary/20">The Interface</span>
-          <h2 className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-            Take a product tour.
-          </h2>
+    <section className="bg-[var(--bg-purple-tint)] py-[72px] lg:py-[120px]" id="product-preview">
+      <div className="mx-auto max-w-[1200px] px-5 flex flex-col lg:flex-row gap-12 lg:gap-16">
+        
+        {/* Left Column */}
+        <div className="w-full lg:w-1/3 lg:sticky lg:top-32 h-fit">
+          <Reveal>
+            <span className="eyebrow-label">PRODUCT PREVIEW</span>
+            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight leading-tight mb-4">
+              This is what it looks like.
+            </h2>
+            <p className="text-[17px] text-[#374151] mb-6">
+              Designed for how engineering students actually work.
+            </p>
+            <p className="text-[14px] text-[#9CA3AF] leading-relaxed hidden lg:block">
+              Everything you see is a realistic example of what the product will contain. No placeholders.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-          
-          {/* Tabs Navigation */}
-          <div className="flex flex-row overflow-x-auto hide-scrollbar lg:flex-col gap-2 lg:w-64 shrink-0 pb-4 lg:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
-            {TABS.map((tab) => {
-              const Icon = tab.icon
-              const isActive = activeTab === tab.id
-              return (
+        {/* Right Column */}
+        <div className="w-full lg:w-2/3">
+          <Reveal delay={100}>
+            
+            {/* Tab Nav */}
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-6 -mx-5 px-5 lg:mx-0 lg:px-0">
+              {tabs.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    'flex shrink-0 items-center gap-3 px-5 py-4 sm:py-3.5 text-sm font-bold transition-all rounded-xl lg:rounded-2xl',
-                    isActive
-                      ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20 scale-[1.02]'
-                      : 'bg-white lg:bg-transparent border border-border lg:border-transparent text-muted-foreground hover:bg-secondary/10 hover:text-foreground',
+                    "whitespace-nowrap px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors border",
+                    activeTab === tab.id 
+                      ? "bg-white text-[var(--purple-600)] border-[var(--purple-600)] border-b-[2px] shadow-sm"
+                      : "bg-transparent text-[#6B7280] border-transparent hover:text-[#374151] hover:bg-black/5"
                   )}
                 >
-                  <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
                   {tab.label}
                 </button>
-              )
-            })}
-          </div>
+              ))}
+            </div>
 
-          {/* Screenshot Area */}
-          <div className="flex-1 w-full max-w-[100vw] overflow-hidden -mx-4 sm:mx-0 px-4 sm:px-0">
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-white shadow-2xl shadow-primary/5 min-h-[550px] w-full flex flex-col">
-              
-              <div className="absolute right-6 top-6 z-10 rounded-lg bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground backdrop-blur-md border border-border/50 shadow-sm">
-                Concept Preview
+            {/* Tab Content */}
+            <div className="ui-preview-card !p-0 overflow-hidden relative shadow-[0_20px_60px_rgba(0,0,0,0.06)] min-h-[500px] flex">
+              <div className="absolute top-3 right-3 z-20 px-2 py-0.5 rounded-[4px] bg-white text-[11px] text-[#9CA3AF] font-medium border border-border shadow-sm">
+                Preview
               </div>
-
-              <AnimatePresence mode="wait">
-                <motion.div 
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="flex-1 flex flex-col"
-                >
-                  {/* Tab 1: Dashboard */}
-                  {activeTab === 'dashboard' && (
-                    <div className="p-6 sm:p-10 h-full flex flex-col bg-[#F9FAFB]">
-                      <div className="mb-8">
-                        <h3 className="text-2xl font-extrabold text-foreground">Good Morning.</h3>
-                        <p className="text-sm font-medium text-muted-foreground mt-2">Here is what&apos;s happening across your campus today.</p>
+              
+              {/* Dashboard Content */}
+              {activeTab === 'dashboard' && (
+                <div className="flex w-full animate-in fade-in duration-300">
+                  {/* Sidebar */}
+                  <div className="w-[64px] bg-[#0F0F0F] shrink-0 hidden sm:flex flex-col items-center py-6 gap-6">
+                    <div className="h-6 w-6 rounded bg-primary/20 text-primary flex items-center justify-center font-bold text-[12px] mb-4">N</div>
+                    <button className="text-[var(--purple-500)] p-2 rounded-lg bg-white/10"><Home className="w-5 h-5" /></button>
+                    <button className="text-white/50 hover:text-white transition-colors p-2"><Globe className="w-5 h-5" /></button>
+                    <button className="text-white/50 hover:text-white transition-colors p-2"><Library className="w-5 h-5" /></button>
+                    <button className="text-white/50 hover:text-white transition-colors p-2"><Users className="w-5 h-5" /></button>
+                    <button className="text-white/50 hover:text-white transition-colors p-2"><FolderKanban className="w-5 h-5" /></button>
+                  </div>
+                  
+                  {/* Main Content */}
+                  <div className="flex-1 bg-[#F9FAFB] flex flex-col h-full overflow-hidden">
+                    {/* Topbar */}
+                    <div className="h-[60px] border-b border-border bg-white flex items-center px-4 md:px-6 justify-between">
+                      <div className="relative w-[240px]">
+                        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                        <input type="text" placeholder="Search..." className="w-full pl-9 pr-4 py-1.5 bg-muted rounded-md text-[13px] outline-none" disabled />
                       </div>
-                      <div className="flex flex-col gap-5">
-                        <div className="rounded-2xl bg-white p-6 border border-border shadow-sm flex flex-col hover:border-primary/20 transition-colors">
-                          <div className="text-[11px] font-bold text-emerald-600 mb-3 uppercase tracking-wider flex items-center gap-1.5">
-                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span> College Update
-                          </div>
-                          <h4 className="font-bold text-base text-foreground">Semester Registration Deadline</h4>
-                          <p className="text-sm font-medium text-muted-foreground mt-1.5 leading-relaxed">Ensure all pending fee clearances are complete by Friday to register for the upcoming semester.</p>
+                      <div className="flex items-center gap-3">
+                        <span className="hidden md:inline-flex px-2.5 py-1 bg-primary/10 text-primary text-[11px] font-semibold rounded-full border border-primary/20">
+                          CSE &middot; Sem 4 &middot; 2nd Year
+                        </span>
+                        <button className="text-muted-foreground hover:text-foreground"><Bell className="w-4 h-4" /></button>
+                        <div className="w-7 h-7 rounded-full bg-slate-200"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Feed */}
+                    <div className="p-4 md:p-6 flex flex-col gap-4 overflow-y-auto">
+                      {/* Pinned */}
+                      <div className="bg-white border-l-4 border-l-amber-400 border border-border rounded-lg p-4 shadow-sm">
+                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-600 uppercase mb-2">
+                          <Pin className="w-3.5 h-3.5" /> Pinned
                         </div>
-                        <div className="rounded-2xl bg-white p-6 border border-border shadow-sm flex flex-col hover:border-primary/20 transition-colors">
-                          <div className="text-[11px] font-bold text-primary mb-3 uppercase tracking-wider">Opportunity Match</div>
-                          <h4 className="font-bold text-base text-foreground">Frontend Developer Intern</h4>
-                          <p className="text-sm font-medium text-muted-foreground mt-1.5 mb-5">Remote · Stipend: ₹25,000/mo</p>
-                          <button className="w-full sm:w-auto self-start rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white shadow-sm hover:scale-[1.02] transition-transform">Apply Now</button>
+                        <h4 className="text-[15px] font-semibold text-[#111827]">DBMS Exam in 3 days</h4>
+                        <p className="text-[13px] text-[#374151] mt-1 mb-3">DBMS Previous Year Paper 2024 uploaded. Download now.</p>
+                        <button className="text-[12px] font-semibold text-primary">Download &rarr;</button>
+                      </div>
+
+                      {/* Opportunity */}
+                      <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-[11px] font-bold text-primary uppercase">🔔 Opportunity &middot; CSE &middot; 2nd Year</span>
+                          <span className="text-[11px] font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded">2 days left</span>
                         </div>
+                        <h4 className="text-[15px] font-semibold text-[#111827]">Razorpay Full-Stack Intern &middot; ₹35K/mo &middot; Remote</h4>
+                        <button className="mt-3 text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Apply</button>
                       </div>
-                    </div>
-                  )}
 
-                  {/* Tab 2: Opportunities */}
-                  {activeTab === 'opportunities' && (
-                    <div className="p-6 sm:p-10 bg-white h-full">
-                      <div className="flex gap-2 pb-6 overflow-x-auto hide-scrollbar mb-2 border-b border-border">
-                        {['All', 'Internships', 'Hackathons', 'Full-Time'].map((f, i) => (
-                          <button key={f} className={cn("shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition-all", i === 1 ? "bg-primary text-white shadow-md" : "bg-secondary/10 border border-border text-foreground hover:bg-secondary/20")}>{f}</button>
-                        ))}
-                      </div>
-                      <div className="space-y-5 mt-6">
-                        {[1, 2].map((i) => (
-                          <div key={i} className="rounded-2xl bg-white p-6 border border-border shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-5 hover:border-primary/20 transition-colors">
-                            <div>
-                              <h4 className="font-bold text-base text-foreground">{i === 1 ? 'Software Engineering Intern' : 'UI/UX Design Intern'}</h4>
-                              <p className="text-sm font-medium text-muted-foreground mt-1.5">{i === 1 ? 'Tech Startup · Hyderabad · Stipend: ₹20k-30k/mo' : 'Fintech Co · Remote · Stipend: ₹15,000/mo'}</p>
-                              <div className="flex gap-2 mt-4">
-                                <span className="text-[11px] font-bold bg-secondary/10 text-primary px-2.5 py-1 rounded-md border border-border">3rd Year</span>
-                                <span className="text-[11px] font-bold bg-secondary/10 text-primary px-2.5 py-1 rounded-md border border-border">{i === 1 ? 'React/Node' : 'Figma'}</span>
-                              </div>
-                            </div>
-                            <button className="w-full sm:w-auto rounded-xl bg-primary px-8 py-3 text-sm font-bold text-white shadow-sm hover:scale-[1.02] transition-transform">Apply</button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab 3: Study Vault */}
-                  {activeTab === 'vault' && (
-                    <div className="p-6 sm:p-10 bg-white h-full">
-                      <div className="relative mb-8">
-                        <input type="text" placeholder="Search notes, PYQs, lab manuals..." className="w-full rounded-2xl border border-border bg-[#F9FAFB] px-5 py-4 text-base font-medium shadow-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" />
-                      </div>
-                      <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-5">Recent Uploads</h3>
-                      <div className="grid grid-cols-2 gap-4 sm:gap-5">
-                        {['OS Unit 1-3 Notes', 'DBMS Lab Manual', 'Networks PYQs (2023)', 'Java Assignments'].map((item, i) => (
-                          <div key={i} className="group rounded-2xl bg-[#F9FAFB] p-5 border border-border shadow-sm flex flex-col justify-center text-center aspect-square sm:aspect-auto sm:h-36 hover:border-emerald-500/20 transition-colors cursor-pointer">
-                            <div className="mx-auto h-12 w-12 rounded-full bg-emerald-500/10 mb-4 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">📁</div>
-                            <h4 className="font-bold text-sm text-foreground">{item}</h4>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab 4: Projects */}
-                  {activeTab === 'projects' && (
-                    <div className="p-6 sm:p-10 bg-[#F9FAFB] h-full">
-                      <div className="flex justify-between items-center mb-8">
-                        <h3 className="text-2xl font-extrabold text-foreground">Discover</h3>
-                        <button className="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-md hover:scale-[1.02] transition-transform">+ Post Project</button>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {[1, 2].map((i) => (
-                          <div key={i} className="rounded-2xl bg-white p-5 border border-border shadow-sm hover:shadow-md transition-shadow">
-                            <div className="h-36 rounded-xl bg-secondary/10 mb-5 border border-border border-dashed flex items-center justify-center">
-                              <div className="text-primary/40 text-xs font-bold uppercase tracking-wider">Project Image</div>
-                            </div>
-                            <h4 className="font-bold text-base text-foreground">{i === 1 ? 'AI Resume Screener' : 'Campus Event Manager'}</h4>
-                            <p className="text-sm font-medium text-muted-foreground mt-1.5 mb-5">{i === 1 ? 'Next.js, OpenAI, Tailwind' : 'React Native, Firebase'}</p>
-                            <button className="w-full rounded-xl bg-secondary/10 border border-border py-3 text-sm font-bold text-foreground hover:bg-secondary/20 transition-colors">View Details</button>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab 5: Team Finder */}
-                  {activeTab === 'team' && (
-                    <div className="p-6 sm:p-10 bg-[#F9FAFB] h-full">
-                      <div className="mb-8">
-                        <h3 className="text-2xl font-extrabold text-foreground">Looking for Teammates</h3>
-                      </div>
-                      <div className="space-y-5">
-                        <div className="rounded-2xl bg-white p-6 border border-border shadow-sm hover:border-primary/20 transition-colors">
-                          <div className="flex items-center gap-2 mb-4">
-                            <span className="text-[11px] font-bold text-orange-600 bg-orange-500/10 px-2.5 py-1 rounded-md">Smart India Hackathon</span>
-                          </div>
-                          <h4 className="font-bold text-base text-foreground">Healthcare App Pitch</h4>
-                          <p className="text-sm font-medium text-muted-foreground mt-2 mb-6 leading-relaxed">We are a team of 3 looking for a Flutter developer and a UI Designer to complete our SIH team.</p>
-                          <div className="flex items-center justify-between border-t border-border pt-5">
-                            <div className="flex -space-x-3">
-                              <div className="h-10 w-10 rounded-full border-2 border-white bg-primary/20"></div>
-                              <div className="h-10 w-10 rounded-full border-2 border-white bg-emerald-500/20"></div>
-                              <div className="h-10 w-10 rounded-full border-2 border-white bg-amber-500/20"></div>
-                            </div>
-                            <button className="rounded-xl bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-sm hover:scale-[1.02] transition-transform">Join Team</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab 6: Profile */}
-                  {activeTab === 'profile' && (
-                    <div className="p-6 sm:p-10 bg-[#F9FAFB] h-full">
-                      <div className="flex flex-col items-center text-center mt-6">
-                        <div className="h-24 w-24 rounded-full bg-white border border-border shadow-md flex items-center justify-center text-primary font-bold text-2xl mb-5">
-                          SK
-                        </div>
-                        <h3 className="text-2xl font-extrabold text-foreground">Sai Kumar</h3>
-                        <p className="text-sm font-medium text-muted-foreground mt-1.5">Computer Science · 3rd Year</p>
-                        <p className="text-[11px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-500/10 px-4 py-1.5 rounded-full mt-4 border border-emerald-500/20">
-                          Looking for internships
-                        </p>
+                      {/* Campus */}
+                      <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                        <span className="text-[11px] font-bold text-emerald-600 uppercase mb-2 block">📢 Campus</span>
+                        <h4 className="text-[15px] font-semibold text-[#111827]">IEEE Convergence Fest &middot; Registration open</h4>
+                        <p className="text-[13px] text-[#374151] mt-0.5 mb-3">March 15–18 &middot; ₹30,000 Prize</p>
+                        <button className="text-[12px] font-semibold text-emerald-600">View Details &rarr;</button>
                       </div>
                       
-                      <div className="mt-10 rounded-2xl bg-white p-6 border border-border shadow-sm">
-                        <h4 className="font-bold text-sm text-foreground uppercase tracking-wider mb-5">Top Skills</h4>
-                        <div className="flex flex-wrap gap-2.5">
-                          {['React', 'TypeScript', 'Node.js', 'Figma', 'Python'].map(skill => (
-                            <span key={skill} className="px-4 py-2 bg-secondary/10 border border-border rounded-xl text-sm font-bold text-foreground">{skill}</span>
-                          ))}
+                      {/* Team Finder */}
+                      <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                        <span className="text-[11px] font-bold text-blue-600 uppercase mb-2 block">👥 Team Finder</span>
+                        <p className="text-[14px] text-[#374151] mb-3">"Need React dev for SIH" &middot; Rahul K. &middot; CBIT</p>
+                        <button className="text-[12px] font-semibold text-blue-600">Connect &rarr;</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Opportunities Content */}
+              {activeTab === 'opportunities' && (
+                <div className="flex flex-col w-full h-full bg-[#F9FAFB] animate-in fade-in duration-300">
+                  <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
+                    <span className="text-[13px] text-muted-foreground mr-2">Filter:</span>
+                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Branch: CSE ▼</span>
+                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Year: 2nd ▼</span>
+                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Type: All ▼</span>
+                    <span className="ml-auto px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Sort: Newest ▼</span>
+                  </div>
+                  
+                  <div className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto">
+                    {/* Card 1 */}
+                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                      <div className="text-[11px] font-bold text-primary uppercase mb-2">💼 INTERNSHIP &middot; Remote</div>
+                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Full-Stack Developer Intern</h4>
+                      <p className="text-[13px] text-[#374151] mb-3">Razorpay &middot; ₹35,000/month</p>
+                      <div className="flex gap-2 mb-4">
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">CSE / IT</span>
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">5 openings</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-auto">
+                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Apply</button>
+                        <span className="text-[11px] font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded border border-orange-100">2d left</span>
+                      </div>
+                    </div>
+                    
+                    {/* Card 2 */}
+                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                      <div className="text-[11px] font-bold text-emerald-600 uppercase mb-2">🏆 HACKATHON &middot; National</div>
+                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Smart India Hackathon 2026</h4>
+                      <p className="text-[13px] text-[#374151] mb-3">Govt of India &middot; ₹2,00,000 Prize</p>
+                      <div className="flex gap-2 mb-4">
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">All branches</span>
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">Teams of 4</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-auto">
+                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Register</button>
+                        <span className="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">Open</span>
+                      </div>
+                    </div>
+
+                    {/* Card 3 */}
+                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                      <div className="text-[11px] font-bold text-blue-600 uppercase mb-2">🎓 SCHOLARSHIP &middot; Open</div>
+                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Google Generation Scholarship</h4>
+                      <p className="text-[13px] text-[#374151] mb-3">Google &middot; ₹75,000</p>
+                      <div className="flex gap-2 mb-4">
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">CSE / IT</span>
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">CGPA 8+</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-auto">
+                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Apply</button>
+                        <span className="text-[11px] text-[#6B7280]">30d left</span>
+                      </div>
+                    </div>
+
+                    {/* Card 4 */}
+                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
+                      <div className="text-[11px] font-bold text-amber-600 uppercase mb-2">🛠 WORKSHOP &middot; Hyderabad</div>
+                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Full-Stack Bootcamp — Node + React</h4>
+                      <p className="text-[13px] text-[#374151] mb-3">TechMinds HYD &middot; Free for students</p>
+                      <div className="flex gap-2 mb-4">
+                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">All years</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-auto">
+                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Register</button>
+                        <span className="text-[11px] text-[#6B7280]">10d left</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Notes Library Content */}
+              {activeTab === 'notes' && (
+                <div className="flex flex-col w-full h-full bg-[#F9FAFB] animate-in fade-in duration-300">
+                  <div className="p-4 md:p-6 border-b border-border bg-white flex flex-col gap-3">
+                    <h3 className="text-[18px] font-bold text-[#111827]">📚 Study Vault — CSE &middot; Semester 4</h3>
+                    <p className="text-[13px] text-emerald-600 font-medium">Uploaded and verified by student admins.</p>
+                    <div className="flex gap-4 mt-2 border-b border-border">
+                      <span className="text-[13px] font-medium text-muted-foreground pb-2 border-b-2 border-transparent">PYQs</span>
+                      <span className="text-[13px] font-medium text-muted-foreground pb-2 border-b-2 border-transparent">Unit Notes</span>
+                      <span className="text-[13px] font-medium text-muted-foreground pb-2 border-b-2 border-transparent">Lab Records</span>
+                      <span className="text-[13px] font-medium text-primary pb-2 border-b-2 border-primary">All</span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 md:p-6 flex flex-col gap-3 overflow-y-auto">
+                    {[
+                      { icon: '📄', name: 'DBMS Previous Year Paper 2024', meta: 'CSE · Sem 4 · Uploaded by E. Sai · 3 days ago' },
+                      { icon: '📄', name: 'Operating Systems — Unit 3 & 4 Notes', meta: 'CSE · Sem 4 · Uploaded by V. Keerthi · 1 week ago' },
+                      { icon: '🧪', name: 'Basic Electrical Engineering Lab Record', meta: 'EEE · Sem 2 · Uploaded by Admin · 2 weeks ago' },
+                      { icon: '📄', name: 'Computer Networks — Full Notes', meta: 'CSE · Sem 5 · Uploaded by T. Arjun · 1 month ago' },
+                    ].map((row, i) => (
+                      <div key={i} className="bg-white border border-border rounded-lg p-4 shadow-sm flex items-start sm:items-center justify-between gap-4 flex-col sm:flex-row group">
+                        <div className="flex items-start gap-3">
+                          <div className="text-[20px] bg-muted/50 p-2 rounded-md leading-none">{row.icon}</div>
+                          <div>
+                            <h4 className="text-[15px] font-semibold text-[#111827]">{row.name}</h4>
+                            <p className="text-[12px] text-[#6B7280] mt-0.5">{row.meta}</p>
+                          </div>
+                        </div>
+                        <button className="text-[12px] font-semibold text-primary opacity-0 sm:opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+                          Download PDF &rarr;
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Team Finder Content */}
+              {activeTab === 'team' && (
+                <div className="flex flex-col w-full h-full bg-[#F9FAFB] animate-in fade-in duration-300">
+                   <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
+                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Skills: React Native ▼</span>
+                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Purpose: Hackathon ▼</span>
+                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">College: Any ▼</span>
+                  </div>
+
+                  <div className="p-4 md:p-6 flex flex-col gap-4 overflow-y-auto">
+                    {/* Post 1 */}
+                    <div className="bg-white border border-border rounded-lg p-5 shadow-sm">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-[13px]">R</div>
+                        <div>
+                          <div className="text-[14px] font-bold text-[#111827]">Rahul K.</div>
+                          <div className="text-[12px] text-[#6B7280]">CBIT &middot; CSE &middot; Hyderabad</div>
                         </div>
                       </div>
-                    </div>
-                  )}
-
-                  {/* Tab 7: College Updates */}
-                  {activeTab === 'updates' && (
-                    <div className="p-6 sm:p-10 bg-white h-full">
-                      <div className="mb-8 flex items-center justify-between border-b border-border pb-6">
-                        <h3 className="text-2xl font-extrabold text-foreground">Campus Updates</h3>
-                        <span className="text-[11px] font-bold text-emerald-600 bg-emerald-500/10 px-3 py-1.5 rounded-full uppercase tracking-wider">Verified Campus</span>
+                      <p className="text-[14px] text-[#374151] italic border-l-2 border-muted pl-3 my-4">
+                        "Forming a team for Smart India Hackathon. Initial prototype ready. Need a React Native developer. DMs open!"
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        <span className="text-[11px] px-2 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-100">React Native</span>
+                        <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded border border-emerald-100">SIH 2026</span>
+                        <span className="text-[11px] px-2 py-0.5 bg-purple-50 text-purple-700 rounded border border-purple-100">Team of 4</span>
                       </div>
-                      <div className="space-y-4">
-                        {[
-                          { type: 'Event', title: 'Guest Lecture: AI in 2026', time: 'Tomorrow, 10:00 AM', color: 'text-orange-600 bg-orange-500/10' },
-                          { type: 'Notice', title: 'Mid-Sem Time Table Released', time: '2 hours ago', color: 'text-primary bg-primary/10' }
-                        ].map((update, i) => (
-                          <div key={i} className="rounded-2xl bg-[#F9FAFB] p-6 border border-border shadow-sm hover:border-primary/20 transition-colors">
-                            <span className={cn("text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md mb-4 inline-block", update.color)}>{update.type}</span>
-                            <h4 className="font-bold text-base text-foreground">{update.title}</h4>
-                            <p className="text-sm font-medium text-muted-foreground mt-1.5">{update.time}</p>
-                          </div>
-                        ))}
+                      <div className="flex justify-between items-center border-t border-border pt-3 mt-3">
+                        <button className="text-[13px] font-semibold text-primary">Connect Now &rarr;</button>
+                        <span className="text-[11px] text-[#9CA3AF]">2 hours ago</span>
                       </div>
                     </div>
-                  )}
 
-                  {/* Tab 8: Leaderboard */}
-                  {activeTab === 'leaderboard' && (
-                    <div className="p-6 sm:p-10 bg-white h-full">
-                      <div className="mb-8 text-center border-b border-border pb-8">
-                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-amber-600 text-2xl mb-4 shadow-sm border border-amber-200">🏆</div>
-                        <h3 className="text-2xl font-extrabold text-foreground">Campus Leaderboard</h3>
-                        <p className="text-sm font-medium text-muted-foreground mt-2">Top contributors this month</p>
+                    {/* Post 2 */}
+                    <div className="bg-white border border-border rounded-lg p-5 shadow-sm">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center font-bold text-[13px]">P</div>
+                        <div>
+                          <div className="text-[14px] font-bold text-[#111827]">Priya S.</div>
+                          <div className="text-[12px] text-[#6B7280]">JNTUH &middot; IT &middot; Hyderabad</div>
+                        </div>
                       </div>
-                      <div className="space-y-3">
-                        {[
-                          { rank: 1, name: 'Rahul K.', points: 1250 },
-                          { rank: 2, name: 'Priya M.', points: 980 },
-                          { rank: 3, name: 'Arjun S.', points: 850 }
-                        ].map((user) => (
-                          <div key={user.rank} className="rounded-2xl bg-[#F9FAFB] p-5 border border-border flex items-center justify-between hover:border-amber-500/20 transition-colors">
-                            <div className="flex items-center gap-5">
-                              <span className={cn("text-lg font-extrabold w-8 text-center", user.rank === 1 ? 'text-amber-500' : 'text-muted-foreground')}>#{user.rank}</span>
-                              <h4 className="font-bold text-base text-foreground">{user.name}</h4>
-                            </div>
-                            <span className="text-sm font-bold text-emerald-600 bg-emerald-500/10 px-3 py-1.5 rounded-lg">{user.points} pts</span>
-                          </div>
-                        ))}
+                      <p className="text-[14px] text-[#374151] italic border-l-2 border-muted pl-3 my-4">
+                        "Looking for UI/UX designer for SIH project on agriculture tech. Stipend if selected by SIH committee."
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        <span className="text-[11px] px-2 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-100">UI/UX</span>
+                        <span className="text-[11px] px-2 py-0.5 bg-pink-50 text-pink-700 rounded border border-pink-100">Figma</span>
+                        <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded border border-emerald-100">SIH 2026</span>
+                      </div>
+                      <div className="flex justify-between items-center border-t border-border pt-3 mt-3">
+                        <button className="text-[13px] font-semibold text-primary">Connect Now &rarr;</button>
+                        <span className="text-[11px] text-[#9CA3AF]">5 hours ago</span>
                       </div>
                     </div>
-                  )}
 
-                  {/* Tab 9: Notifications */}
-                  {activeTab === 'notifications' && (
-                    <div className="p-6 sm:p-10 bg-[#F9FAFB] h-full">
-                      <div className="mb-8 border-b border-border pb-6 flex items-center justify-between">
-                        <h3 className="text-2xl font-extrabold text-foreground">Notifications</h3>
-                        <span className="text-[11px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-wider">3 New</span>
+                    {/* Post 3 */}
+                    <div className="bg-white border border-border rounded-lg p-5 shadow-sm">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-[13px]">A</div>
+                        <div>
+                          <div className="text-[14px] font-bold text-[#111827]">Aditya M.</div>
+                          <div className="text-[12px] text-[#6B7280]">VNRVJIET &middot; CSE</div>
+                        </div>
                       </div>
-                      <div className="space-y-4">
-                        {[
-                          { icon: '🚀', text: 'Your application for Frontend Intern was viewed by the recruiter.', time: '10m ago', unread: true },
-                          { icon: '👋', text: 'Arjun sent you a connection request.', time: '2h ago', unread: true },
-                          { icon: '📁', text: 'New notes uploaded in DBMS.', time: '5h ago', unread: true },
-                          { icon: '✅', text: 'Your profile has been verified successfully.', time: '1d ago', unread: false },
-                        ].map((notif, i) => (
-                          <div key={i} className={cn("rounded-2xl p-5 border flex gap-4 items-start transition-colors", notif.unread ? "bg-white border-border shadow-sm" : "bg-transparent border-transparent opacity-60")}>
-                            <div className="h-10 w-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 border border-border">
-                              <span className="text-lg">{notif.icon}</span>
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-sm font-bold text-foreground leading-relaxed">{notif.text}</p>
-                              <p className="text-[11px] font-bold text-muted-foreground mt-2 uppercase tracking-wider">{notif.time}</p>
-                            </div>
-                            {notif.unread && (
-                              <div className="h-2 w-2 rounded-full bg-primary mt-2 shrink-0"></div>
-                            )}
-                          </div>
-                        ))}
+                      <p className="text-[14px] text-[#374151] italic border-l-2 border-muted pl-3 my-4">
+                        "Building a startup MVP — need a backend dev (Node.js). College project that could go further."
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        <span className="text-[11px] px-2 py-0.5 bg-green-50 text-green-700 rounded border border-green-100">Node.js</span>
+                        <span className="text-[11px] px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-100">Startup</span>
+                        <span className="text-[11px] px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200">Backend</span>
+                      </div>
+                      <div className="flex justify-between items-center border-t border-border pt-3 mt-3">
+                        <button className="text-[13px] font-semibold text-primary">Connect Now &rarr;</button>
+                        <span className="text-[11px] text-[#9CA3AF]">1 day ago</span>
                       </div>
                     </div>
-                  )}
+                  </div>
+                </div>
+              )}
 
-                </motion.div>
-              </AnimatePresence>
             </div>
-          </div>
-
+            
+            <p className="text-[14px] text-[#9CA3AF] mt-4 text-center lg:hidden">
+              Everything you see is a realistic example of what the product will contain. No placeholders.
+            </p>
+          </Reveal>
         </div>
       </div>
     </section>
