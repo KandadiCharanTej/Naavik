@@ -65,13 +65,13 @@ export function Hero({ waitlistCount = 217 }: HeroProps) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="relative mx-auto w-full max-w-[600px] lg:max-w-none flex flex-col gap-4 perspective-1000"
+            className="relative mx-auto w-full max-w-[600px] lg:max-w-none hidden sm:flex flex-col gap-4 perspective-1000"
           >
             <div className="relative rounded-[2rem] border border-border/80 bg-white shadow-2xl shadow-primary/5 overflow-hidden flex min-h-[520px]">
               {/* Sidebar */}
               <div className="w-60 shrink-0 border-r border-border/60 bg-[#FCFCFD] p-5 flex flex-col hidden sm:flex">
                 <div className="flex items-center mb-10 px-2 mt-2">
-                  <Logo className="h-6 w-auto" />
+                  <Logo className="h-7 w-auto" />
                 </div>
 
                 <nav className="flex flex-col gap-1.5 flex-1">
@@ -82,7 +82,7 @@ export function Hero({ waitlistCount = 217 }: HeroProps) {
                     { icon: BookOpen, label: 'College', active: false },
                     { icon: Layers, label: 'Projects', active: false },
                   ].map((item, i) => (
-                    <div key={i} className={cn("flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-bold transition-all cursor-default", item.active ? "bg-white text-primary shadow-sm border border-border/50" : "text-muted-foreground hover:bg-black/5 hover:text-foreground")}>
+                    <div key={i} className={cn("flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer", item.active ? "bg-white text-primary shadow-sm border border-border/50" : "text-muted-foreground hover:bg-black/5 hover:text-foreground")}>
                       <item.icon className={cn("h-4 w-4", item.active ? "text-primary" : "text-muted-foreground")} />
                       {item.label}
                     </div>
@@ -133,7 +133,7 @@ export function Hero({ waitlistCount = 217 }: HeroProps) {
                       <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-500/10 px-2.5 py-1 rounded-md">College Update</span>
                     </div>
                     <h3 className="text-base font-bold text-foreground mb-1">DBMS Unit 4 Notes Uploaded</h3>
-                    <p className="text-xs font-medium text-muted-foreground leading-relaxed">By Prof. Sharma</p>
+                    <p className="text-xs font-medium text-muted-foreground leading-relaxed">By Campus Admin</p>
                   </div>
                 </div>
               </div>
