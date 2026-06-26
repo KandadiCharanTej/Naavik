@@ -1,5 +1,9 @@
-import { Reveal } from '@/components/reveal'
+'use client'
+
+import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
 import { AdminButton } from '@/components/cta-buttons'
+import { motion } from 'framer-motion'
+import { useRef } from 'react'
 
 export function AdminSection() {
   const steps = [
@@ -18,6 +22,8 @@ export function AdminSection() {
     { text: 'First access to every new feature before anyone else on the platform' },
     { text: 'Real leadership experience — you\'re building your campus\'s tech hub from scratch' }
   ]
+
+  const timelineRef = useRef(null)
 
   return (
     <section className="bg-[var(--bg-white)] py-[72px] lg:py-[120px]" id="admin">
@@ -50,18 +56,27 @@ export function AdminSection() {
               The Journey
             </h3>
             
-            <div className="relative border-l border-dashed border-[#D1D5DB] ml-[13px] pl-8 pb-8 space-y-10">
-              {steps.map((step, i) => (
-                <div key={i} className="relative">
-                  {/* Step Number Circle */}
-                  <div className="absolute -left-[45px] top-0 w-[26px] h-[26px] rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[13px] font-bold">
-                    {step.num}
-                  </div>
-                  
-                  <h4 className="text-[15px] font-semibold text-[#111827] leading-none mb-1.5">{step.title}</h4>
-                  <p className="text-[13px] text-[#6B7280]">{step.body}</p>
-                </div>
-              ))}
+            <div className="relative ml-[13px] pl-8 pb-8" ref={timelineRef}>
+              <motion.div 
+                initial={{ height: 0 }}
+                whileInView={{ height: '100%' }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 1.5, ease: premiumEasing }}
+                className="absolute left-0 top-0 w-px border-l border-dashed border-[#D1D5DB] h-full"
+              />
+              <StaggerContainer delay={200} className="space-y-10">
+                {steps.map((step, i) => (
+                  <StaggerItem key={i} className="relative">
+                    {/* Step Number Circle */}
+                    <div className="absolute -left-[45px] top-0 w-[26px] h-[26px] rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[13px] font-bold">
+                      {step.num}
+                    </div>
+                    
+                    <h4 className="text-[15px] font-semibold text-[#111827] leading-none mb-1.5">{step.title}</h4>
+                    <p className="text-[13px] text-[#6B7280]">{step.body}</p>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
             </div>
 
             <div className="mt-8">
@@ -84,18 +99,18 @@ export function AdminSection() {
               What you get
             </h3>
             
-            <div className="flex flex-col gap-[20px]">
+            <StaggerContainer delay={300} className="flex flex-col gap-[20px]">
               {benefits.map((benefit, i) => (
-                <div key={i} className="flex items-start gap-4">
+                <StaggerItem key={i} className="flex items-start gap-4">
                   <div className="w-[24px] h-[24px] shrink-0 rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[14px] font-bold mt-0.5">
                     ✓
                   </div>
                   <p className="text-[15px] font-semibold text-[#111827] leading-[1.6]">
                     {benefit.text}
                   </p>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </Reveal>
 
         </div>

@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Reveal } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
 import { Plus, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export function FaqSection() {
   const faqs = [
@@ -46,13 +47,12 @@ export function FaqSection() {
         </Reveal>
 
         {/* Accordion */}
-        <Reveal delay={100} className="w-full">
-          <div className="flex flex-col gap-4">
-            {faqs.map((faq, index) => {
-              const isOpen = openIndex === index
-              return (
+        <StaggerContainer delay={100} className="w-full flex flex-col gap-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index
+            return (
+              <StaggerItem key={index}>
                 <div 
-                  key={index} 
                   className="bg-white border border-[#E5E7EB] rounded-[12px] overflow-hidden transition-all duration-200 shadow-sm hover:border-[var(--purple-600)]"
                 >
                   <button
@@ -66,20 +66,26 @@ export function FaqSection() {
                       {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                     </span>
                   </button>
-                  <div
-                    id={`faq-answer-${index}`}
-                    className={cn(
-                      'px-6 pb-5 transition-all duration-200 ease-in-out',
-                      isOpen ? 'block' : 'hidden'
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`faq-answer-${index}`}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="px-6 pb-5">
+                          <p className="text-[15px] text-[#374151] leading-[1.7]">{faq.answer}</p>
+                        </div>
+                      </motion.div>
                     )}
-                  >
-                    <p className="text-[15px] text-[#374151] leading-[1.7]">{faq.answer}</p>
-                  </div>
+                  </AnimatePresence>
                 </div>
-              )
-            })}
-          </div>
-        </Reveal>
+              </StaggerItem>
+            )
+          })}
+        </StaggerContainer>
 
       </div>
     </section>

@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Reveal } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
 import { Home, Globe, Library, Users, FolderKanban, Search, Bell, Pin } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export function ProductPreview() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'opportunities' | 'notes' | 'team'>('dashboard')
@@ -14,6 +15,12 @@ export function ProductPreview() {
     { id: 'notes', label: 'Notes Library' },
     { id: 'team', label: 'Team Finder' },
   ] as const
+
+  const tabContentVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -10 }
+  }
 
   return (
     <section className="bg-[var(--bg-purple-tint)] py-[72px] lg:py-[120px]" id="product-preview">
@@ -40,18 +47,25 @@ export function ProductPreview() {
           <Reveal delay={100}>
             
             {/* Tab Nav */}
-            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-6 -mx-5 px-5 lg:mx-0 lg:px-0">
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-6 -mx-5 px-5 lg:mx-0 lg:px-0 relative">
               {tabs.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "whitespace-nowrap px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors border",
+                    "whitespace-nowrap px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors relative z-10",
                     activeTab === tab.id 
-                      ? "bg-white text-[var(--purple-600)] border-[var(--purple-600)] border-b-[2px] shadow-sm"
-                      : "bg-transparent text-[#6B7280] border-transparent hover:text-[#374151] hover:bg-black/5"
+                      ? "text-[var(--purple-600)]"
+                      : "bg-transparent text-[#6B7280] hover:text-[#374151] hover:bg-black/5"
                   )}
                 >
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="active-tab"
+                      className="absolute inset-0 bg-white border border-[var(--purple-600)] border-b-[2px] shadow-sm rounded-[8px] -z-10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
                   {tab.label}
                 </button>
               ))}
@@ -63,11 +77,20 @@ export function ProductPreview() {
                 Preview
               </div>
               
-              {/* Dashboard Content */}
-              {activeTab === 'dashboard' && (
-                <div className="flex w-full animate-in fade-in duration-300">
-                  {/* Sidebar */}
-                  <div className="w-[64px] bg-[#0F0F0F] shrink-0 hidden sm:flex flex-col items-center py-6 gap-6">
+              <AnimatePresence mode="wait">
+                {/* Dashboard Content */}
+                {activeTab === 'dashboard' && (
+                  <motion.div
+                    key="dashboard"
+                    variants={tabContentVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: premiumEasing }}
+                    className="flex w-full"
+                  >
+                    {/* Sidebar */}
+                    <div className="w-[64px] bg-[#0F0F0F] shrink-0 hidden sm:flex flex-col items-center py-6 gap-6">
                     <div className="h-6 w-6 rounded bg-primary/20 text-primary flex items-center justify-center font-bold text-[12px] mb-4">N</div>
                     <button className="text-[var(--purple-500)] p-2 rounded-lg bg-white/10"><Home className="w-5 h-5" /></button>
                     <button className="text-white/50 hover:text-white transition-colors p-2"><Globe className="w-5 h-5" /></button>
@@ -129,15 +152,23 @@ export function ProductPreview() {
                         <p className="text-[14px] text-[#374151] mb-3">"Need React dev for SIH" &middot; Rahul K. &middot; CBIT</p>
                         <button className="text-[12px] font-semibold text-blue-600">Connect &rarr;</button>
                       </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              )}
+                  </motion.div>
+                )}
 
-              {/* Opportunities Content */}
-              {activeTab === 'opportunities' && (
-                <div className="flex flex-col w-full h-full bg-[#F9FAFB] animate-in fade-in duration-300">
-                  <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
+                {/* Opportunities Content */}
+                {activeTab === 'opportunities' && (
+                  <motion.div
+                    key="opportunities"
+                    variants={tabContentVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: premiumEasing }}
+                    className="flex flex-col w-full h-full bg-[#F9FAFB]"
+                  >
+                    <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
                     <span className="text-[13px] text-muted-foreground mr-2">Filter:</span>
                     <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Branch: CSE ▼</span>
                     <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Year: 2nd ▼</span>
@@ -204,14 +235,22 @@ export function ProductPreview() {
                         <span className="text-[11px] text-[#6B7280]">10d left</span>
                       </div>
                     </div>
-                  </div>
-                </div>
-              )}
+                    </div>
+                  </motion.div>
+                )}
 
-              {/* Notes Library Content */}
-              {activeTab === 'notes' && (
-                <div className="flex flex-col w-full h-full bg-[#F9FAFB] animate-in fade-in duration-300">
-                  <div className="p-4 md:p-6 border-b border-border bg-white flex flex-col gap-3">
+                {/* Notes Library Content */}
+                {activeTab === 'notes' && (
+                  <motion.div
+                    key="notes"
+                    variants={tabContentVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: premiumEasing }}
+                    className="flex flex-col w-full h-full bg-[#F9FAFB]"
+                  >
+                    <div className="p-4 md:p-6 border-b border-border bg-white flex flex-col gap-3">
                     <h3 className="text-[18px] font-bold text-[#111827]">📚 Study Vault — CSE &middot; Semester 4</h3>
                     <p className="text-[13px] text-emerald-600 font-medium">Uploaded and verified by student admins.</p>
                     <div className="flex gap-4 mt-2 border-b border-border">
@@ -242,14 +281,22 @@ export function ProductPreview() {
                         </button>
                       </div>
                     ))}
-                  </div>
-                </div>
-              )}
+                    </div>
+                  </motion.div>
+                )}
 
-              {/* Team Finder Content */}
-              {activeTab === 'team' && (
-                <div className="flex flex-col w-full h-full bg-[#F9FAFB] animate-in fade-in duration-300">
-                   <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
+                {/* Team Finder Content */}
+                {activeTab === 'team' && (
+                  <motion.div
+                    key="team"
+                    variants={tabContentVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: premiumEasing }}
+                    className="flex flex-col w-full h-full bg-[#F9FAFB]"
+                  >
+                     <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
                     <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Skills: React Native ▼</span>
                     <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Purpose: Hackathon ▼</span>
                     <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">College: Any ▼</span>
@@ -324,9 +371,10 @@ export function ProductPreview() {
                         <span className="text-[11px] text-[#9CA3AF]">1 day ago</span>
                       </div>
                     </div>
-                  </div>
-                </div>
-              )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
             </div>
             

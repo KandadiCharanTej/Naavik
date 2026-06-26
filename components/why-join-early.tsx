@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
 import { WaitlistButton } from '@/components/cta-buttons'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
@@ -55,29 +55,37 @@ export async function WhyJoinEarly() {
         </Reveal>
 
         {/* 5 Reason Cards */}
-        <Reveal delay={100} className="w-full">
-          <div className="flex flex-col gap-6">
-            {/* Top Row: 2 Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[900px] mx-auto">
-              {cards.slice(0, 2).map((card, i) => (
-                <div key={i} className="ui-preview-card !p-6 flex flex-col items-start text-left">
+        <StaggerContainer delay={100} className="w-full flex flex-col gap-6">
+          {/* Top Row: 2 Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[900px] mx-auto">
+            {cards.slice(0, 2).map((card, i) => (
+              <StaggerItem key={i} className="flex">
+                <div 
+                  className="ui-preview-card !p-6 flex flex-col items-start text-left w-full h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)]"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                >
                   <h3 className="text-[18px] font-bold text-[#111827] mb-3">{card.title}</h3>
                   <p className="text-[14px] text-[#374151] leading-[1.6] whitespace-pre-wrap">{card.body}</p>
                 </div>
-              ))}
-            </div>
-            
-            {/* Bottom Row: 3 Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-              {cards.slice(2, 5).map((card, i) => (
-                <div key={i} className="ui-preview-card !p-6 flex flex-col items-start text-left h-full">
-                  <h3 className="text-[18px] font-bold text-[#111827] mb-3">{card.title}</h3>
-                  <p className="text-[14px] text-[#374151] leading-[1.6] whitespace-pre-wrap">{card.body}</p>
-                </div>
-              ))}
-            </div>
+              </StaggerItem>
+            ))}
           </div>
-        </Reveal>
+          
+          {/* Bottom Row: 3 Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+            {cards.slice(2, 5).map((card, i) => (
+              <StaggerItem key={i + 2} className="flex">
+                <div 
+                  className="ui-preview-card !p-6 flex flex-col items-start text-left w-full h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)]"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                >
+                  <h3 className="text-[18px] font-bold text-[#111827] mb-3">{card.title}</h3>
+                  <p className="text-[14px] text-[#374151] leading-[1.6] whitespace-pre-wrap">{card.body}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </div>
+        </StaggerContainer>
 
         {/* CTA & Counter */}
         <Reveal delay={200}>

@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
 
 export function WhatsReady() {
   const columns = [
@@ -45,27 +45,25 @@ export function WhatsReady() {
         </Reveal>
 
         {/* 3 Column Table */}
-        <Reveal delay={100}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-12 gap-x-0 lg:divide-x divide-border">
-            
-            {columns.map((col, i) => (
-              <div key={i} className="flex flex-col lg:px-10 first:lg:pl-0 last:lg:pr-0">
-                <h3 className="text-[14px] font-semibold tracking-widest uppercase text-[#111827] mb-8">
-                  {col.title}
-                </h3>
-                <div className="flex flex-col gap-8">
-                  {col.items.map((item, j) => (
-                    <div key={j} className="flex flex-col">
-                      <h4 className="text-[15px] font-semibold text-[#111827] mb-1.5">{item.name}</h4>
-                      <p className="text-[14px] text-[#6B7280] leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
+        <StaggerContainer delay={100} className="grid grid-cols-1 lg:grid-cols-3 gap-y-12 gap-x-0 lg:divide-x divide-border">
+          
+          {columns.map((col, i) => (
+            <StaggerItem key={i} className="flex flex-col lg:px-10 first:lg:pl-0 last:lg:pr-0">
+              <h3 className="text-[14px] font-semibold tracking-widest uppercase text-[#111827] mb-8">
+                {col.title}
+              </h3>
+              <div className="flex flex-col gap-8">
+                {col.items.map((item, j) => (
+                  <div key={j} className="flex flex-col transition-all hover:translate-x-1 duration-300">
+                    <h4 className="text-[15px] font-semibold text-[#111827] mb-1.5">{item.name}</h4>
+                    <p className="text-[14px] text-[#6B7280] leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </StaggerItem>
+          ))}
 
-          </div>
-        </Reveal>
+        </StaggerContainer>
 
         {/* Footer */}
         <Reveal delay={200}>

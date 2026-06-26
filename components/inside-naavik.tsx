@@ -1,14 +1,21 @@
-import { Reveal } from '@/components/reveal'
+'use client'
+
+import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
 import { ADMIN_FORM_URL } from '@/lib/constants'
+import { motion } from 'framer-motion'
 
 function MiniUICard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-white border border-border rounded-[10px] p-3 shadow-sm relative group overflow-hidden">
+    <motion.div 
+      whileHover={{ y: -4, boxShadow: '0 10px 25px rgba(0,0,0,0.06)' }}
+      transition={{ duration: 0.3, ease: premiumEasing }}
+      className="bg-white border border-border rounded-[10px] p-3 shadow-sm relative group overflow-hidden"
+    >
       <div className="absolute top-3 right-3 text-[10px] text-[#9CA3AF] font-medium opacity-0 group-hover:opacity-100 transition-opacity">
         Preview
       </div>
       {children}
-    </div>
+    </motion.div>
   )
 }
 

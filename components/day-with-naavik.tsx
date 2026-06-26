@@ -1,4 +1,7 @@
-import { Reveal } from '@/components/reveal'
+'use client'
+
+import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
+import { motion } from 'framer-motion'
 
 export function DayWithNaavik() {
   const cards = [
@@ -46,12 +49,13 @@ export function DayWithNaavik() {
         </Reveal>
 
         {/* 4 Time Cards */}
-        <Reveal delay={100}>
-          <div className="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 pb-6 snap-x snap-mandatory hide-scrollbar -mx-5 px-5 lg:mx-0 lg:px-0 lg:overflow-visible lg:pb-0">
-            {cards.map((card, idx) => (
-              <div 
-                key={idx} 
-                className="bg-white border border-[#E5E7EB] rounded-[16px] p-6 shadow-sm min-w-[280px] w-[280px] lg:w-auto lg:min-w-0 snap-center flex flex-col h-auto lg:max-h-[260px] flex-shrink-0 relative group transition-all hover:border-[var(--purple-600)]"
+        <StaggerContainer delay={100} className="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 pb-6 snap-x snap-mandatory hide-scrollbar -mx-5 px-5 lg:mx-0 lg:px-0 lg:overflow-visible lg:pb-0">
+          {cards.map((card, idx) => (
+            <StaggerItem key={idx} className="min-w-[280px] w-[280px] lg:w-auto lg:min-w-0 snap-center flex-shrink-0 flex">
+              <motion.div 
+                whileHover={{ y: -4, boxShadow: '0 10px 25px rgba(0,0,0,0.06)' }}
+                transition={{ duration: 0.3, ease: premiumEasing }}
+                className="bg-white border border-[#E5E7EB] rounded-[16px] p-6 shadow-sm flex flex-col h-auto lg:max-h-[260px] relative group w-full"
               >
                 <div className="text-[12px] text-[#6B7280] font-medium mb-1">{card.time}</div>
                 <h3 className="text-[18px] font-bold text-[#111827] mb-4">{card.title}</h3>
@@ -67,10 +71,10 @@ export function DayWithNaavik() {
                     {card.cta} &rarr;
                   </a>
                 </div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+              </motion.div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
 
         {/* Footer Text */}
         <Reveal delay={200}>
