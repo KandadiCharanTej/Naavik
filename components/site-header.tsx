@@ -44,22 +44,22 @@ export function SiteHeader() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: premiumEasing }}
-      className="fixed inset-x-0 top-0 z-50"
+      className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
     >
       <motion.div
-        className="w-full border-b transition-colors duration-300"
+        className="w-full max-w-[1200px] rounded-full border transition-colors duration-300 shadow-sm relative"
         initial={false}
         animate={{
-          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0)',
-          borderColor: scrolled ? 'rgba(229, 231, 235, 0.7)' : 'rgba(229, 231, 235, 0)',
-          backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
+          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.5)',
+          borderColor: scrolled ? 'rgba(229, 231, 235, 0.8)' : 'rgba(229, 231, 235, 0.3)',
+          backdropFilter: scrolled ? 'blur(20px)' : 'blur(10px)',
         }}
       >
-        <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-5 sm:px-8 relative">
+        <div className="flex h-[64px] items-center justify-between px-4 sm:px-6 relative">
           
           {/* LEFT: Logo */}
           <a href="#" className="flex items-center gap-1.5" aria-label="Naavik home">
-            <Logo />
+            <Logo className="h-7 w-auto" />
           </a>
 
           {/* CENTER: Links (desktop only) */}
@@ -89,7 +89,7 @@ export function SiteHeader() {
           <div className="hidden items-center gap-2 md:flex">
             <button 
               onClick={openWaitlist}
-              className="btn-primary !px-[20px] !py-[10px] !text-[15px]"
+              className="h-[44px] px-6 rounded-full bg-[var(--purple-600)] text-white text-[15px] font-semibold shadow-[0_4px_14px_0_rgba(124,58,237,0.39)] hover:bg-[var(--purple-700)] transition-all hover:scale-[1.02]"
             >
               Join Early Access &rarr;
             </button>
@@ -126,7 +126,7 @@ export function SiteHeader() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: premiumEasing }}
-            className="border-t border-border bg-background/95 backdrop-blur-xl md:hidden overflow-hidden"
+            className="absolute top-[calc(100%+0.5rem)] inset-x-0 rounded-2xl border border-border bg-white/95 backdrop-blur-xl md:hidden overflow-hidden shadow-lg mx-4 sm:mx-8"
           >
             <motion.nav 
               initial="hidden"

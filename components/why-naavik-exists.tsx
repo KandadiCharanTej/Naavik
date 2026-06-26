@@ -6,7 +6,7 @@ export async function WhyNaavikExists() {
     { before: '7 apps to check every morning', after: 'One personalised feed' },
     { before: 'Notes buried in Drive folders', after: 'Semester-sorted study vault' },
     { before: 'Opportunities found by luck', after: 'Filtered to your branch & year' },
-    { before: 'Teammates only from your class', after: '200+ colleges across TG & AP' },
+    { before: 'Teammates only from your class', after: 'Engineering colleges across Telangana & Andhra Pradesh' },
     { before: 'Campus updates lost in spam', after: 'Verified, in one clean place' },
   ]
 
@@ -90,7 +90,7 @@ export async function WhyNaavikExists() {
               {/* Abstract visual of unified platform */}
               <div className="mt-10 w-full h-[68px] bg-gradient-to-r from-[var(--purple-50)] to-blue-50 border border-[var(--purple-200)] rounded-xl shadow-sm flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20 bg-[url('/grid.svg')] bg-center"></div>
-                <span className="relative z-10 font-bold text-[14px] text-[var(--purple-700)] tracking-wide">One unified platform</span>
+                <span className="relative z-10 font-bold text-[14px] text-[var(--purple-700)] tracking-wide">One place.</span>
               </div>
             </div>
           </Reveal>
@@ -103,7 +103,7 @@ export async function WhyNaavikExists() {
           <StaggerItem variant="scaleIn" className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-300"></StaggerItem>
           <StaggerItem variant="fadeUp" className="text-[#111827]">One search.</StaggerItem>
           <StaggerItem variant="scaleIn" className="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-300"></StaggerItem>
-          <StaggerItem variant="fadeUp" className="text-[var(--purple-600)]">One united place.</StaggerItem>
+          <StaggerItem variant="fadeUp" className="text-[var(--purple-600)]">One place.</StaggerItem>
         </StaggerContainer>
 
       </div>

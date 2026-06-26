@@ -18,7 +18,7 @@ export function Logo({
     return <NavMark className={className} />
   }
 
-  const logoSrc = '/logo.png'
+  const logoSrc = theme === 'dark' ? '/light-logo.png' : '/dark-logo.png'
 
   return (
     <Image

@@ -89,21 +89,26 @@ export function AdminSection() {
               <StaggerItem>
                 <div className="bg-gray-50 border border-gray-200 rounded-[20px] p-6 md:p-8 mt-2">
                   <h4 className="text-[12px] font-bold uppercase tracking-widest text-gray-500 mb-6 text-center">The Selection Process</h4>
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex flex-col items-center flex-1 text-center">
-                      <div className="w-8 h-8 rounded-full bg-[var(--purple-100)] text-[var(--purple-600)] flex items-center justify-center font-bold text-[14px] mb-3">1</div>
-                      <span className="text-[13px] font-semibold text-gray-900">Apply</span>
-                    </div>
-                    <div className="h-px flex-1 bg-gray-300"></div>
-                    <div className="flex flex-col items-center flex-1 text-center">
-                      <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-[14px] mb-3">2</div>
-                      <span className="text-[13px] font-semibold text-gray-900">Review</span>
-                    </div>
-                    <div className="h-px flex-1 bg-gray-300"></div>
-                    <div className="flex flex-col items-center flex-1 text-center">
-                      <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-[14px] mb-3">3</div>
-                      <span className="text-[13px] font-semibold text-gray-900">Launch</span>
-                    </div>
+                  <div className="flex flex-col gap-6">
+                    {[
+                      { step: 1, title: 'Apply', desc: 'Submit your profile for campus admin role.' },
+                      { step: 2, title: 'Review', desc: 'Our team reviews your application.' },
+                      { step: 3, title: 'Selected', desc: 'Get approved as a campus representative.' },
+                      { step: 4, title: 'Onboarding', desc: 'Learn the platform and best practices.' },
+                      { step: 5, title: 'Launch Your Campus', desc: 'Introduce Naavik to your college.' },
+                      { step: 6, title: 'Upload Resources & Updates', desc: 'Add notes and campus announcements.' },
+                      { step: 7, title: 'Become a Verified Founding Admin', desc: 'Earn your official founding badge.' },
+                    ].map((s) => (
+                      <div key={s.step} className="flex items-start gap-4">
+                        <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-[14px] ${s.step === 1 ? 'bg-[var(--purple-100)] text-[var(--purple-600)]' : 'bg-gray-200 text-gray-600'}`}>
+                          {s.step}
+                        </div>
+                        <div className="flex flex-col pt-1">
+                          <span className="text-[13px] font-semibold text-gray-900">{s.title}</span>
+                          <span className="text-[12px] text-muted-foreground mt-0.5">{s.desc}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </StaggerItem>

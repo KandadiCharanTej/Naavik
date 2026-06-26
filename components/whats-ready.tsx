@@ -65,14 +65,6 @@ export function WhatsReady() {
 
         </StaggerContainer>
 
-        {/* Footer */}
-        <Reveal delay={200}>
-          <div className="mt-16 pt-8 border-t border-border lg:border-none lg:pt-0">
-            <p className="text-[14px] text-[#6B7280] text-center italic">
-              We build in public. Early members vote on what gets prioritised.
-            </p>
-          </div>
-        </Reveal>
 
       </div>
     </section>

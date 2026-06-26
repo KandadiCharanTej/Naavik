@@ -23,12 +23,10 @@ export async function Hero() {
   const progressPercentage = Math.min(100, Math.round((waitlistCount / waitlistGoal) * 100))
 
   return (
-    <section className="relative flex flex-col items-center justify-center pt-[110px] pb-16 md:pt-[140px] md:pb-32 bg-[var(--bg-white)] px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[90vh]">
+    <section className="relative flex flex-col items-center justify-center pt-[120px] pb-16 md:pt-[150px] md:pb-20 bg-white px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[100vh] lg:min-h-[90vh]">
       {/* Refined subtle background mesh gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-50/60 via-white to-blue-50/30 opacity-80 pointer-events-none"></div>
-      
-      {/* Decorative refined grid */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[var(--purple-400)]/10 mix-blend-multiply filter blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--purple-200)]/20 mix-blend-multiply filter blur-[100px] pointer-events-none"></div>
       
       <HeroContent 
         waitlistCount={waitlistCount}

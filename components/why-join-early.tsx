@@ -134,7 +134,8 @@ export async function WhyJoinEarly() {
                 ))}
               </div>
               <p className="text-[14px] font-semibold text-[#6B7280]">
-                Join <span className="text-[#111827]">{waitlistCount}</span> students already on board.
+                Join the first students building the Naavik community.<br />
+                <span className="text-[#111827]">{waitlistCount}</span> students joined so far.
               </p>
             </div>
           </div>

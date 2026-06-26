@@ -18,6 +18,8 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
+
+
         <WhyNaavikExists />
         <InsideNaavik />
         <DayWithNaavik />

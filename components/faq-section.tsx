@@ -25,7 +25,7 @@ export function FaqSection() {
     },
     {
       question: 'How is Naavik different from LinkedIn or Internshala?',
-      answer: 'LinkedIn and Internshala are job boards built for professionals. Naavik is built for your college life. Campus-specific notes, PYQs, lab records, campus announcements — things LinkedIn doesn\'t touch. Opportunities filtered by your branch and year. A Team Finder for hackathons. A network of students across 200+ colleges in your state. They\'re job boards. We\'re your student workspace.',
+      answer: 'LinkedIn and Internshala are job boards built for professionals. Naavik is built for your college life. Campus-specific notes, PYQs, lab records, campus announcements — things LinkedIn doesn\'t touch. Opportunities filtered by your branch and year. A Team Finder for hackathons. A network of students across Telangana & Andhra Pradesh. They\'re job boards. We\'re your student workspace.',
     },
   ]
 

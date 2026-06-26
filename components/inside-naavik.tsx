@@ -12,7 +12,7 @@ export function InsideNaavik() {
   const growthFeatures = [
     {
       title: "Internships & Jobs",
-      desc: "Curated opportunities from top startups and tech companies.",
+      desc: "Verified opportunities from top startups and tech companies.",
       icon: Briefcase,
       tag: "2 days left",
       tagColor: "text-orange-500",
@@ -224,14 +224,14 @@ export function InsideNaavik() {
                     </h3>
                     <p className="text-[16px] text-muted-foreground leading-relaxed mb-6 font-medium">
                       {activeTab === 'growth' 
-                        ? "Unlock opportunities, build teams, and connect with peers across 200+ colleges in Telangana & AP."
+                        ? "Find opportunities, build teams, and connect with peers from Engineering colleges across Telangana & Andhra Pradesh."
                         : "Your private campus hub. Access verified notes, track events, and engage with seniors securely."}
                     </p>
                     
                     <div className="flex flex-wrap gap-2 mt-4">
                       {activeTab === 'growth' ? (
                         <>
-                          {['50+ Opportunities Monthly', 'Project Showcase', 'Team Finder', 'Public Student Feed', 'Student Communities', 'Hackathons', 'Internships', 'Workshops', 'Startup Opportunities'].map((feature, i) => (
+                          {['100+ Opportunities Monthly', 'Project Showcase', 'Team Finder', 'Public Student Feed', 'Student Communities', 'Hackathons', 'Internships', 'Workshops', 'Startup Opportunities'].map((feature, i) => (
                             <span key={i} className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-[12px] font-semibold text-gray-600 shadow-sm whitespace-nowrap">
                               {feature}
                             </span>

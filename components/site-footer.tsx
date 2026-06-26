@@ -11,25 +11,7 @@ export function SiteFooter() {
 
       <div className="mx-auto max-w-[1200px] px-5 pt-[64px] pb-12 relative z-10">
         
-        {/* Massive Footer CTA Area */}
-        <Reveal>
-          <div className="mb-[64px] flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10 text-center md:text-left">
-            <div>
-              <h2 className="text-[36px] md:text-[56px] font-extrabold tracking-[-0.03em] leading-tight mb-2">
-                Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-400)] to-[var(--purple-600)]">start?</span>
-              </h2>
-              <p className="text-[16px] md:text-[18px] text-gray-400 font-medium">Join the waitlist. We'll let you in soon.</p>
-            </div>
-            <a 
-              href="#hero-primary-cta"
-              className="inline-flex items-center justify-center h-[60px] md:h-[64px] w-full sm:w-auto px-10 md:px-12 rounded-full bg-white text-black text-[17px] md:text-[18px] font-bold hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.2)]"
-            >
-              Get Early Access
-            </a>
-          </div>
-        </Reveal>
 
-        <div className="h-px bg-white/10 w-full mb-16"></div>
 
         {/* Links Grid Layout */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-16 mb-16">
@@ -84,10 +66,7 @@ export function SiteFooter() {
             <p className="text-[14px] text-gray-500 font-medium mb-4 md:mb-0">
               &copy; {new Date().getFullYear()} Naavik. All rights reserved.
             </p>
-            <div className="flex items-center gap-2 text-[14px] text-gray-500 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-              All systems operational
-            </div>
+
           </div>
         </Reveal>
 
