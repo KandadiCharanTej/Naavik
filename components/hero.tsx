@@ -1,141 +1,155 @@
 'use client'
 
-import { Bell } from 'lucide-react'
-import { WaitlistButton } from '@/components/cta-buttons'
-import { ConceptPreview } from '@/components/dashboard-mockup'
-import { Reveal } from '@/components/reveal'
+import { useWaitlist } from './waitlist-provider'
+import { LayoutDashboard, Compass, BookOpen, Layers, Users, User, Bell } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { Logo } from '@/components/logo'
 
-const trustSignals = [
-  'Built by students',
-  'Free forever',
-  'Starting in TG & AP',
-  'Launching soon',
-]
+interface HeroProps {
+  waitlistCount?: number
+}
 
-export function Hero() {
-  const handleScrollToHowItWorks = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    const element = document.getElementById('how-it-works')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+export function Hero({ waitlistCount = 217 }: HeroProps) {
+  const { open } = useWaitlist()
 
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex flex-col items-center justify-center pt-28 pb-16 sm:pt-36 sm:pb-28 bg-[#FAFAFC]">
-      
-      {/* Premium subtle background glow effects */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[600px]"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 50% 10%, rgba(109, 64, 246, 0.08), transparent 60%)',
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.025]"
-        style={{
-          backgroundImage:
-            'radial-gradient(#6D28D9 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-      />
-
-      <div className="mx-auto max-w-6xl px-6 flex flex-col items-center text-center">
-        
-        {/* Intro Tag badges */}
-        <Reveal delay={50} className="flex flex-wrap justify-center gap-2 mb-6">
-          {trustSignals.map((sig, i) => (
-            <span 
-              key={i} 
-              className="inline-flex items-center gap-1.5 rounded-full border border-primary/10 bg-primary/5 px-3.5 py-1 text-xs font-medium text-primary"
-            >
-              <span className="text-[10px]">✦</span> {sig}
-            </span>
-          ))}
-        </Reveal>
-
-        {/* Large Keynote Title (72px target, responsive) */}
-        <Reveal delay={100}>
-          <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-balance sm:text-6xl lg:text-[4.5rem] text-foreground">
-            Stop tab-switching. <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Start building.
-            </span>
-          </h1>
-        </Reveal>
-
-        {/* Subtitle */}
-        <Reveal delay={150}>
-          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty">
-            Naavik brings internships, study vaults, peer networks, and campus updates
-            into one focused workspace — built specifically for engineering students
-            in Telangana & Andhra Pradesh.
-          </p>
-        </Reveal>
-
-        {/* Action CTAs */}
-        <Reveal delay={200} className="mt-8 flex flex-col gap-3.5 w-full sm:w-auto sm:flex-row justify-center items-center">
-          <WaitlistButton size="lg" id="hero-waitlist-btn">
-            Join the Waitlist — It&apos;s Free
-          </WaitlistButton>
+    <section className="relative overflow-hidden bg-white pt-32 pb-20 sm:pt-40 sm:pb-32 lg:pt-48 lg:pb-40">
+      <div className="mx-auto max-w-7xl px-5">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-12 items-center">
           
-          <a
-            href="#how-it-works"
-            onClick={handleScrollToHowItWorks}
-            className="inline-flex items-center justify-center rounded-lg font-medium transition-colors border border-border bg-white text-foreground hover:bg-muted/50 h-11 px-6 text-sm shadow-xs w-full sm:w-auto cursor-pointer"
+          {/* Left Column: Copy & CTA */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col text-center sm:text-left z-10"
           >
-            See How It Works ↓
-          </a>
-        </Reveal>
-
-        {/* Small Disclaimer */}
-        <Reveal delay={220} className="mt-4">
-          <p className="text-xs text-muted-foreground">
-            Early concept — product in active development.
-          </p>
-        </Reveal>
-
-        {/* Center-aligned Massive Mockup with Floating cards */}
-        <Reveal delay={250} className="mt-20 w-full max-w-5xl relative">
-          
-          {/* Ambient Glow behind mockup */}
-          <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-primary/10 to-accent/15 blur-3xl opacity-60 rounded-full" />
-          
-          {/* Main App Preview */}
-          <div className="hover:scale-[1.01] transition-transform duration-500 shadow-2xl rounded-2xl border border-border bg-white overflow-hidden relative">
-            <div className="absolute top-3 right-3 z-20 bg-slate-900/90 text-[#FAFAFC] border border-slate-800 text-[9px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md shadow-md select-none">
-              Concept preview · design in progress
+            <div className="mb-6 inline-flex items-center justify-center sm:justify-start">
+              <span className="flex items-center gap-2 rounded-full border border-border bg-secondary/20 px-3 py-1 text-xs font-semibold text-muted-foreground backdrop-blur-sm">
+                <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Early Access Open
+              </span>
             </div>
-            <ConceptPreview />
-          </div>
 
-          {/* Floating UI Card 1: Study vault file (Top Left) */}
-          <div className="hidden lg:flex absolute -top-8 -left-8 bg-white border border-border rounded-xl p-3.5 shadow-lg items-center gap-2.5 max-w-[200px] animate-float">
-            <div className="h-8 w-8 rounded bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs select-none">
-              PDF
-            </div>
-            <div className="text-left">
-              <p className="text-[10px] font-bold text-foreground">DBMS PYQ (2024)</p>
-              <p className="text-[9px] text-muted-foreground">CSE • Semester 4</p>
-            </div>
-          </div>
+            <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.1]">
+              The OS for<br />
+              <span className="text-primary">engineering</span><br />
+              students.
+            </h1>
+            
+            <p className="mt-6 text-lg text-muted-foreground sm:text-xl max-w-lg mx-auto sm:mx-0 leading-relaxed font-medium">
+              Discover opportunities, access college resources, and build projects. Replace WhatsApp chaos with one beautiful platform.
+            </p>
 
-          {/* Floating UI Card 2: Opportunities alert (Bottom Right) */}
-          <div className="hidden lg:flex absolute -bottom-6 -right-8 bg-white border border-border rounded-xl p-3.5 shadow-lg items-center gap-3 max-w-[220px] text-left">
-            <div className="h-8 w-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center select-none">
-              <Bell className="h-4 w-4" />
+            <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center sm:justify-start">
+              <button
+                onClick={open}
+                className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl bg-primary px-8 py-4 text-base font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] min-h-[56px]"
+              >
+                Reserve Early Access
+              </button>
+              <a 
+                href="#product-preview"
+                className="inline-flex w-full sm:w-auto items-center justify-center rounded-2xl bg-secondary/10 px-8 py-4 text-base font-bold text-foreground border border-border transition-all hover:bg-secondary/20 min-h-[56px]"
+              >
+                Explore Platform
+              </a>
             </div>
-            <div>
-              <p className="text-[10px] font-bold text-foreground">Matching Opportunity</p>
-              <p className="text-[9px] text-muted-foreground">Smart India Hackathon • Hyderabad</p>
+          </motion.div>
+
+          {/* Right Column: Premium Dashboard Preview */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative mx-auto w-full max-w-[600px] lg:max-w-none flex flex-col gap-4 perspective-1000"
+          >
+            {/* Clean Floating Wordmark Animation replacing random cards */}
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-10 -right-4 sm:-right-10 z-20 hidden sm:flex h-20 items-center justify-center rounded-2xl border border-white/20 bg-white/40 backdrop-blur-xl px-8 shadow-2xl"
+            >
+              <Logo className="h-8 w-auto" />
+            </motion.div>
+
+            <div className="relative rounded-3xl border border-border bg-[#F9FAFB] shadow-2xl shadow-primary/5 overflow-hidden flex min-h-[500px]">
+              {/* Sidebar */}
+              <div className="w-56 shrink-0 border-r border-border bg-white p-4 flex flex-col hidden sm:flex">
+                <div className="flex items-center gap-2 mb-8 px-2 mt-2">
+                  <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center text-white text-sm font-bold shadow-sm">N</div>
+                  <span className="text-lg font-extrabold text-foreground tracking-tight">Naavik</span>
+                </div>
+
+                <nav className="flex flex-col gap-1.5 flex-1">
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2 px-2 mt-2">Space</div>
+                  {[
+                    { icon: LayoutDashboard, label: 'Dashboard', active: true },
+                    { icon: Compass, label: 'Growth', active: false },
+                    { icon: BookOpen, label: 'College Space', active: false },
+                    { icon: Layers, label: 'Projects', active: false },
+                  ].map((item, i) => (
+                    <div key={i} className={cn("flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-colors cursor-default", item.active ? "bg-primary text-white shadow-sm" : "text-muted-foreground hover:bg-secondary/10 hover:text-foreground")}>
+                      <item.icon className={cn("h-4 w-4", item.active ? "text-white" : "text-muted-foreground")} />
+                      {item.label}
+                    </div>
+                  ))}
+                </nav>
+
+                <div className="mt-auto flex items-center justify-between border-t border-border pt-4 px-2">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-secondary/20 flex items-center justify-center border border-border">
+                      <User className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-foreground">Sai Kumar</div>
+                    </div>
+                  </div>
+                  <Bell className="h-4 w-4 text-muted-foreground" />
+                </div>
+              </div>
+
+              {/* Main Feed Content Area */}
+              <div className="flex-1 bg-[#F9FAFB] p-6 relative flex flex-col">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-2xl font-extrabold text-foreground">Dashboard</h2>
+                  <div className="h-8 w-8 rounded-full bg-white border border-border flex items-center justify-center shadow-sm">
+                    <span className="text-xs font-bold text-primary">3</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="rounded-2xl border border-border bg-white p-5 shadow-sm transition-all cursor-default"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                      <span className="text-[10px] font-bold text-orange-600 uppercase tracking-wider bg-orange-500/10 px-2 py-0.5 rounded-md">Deadline Today</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-foreground mb-1">Frontend Intern - Remote</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-4">Complete your application for the Tech Startup role.</p>
+                    <div className="h-9 rounded-xl bg-primary flex items-center justify-center text-xs font-bold text-white shadow-sm w-32 hover:bg-primary/90">
+                      Apply Now
+                    </div>
+                  </motion.div>
+
+                  <div className="rounded-2xl border border-border bg-white p-5 shadow-sm opacity-60">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
+                      <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded-md">College Update</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-foreground mb-1">DBMS Unit 4 Notes Uploaded</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">By Prof. Sharma</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+            
+          </motion.div>
 
-        </Reveal>
-
+        </div>
       </div>
     </section>
   )

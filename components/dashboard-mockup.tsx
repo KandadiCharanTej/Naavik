@@ -45,7 +45,7 @@ export function ConceptPreview() {
           {/* sidebar */}
           <aside className="hidden w-44 shrink-0 flex-col gap-1 border-r border-border bg-secondary/30 p-3 sm:flex">
             <div className="mb-3 flex items-center px-2">
-              <Logo className="h-15 w-auto" />
+              <Logo className="h-25 w-auto" />
             </div>
             {navItems.map((item) => (
               <div

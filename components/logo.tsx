@@ -18,19 +18,16 @@ export function Logo({
     return <NavMark className={className} />
   }
 
-  // Use the exact uploaded logo images:
-  // On light backgrounds, we use the dark text version (/logos/naviko-dark.png).
-  // On dark backgrounds, we use the light text version (/logos/naviko-light.png).
-  const logoSrc = theme === 'light' ? '/logos/naviko-dark.png' : '/logos/naviko-light.png'
+  const logoSrc = '/logo.png'
 
   return (
     <Image
       src={logoSrc}
       alt="Naavik"
-      width={180}
-      height={68}
+      width={300}
+      height={110}
       priority
-      className={cn('h-17 w-auto object-contain shrink-0', className)}
+      className={cn('h-35 w-auto object-contain shrink-0', className)}
     />
   )
 }

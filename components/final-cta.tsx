@@ -1,40 +1,47 @@
-import { WaitlistButton } from '@/components/cta-buttons'
-import { Reveal } from '@/components/reveal'
+'use client'
 
-export function FinalCta() {
+import { useWaitlist } from './waitlist-provider'
+
+interface FinalCtaProps {
+  waitlistCount?: number
+}
+
+export function FinalCta({ waitlistCount = 217 }: FinalCtaProps) {
+  const { open } = useWaitlist()
+  const percentage = Math.min(Math.floor((waitlistCount / 500) * 100), 100)
+
   return (
-    <section className="py-16 sm:py-28 lg:py-36 bg-white">
-      <div className="mx-auto max-w-6xl px-6">
-        <Reveal className="relative overflow-hidden rounded-3xl border border-primary/20 bg-[#0A0714] px-6 py-16 text-center sm:py-20 shadow-2xl">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15), transparent 70%)',
-            }}
-          />
-          <div className="relative flex flex-col items-center">
-            <h2 className="mx-auto max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl leading-[1.1]">
-              Naavik is being built right now.<br />
-              The students who join early<br className="hidden sm:inline" />
-              will shape what it becomes.
-            </h2>
-            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-slate-400">
-              Get launch updates for your college. Lock in your founding member status. Be first when your campus goes live.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3">
-              <WaitlistButton size="lg" id="final-cta-waitlist-btn">
-                Reserve My Spot — Free
-              </WaitlistButton>
-              <p className="text-xs text-slate-500 mt-2">
-                No spam. Just meaningful updates. Unsubscribe anytime.
-              </p>
-            </div>
+    <section className="bg-[#0F0F0F] pt-24 pb-12 sm:pt-32" id="final-cta">
+      <div className="mx-auto max-w-4xl px-5 text-center flex flex-col items-center">
+        <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl leading-tight">
+          Join the first students.
+        </h2>
+        <p className="mt-4 text-lg text-white/60">
+          Be first when your campus goes live.
+        </p>
+
+        <div className="mx-auto mt-12 w-full max-w-lg rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
+          <div className="flex items-center justify-between text-[13px] font-semibold text-white/80">
+            <span>{waitlistCount} / 500 Students Joined</span>
+            <span>{percentage}%</span>
           </div>
-        </Reveal>
+          <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-white/10">
+            <div 
+              className="h-full bg-primary transition-all duration-1000 ease-out rounded-full" 
+              style={{ width: `${percentage}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="mt-12 mb-24 w-full">
+          <button 
+            onClick={open}
+            className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-8 py-5 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] sm:w-auto min-h-[52px]"
+          >
+            Reserve Early Access
+          </button>
+        </div>
       </div>
     </section>
   )
 }
-
