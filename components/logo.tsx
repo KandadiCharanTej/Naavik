@@ -24,10 +24,10 @@ export function Logo({
     <Image
       src={logoSrc}
       alt="Naavik"
-      width={300}
-      height={110}
+      width={120}
+      height={32}
       priority
-      className={cn('h-35 w-auto object-contain shrink-0', className)}
+      className={cn('h-9 md:h-10 w-auto object-contain shrink-0 transition-transform duration-300 hover:scale-[1.03]', className)}
     />
   )
 }

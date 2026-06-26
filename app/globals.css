@@ -107,53 +107,75 @@
 .btn-primary {
   background: var(--purple-600);
   color: white;
-  padding: 14px 28px;
-  border-radius: 10px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-decoration: none;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
 }
 .btn-primary:hover {
   background: #6D28D9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+.btn-primary:active {
+  background: #5B21B6; /* Darker purple, never transparent */
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2);
 }
 @media (max-width: 640px) {
   .btn-primary {
     width: 100%;
-    padding: 16px 24px;
-    font-size: 17px;
+    height: 52px;
+    padding: 0 24px;
+    font-size: 16px;
   }
 }
 
 .btn-secondary {
-  background: transparent;
+  background: white;
   color: var(--text-primary);
   border: 1.5px solid var(--border);
-  padding: 14px 28px;
-  border-radius: 10px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 12px;
   font-size: 16px;
   font-weight: 500;
-  transition: all 0.15s;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
 .btn-secondary:hover {
-  border-color: var(--purple-600);
+  border-color: var(--purple-300);
   color: var(--purple-600);
+  background-color: #FAFAFA;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.btn-secondary:active {
+  border-color: var(--purple-400);
+  background-color: #F3F4F6;
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 @media (max-width: 640px) {
   .btn-secondary {
     width: 100%;
-    padding: 16px 24px;
-    font-size: 17px;
+    height: 52px;
+    padding: 0 24px;
+    font-size: 16px;
   }
 }
 
@@ -184,9 +206,19 @@
 .ui-preview-card {
   background: white;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: var(--card-shadow);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02), 0 10px 25px rgba(0,0,0,0.02);
+  transition: transform 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium);
+}
+@media (min-width: 768px) {
+  .ui-preview-card {
+    padding: 32px;
+  }
+}
+.ui-preview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03), 0 15px 35px rgba(0,0,0,0.03);
 }
 
 /* Trust Callout Box */

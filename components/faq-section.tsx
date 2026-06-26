@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
 import { Plus, Minus } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export function FaqSection() {
@@ -33,36 +32,38 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section className="bg-[var(--bg-gray)] py-[72px] lg:py-[120px]" id="faq">
-      <div className="mx-auto max-w-[800px] px-5 flex flex-col items-center">
+    <section className="bg-gray-50 py-[64px] lg:py-[112px] border-t border-gray-200" id="faq">
+      <div className="mx-auto max-w-[1000px] px-5 sm:px-8">
         
         {/* Header */}
         <Reveal className="w-full text-center">
-          <div className="mb-12">
-            <span className="eyebrow-label">FAQ</span>
-            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight">
-              Questions, answered.
+          <div className="mb-16">
+            <h2 className="text-[36px] md:text-[52px] font-extrabold tracking-tight leading-[1.1] text-foreground mb-4">
+              Questions? <span className="text-gray-400">Answered.</span>
             </h2>
+            <p className="text-[18px] text-gray-500 font-medium">Everything you need to know about the product and launch.</p>
           </div>
         </Reveal>
 
-        {/* Accordion */}
-        <StaggerContainer delay={100} className="w-full flex flex-col gap-4">
+        {/* Minimalist Accordion */}
+        <StaggerContainer delay={100} className="w-full flex flex-col gap-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index
             return (
               <StaggerItem key={index}>
                 <div 
-                  className="bg-white border border-[#E5E7EB] rounded-[12px] overflow-hidden transition-all duration-200 shadow-sm hover:border-[var(--purple-600)]"
+                  className={`bg-white rounded-[16px] overflow-hidden transition-all duration-300 ${isOpen ? 'shadow-[0_8px_30px_rgba(0,0,0,0.04)] ring-1 ring-gray-200' : 'shadow-sm border border-gray-100 hover:border-gray-200 hover:shadow-md'}`}
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full flex items-center justify-between px-6 py-5 text-left focus:outline-none"
+                    className="w-full flex items-center justify-between px-6 md:px-8 py-5 text-left focus:outline-none group"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${index}`}
                   >
-                    <span className="text-[16px] font-bold text-[#111827] pr-4">{faq.question}</span>
-                    <span className="text-[#6B7280] shrink-0">
+                    <span className={`text-[16px] md:text-[17px] font-bold transition-colors ${isOpen ? 'text-[var(--purple-600)]' : 'text-gray-900 group-hover:text-[var(--purple-600)]'} pr-4`}>
+                      {faq.question}
+                    </span>
+                    <span className={`shrink-0 transition-transform duration-300 ${isOpen ? 'text-[var(--purple-600)] rotate-180' : 'text-gray-400 group-hover:text-[var(--purple-400)]'}`}>
                       {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                     </span>
                   </button>
@@ -75,8 +76,8 @@ export function FaqSection() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        <div className="px-6 pb-5">
-                          <p className="text-[15px] text-[#374151] leading-[1.7]">{faq.answer}</p>
+                        <div className="px-6 md:px-8 pb-6">
+                          <p className="text-[15px] md:text-[16px] text-gray-500 leading-relaxed font-medium">{faq.answer}</p>
                         </div>
                       </motion.div>
                     )}

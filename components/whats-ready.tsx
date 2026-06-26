@@ -31,15 +31,15 @@ export function WhatsReady() {
   ]
 
   return (
-    <section className="bg-[var(--bg-white)] py-[72px] lg:py-[120px]">
+    <section className="bg-[var(--bg-white)] py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-5">
         
         {/* Header */}
         <Reveal>
           <div className="mb-16">
             <span className="eyebrow-label">WHAT YOU GET</span>
-            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight">
-              Available at launch.
+            <h2 className="text-[32px] md:text-[48px] font-bold tracking-tight leading-[1.1] text-foreground">
+              Available at <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-400)]">launch.</span>
             </h2>
           </div>
         </Reveal>
@@ -55,8 +55,8 @@ export function WhatsReady() {
               <div className="flex flex-col gap-8">
                 {col.items.map((item, j) => (
                   <div key={j} className="flex flex-col transition-all hover:translate-x-1 duration-300">
-                    <h4 className="text-[15px] font-semibold text-[#111827] mb-1.5">{item.name}</h4>
-                    <p className="text-[14px] text-[#6B7280] leading-relaxed">{item.desc}</p>
+                    <h4 className="text-[18px] font-bold text-foreground mb-1.5">{item.name}</h4>
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>

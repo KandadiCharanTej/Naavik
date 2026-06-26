@@ -1,120 +1,117 @@
 'use client'
 
-import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
 import { AdminButton } from '@/components/cta-buttons'
-import { motion } from 'framer-motion'
-import { useRef } from 'react'
+import { CheckCircle2, Shield, Zap, Award, ArrowRight } from 'lucide-react'
 
 export function AdminSection() {
-  const steps = [
-    { num: '1', title: 'Apply', body: 'Submit in 5 minutes.' },
-    { num: '2', title: 'Review', body: 'We read every application. No automated rejections.' },
-    { num: '3', title: 'Selected', body: 'You\'ll hear from us personally within 7 days.' },
-    { num: '4', title: 'Onboarding', body: 'We walk you through the platform together.' },
-    { num: '5', title: 'Launch Your Campus', body: 'Your college workspace goes live. You run it.' },
-    { num: '6', title: 'Upload & Moderate', body: 'Add resources, post updates, build community.' },
-    { num: '✓', title: 'Verified Founding Admin', body: 'Your badge. Permanent.' }
-  ]
-
   const benefits = [
-    { text: 'Verified Founding Admin badge on your Naavik profile' },
-    { text: 'Direct communication with Naavik founders — your feedback shapes what we build next' },
-    { text: 'First access to every new feature before anyone else on the platform' },
-    { text: 'Real leadership experience — you\'re building your campus\'s tech hub from scratch' }
+    { 
+      title: 'Founding Admin Badge',
+      desc: 'A permanent verified badge on your Naavik profile, visible to everyone across all colleges.',
+      icon: Award
+    },
+    { 
+      title: 'Direct Founder Access',
+      desc: 'Work directly with the Naavik team. Your feedback shapes the product roadmap.',
+      icon: Shield
+    },
+    { 
+      title: 'First Access to Features',
+      desc: 'Beta test every new update and feature before it rolls out to the rest of the platform.',
+      icon: Zap
+    }
   ]
-
-  const timelineRef = useRef(null)
 
   return (
-    <section className="bg-[var(--bg-white)] py-[72px] lg:py-[120px]" id="admin">
-      <div className="mx-auto max-w-[1200px] px-5">
+    <section className="bg-white py-[64px] lg:py-[112px] relative border-t border-[var(--border)]" id="admin">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         
-        {/* Header */}
-        <Reveal>
-          <div className="mb-16">
-            <span className="eyebrow-label">FOUNDING TEAM</span>
-            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight mb-6">
-              Lead Your College. Become a Campus Admin.
-            </h2>
-            <div className="text-[16px] text-[#374151] max-w-[700px] leading-[1.7] space-y-4">
-              <p>
-                Campus Admins organise study resources, campus updates, and community activity for their college on Naavik. It's a real leadership role — not a form submission. You'll work directly with the Naavik team to build your campus from the ground up.
-              </p>
-              <p>
-                Admin spots are limited to one per college. We review every application personally and look for students who genuinely want to improve their campus experience.
-              </p>
-            </div>
-          </div>
-        </Reveal>
-
-        {/* Two Columns */}
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
           
-          {/* LEFT: The Journey */}
-          <Reveal delay={100} className="flex-1 w-full">
-            <h3 className="text-[13px] font-semibold uppercase tracking-widest text-[var(--purple-600)] mb-8">
-              The Journey
-            </h3>
-            
-            <div className="relative ml-[13px] pl-8 pb-8" ref={timelineRef}>
-              <motion.div 
-                initial={{ height: 0 }}
-                whileInView={{ height: '100%' }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 1.5, ease: premiumEasing }}
-                className="absolute left-0 top-0 w-px border-l border-dashed border-[#D1D5DB] h-full"
-              />
-              <StaggerContainer delay={200} className="space-y-10">
-                {steps.map((step, i) => (
-                  <StaggerItem key={i} className="relative">
-                    {/* Step Number Circle */}
-                    <div className="absolute -left-[45px] top-0 w-[26px] h-[26px] rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[13px] font-bold">
-                      {step.num}
-                    </div>
-                    
-                    <h4 className="text-[15px] font-semibold text-[#111827] leading-none mb-1.5">{step.title}</h4>
-                    <p className="text-[13px] text-[#6B7280]">{step.body}</p>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </div>
+          {/* Left Column: Typography & Story */}
+          <div className="flex-1 w-full text-center lg:text-left">
+            <Reveal>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--purple-200)] bg-[var(--purple-50)] px-4 py-2 text-[13px] font-bold tracking-wide text-[var(--purple-700)] shadow-sm mb-6 uppercase">
+                <span className="flex h-2 w-2 rounded-full bg-[var(--purple-600)]"></span>
+                Lead Your Campus
+              </div>
+              <h2 className="text-[40px] sm:text-[56px] lg:text-[72px] font-extrabold tracking-[-0.03em] leading-[1.05] sm:leading-[1] text-foreground mb-6">
+                Become a <br className="hidden sm:block" />
+                <span className="text-[var(--purple-600)]">Founding Admin.</span>
+              </h2>
+              <div className="text-[18px] sm:text-[20px] text-muted-foreground leading-relaxed max-w-[600px] mx-auto lg:mx-0 font-medium">
+                <p className="mb-4">
+                  We are selecting exactly one student per college to lead their campus on Naavik. This isn't a form submission; it's a real leadership role.
+                </p>
+                <p>
+                  You'll curate study resources, verify campus updates, and build your college's digital hub from the ground up.
+                </p>
+              </div>
+              
+              <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                <AdminButton 
+                  className="btn-primary h-[60px] w-full sm:w-auto px-6 sm:px-10 text-[16px] sm:text-[17px] rounded-full shadow-[0_8px_30px_rgba(124,58,237,0.25)] transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+                  id="admin-cta"
+                >
+                  Apply for your College
+                  <ArrowRight className="w-5 h-5" />
+                </AdminButton>
+                <p className="text-[13px] font-semibold text-gray-400 max-w-[200px] text-center sm:text-left">
+                  Takes 5 minutes. <br /> Reviewed personally.
+                </p>
+              </div>
+            </Reveal>
+          </div>
 
-            <div className="mt-8">
-              <AdminButton 
-                className="btn-primary"
-                id="admin-cta"
-              >
-                Become a Campus Admin &rarr;
-              </AdminButton>
-              <p className="text-[13px] text-[#6B7280] mt-3 leading-snug max-w-[250px]">
-                Less than 5 minutes to apply.<br />
-                We review every application personally.
-              </p>
-            </div>
-          </Reveal>
-
-          {/* RIGHT: What You Get */}
-          <Reveal delay={200} className="flex-1 w-full lg:max-w-[480px]">
-            <h3 className="text-[13px] font-semibold uppercase tracking-widest text-[var(--purple-600)] mb-8">
-              What you get
-            </h3>
-            
-            <StaggerContainer delay={300} className="flex flex-col gap-[20px]">
+          {/* Right Column: Premium Benefits Bento */}
+          <div className="flex-1 w-full max-w-[600px] mx-auto">
+            <StaggerContainer delay={200} className="grid grid-cols-1 gap-4">
               {benefits.map((benefit, i) => (
-                <StaggerItem key={i} className="flex items-start gap-4">
-                  <div className="w-[24px] h-[24px] shrink-0 rounded-full bg-[var(--purple-600)] text-white flex items-center justify-center text-[14px] font-bold mt-0.5">
-                    ✓
+                <StaggerItem key={i}>
+                  <div className="bg-white border border-[var(--border)] rounded-[20px] p-6 md:p-8 flex items-start gap-5 shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:border-[var(--purple-200)] transition-all group">
+                    <div className="w-14 h-14 rounded-2xl bg-[var(--purple-50)] text-[var(--purple-600)] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[var(--purple-600)] group-hover:text-white transition-all duration-300">
+                      <benefit.icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-[20px] font-bold text-foreground mb-2 group-hover:text-[var(--purple-600)] transition-colors">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-[15px] text-muted-foreground leading-relaxed font-medium">
+                        {benefit.desc}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-[15px] font-semibold text-[#111827] leading-[1.6]">
-                    {benefit.text}
-                  </p>
                 </StaggerItem>
               ))}
+              
+              {/* Process Bar (Minimalist Timeline Replacement) */}
+              <StaggerItem>
+                <div className="bg-gray-50 border border-gray-200 rounded-[20px] p-6 md:p-8 mt-2">
+                  <h4 className="text-[12px] font-bold uppercase tracking-widest text-gray-500 mb-6 text-center">The Selection Process</h4>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex flex-col items-center flex-1 text-center">
+                      <div className="w-8 h-8 rounded-full bg-[var(--purple-100)] text-[var(--purple-600)] flex items-center justify-center font-bold text-[14px] mb-3">1</div>
+                      <span className="text-[13px] font-semibold text-gray-900">Apply</span>
+                    </div>
+                    <div className="h-px flex-1 bg-gray-300"></div>
+                    <div className="flex flex-col items-center flex-1 text-center">
+                      <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-[14px] mb-3">2</div>
+                      <span className="text-[13px] font-semibold text-gray-900">Review</span>
+                    </div>
+                    <div className="h-px flex-1 bg-gray-300"></div>
+                    <div className="flex flex-col items-center flex-1 text-center">
+                      <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-[14px] mb-3">3</div>
+                      <span className="text-[13px] font-semibold text-gray-900">Launch</span>
+                    </div>
+                  </div>
+                </div>
+              </StaggerItem>
+
             </StaggerContainer>
-          </Reveal>
+          </div>
 
         </div>
-
       </div>
     </section>
   )
