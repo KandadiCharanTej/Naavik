@@ -1,11 +1,12 @@
 'use client'
 
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Link2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useWaitlist } from '@/components/waitlist-provider'
 import { ADMIN_FORM_URL } from '@/lib/constants'
 import { trackAdminButtonClick } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 import { motion } from 'framer-motion'
 import { premiumEasing } from '@/components/reveal'
 
@@ -79,5 +80,22 @@ export function AdminButton({
         {children}
       </Button>
     </motion.div>
+  )
+}
+
+export function CopyLinkButton({ className }: { className?: string }) {
+  return (
+    <button 
+      className={cn("w-full h-14 flex items-center justify-center gap-2 rounded-xl bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 text-[16px] font-bold transition-all shadow-sm group", className)}
+      onClick={() => {
+        if (typeof window !== 'undefined') {
+          navigator.clipboard.writeText(window.location.origin)
+          toast.success('Link copied to clipboard!')
+        }
+      }}
+    >
+      <Link2 className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+      Copy Website Link
+    </button>
   )
 }

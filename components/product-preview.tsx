@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
-import { Home, Globe, Library, Users, FolderKanban, Search, Bell, Pin } from 'lucide-react'
+import { Reveal, premiumEasing } from '@/components/reveal'
+import { Home, Globe, Library, Users, FolderKanban, Search, Bell, Pin, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -10,379 +10,224 @@ export function ProductPreview() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'opportunities' | 'notes' | 'team'>('dashboard')
 
   const tabs = [
-    { id: 'dashboard', label: 'Dashboard' },
-    { id: 'opportunities', label: 'Opportunities' },
-    { id: 'notes', label: 'Notes Library' },
-    { id: 'team', label: 'Team Finder' },
+    { id: 'dashboard', label: 'Overview', icon: Home },
+    { id: 'opportunities', label: 'Opportunities', icon: Globe },
+    { id: 'notes', label: 'Study Vault', icon: Library },
+    { id: 'team', label: 'Team Finder', icon: Users },
   ] as const
 
   const tabContentVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -10 }
+    hidden: { opacity: 0, scale: 0.98, filter: 'blur(4px)' },
+    visible: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+    exit: { opacity: 0, scale: 1.02, filter: 'blur(4px)' }
   }
 
   return (
-    <section className="bg-[var(--bg-purple-tint)] py-[72px] lg:py-[120px]" id="product-preview">
-      <div className="mx-auto max-w-[1200px] px-5 flex flex-col lg:flex-row gap-12 lg:gap-16">
-        
-        {/* Left Column */}
-        <div className="w-full lg:w-1/3 lg:sticky lg:top-32 h-fit">
-          <Reveal>
-            <span className="eyebrow-label">PRODUCT PREVIEW</span>
-            <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#111827] tracking-tight leading-tight mb-4">
-              This is what it looks like.
-            </h2>
-            <p className="text-[17px] text-[#374151] mb-6">
-              Designed for how engineering students actually work.
-            </p>
-            <p className="text-[14px] text-[#9CA3AF] leading-relaxed hidden lg:block">
-              Everything you see is a realistic example of what the product will contain. No placeholders.
-            </p>
-          </Reveal>
-        </div>
+    <section className="bg-[#0A0A0A] text-white py-[96px] lg:py-[140px] relative overflow-hidden" id="product-preview">
+      {/* Dark mode mesh gradient background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--purple-600)] rounded-full blur-[180px] opacity-20 pointer-events-none"></div>
 
-        {/* Right Column */}
-        <div className="w-full lg:w-2/3">
-          <Reveal delay={100}>
-            
-            {/* Tab Nav */}
-            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-6 -mx-5 px-5 lg:mx-0 lg:px-0 relative">
-              {tabs.map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={cn(
-                    "whitespace-nowrap px-4 py-2 rounded-[8px] text-[14px] font-medium transition-colors relative z-10",
-                    activeTab === tab.id 
-                      ? "text-[var(--purple-600)]"
-                      : "bg-transparent text-[#6B7280] hover:text-[#374151] hover:bg-black/5"
-                  )}
-                >
-                  {activeTab === tab.id && (
-                    <motion.div
-                      layoutId="active-tab"
-                      className="absolute inset-0 bg-white border border-[var(--purple-600)] border-b-[2px] shadow-sm rounded-[8px] -z-10"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  {tab.label}
-                </button>
-              ))}
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-8 relative z-10">
+        
+        {/* Apple Style Header */}
+        <Reveal>
+          <div className="text-center mb-12">
+            <h2 className="text-[40px] md:text-[64px] font-extrabold tracking-tight leading-tight mb-6">
+              A workspace that <br className="hidden md:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">actually works.</span>
+            </h2>
+            <p className="text-[18px] md:text-[20px] text-gray-400 font-medium max-w-[600px] mx-auto">
+              We built Naavik to feel like a high-end professional tool, not another clunky college portal.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Interactive Selector (Pill format) */}
+        <Reveal delay={100} className="flex justify-center mb-12">
+          <div className="inline-flex p-1.5 bg-white/10 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "relative flex items-center gap-2 px-5 py-2.5 md:py-2 rounded-full text-[14px] font-semibold transition-colors z-10",
+                  activeTab === tab.id 
+                    ? "text-black"
+                    : "text-gray-400 hover:text-white"
+                )}
+              >
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute inset-0 bg-white rounded-full shadow-md -z-10"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
+                )}
+                <tab.icon className="w-4 h-4" />
+                <span className="hidden md:inline">{tab.label}</span>
+              </button>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Massive Apple-Style Window */}
+        <Reveal delay={200}>
+          <motion.div 
+            className="w-full max-w-[1200px] mx-auto rounded-[24px] overflow-hidden border border-white/20 bg-[#0F0F0F] shadow-[0_40px_100px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
+            animate={{ scale: [0.98, 1], y: [20, 0], opacity: [0, 1] }}
+            transition={{ duration: 0.8, ease: premiumEasing }}
+          >
+            {/* macOS Window Controls */}
+            <div className="flex items-center gap-2 px-6 py-4 border-b border-white/10 bg-[#1A1A1A]">
+              <div className="flex gap-2">
+                <div className="w-3.5 h-3.5 rounded-full bg-[#FF5F56] border border-[#E0443E]/30"></div>
+                <div className="w-3.5 h-3.5 rounded-full bg-[#FFBD2E] border border-[#DEA123]/30"></div>
+                <div className="w-3.5 h-3.5 rounded-full bg-[#27C93F] border border-[#1AAB29]/30"></div>
+              </div>
+              <div className="mx-auto w-[240px] h-7 bg-black/40 rounded-md border border-white/5 flex items-center justify-center text-[12px] text-gray-400 font-semibold tracking-wide">
+                <Search className="w-3 h-3 mr-2 opacity-50" />
+                naavik.app/workspace
+              </div>
             </div>
 
-            {/* Tab Content */}
-            <div className="ui-preview-card !p-0 overflow-hidden relative shadow-[0_20px_60px_rgba(0,0,0,0.06)] min-h-[500px] flex">
-              <div className="absolute top-3 right-3 z-20 px-2 py-0.5 rounded-[4px] bg-white text-[11px] text-[#9CA3AF] font-medium border border-border shadow-sm">
-                Preview
-              </div>
+            {/* Inner Dashboard View */}
+            <div className="relative w-full aspect-[16/10] md:aspect-[16/9] bg-[#0F0F0F] flex overflow-hidden">
               
-              <AnimatePresence mode="wait">
-                {/* Dashboard Content */}
-                {activeTab === 'dashboard' && (
-                  <motion.div
-                    key="dashboard"
-                    variants={tabContentVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    transition={{ duration: 0.3, ease: premiumEasing }}
-                    className="flex w-full"
-                  >
-                    {/* Sidebar */}
-                    <div className="w-[64px] bg-[#0F0F0F] shrink-0 hidden sm:flex flex-col items-center py-6 gap-6">
-                    <div className="h-6 w-6 rounded bg-primary/20 text-primary flex items-center justify-center font-bold text-[12px] mb-4">N</div>
-                    <button className="text-[var(--purple-500)] p-2 rounded-lg bg-white/10"><Home className="w-5 h-5" /></button>
-                    <button className="text-white/50 hover:text-white transition-colors p-2"><Globe className="w-5 h-5" /></button>
-                    <button className="text-white/50 hover:text-white transition-colors p-2"><Library className="w-5 h-5" /></button>
-                    <button className="text-white/50 hover:text-white transition-colors p-2"><Users className="w-5 h-5" /></button>
-                    <button className="text-white/50 hover:text-white transition-colors p-2"><FolderKanban className="w-5 h-5" /></button>
-                  </div>
+              {/* Sidebar */}
+              <div className="w-[72px] bg-[#0A0A0A] border-r border-white/5 flex-col items-center py-6 gap-6 hidden sm:flex shrink-0">
+                <div className="h-8 w-8 rounded-xl bg-[var(--purple-600)] text-white flex items-center justify-center font-bold text-[14px] shadow-[0_0_15px_rgba(124,58,237,0.4)] mb-4">N</div>
+                <button className={`p-2.5 rounded-xl transition-all ${activeTab === 'dashboard' ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-gray-300'}`}><Home className="w-5 h-5" /></button>
+                <button className={`p-2.5 rounded-xl transition-all ${activeTab === 'opportunities' ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-gray-300'}`}><Globe className="w-5 h-5" /></button>
+                <button className={`p-2.5 rounded-xl transition-all ${activeTab === 'notes' ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-gray-300'}`}><Library className="w-5 h-5" /></button>
+                <button className={`p-2.5 rounded-xl transition-all ${activeTab === 'team' ? 'bg-white/10 text-white' : 'text-gray-500 hover:text-gray-300'}`}><Users className="w-5 h-5" /></button>
+                <div className="flex-1"></div>
+                <div className="w-8 h-8 rounded-full bg-gray-800 border border-gray-700"></div>
+              </div>
+
+              {/* Dynamic Content Area */}
+              <div className="flex-1 bg-[#141414] relative overflow-hidden">
+                <AnimatePresence mode="wait">
                   
-                  {/* Main Content */}
-                  <div className="flex-1 bg-[#F9FAFB] flex flex-col h-full overflow-hidden">
-                    {/* Topbar */}
-                    <div className="h-[60px] border-b border-border bg-white flex items-center px-4 md:px-6 justify-between">
-                      <div className="relative w-[240px]">
-                        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                        <input type="text" placeholder="Search..." className="w-full pl-9 pr-4 py-1.5 bg-muted rounded-md text-[13px] outline-none" disabled />
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="hidden md:inline-flex px-2.5 py-1 bg-primary/10 text-primary text-[11px] font-semibold rounded-full border border-primary/20">
-                          CSE &middot; Sem 4 &middot; 2nd Year
-                        </span>
-                        <button className="text-muted-foreground hover:text-foreground"><Bell className="w-4 h-4" /></button>
-                        <div className="w-7 h-7 rounded-full bg-slate-200"></div>
-                      </div>
-                    </div>
-                    
-                    {/* Feed */}
-                    <div className="p-4 md:p-6 flex flex-col gap-4 overflow-y-auto">
-                      {/* Pinned */}
-                      <div className="bg-white border-l-4 border-l-amber-400 border border-border rounded-lg p-4 shadow-sm">
-                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-600 uppercase mb-2">
-                          <Pin className="w-3.5 h-3.5" /> Pinned
-                        </div>
-                        <h4 className="text-[15px] font-semibold text-[#111827]">DBMS Exam in 3 days</h4>
-                        <p className="text-[13px] text-[#374151] mt-1 mb-3">DBMS Previous Year Paper 2024 uploaded. Download now.</p>
-                        <button className="text-[12px] font-semibold text-primary">Download &rarr;</button>
-                      </div>
+                  {activeTab === 'dashboard' && (
+                    <motion.div
+                      key="dashboard"
+                      variants={tabContentVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      transition={{ duration: 0.4, ease: premiumEasing }}
+                      className="absolute inset-0 p-6 md:p-8 flex flex-col"
+                    >
+                      <h3 className="text-[24px] font-bold text-white mb-6">Good morning, Student</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
+                        
+                        {/* Feed Column */}
+                        <div className="md:col-span-2 flex flex-col gap-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[14px] font-semibold text-gray-400">Your Feed</span>
+                            <span className="text-[12px] bg-white/10 px-2 py-1 rounded text-white cursor-pointer hover:bg-white/20 transition">Filter</span>
+                          </div>
+                          
+                          {/* Feed Item 1 */}
+                          <div className="bg-[#1A1A1A] border border-white/5 rounded-[16px] p-5 hover:bg-[#222] transition-colors cursor-pointer group">
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-[11px] font-bold text-orange-400 uppercase tracking-wider bg-orange-400/10 px-2 py-1 rounded">2 days left</span>
+                            </div>
+                            <h4 className="text-[18px] font-semibold text-white mb-2 group-hover:text-[var(--purple-400)] transition-colors">Razorpay Full-Stack Intern</h4>
+                            <p className="text-[14px] text-gray-400 mb-4">Remote &middot; ₹35,000/month</p>
+                            <div className="h-px bg-white/5 mb-4"></div>
+                            <button className="text-[13px] font-semibold text-white flex items-center">Apply Now <ChevronRight className="w-4 h-4 ml-1" /></button>
+                          </div>
 
-                      {/* Opportunity */}
-                      <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-[11px] font-bold text-primary uppercase">🔔 Opportunity &middot; CSE &middot; 2nd Year</span>
-                          <span className="text-[11px] font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded">2 days left</span>
-                        </div>
-                        <h4 className="text-[15px] font-semibold text-[#111827]">Razorpay Full-Stack Intern &middot; ₹35K/mo &middot; Remote</h4>
-                        <button className="mt-3 text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Apply</button>
-                      </div>
-
-                      {/* Campus */}
-                      <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                        <span className="text-[11px] font-bold text-emerald-600 uppercase mb-2 block">📢 Campus</span>
-                        <h4 className="text-[15px] font-semibold text-[#111827]">IEEE Convergence Fest &middot; Registration open</h4>
-                        <p className="text-[13px] text-[#374151] mt-0.5 mb-3">March 15–18 &middot; ₹30,000 Prize</p>
-                        <button className="text-[12px] font-semibold text-emerald-600">View Details &rarr;</button>
-                      </div>
-                      
-                      {/* Team Finder */}
-                      <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                        <span className="text-[11px] font-bold text-blue-600 uppercase mb-2 block">👥 Team Finder</span>
-                        <p className="text-[14px] text-[#374151] mb-3">"Need React dev for SIH" &middot; Rahul K. &middot; CBIT</p>
-                        <button className="text-[12px] font-semibold text-blue-600">Connect &rarr;</button>
-                      </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Opportunities Content */}
-                {activeTab === 'opportunities' && (
-                  <motion.div
-                    key="opportunities"
-                    variants={tabContentVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    transition={{ duration: 0.3, ease: premiumEasing }}
-                    className="flex flex-col w-full h-full bg-[#F9FAFB]"
-                  >
-                    <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
-                    <span className="text-[13px] text-muted-foreground mr-2">Filter:</span>
-                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Branch: CSE ▼</span>
-                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Year: 2nd ▼</span>
-                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Type: All ▼</span>
-                    <span className="ml-auto px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Sort: Newest ▼</span>
-                  </div>
-                  
-                  <div className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto">
-                    {/* Card 1 */}
-                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                      <div className="text-[11px] font-bold text-primary uppercase mb-2">💼 INTERNSHIP &middot; Remote</div>
-                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Full-Stack Developer Intern</h4>
-                      <p className="text-[13px] text-[#374151] mb-3">Razorpay &middot; ₹35,000/month</p>
-                      <div className="flex gap-2 mb-4">
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">CSE / IT</span>
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">5 openings</span>
-                      </div>
-                      <div className="flex justify-between items-center mt-auto">
-                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Apply</button>
-                        <span className="text-[11px] font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded border border-orange-100">2d left</span>
-                      </div>
-                    </div>
-                    
-                    {/* Card 2 */}
-                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                      <div className="text-[11px] font-bold text-emerald-600 uppercase mb-2">🏆 HACKATHON &middot; National</div>
-                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Smart India Hackathon 2026</h4>
-                      <p className="text-[13px] text-[#374151] mb-3">Govt of India &middot; ₹2,00,000 Prize</p>
-                      <div className="flex gap-2 mb-4">
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">All branches</span>
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">Teams of 4</span>
-                      </div>
-                      <div className="flex justify-between items-center mt-auto">
-                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Register</button>
-                        <span className="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">Open</span>
-                      </div>
-                    </div>
-
-                    {/* Card 3 */}
-                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                      <div className="text-[11px] font-bold text-blue-600 uppercase mb-2">🎓 SCHOLARSHIP &middot; Open</div>
-                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Google Generation Scholarship</h4>
-                      <p className="text-[13px] text-[#374151] mb-3">Google &middot; ₹75,000</p>
-                      <div className="flex gap-2 mb-4">
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">CSE / IT</span>
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">CGPA 8+</span>
-                      </div>
-                      <div className="flex justify-between items-center mt-auto">
-                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Apply</button>
-                        <span className="text-[11px] text-[#6B7280]">30d left</span>
-                      </div>
-                    </div>
-
-                    {/* Card 4 */}
-                    <div className="bg-white border border-border rounded-lg p-4 shadow-sm">
-                      <div className="text-[11px] font-bold text-amber-600 uppercase mb-2">🛠 WORKSHOP &middot; Hyderabad</div>
-                      <h4 className="text-[16px] font-bold text-[#111827] mb-1">Full-Stack Bootcamp — Node + React</h4>
-                      <p className="text-[13px] text-[#374151] mb-3">TechMinds HYD &middot; Free for students</p>
-                      <div className="flex gap-2 mb-4">
-                        <span className="text-[11px] px-1.5 py-0.5 bg-muted rounded">All years</span>
-                      </div>
-                      <div className="flex justify-between items-center mt-auto">
-                        <button className="text-[12px] font-medium bg-primary text-white px-3 py-1.5 rounded-md">Register</button>
-                        <span className="text-[11px] text-[#6B7280]">10d left</span>
-                      </div>
-                    </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Notes Library Content */}
-                {activeTab === 'notes' && (
-                  <motion.div
-                    key="notes"
-                    variants={tabContentVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    transition={{ duration: 0.3, ease: premiumEasing }}
-                    className="flex flex-col w-full h-full bg-[#F9FAFB]"
-                  >
-                    <div className="p-4 md:p-6 border-b border-border bg-white flex flex-col gap-3">
-                    <h3 className="text-[18px] font-bold text-[#111827]">📚 Study Vault — CSE &middot; Semester 4</h3>
-                    <p className="text-[13px] text-emerald-600 font-medium">Uploaded and verified by student admins.</p>
-                    <div className="flex gap-4 mt-2 border-b border-border">
-                      <span className="text-[13px] font-medium text-muted-foreground pb-2 border-b-2 border-transparent">PYQs</span>
-                      <span className="text-[13px] font-medium text-muted-foreground pb-2 border-b-2 border-transparent">Unit Notes</span>
-                      <span className="text-[13px] font-medium text-muted-foreground pb-2 border-b-2 border-transparent">Lab Records</span>
-                      <span className="text-[13px] font-medium text-primary pb-2 border-b-2 border-primary">All</span>
-                    </div>
-                  </div>
-                  
-                  <div className="p-4 md:p-6 flex flex-col gap-3 overflow-y-auto">
-                    {[
-                      { icon: '📄', name: 'DBMS Previous Year Paper 2024', meta: 'CSE · Sem 4 · Uploaded by E. Sai · 3 days ago' },
-                      { icon: '📄', name: 'Operating Systems — Unit 3 & 4 Notes', meta: 'CSE · Sem 4 · Uploaded by V. Keerthi · 1 week ago' },
-                      { icon: '🧪', name: 'Basic Electrical Engineering Lab Record', meta: 'EEE · Sem 2 · Uploaded by Admin · 2 weeks ago' },
-                      { icon: '📄', name: 'Computer Networks — Full Notes', meta: 'CSE · Sem 5 · Uploaded by T. Arjun · 1 month ago' },
-                    ].map((row, i) => (
-                      <div key={i} className="bg-white border border-border rounded-lg p-4 shadow-sm flex items-start sm:items-center justify-between gap-4 flex-col sm:flex-row group">
-                        <div className="flex items-start gap-3">
-                          <div className="text-[20px] bg-muted/50 p-2 rounded-md leading-none">{row.icon}</div>
-                          <div>
-                            <h4 className="text-[15px] font-semibold text-[#111827]">{row.name}</h4>
-                            <p className="text-[12px] text-[#6B7280] mt-0.5">{row.meta}</p>
+                          {/* Feed Item 2 */}
+                          <div className="bg-[#1A1A1A] border border-white/5 rounded-[16px] p-5 hover:bg-[#222] transition-colors cursor-pointer group">
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider bg-emerald-400/10 px-2 py-1 rounded">Campus Event</span>
+                            </div>
+                            <h4 className="text-[18px] font-semibold text-white mb-2 group-hover:text-[var(--purple-400)] transition-colors">IEEE Convergence Fest Registration</h4>
+                            <p className="text-[14px] text-gray-400">March 15-18 &middot; Prize Pool: ₹30,000</p>
                           </div>
                         </div>
-                        <button className="text-[12px] font-semibold text-primary opacity-0 sm:opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
-                          Download PDF &rarr;
-                        </button>
+
+                        {/* Right Sidebar Column */}
+                        <div className="hidden md:flex flex-col gap-6">
+                          <div className="bg-[var(--purple-900)]/30 border border-[var(--purple-500)]/30 rounded-[16px] p-5">
+                            <h4 className="text-[14px] font-bold text-[var(--purple-300)] uppercase tracking-wider mb-3">Priority</h4>
+                            <p className="text-[15px] font-medium text-white mb-2">DBMS Exam in 3 days</p>
+                            <p className="text-[13px] text-[var(--purple-200)] mb-4">PYQs have been updated.</p>
+                            <button className="w-full py-2 bg-white text-black text-[13px] font-bold rounded-lg hover:bg-gray-200 transition">View Material</button>
+                          </div>
+                        </div>
+
                       </div>
-                    ))}
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
 
-                {/* Team Finder Content */}
-                {activeTab === 'team' && (
-                  <motion.div
-                    key="team"
-                    variants={tabContentVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    transition={{ duration: 0.3, ease: premiumEasing }}
-                    className="flex flex-col w-full h-full bg-[#F9FAFB]"
-                  >
-                     <div className="p-4 md:p-6 border-b border-border bg-white flex flex-wrap gap-2 items-center">
-                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Skills: React Native ▼</span>
-                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">Purpose: Hackathon ▼</span>
-                    <span className="px-2.5 py-1 text-[12px] font-medium border border-border rounded bg-muted/50">College: Any ▼</span>
-                  </div>
-
-                  <div className="p-4 md:p-6 flex flex-col gap-4 overflow-y-auto">
-                    {/* Post 1 */}
-                    <div className="bg-white border border-border rounded-lg p-5 shadow-sm">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-[13px]">R</div>
-                        <div>
-                          <div className="text-[14px] font-bold text-[#111827]">Rahul K.</div>
-                          <div className="text-[12px] text-[#6B7280]">CBIT &middot; CSE &middot; Hyderabad</div>
+                  {activeTab === 'opportunities' && (
+                    <motion.div
+                      key="opportunities"
+                      variants={tabContentVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      transition={{ duration: 0.4, ease: premiumEasing }}
+                      className="absolute inset-0 p-6 md:p-8 flex flex-col"
+                    >
+                      <div className="flex justify-between items-center mb-8">
+                        <h3 className="text-[24px] font-bold text-white">Global Opportunities</h3>
+                        <div className="flex gap-2">
+                          <span className="px-3 py-1.5 bg-[#222] border border-white/10 rounded-lg text-[13px]">Branch: CSE</span>
+                          <span className="px-3 py-1.5 bg-[#222] border border-white/10 rounded-lg text-[13px]">Type: Internships</span>
                         </div>
                       </div>
-                      <p className="text-[14px] text-[#374151] italic border-l-2 border-muted pl-3 my-4">
-                        "Forming a team for Smart India Hackathon. Initial prototype ready. Need a React Native developer. DMs open!"
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        <span className="text-[11px] px-2 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-100">React Native</span>
-                        <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded border border-emerald-100">SIH 2026</span>
-                        <span className="text-[11px] px-2 py-0.5 bg-purple-50 text-purple-700 rounded border border-purple-100">Team of 4</span>
+                      
+                      <div className="grid grid-cols-2 gap-4 flex-1">
+                        {[1, 2, 3, 4].map(i => (
+                          <div key={i} className="bg-[#1A1A1A] border border-white/5 rounded-[16px] p-5 flex flex-col hover:border-white/20 transition-colors">
+                            <div className="w-10 h-10 rounded-lg bg-[#333] mb-4"></div>
+                            <h4 className="text-[16px] font-bold text-white">Software Engineer Intern</h4>
+                            <p className="text-[13px] text-gray-400 mt-1">Tech Company &middot; Remote</p>
+                            <div className="mt-auto pt-4 flex justify-between items-center">
+                              <span className="text-[12px] bg-white/10 px-2 py-1 rounded text-white">Apply</span>
+                              <span className="text-[11px] text-gray-500">2d left</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="flex justify-between items-center border-t border-border pt-3 mt-3">
-                        <button className="text-[13px] font-semibold text-primary">Connect Now &rarr;</button>
-                        <span className="text-[11px] text-[#9CA3AF]">2 hours ago</span>
-                      </div>
-                    </div>
+                    </motion.div>
+                  )}
 
-                    {/* Post 2 */}
-                    <div className="bg-white border border-border rounded-lg p-5 shadow-sm">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-pink-100 text-pink-700 flex items-center justify-center font-bold text-[13px]">P</div>
-                        <div>
-                          <div className="text-[14px] font-bold text-[#111827]">Priya S.</div>
-                          <div className="text-[12px] text-[#6B7280]">JNTUH &middot; IT &middot; Hyderabad</div>
+                  {/* Fallback for Notes/Team to keep code clean */}
+                  {(activeTab === 'notes' || activeTab === 'team') && (
+                    <motion.div
+                      key="other"
+                      variants={tabContentVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      transition={{ duration: 0.4, ease: premiumEasing }}
+                      className="absolute inset-0 p-6 md:p-8 flex items-center justify-center"
+                    >
+                      <div className="text-center">
+                        <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4 border border-white/10">
+                          {activeTab === 'notes' ? <Library className="w-8 h-8 text-gray-400" /> : <Users className="w-8 h-8 text-gray-400" />}
                         </div>
+                        <h3 className="text-[20px] font-bold text-white mb-2">
+                          {activeTab === 'notes' ? 'Semester-Sorted Vault' : 'Find Your Next Co-founder'}
+                        </h3>
+                        <p className="text-[14px] text-gray-400 max-w-[300px] mx-auto">
+                          Select the tab to experience the smooth transition and premium layout styling.
+                        </p>
                       </div>
-                      <p className="text-[14px] text-[#374151] italic border-l-2 border-muted pl-3 my-4">
-                        "Looking for UI/UX designer for SIH project on agriculture tech. Stipend if selected by SIH committee."
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        <span className="text-[11px] px-2 py-0.5 bg-blue-50 text-blue-700 rounded border border-blue-100">UI/UX</span>
-                        <span className="text-[11px] px-2 py-0.5 bg-pink-50 text-pink-700 rounded border border-pink-100">Figma</span>
-                        <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded border border-emerald-100">SIH 2026</span>
-                      </div>
-                      <div className="flex justify-between items-center border-t border-border pt-3 mt-3">
-                        <button className="text-[13px] font-semibold text-primary">Connect Now &rarr;</button>
-                        <span className="text-[11px] text-[#9CA3AF]">5 hours ago</span>
-                      </div>
-                    </div>
+                    </motion.div>
+                  )}
 
-                    {/* Post 3 */}
-                    <div className="bg-white border border-border rounded-lg p-5 shadow-sm">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-[13px]">A</div>
-                        <div>
-                          <div className="text-[14px] font-bold text-[#111827]">Aditya M.</div>
-                          <div className="text-[12px] text-[#6B7280]">VNRVJIET &middot; CSE</div>
-                        </div>
-                      </div>
-                      <p className="text-[14px] text-[#374151] italic border-l-2 border-muted pl-3 my-4">
-                        "Building a startup MVP — need a backend dev (Node.js). College project that could go further."
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        <span className="text-[11px] px-2 py-0.5 bg-green-50 text-green-700 rounded border border-green-100">Node.js</span>
-                        <span className="text-[11px] px-2 py-0.5 bg-amber-50 text-amber-700 rounded border border-amber-100">Startup</span>
-                        <span className="text-[11px] px-2 py-0.5 bg-slate-100 text-slate-700 rounded border border-slate-200">Backend</span>
-                      </div>
-                      <div className="flex justify-between items-center border-t border-border pt-3 mt-3">
-                        <button className="text-[13px] font-semibold text-primary">Connect Now &rarr;</button>
-                        <span className="text-[11px] text-[#9CA3AF]">1 day ago</span>
-                      </div>
-                    </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
+                </AnimatePresence>
+              </div>
             </div>
-            
-            <p className="text-[14px] text-[#9CA3AF] mt-4 text-center lg:hidden">
-              Everything you see is a realistic example of what the product will contain. No placeholders.
-            </p>
-          </Reveal>
-        </div>
+          </motion.div>
+        </Reveal>
+
       </div>
     </section>
   )

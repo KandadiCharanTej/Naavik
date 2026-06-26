@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react'
 import { useWaitlist } from '@/components/waitlist-provider'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { premiumEasing } from '@/components/reveal'
+import { Logo } from '@/components/logo'
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
@@ -54,12 +55,11 @@ export function SiteHeader() {
           backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
         }}
       >
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 sm:px-8 relative">
+        <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between px-5 sm:px-8 relative">
           
-          {/* LEFT: Logo + dot */}
+          {/* LEFT: Logo */}
           <a href="#" className="flex items-center gap-1.5" aria-label="Naavik home">
-            <span className="font-bold text-[20px] text-foreground tracking-tight">Naavik</span>
-            <span className="h-2 w-2 rounded-full bg-primary" aria-label="Building indicator"></span>
+            <Logo />
           </a>
 
           {/* CENTER: Links (desktop only) */}

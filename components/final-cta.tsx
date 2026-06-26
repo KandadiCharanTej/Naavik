@@ -23,15 +23,15 @@ export async function FinalCta() {
   const progressPercentage = Math.min(100, Math.round((waitlistCount / waitlistGoal) * 100))
 
   return (
-    <section className="bg-[var(--bg-dark)] py-[80px] lg:py-[140px]" id="final-cta">
+    <section className="bg-[var(--bg-dark)] py-16 md:py-24" id="final-cta">
       <div className="mx-auto max-w-[1200px] px-5 flex flex-col items-center">
         
         <Reveal className="w-full text-center flex flex-col items-center">
           
           {/* Headline */}
-          <h2 className="text-[32px] md:text-[48px] font-extrabold text-white tracking-tight leading-[1.1] mb-4">
+          <h2 className="text-[32px] md:text-[48px] font-bold text-white tracking-tight leading-[1.1] mb-4">
             Naavik is being built right now.<br />
-            Join the first students.
+            Join the first <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-400)]">students.</span>
           </h2>
           
           {/* Subheadline */}
@@ -55,7 +55,7 @@ export async function FinalCta() {
           {/* CTA Button */}
           <div className="w-full max-w-[360px] flex flex-col items-center">
             <WaitlistButton 
-              className="w-full !py-[18px] !px-[40px] !rounded-[12px] !text-[17px] !font-semibold !bg-[var(--purple-600)] hover:!bg-[#6D28D9] text-white transition-colors flex justify-center items-center h-auto"
+              className="btn-primary w-full h-auto"
               id="final-cta-btn"
             >
               Join the First Students &rarr;
