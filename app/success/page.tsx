@@ -1,10 +1,10 @@
-import { ThankYouContent } from './thank-you-content'
+import { ThankYouContent } from './success-content'
 
 export const metadata = {
   title: 'You\'re on the list | Naavik',
   description: 'Thank you for joining the Naavik early access waitlist.',
 }
 
-export default function ThankYouPage() {
+export default function SuccessPage() {
   return <ThankYouContent />
 }

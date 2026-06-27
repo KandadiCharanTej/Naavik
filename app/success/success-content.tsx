@@ -18,6 +18,7 @@ import Link from 'next/link'
 import { Logo } from '@/components/ui/logo'
 import { InstagramIcon } from '@/components/icons/instagram-icon'
 import { MeshGradient, GridLines } from '@/components/design/primitives'
+import { cn } from '@/lib/utils'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.in'
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/'
@@ -77,7 +78,7 @@ const toneStyles = {
   gray: 'bg-gray-50 text-gray-500 ring-gray-200',
 }
 
-function FloatingShapes() {
+const FloatingShapes = memo(function FloatingShapes() {
   return (
     <>
       <div
@@ -98,9 +99,9 @@ function FloatingShapes() {
       />
     </>
   )
-}
+})
 
-function SuccessIcon() {
+const SuccessIcon = memo(function SuccessIcon() {
   return (
     <div className="relative mx-auto mb-4 flex h-[72px] w-[72px] items-center justify-center sm:mb-5 sm:h-20 sm:w-20">
       <div className="relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-100)] via-white to-[var(--purple-50)] shadow-[0_8px_32px_rgba(124,58,237,0.2)] ring-1 ring-[var(--purple-100)]">
@@ -111,17 +112,17 @@ function SuccessIcon() {
       </div>
     </div>
   )
-}
+})
 
 const PositionHeroCard = memo(function PositionHeroCard({ position }: { position: string }) {
   const numericPosition = parseInt(position, 10) || 128
   const pct = Math.min(100, Math.round((numericPosition / WAITLIST_GOAL) * 100))
-  const [barWidth, setBarWidth] = useState(0)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const id = requestAnimationFrame(() => setBarWidth(pct))
-    return () => cancelAnimationFrame(id)
-  }, [pct])
+    const id = setTimeout(() => setMounted(true), 100)
+    return () => clearTimeout(id)
+  }, [])
 
   return (
     <div className="relative mx-auto w-full max-w-[560px]">
@@ -131,8 +132,7 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
       />
 
       <div
-        className="relative rounded-[24px] p-[1px] shadow-[0_32px_80px_rgba(124,58,237,0.18)]"
-        style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.35) 0%, rgba(167,139,250,0.2) 50%, rgba(255,255,255,0.4) 100%)' }}
+        className="relative rounded-[24px] p-[1px] shadow-[0_32px_80px_rgba(124,58,237,0.18)] bg-gradient-to-br from-[var(--purple-300)]/40 via-[var(--purple-200)]/20 to-white/40"
       >
         <div className="relative overflow-hidden rounded-[23px] bg-white px-6 py-8 sm:px-8 sm:py-9">
           <div
@@ -166,8 +166,8 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
             </div>
             <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-[var(--purple-50)] ring-1 ring-[var(--purple-100)]">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] via-[var(--purple-600)] to-[#9333EA] transition-[width] duration-1000 ease-out"
-                style={{ width: `${barWidth}%` }}
+                className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] via-[var(--purple-600)] to-[#9333EA] transition-all duration-1000 ease-out"
+                style={{ width: mounted ? `${pct}%` : '0%' }}
               />
             </div>
           </div>
@@ -180,6 +180,44 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
     </div>
   )
 })
+
+function WaitlistResultDisplay() {
+  const searchParams = useSearchParams()
+  const position = searchParams.get('position')
+
+  if (position) {
+    return <PositionHeroCard position={position} />
+  }
+
+  return (
+    <div className="mx-auto w-full max-w-[560px] rounded-[24px] border border-gray-200/70 bg-white p-8 text-center shadow-[var(--shadow-card)]">
+      <Sparkles className="mx-auto h-8 w-8 text-[var(--purple-600)]" />
+      <p className="mt-4 text-[15px] font-medium text-gray-500">
+        Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future.
+      </p>
+    </div>
+  )
+}
+
+function WaitlistResultFallback() {
+  // Skeleton to reserve layout space and completely eliminate CLS
+  return (
+    <div className="relative mx-auto w-full max-w-[560px]">
+      <div className="relative rounded-[24px] border border-gray-100 bg-white px-6 py-8 sm:px-8 sm:py-9 shadow-[var(--shadow-soft)] animate-pulse">
+        {/* Placeholder text for Title */}
+        <div className="h-4 w-32 bg-gray-200 rounded mx-auto animate-pulse" />
+        {/* Placeholder for position count */}
+        <div className="h-24 w-40 bg-gray-200 rounded mx-auto mt-6 animate-pulse" />
+        {/* Placeholder for badge */}
+        <div className="h-8 w-36 bg-gray-200 rounded-full mx-auto mt-6 animate-pulse" />
+        {/* Placeholder for progress line */}
+        <div className="h-6 bg-gray-100 rounded mt-8 animate-pulse" />
+        {/* Placeholder for helper text */}
+        <div className="h-4 bg-gray-100 rounded mt-6 animate-pulse" />
+      </div>
+    </div>
+  )
+}
 
 const NextStepsGrid = memo(function NextStepsGrid() {
   return (
@@ -194,7 +232,10 @@ const NextStepsGrid = memo(function NextStepsGrid() {
             className="flex items-start gap-3 rounded-[20px] border border-gray-100/90 bg-white p-3.5 shadow-[var(--shadow-soft)] sm:p-4"
           >
             <div
-              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9 ${toneStyles[item.tone]}`}
+              className={cn(
+                "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9",
+                toneStyles[item.tone]
+              )}
             >
               <item.icon className="h-4 w-4" />
             </div>
@@ -223,10 +264,13 @@ const ShareSection = memo(function ShareSection({
       </p>
       <div className="grid grid-cols-3 gap-2 sm:gap-3">
         <a
-          href={INSTAGRAM_URL}
+          href={SITE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] px-2 text-[11px] font-bold text-white shadow-[0_8px_24px_rgba(124,58,237,0.3)] transition-shadow hover:shadow-[0_12px_32px_rgba(124,58,237,0.38)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
+          onClick={() => {
+            window.open(INSTAGRAM_URL, '_blank')
+          }}
+          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] px-2 text-[11px] font-bold text-white shadow-[0_8px_24px_rgba(124,58,237,0.3)] transition-all hover:shadow-[0_12px_32px_rgba(124,58,237,0.38)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
         >
           <InstagramIcon className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" />
           <span className="truncate">Instagram</span>
@@ -235,7 +279,7 @@ const ShareSection = memo(function ShareSection({
           href={LINKEDIN_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200/80 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[#0A66C2]/30 sm:h-12 sm:gap-2.5 sm:text-[13px]"
+          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[#0A66C2]/30 sm:h-12 sm:gap-2.5 sm:text-[13px]"
         >
           <LinkedInIcon className="h-4 w-4 shrink-0 text-[#0A66C2] sm:h-[18px] sm:w-[18px]" />
           <span className="truncate">LinkedIn</span>
@@ -243,7 +287,7 @@ const ShareSection = memo(function ShareSection({
         <button
           type="button"
           onClick={onCopy}
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200/80 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[var(--purple-200)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
+          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[var(--purple-200)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
         >
           <Copy className="h-4 w-4 shrink-0 text-gray-400" />
           <span className="truncate">{copied ? 'Copied!' : 'Copy Link'}</span>
@@ -253,12 +297,12 @@ const ShareSection = memo(function ShareSection({
   )
 })
 
-function PrimaryActions() {
+const PrimaryActions = memo(function PrimaryActions() {
   return (
     <div className="flex w-full flex-col items-center gap-2.5">
       <Link
         href="/"
-        className="group flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-[15px] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-shadow hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]"
+        className="group flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-[15px] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]"
       >
         Continue
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -271,12 +315,16 @@ function PrimaryActions() {
       </Link>
     </div>
   )
-}
+})
 
-function ThankYouInner() {
-  const searchParams = useSearchParams()
-  const position = searchParams.get('position')
+export function ThankYouContent() {
   const [copied, setCopied] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    const id = setTimeout(() => setMounted(true), 50)
+    return () => clearTimeout(id)
+  }, [])
 
   function copyLink() {
     navigator.clipboard?.writeText(SITE_URL)
@@ -307,7 +355,12 @@ function ThankYouInner() {
         <div className="w-[88px] sm:w-24" aria-hidden />
       </header>
 
-      <main className="relative z-10 mx-auto flex w-full max-w-[720px] flex-1 flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6 lg:max-w-[900px] lg:pb-6">
+      <main
+        className={cn(
+          "relative z-10 mx-auto flex w-full max-w-[720px] flex-1 flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6 lg:max-w-[900px] lg:pb-6 transition-all duration-500 ease-out will-change-[transform,opacity]",
+          mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+        )}
+      >
         <div className="flex flex-1 flex-col justify-center gap-5 py-2 sm:gap-6 lg:gap-5 lg:py-4">
           <div className="text-center">
             <SuccessIcon />
@@ -319,16 +372,9 @@ function ThankYouInner() {
             </p>
           </div>
 
-          {position ? (
-            <PositionHeroCard position={position} />
-          ) : (
-            <div className="mx-auto w-full max-w-[560px] rounded-[24px] border border-gray-200/70 bg-white p-8 text-center shadow-[var(--shadow-card)]">
-              <Sparkles className="mx-auto h-8 w-8 text-[var(--purple-600)]" />
-              <p className="mt-4 text-[15px] font-medium text-gray-500">
-                Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future.
-              </p>
-            </div>
-          )}
+          <Suspense fallback={<WaitlistResultFallback />}>
+            <WaitlistResultDisplay />
+          </Suspense>
 
           <NextStepsGrid />
 
@@ -357,19 +403,5 @@ function ThankYouInner() {
         </footer>
       </main>
     </div>
-  )
-}
-
-export function ThankYouContent() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-[100dvh] items-center justify-center bg-[#FAFAFC]">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--purple-600)] border-t-transparent" />
-        </div>
-      }
-    >
-      <ThankYouInner />
-    </Suspense>
   )
 }

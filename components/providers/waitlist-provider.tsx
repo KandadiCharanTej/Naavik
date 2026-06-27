@@ -6,9 +6,10 @@ import {
   useContext,
   useMemo,
   useState,
+  useEffect,
   type ReactNode,
 } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import {
   Dialog,
   DialogContent,
@@ -34,9 +35,17 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState('')
   const [waitlistCount, setWaitlistCount] = useState(128)
   const router = useRouter()
+  const pathname = usePathname()
+
+  // Auto-close modal immediately upon page routing navigation change
+  useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
 
   const open = useCallback(() => {
     setError('')
+    setIsOpen(false) // Reset state before opening
+    setSubmitting(false)
     setIsOpen(true)
     trackWaitlistButtonClick()
   }, [])
@@ -90,13 +99,12 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
 
       setWaitlistCount(data.position)
       trackWaitlistSubmitted(college)
-      setIsOpen(false)
+      // Navigate directly. Dialog auto-closes on pathname change.
       router.push(
-        `/thank-you?position=${data.position}&name=${encodeURIComponent(name)}`,
+        `/success?position=${data.position}&name=${encodeURIComponent(name)}`,
       )
     } catch {
       setError('Network error. Please check your connection and try again.')
-    } finally {
       setSubmitting(false)
     }
   }
@@ -106,8 +114,8 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
       {children}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent
-          overlayClassName="!bg-black/50"
-          className="flex max-h-[min(92dvh,760px)] w-[min(1040px,95vw)] max-w-none flex-col overflow-hidden rounded-[24px] border border-white/20 bg-white p-0 shadow-[0_40px_100px_rgba(0,0,0,0.25)]"
+          overlayClassName="!bg-black/50 backdrop-blur-sm transition-all duration-300"
+          className="!flex max-h-[90vh] lg:max-h-[680px] w-[95vw] lg:w-[1020px] max-w-[1050px] flex-col overflow-hidden rounded-[24px] lg:rounded-[28px] border border-white/20 bg-white p-0 shadow-[0_40px_100px_rgba(0,0,0,0.25)] transition-all duration-300"
         >
           <WaitlistFormPanel
             waitlistCount={waitlistCount}
