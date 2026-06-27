@@ -1,4 +1,4 @@
-import { HeroContent } from './hero-content'
+import { HeroContent } from '../sections/hero-content'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
 async function getWaitlistCount() {

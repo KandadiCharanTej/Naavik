@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { Reveal, premiumEasing } from '@/components/reveal'
+import { Reveal, premiumEasing } from '@/components/animations/reveal'
 import { Home, Globe, Library, Users, Search, Bell, Pin, ChevronRight, Bookmark, Download, MessageSquare, Filter, ArrowUpRight, Flame, Clock, FileText, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'

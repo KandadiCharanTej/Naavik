@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { useWaitlist } from '@/components/waitlist-provider'
+import { useWaitlist } from '@/components/providers/waitlist-provider'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
-import { premiumEasing } from '@/components/reveal'
-import { Logo } from '@/components/logo'
+import { premiumEasing } from '@/components/animations/reveal'
+import { Logo } from '@/components/ui/logo'
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)

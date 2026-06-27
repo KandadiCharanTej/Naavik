@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/reveal'
+import { Reveal } from '@/components/animations/reveal'
 import { cn } from '@/lib/utils'
 
 export function SectionHeading({

@@ -1,7 +1,7 @@
 'use client'
 
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
-import { AdminButton } from '@/components/cta-buttons'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
+import { AdminButton } from '@/components/ui/cta-buttons'
 import { CheckCircle2, Shield, Zap, Award, ArrowRight } from 'lucide-react'
 
 export function AdminSection() {

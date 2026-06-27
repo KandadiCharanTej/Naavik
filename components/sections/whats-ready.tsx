@@ -1,4 +1,4 @@
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
 
 export function WhatsReady() {
   const columns = [

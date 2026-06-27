@@ -1,6 +1,6 @@
 'use client'
 
-import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem, premiumEasing } from '@/components/animations/reveal'
 import { motion } from 'framer-motion'
 
 export function DayWithNaavik() {

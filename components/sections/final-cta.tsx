@@ -1,5 +1,5 @@
-import { Reveal } from '@/components/reveal'
-import { WaitlistButton } from '@/components/cta-buttons'
+import { Reveal } from '@/components/animations/reveal'
+import { WaitlistButton } from '@/components/ui/cta-buttons'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { headers } from 'next/headers'
 

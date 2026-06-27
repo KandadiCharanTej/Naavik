@@ -1,5 +1,5 @@
-import { Logo } from '@/components/logo'
-import { WaitlistButton } from '@/components/cta-buttons'
+import { Logo } from '@/components/ui/logo'
+import { WaitlistButton } from '@/components/ui/cta-buttons'
 import { Compass, Map, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 

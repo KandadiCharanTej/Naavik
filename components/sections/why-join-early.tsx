@@ -1,5 +1,5 @@
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
-import { WaitlistButton } from '@/components/cta-buttons'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
+import { WaitlistButton } from '@/components/ui/cta-buttons'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { Rocket, ShieldCheck, HeartHandshake, BellRing, Vote } from 'lucide-react'
 

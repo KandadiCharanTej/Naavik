@@ -3,9 +3,9 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Briefcase, BookOpen, Code, Users, Bell } from 'lucide-react'
-import { WaitlistButton } from './cta-buttons'
-import { DashboardMockup } from './dashboard-mockup'
-import { StaggerContainer, StaggerItem } from './reveal'
+import { WaitlistButton } from '../ui/cta-buttons'
+import { DashboardMockup } from '../sections/dashboard-mockup'
+import { StaggerContainer, StaggerItem } from '../animations/reveal'
 
 export function HeroContent({
   waitlistCount,

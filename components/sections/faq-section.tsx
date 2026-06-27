@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
 import { Plus, Minus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 

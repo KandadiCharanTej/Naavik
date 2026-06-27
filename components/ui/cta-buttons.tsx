@@ -2,13 +2,13 @@
 
 import { ArrowRight, Link2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useWaitlist } from '@/components/waitlist-provider'
+import { useWaitlist } from '@/components/providers/waitlist-provider'
 import { ADMIN_FORM_URL } from '@/lib/constants'
 import { trackAdminButtonClick } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { motion } from 'framer-motion'
-import { premiumEasing } from '@/components/reveal'
+import { premiumEasing } from '@/components/animations/reveal'
 
 export function WaitlistButton({
   className,

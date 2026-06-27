@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
+import { Logo } from '@/components/ui/logo'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Naavik',

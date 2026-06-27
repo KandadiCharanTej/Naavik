@@ -11,7 +11,7 @@ import {
   Bell,
   Heart
 } from 'lucide-react'
-import { Logo } from '@/components/logo'
+import { Logo } from '@/components/ui/logo'
 
 const navItems = [
   { icon: Compass, label: 'Discover', active: true },

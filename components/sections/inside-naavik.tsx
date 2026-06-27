@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Reveal, premiumEasing } from '@/components/reveal'
+import { Reveal, premiumEasing } from '@/components/animations/reveal'
 import { ADMIN_FORM_URL } from '@/lib/constants'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Briefcase, BookOpen, Users, Trophy, Code, Calendar, FileText, Globe } from 'lucide-react'

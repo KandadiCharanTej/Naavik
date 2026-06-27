@@ -1,7 +1,7 @@
 'use client'
 
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
-import { Logo } from '@/components/logo'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
+import { Logo } from '@/components/ui/logo'
 
 
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (

@@ -1,4 +1,4 @@
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
+import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
 import { MessageCircle, Briefcase, Cloud, Globe, Code, Database, FileText, CheckCircle2, XCircle } from 'lucide-react'
 
 export async function WhyNaavikExists() {

@@ -1,9 +1,10 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
-import { GoogleAnalytics, MicrosoftClarity, ScrollDepthTracker } from '@/components/analytics'
+import { ThemeProvider } from '@/components/providers/theme-provider'
+import { GoogleAnalytics, MicrosoftClarity, ScrollDepthTracker } from '@/components/providers/analytics'
 import { Toaster } from '@/components/ui/sonner'
+import { WaitlistProvider } from '@/components/providers/waitlist-provider'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -124,15 +125,25 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-background font-sans antialiased">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900 selection:bg-[var(--purple-100)] selection:text-[var(--purple-900)] overflow-x-hidden w-full m-0 p-0 max-w-[100vw] min-h-screen flex flex-col`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
-          <Toaster position="top-center" />
+          <WaitlistProvider>
+            {children}
+            <Toaster 
+              position="top-center" 
+              toastOptions={{
+                className: 'rounded-[16px] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] bg-white text-gray-900 font-medium px-4 py-3',
+                style: {
+                  fontSize: '14px',
+                },
+              }}
+            />
+          </WaitlistProvider>
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
         <GoogleAnalytics />
