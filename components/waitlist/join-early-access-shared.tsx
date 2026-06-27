@@ -47,7 +47,7 @@ export const WaitlistProgress = memo(function WaitlistProgress({
         </p>
         <span className="text-[12px] font-bold tabular-nums text-[var(--purple-600)]">{pct}%</span>
       </div>
-      <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-[var(--purple-50)] ring-1 ring-[var(--purple-100)]">
+      <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[var(--purple-50)] ring-1 ring-[var(--purple-100)]">
         <div
           className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)]"
           style={{ width: `${pct}%` }}
@@ -89,30 +89,30 @@ export const LeftPanelContent = memo(function LeftPanelContent({
         🟣 Early Access
       </span>
 
-      <h2 className="mt-5 text-[2rem] font-extrabold leading-[1.06] tracking-[-0.04em] text-foreground xl:text-[2.375rem]">
+      <h2 className="mt-2 text-[1.75rem] font-extrabold leading-[1.06] tracking-[-0.04em] text-foreground xl:text-[2.125rem]">
         Join Early Access
       </h2>
 
-      <p className="mt-4 max-w-sm text-[15px] font-medium leading-relaxed text-gray-500">
+      <p className="mt-1.5 max-w-sm text-[14px] font-medium leading-relaxed text-gray-500 xl:text-[15px]">
         Join the first students helping shape Naavik. We&apos;ll notify you as soon as your campus goes live.
       </p>
 
-      <ul className="mt-5 space-y-2">
+      <ul className="mt-2.5 space-y-1">
         {BENEFITS.map((benefit) => (
-          <li key={benefit} className="flex items-center gap-3 text-[14px] font-semibold text-gray-700">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--purple-50)] text-[var(--purple-600)] ring-1 ring-[var(--purple-100)]">
-              <Check className="h-3.5 w-3.5" />
+          <li key={benefit} className="flex items-center gap-2.5 text-[13px] font-semibold text-gray-700 xl:text-[14px]">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--purple-50)] text-[var(--purple-600)] ring-1 ring-[var(--purple-100)]">
+              <Check className="h-3 w-3" />
             </span>
             {benefit}
           </li>
         ))}
       </ul>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-3 space-y-2.5">
         <WaitlistProgress count={waitlistCount} />
         <AvatarStack />
-        <span className="inline-flex items-center gap-2 rounded-full border border-[var(--purple-100)] bg-white px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--purple-700)] shadow-sm">
-          <MapPin className="h-3.5 w-3.5 shrink-0" />
+        <span className="inline-flex items-center gap-2 rounded-full border border-[var(--purple-100)] bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--purple-700)] shadow-sm">
+          <MapPin className="h-3 w-3 shrink-0" />
           Campus-by-campus rollout
         </span>
       </div>

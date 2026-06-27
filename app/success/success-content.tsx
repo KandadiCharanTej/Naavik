@@ -11,6 +11,7 @@ import {
   ArrowLeft,
   Megaphone,
   Lock,
+  Mail,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
@@ -141,7 +142,7 @@ const SuccessIcon = memo(function SuccessIcon({ size = 'default' }: { size?: 'de
     <div
       className={cn(
         'success-icon-pop relative mx-auto flex shrink-0 items-center justify-center',
-        compact ? 'h-12 w-12' : 'h-16 w-16 sm:h-[72px] sm:w-[72px]',
+        compact ? 'h-10 w-10' : 'h-16 w-16 sm:h-[72px] sm:w-[72px]',
       )}
     >
       <div
@@ -214,7 +215,7 @@ const PositionHeroCard = memo(function PositionHeroCard({
         <div
           className={cn(
             'relative overflow-hidden rounded-[23px] border border-white/70 bg-white/80 backdrop-blur-xl',
-            compact ? 'px-5 py-5' : 'px-6 py-7 sm:px-8 sm:py-8',
+            compact ? 'px-4 py-3.5' : 'px-6 py-5 sm:px-8 sm:py-6',
           )}
         >
           <div
@@ -235,22 +236,22 @@ const PositionHeroCard = memo(function PositionHeroCard({
             Early Access Position
           </p>
 
-          <div className="relative mt-2 text-center sm:mt-3">
+          <div className={cn('relative text-center', compact ? 'mt-0.5' : 'mt-2 sm:mt-3')}>
             <span
               className={cn(
                 'block font-black leading-none tracking-tight text-[var(--purple-600)] tabular-nums',
-                compact ? 'text-[3.25rem]' : 'text-[4rem] sm:text-[4.75rem] lg:text-[5.5rem]',
+                compact ? 'text-[2.75rem]' : 'text-[3.5rem] sm:text-[4.75rem] lg:text-[5.5rem]',
               )}
             >
               #{displayNum}
             </span>
           </div>
 
-          <div className="relative mt-3 flex justify-center sm:mt-4">
+          <div className={cn('relative flex justify-center', compact ? 'mt-2' : 'mt-3 sm:mt-4')}>
             <span
               className={cn(
                 'inline-flex items-center gap-1.5 rounded-full border border-[var(--purple-100)] bg-gradient-to-r from-[var(--purple-50)] to-white font-bold uppercase tracking-wider text-[var(--purple-700)] shadow-sm',
-                compact ? 'px-3 py-1 text-[9px]' : 'px-4 py-1.5 text-[10px] sm:text-[11px]',
+                compact ? 'px-3 py-1 text-[9px]' : 'px-3 py-1.5 text-[9.5px] sm:text-[11px]',
               )}
             >
               <Rocket className={cn(compact ? 'h-3 w-3' : 'h-3.5 w-3.5')} />
@@ -258,7 +259,7 @@ const PositionHeroCard = memo(function PositionHeroCard({
             </span>
           </div>
 
-          <div className="relative mt-5 sm:mt-6">
+          <div className={cn('relative', compact ? 'mt-3' : 'mt-4 sm:mt-6')}>
             <div
               className={cn(
                 'flex items-baseline justify-between font-semibold text-gray-500',
@@ -285,8 +286,8 @@ const PositionHeroCard = memo(function PositionHeroCard({
 
           <p
             className={cn(
-              'relative mt-4 text-center font-medium text-gray-500',
-              compact ? 'text-[11px] leading-snug' : 'text-[12px] leading-relaxed sm:text-[13px]',
+              'relative text-center font-medium text-gray-500',
+              compact ? 'mt-2.5 text-[10px] leading-snug' : 'mt-3 sm:mt-4 text-[11px] leading-relaxed sm:text-[13px]',
             )}
           >
             You&apos;re among the first students shaping Naavik before launch.
@@ -350,31 +351,31 @@ const NextStepsGrid = memo(function NextStepsGrid({ compact = false }: { compact
       >
         What happens next
       </p>
-      <div className={cn('grid grid-cols-2', compact ? 'gap-2' : 'gap-2.5 sm:gap-3 lg:gap-4')}>
+      <div className={cn('grid grid-cols-2', compact ? 'gap-1.5' : 'gap-2.5 sm:gap-3 lg:gap-4')}>
         {NEXT_STEPS.map((item, i) => (
           <div
             key={item.title}
             className={cn(
               'success-step-card group rounded-2xl border border-gray-100/90 bg-white/90 shadow-[var(--shadow-soft)] ring-1 ring-black/[0.02] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]',
-              compact ? 'p-2.5' : 'p-3 sm:p-3.5 lg:p-4',
+              compact ? 'p-2' : 'p-3 sm:p-3.5 lg:p-4',
             )}
             style={{ animationDelay: `${320 + i * 70}ms` }}
           >
-            <div className="flex items-start gap-2.5">
+            <div className="flex items-start gap-2">
               <div
                 className={cn(
                   'flex shrink-0 items-center justify-center rounded-xl ring-1',
-                  compact ? 'h-8 w-8' : 'h-9 w-9',
+                  compact ? 'h-6 w-6' : 'h-9 w-9',
                   toneStyles[item.tone],
                 )}
               >
-                <item.icon className={cn(compact ? 'h-3.5 w-3.5' : 'h-4 w-4')} />
+                <item.icon className={cn(compact ? 'h-3 w-3' : 'h-4 w-4')} />
               </div>
               <div className="min-w-0 flex-1">
                 <h4
                   className={cn(
                     'font-bold leading-tight text-foreground',
-                    compact ? 'text-[11px]' : 'text-[12px] sm:text-[13px]',
+                    compact ? 'text-[10px]' : 'text-[12px] sm:text-[13px]',
                   )}
                 >
                   <span className="mr-1">{item.emoji}</span>
@@ -383,7 +384,7 @@ const NextStepsGrid = memo(function NextStepsGrid({ compact = false }: { compact
                 <p
                   className={cn(
                     'mt-0.5 leading-snug text-gray-500',
-                    compact ? 'text-[10px] line-clamp-2' : 'text-[11px] sm:text-[12px]',
+                    compact ? 'text-[9.5px] line-clamp-2' : 'text-[11px] sm:text-[12px]',
                   )}
                 >
                   {item.desc}
@@ -413,10 +414,10 @@ const ShareSection = memo(function ShareSection({
 
   return (
     <div className="w-full">
-      <p className={cn('mb-3 text-center font-medium text-gray-400', compact ? 'text-[11px]' : 'text-[12px] sm:text-[13px]')}>
+      <p className={cn('mb-2 text-center font-medium text-gray-400', compact ? 'text-[11px]' : 'text-[12px] sm:text-[13px]')}>
         Help us bring Naavik to more engineering students.
       </p>
-      <div className="flex gap-2 sm:gap-3">
+      <div className="flex flex-wrap gap-2 sm:gap-3">
         <a
           href={INSTAGRAM_URL}
           target="_blank"
@@ -430,9 +431,18 @@ const ShareSection = memo(function ShareSection({
           <span className="truncate">Instagram</span>
         </a>
         <a
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="mailto:naavik.team@gmail.com"
+          className={cn(
+            btn,
+            'border-gray-200/90 bg-white text-foreground shadow-[var(--shadow-soft)] hover:border-gray-300 hover:shadow-[var(--shadow-card)]',
+          )}
+        >
+          <Mail className="h-4 w-4 shrink-0 text-gray-500 transition-colors group-hover:text-gray-800" />
+          <span className="truncate">Mail</span>
+        </a>
+        <button
+          type="button"
+          onClick={(e) => e.preventDefault()}
           className={cn(
             btn,
             'border-gray-200/90 bg-white text-foreground shadow-[var(--shadow-soft)] hover:border-[#0A66C2]/30 hover:shadow-[var(--shadow-card)]',
@@ -440,7 +450,7 @@ const ShareSection = memo(function ShareSection({
         >
           <LinkedInIcon className="h-4 w-4 shrink-0 text-[#0A66C2]" />
           <span className="truncate">LinkedIn</span>
-        </a>
+        </button>
         <button
           type="button"
           onClick={onCopy}
@@ -464,20 +474,11 @@ const PrimaryActions = memo(function PrimaryActions({ compact = false }: { compa
         href="/"
         className={cn(
           'group flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]',
-          compact ? 'text-[14px]' : 'text-[15px] lg:min-h-[52px]',
+          compact ? 'min-h-[44px] text-[13.5px]' : 'text-[15px] lg:min-h-[52px]',
         )}
       >
         Continue
         <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-      </Link>
-      <Link
-        href="/"
-        className={cn(
-          'flex min-h-[44px] flex-1 items-center justify-center rounded-2xl border border-gray-200 bg-white font-semibold text-gray-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800',
-          compact ? 'text-[13px]' : 'text-[14px]',
-        )}
-      >
-        Back to Home
       </Link>
     </div>
   )
@@ -485,12 +486,12 @@ const PrimaryActions = memo(function PrimaryActions({ compact = false }: { compa
 
 function SuccessHeader({ compact = false }: { compact?: boolean }) {
   return (
-    <div className={cn('success-header-rise text-center', compact ? 'space-y-1.5' : 'space-y-2 sm:space-y-3')}>
+    <div className={cn('success-header-rise text-center', compact ? 'space-y-1.5' : 'space-y-1 sm:space-y-2')}>
       <SuccessIcon size={compact ? 'compact' : 'default'} />
       <h1
         className={cn(
           'font-extrabold leading-[1.08] tracking-[-0.04em] text-foreground',
-          compact ? 'text-[1.375rem]' : 'text-[1.75rem] sm:text-[2.125rem] lg:text-[2.375rem]',
+          compact ? 'text-[1.25rem]' : 'text-[1.75rem] sm:text-[2.125rem] lg:text-[2.375rem]',
         )}
       >
         🎉 You&apos;re officially on the list!
@@ -542,12 +543,12 @@ function ThankYouInner() {
           >
             <ArrowLeft className="h-5 w-5" />
           </Link>
-          <Logo theme="light" className="pointer-events-none [&_img]:!h-7 [&_img]:!w-auto" />
+          <Logo theme="light" className="pointer-events-none" />
           <div className="w-10" aria-hidden />
         </header>
 
         <main className="mx-auto flex w-full max-w-[440px] flex-1 flex-col justify-center px-5 pb-[max(16px,env(safe-area-inset-bottom))]">
-          <div className="flex flex-col gap-3 [@media(max-height:700px)]:gap-2.5">
+          <div className="flex flex-col gap-2 [@media(max-height:700px)]:gap-1.5">
             <SuccessHeader compact />
             <Suspense fallback={<WaitlistResultFallback compact />}>
               <WaitlistResultDisplay animate={ready} compact />
@@ -561,7 +562,7 @@ function ThankYouInner() {
 
       {/* ── Desktop: premium two-part composition, one screen ── */}
       <div className="relative z-10 hidden min-h-[100dvh] flex-col lg:flex">
-        <header className="flex shrink-0 items-center justify-between px-8 py-5 xl:px-12">
+        <header className="flex shrink-0 items-center justify-between px-8 py-3 xl:px-12">
           <Link
             href="/"
             className="group inline-flex items-center gap-2 rounded-full border border-gray-200/70 bg-white/80 px-4 py-2 text-[13px] font-semibold text-gray-500 shadow-[var(--shadow-soft)] transition-colors hover:text-foreground"
@@ -569,20 +570,20 @@ function ThankYouInner() {
             <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
             Back to Naavik
           </Link>
-          <Logo theme="light" className="[&_img]:!h-9 [&_img]:!w-auto" />
+          <Logo theme="light" />
           <div className="w-[120px]" aria-hidden />
         </header>
 
-        <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col justify-center px-8 pb-8 xl:max-w-[1140px] xl:px-12 xl:pb-10">
-          <div className="grid items-center gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:gap-12">
-            <div className="flex flex-col gap-6 xl:gap-8">
+        <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col justify-center px-8 pb-4 xl:max-w-[1140px] xl:px-12 xl:pb-6">
+          <div className="grid items-center gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:gap-10">
+            <div className="flex flex-col gap-5 xl:gap-6">
               <SuccessHeader />
               <div className="hidden xl:block">
                 <NextStepsGrid />
               </div>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Suspense fallback={<WaitlistResultFallback />}>
                 <WaitlistResultDisplay animate={ready} />
               </Suspense>
@@ -595,11 +596,11 @@ function ThankYouInner() {
           </div>
         </main>
 
-        <footer className="shrink-0 border-t border-gray-100/80 px-8 py-4 text-center xl:px-12">
+        <footer className="shrink-0 border-t border-gray-100/80 px-8 py-3 text-center xl:px-12">
           <p className="text-[12px] font-medium text-gray-400">
             Questions?{' '}
-            <a href="mailto:hello@naavik.in" className="font-semibold text-gray-600 hover:text-foreground hover:underline">
-              hello@naavik.in
+            <a href="mailto:naavik.team@gmail.com" className="font-semibold text-gray-600 hover:text-foreground hover:underline">
+              naavik.team@gmail.com
             </a>
           </p>
         </footer>
