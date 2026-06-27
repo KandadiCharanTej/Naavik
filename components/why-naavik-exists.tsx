@@ -29,7 +29,7 @@ export async function WhyNaavikExists() {
         {/* App Logos Row */}
         <Reveal delay={50} className="w-full text-center mt-10 mb-10 max-w-[800px] mx-auto">
           <p className="text-[16px] text-gray-700 font-medium leading-relaxed mb-6">
-            Students switch between WhatsApp, LinkedIn, Google Drive, Unstop, GitHub and more every day. Naavik brings everything into one place.
+            Students lose hours every day switching between disconnected platforms just to stay updated. Naavik brings your entire daily ecosystem into a single workspace.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
             {['WhatsApp', 'LinkedIn', 'Google Drive', 'Unstop', 'GitHub', 'ERP Portal', 'Google Forms'].map((logo, i) => (

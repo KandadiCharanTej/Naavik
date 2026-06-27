@@ -31,14 +31,14 @@ export function WhatsReady() {
   ]
 
   return (
-    <section className="bg-[var(--bg-white)] py-16 md:py-24">
+    <section className="bg-[var(--bg-white)] py-14 md:py-[72px] lg:py-24">
       <div className="mx-auto max-w-[1200px] px-5">
         
         {/* Header */}
         <Reveal>
           <div className="mb-16">
             <span className="eyebrow-label">WHAT YOU GET</span>
-            <h2 className="text-[32px] md:text-[48px] font-bold tracking-tight leading-[1.1] text-foreground">
+            <h2 className="text-[32px] md:text-[40px] tracking-tight font-extrabold leading-[1.1] text-foreground">
               Available at <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-400)]">launch.</span>
             </h2>
           </div>

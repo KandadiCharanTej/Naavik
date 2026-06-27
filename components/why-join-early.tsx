@@ -19,7 +19,7 @@ export async function WhyJoinEarly() {
   const waitlistCount = await getWaitlistCount()
 
   return (
-    <section className="bg-white py-[64px] lg:py-[112px] border-t border-[var(--border)]" id="early-access">
+    <section className="bg-white py-14 md:py-[72px] lg:py-24 border-t border-[var(--border)]" id="early-access">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         
         {/* Header */}
@@ -28,7 +28,7 @@ export async function WhyJoinEarly() {
             <span className="inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-[12px] font-semibold tracking-wide text-orange-600 shadow-sm mb-6 uppercase">
               Early Access
             </span>
-            <h2 className="text-[36px] md:text-[56px] font-extrabold tracking-tight leading-[1.1] md:leading-[1.05] text-foreground">
+            <h2 className="text-[32px] md:text-[40px] tracking-tight font-extrabold leading-[1.1] md:leading-[1.05] text-foreground">
               Why join <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-rose-500">now?</span>
             </h2>
             <p className="mt-5 text-[18px] text-muted-foreground max-w-[600px] mx-auto font-medium">
@@ -120,7 +120,7 @@ export async function WhyJoinEarly() {
         <Reveal delay={200}>
           <div className="mt-16 md:mt-20 flex flex-col items-center justify-center text-center w-full">
             <WaitlistButton 
-              className="btn-primary h-[60px] w-full sm:w-auto px-6 sm:px-10 text-[16px] sm:text-[17px] rounded-full shadow-[0_8px_30px_rgba(124,58,237,0.25)] hover:scale-[1.02] transition-transform"
+              className="btn-primary h-[52px] w-full sm:w-auto px-[28px] text-[16px] sm:text-[17px] rounded-full shadow-[0_8px_30px_rgba(124,58,237,0.25)] hover:shadow-[0_12px_40px_rgba(124,58,237,0.4)] transition-all"
               id="why-join-cta"
             >
               Get Early Access Now

@@ -32,13 +32,13 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="bg-gray-50 py-[64px] lg:py-[112px] border-t border-gray-200" id="faq">
+    <section className="bg-gray-50 py-14 md:py-[72px] lg:py-24 border-t border-gray-200" id="faq">
       <div className="mx-auto max-w-[1000px] px-5 sm:px-8">
         
         {/* Header */}
         <Reveal className="w-full text-center">
           <div className="mb-16">
-            <h2 className="text-[36px] md:text-[52px] font-extrabold tracking-tight leading-[1.1] text-foreground mb-4">
+            <h2 className="text-[32px] md:text-[40px] tracking-tight font-extrabold leading-[1.1] text-foreground mb-4">
               Questions? <span className="text-gray-400">Answered.</span>
             </h2>
             <p className="text-[18px] text-gray-500 font-medium">Everything you need to know about the product and launch.</p>

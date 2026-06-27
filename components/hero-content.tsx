@@ -29,9 +29,9 @@ export function HeroContent({
   return (
     <div ref={containerRef} className="w-full max-w-[1400px] mx-auto relative z-10 flex flex-col ">
       
-      <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-12 lg:gap-8">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
         
-        <div className="w-full lg:w-[45%] flex flex-col items-start px-4 sm:px-8">
+        <div className="w-full lg:w-1/2 flex flex-col items-start px-4 sm:px-8">
           <StaggerContainer delay={100} className="flex flex-col items-start w-full">
             
             <StaggerItem className="mb-6">
@@ -48,8 +48,8 @@ export function HeroContent({
               </h1>
             </StaggerItem>
 
-            <StaggerItem className="mt-8 lg:mt-10">
-              <div className="flex flex-col gap-3">
+            <StaggerItem className="mt-8 lg:mt-10 w-full">
+              <div className="flex flex-col gap-4">
                 {[
                   { icon: Briefcase, text: 'Find internships & hackathons' },
                   { icon: BookOpen, text: 'Access notes, PYQs & lab manuals' },
@@ -59,13 +59,13 @@ export function HeroContent({
                 ].map((item, idx) => (
                   <motion.div 
                     key={idx}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-4"
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 + idx * 0.1 }}
                   >
-                    <div className="w-6 h-6 rounded-full bg-[var(--purple-50)] flex flex-shrink-0 items-center justify-center text-[var(--purple-600)]">
-                      <item.icon size={13} />
+                    <div className="w-8 h-8 rounded-full bg-[var(--purple-50)] flex flex-shrink-0 items-center justify-center text-[var(--purple-600)]">
+                      <item.icon size={16} />
                     </div>
                     <span className="text-[15px] sm:text-[16px] lg:text-[18px] text-gray-600 font-medium">
                       {item.text}
@@ -75,10 +75,10 @@ export function HeroContent({
               </div>
             </StaggerItem>
 
-            <StaggerItem className="mt-10 w-full">
-              <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[480px]">
+            <StaggerItem className="mt-12 w-full">
+              <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[500px]">
                 <WaitlistButton 
-                  className="flex-1 h-[56px] bg-[var(--purple-600)] hover:bg-[var(--purple-700)] text-white text-[16px] font-bold rounded-full shadow-[0_8px_30px_rgba(124,58,237,0.3)] transition-all"
+                  className="flex-1 h-[52px] px-[28px] bg-[var(--purple-600)] hover:bg-[var(--purple-700)] text-white text-[16px] font-bold rounded-full shadow-[0_8px_30px_rgba(124,58,237,0.3)] hover:shadow-[0_12px_40px_rgba(124,58,237,0.4)] transition-all"
                   id="hero-primary-cta"
                 >
                   Reserve My Spot
@@ -86,7 +86,7 @@ export function HeroContent({
                 
                 <a
                   href="#whats-inside"
-                  className="flex-1 flex items-center justify-center h-[56px] text-[16px] font-bold text-gray-700 bg-white border-2 border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 shadow-sm transition-all group"
+                  className="flex-1 flex items-center justify-center h-[52px] px-[28px] text-[16px] font-bold text-gray-700 bg-white border-2 border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 shadow-sm transition-all group w-full"
                 >
                   Explore Features 
                   <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -94,16 +94,16 @@ export function HeroContent({
               </div>
             </StaggerItem>
             
-            <StaggerItem className="mt-10 w-full max-w-[480px]">
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center text-[13px] font-medium">
-                  <span><span className="text-foreground font-bold">{waitlistCount}</span> students joined</span>
-                  <span className="text-gray-500">Goal: {waitlistGoal}</span>
+            <StaggerItem className="mt-12 w-full max-w-[500px]">
+              <div className="flex flex-col gap-3">
+                <div className="flex justify-between items-baseline text-[14px] font-medium">
+                  <span><span className="text-foreground font-extrabold text-[15px]">{waitlistCount}</span> students joined</span>
+                  <span className="text-gray-500 font-semibold tracking-wide">Goal: {waitlistGoal}</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden relative">
-                  <div className="absolute left-0 top-0 h-full bg-[var(--purple-600)] rounded-full transition-all duration-1000 ease-out" style={{ width: `${progressPercentage}%` }}></div>
+                <div className="w-full h-3 rounded-full bg-gray-100 overflow-hidden relative shadow-inner">
+                  <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)] rounded-full transition-all duration-1000 ease-out" style={{ width: `${progressPercentage}%` }}></div>
                 </div>
-                <p className="text-[12px] text-gray-500 mt-1">
+                <p className="text-[13px] text-gray-500 mt-1 font-medium">
                   Launching campus by campus across Telangana & Andhra Pradesh.
                 </p>
               </div>
@@ -111,7 +111,7 @@ export function HeroContent({
           </StaggerContainer>
         </div>
 
-        <div className="w-full lg:w-[55%] relative z-20 hidden lg:flex justify-end px-2 sm:px-8 mt-12 lg:mt-0 perspective-[2000px]">
+        <div className="w-full lg:w-1/2 relative z-20 hidden lg:flex justify-end px-2 sm:px-8 mt-12 lg:mt-0 perspective-[2000px]">
           <motion.div 
             style={{ y: yParallax, opacity: opacityParallax }}
             className="w-full flex justify-center lg:justify-end"
@@ -119,7 +119,7 @@ export function HeroContent({
             <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className="w-full max-w-[800px]"
+              className="w-full max-w-[1000px]"
             >
               <DashboardMockup />
             </motion.div>

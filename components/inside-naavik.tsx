@@ -154,8 +154,8 @@ export function InsideNaavik() {
   const activeFeatures = activeTab === 'growth' ? growthFeatures : collegeFeatures
 
   return (
-    <section className="bg-[var(--bg-gray)] py-[64px] lg:py-[112px] relative border-t border-[var(--border)]" id="inside-naavik">
-      <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
+    <section className="bg-[var(--bg-gray)] py-14 md:py-[72px] lg:py-24 relative border-t border-[var(--border)]" id="inside-naavik">
+      <div className="mx-auto w-full max-w-[1200px] px-5 sm:px-8">
         
         <Reveal>
           <div className="text-center mb-16">

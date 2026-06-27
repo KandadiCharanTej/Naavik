@@ -23,9 +23,9 @@ const navItems = [
 
 export function DashboardMockup() {
   return (
-    <div className="relative w-full max-w-[800px] aspect-[16/10] sm:aspect-[16/11]">
-      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--purple-600)]/20 to-blue-500/20 rounded-[24px] blur-3xl" />
-      <div className="relative w-full h-full rounded-[20px] sm:rounded-[24px] border border-white/40 bg-white/70 backdrop-blue2xl shadow-[0_24px_80px_rgba(0,0,0,0.07),0_0_0_1px_rgba(255,255,255,0.5)] overflow-hidden flex flex-col group">
+    <div className="relative w-full max-w-[1000px] aspect-[16/10] sm:aspect-[16/11]">
+      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--purple-600)]/40 to-blue-500/40 rounded-[24px] blur-[100px]" />
+      <div className="relative w-full h-full rounded-[20px] sm:rounded-[24px] border border-white/50 bg-white/60 backdrop-blur-3xl shadow-[0_24px_80px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.6)] overflow-hidden flex flex-col group">
         
         <div className="h-12 w-full border-b border-white/40 bg-white/40 flex items-center px-4 shrink-0 justify-between">
           <div className="flex items-center gap-2">
@@ -48,8 +48,8 @@ export function DashboardMockup() {
             </div>
             <div className="flex flex-col gap-1.5">
               {navItems.map((item, i) => (
-                <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors ${item.active ? 'bg-white shadow-sm text-[var(--purple-600)]' : 'text-gray-500 hover:bg-white/50 hover:text-gray-900'}`}>
-                  <item.icon size={16} className={item.active ? 'text-[var(--purple-600)]' : 'text-gray-400'} />
+                <div key={i} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[14px] font-medium transition-colors ${item.active ? 'bg-white shadow-sm text-[var(--purple-600)]' : 'text-gray-500 hover:bg-white/50 hover:text-gray-900'}`}>
+                  <item.icon size={18} className={item.active ? 'text-[var(--purple-600)]' : 'text-gray-400'} />
                   {item.label}
                 </div>
               ))}
@@ -82,9 +82,9 @@ export function DashboardMockup() {
               </div>
             </div>
             <div className="flex flex-1 gap-5 overflow-hidden relative">
-              <div className="flex-1 flex flex-col gap-4">
+              <div className="flex-1 flex flex-col gap-5">
                 <motion.div 
-                  className="bg-white rounded-[16px] p-4 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex flex-col gap-3 group-hover:-translate-y-1 transition-transform duration-500"
+                  className="bg-white rounded-[16px] p-5 border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex flex-col gap-4 group-hover:-translate-y-1 transition-transform duration-500"
                   initial={false}
                 >
                   <div className="flex items-center justify-between">
@@ -96,13 +96,13 @@ export function DashboardMockup() {
                     <p className="text-[12px] text-gray-500 mt-1">TechCorp India • Hyderabad</p>
                   </div>
                   <div className="flex gap-2 mt-1 flex-wrap">
-                    <span className="px-2 py-1 bg-gray-50 rounded text-[11px] font-medium text-gray-600 border border-gray-100">React</span>
-                    <span className="px-2 py-1 bg-gray-50 rounded text-[11px] font-medium text-gray-600 border border-gray-100">Next.js</span>
-                    <span className="px-2 py-1 bg-gray-50 rounded text-[11px] font-medium text-gray-600 border border-gray-100">₹15kmo</span>
+                    <span className="px-2.5 py-1 bg-gray-50 rounded-md text-[12px] font-medium text-gray-600 border border-gray-100">React</span>
+                    <span className="px-2.5 py-1 bg-gray-50 rounded-md text-[12px] font-medium text-gray-600 border border-gray-100">Next.js</span>
+                    <span className="px-2.5 py-1 bg-gray-50 rounded-md text-[12px] font-medium text-gray-600 border border-gray-100">₹15kmo</span>
                   </div>
                 </motion.div>
                 <motion.div 
-                  className="bg-white rounded-[16px] p-4 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] flex items-start gap-3 group-hover:-translate-y-0.5 transition-transform duration-500 delay-75"
+                  className="bg-white rounded-[16px] p-5 border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex items-start gap-4 group-hover:-translate-y-0.5 transition-transform duration-500 delay-75"
                 >
                   <div className="w-10 h-10 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
                     <BookOpen size={18} />
