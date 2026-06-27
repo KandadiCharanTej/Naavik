@@ -41,20 +41,22 @@ export function DashboardMockup({
         className={`absolute inset-0 rounded-[24px] bg-gradient-to-tr from-[var(--purple-600)]/35 to-blue-500/30 ${isMobile ? 'blur-[50px]' : 'blur-[90px]'}`}
       />
       <div className="group relative flex h-full w-full flex-col overflow-hidden rounded-[20px] border border-white/60 bg-white/70 shadow-[0_32px_80px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-2xl lg:rounded-[24px]">
-        {/* Window chrome */}
-        <div className="flex h-11 w-full shrink-0 items-center justify-between border-b border-white/50 bg-white/50 px-4">
-          <div className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-            <div className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-            <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-          </div>
-          <div className="mx-4 max-w-[280px] flex-1">
-            <div className="flex h-6 w-full items-center justify-center rounded-md border border-white/70 bg-white/60 text-[10px] font-medium text-gray-500 shadow-sm sm:text-[11px]">
-              naavik.in
+        {/* Window chrome - desktop only */}
+        {!isMobile && (
+          <div className="flex h-11 w-full shrink-0 items-center justify-between border-b border-white/50 bg-white/50 px-4">
+            <div className="flex items-center gap-1.5">
+              <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+              <div className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+              <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
             </div>
+            <div className="mx-4 max-w-[280px] flex-1">
+              <div className="flex h-6 w-full items-center justify-center rounded-md border border-white/70 bg-white/60 text-[10px] font-medium text-gray-500 shadow-sm sm:text-[11px]">
+                naavik.in
+              </div>
+            </div>
+            <div className="w-10" />
           </div>
-          <div className="w-10" />
-        </div>
+        )}
 
         <div className="flex min-h-0 flex-1 overflow-hidden">
           {/* Sidebar — desktop only */}

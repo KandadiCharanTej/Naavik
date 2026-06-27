@@ -4,6 +4,13 @@ import { Logo } from '@/components/ui/logo'
 import { PageContainer, Divider } from '@/components/design/primitives'
 import { CONTACT_EMAIL } from '@/lib/constants'
 
+const MailIcon = ({ size = 18 }: { size?: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="16" x="2" y="4" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+)
+
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -28,9 +35,16 @@ export function SiteFooter() {
           <div className="max-w-xs">
             <Logo theme="light" />
             <p className="mt-4 text-[14px] leading-relaxed text-gray-500">
-              Built for engineering students across Telangana & Andhra Pradesh.
+              Built by engineering students, for engineering students.
             </p>
             <div className="mt-5 flex gap-3">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-gray-400 transition-colors hover:text-gray-900"
+                aria-label="Email"
+              >
+                <MailIcon />
+              </a>
               <a
                 href="https://www.instagram.com/joinnaavik"
                 target="_blank"
@@ -40,15 +54,12 @@ export function SiteFooter() {
               >
                 <InstagramIcon />
               </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-gray-900"
+              <div
+                className="text-gray-400"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon />
-              </a>
+              </div>
             </div>
           </div>
 

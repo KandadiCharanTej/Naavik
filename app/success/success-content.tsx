@@ -365,7 +365,7 @@ export function ThankYouContent() {
           <div className="text-center">
             <SuccessIcon />
             <h1 className="text-[1.75rem] font-extrabold leading-[1.08] tracking-[-0.04em] sm:text-[2.25rem] lg:text-[2.375rem]">
-              🎉 You&apos;re officially on the list!
+              ðŸŽ‰ You&apos;re officially on the list!
             </h1>
             <p className="mx-auto mt-2.5 max-w-lg text-[14px] font-medium leading-relaxed text-gray-500 sm:mt-3 sm:text-[15px]">
               Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future. We&apos;ll email you as soon as Early Access opens.
@@ -387,8 +387,8 @@ export function ThankYouContent() {
         <footer className="relative z-10 mt-4 flex shrink-0 flex-col items-center gap-2 border-t border-gray-100/80 pt-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <p className="text-[11px] font-medium text-gray-500 sm:text-[12px]">
             Questions?{' '}
-            <a href="mailto:hello@naavik.in" className="font-bold text-foreground hover:underline">
-              hello@naavik.in
+            <a href="mailto:naavik.team@gmail.com" className="font-bold text-foreground hover:underline">
+              naavik.team@gmail.com
             </a>
           </p>
           <nav className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-gray-500 sm:text-[12px]">

@@ -80,8 +80,8 @@ export default function NotFoundPage() {
         {/* Footer */}
         <div className="mt-20 flex flex-col items-center gap-2">
           <span className="text-[13px] font-semibold text-gray-400">Still having trouble?</span>
-          <a href="mailto:hello@naavik.in" className="text-[15px] font-bold text-[var(--purple-600)] hover:text-[var(--purple-700)] transition-colors">
-            hello@naavik.in
+          <a href="mailto:naavik.team@gmail.com" className="text-[15px] font-bold text-[var(--purple-600)] hover:text-[var(--purple-700)] transition-colors">
+            naavik.team@gmail.com
           </a>
         </div>
 

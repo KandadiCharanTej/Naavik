@@ -266,10 +266,6 @@ export function HeroContent(props: Props) {
           <CtaGroup stacked />
         </div>
 
-        <div className="mt-8">
-          <HeroVisual mobile />
-        </div>
-
         <WaitlistProgress {...props} />
         <TrustBadges mobile />
       </PageContainer>

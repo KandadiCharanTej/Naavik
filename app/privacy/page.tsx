@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Logo } from '@/components/ui/logo'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Naavik',
+  title: 'Privacy Policy â€” Naavik',
   description: 'How we collect and protect your early access waitlist information.',
   robots: { index: false, follow: false },
 }
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             href="/"
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
-            ← Back to home
+            â† Back to home
           </Link>
         </header>
 
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-base font-semibold text-foreground">4. Opt-Out</h2>
               <p className="mt-2">
-                If you ever want to be removed from the waitlist, simply email us at <strong>hello@naavik.in</strong> and we will delete your record immediately.
+                If you ever want to be removed from the waitlist, simply email us at <strong>naavik.team@gmail.com</strong> and we will delete your record immediately.
               </p>
             </div>
           </div>
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
       </div>
 
       <footer className="mt-16 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Naavik · Made in Hyderabad
+        Â© {new Date().getFullYear()} Naavik Â· Made in Hyderabad
       </footer>
     </div>
   )

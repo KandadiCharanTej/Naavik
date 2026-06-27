@@ -54,7 +54,7 @@ export async function WhyJoinEarly() {
     {
       icon: ShieldCheck,
       title: 'Zero Spam',
-      desc: "We only email you when something real happens—like your campus going live. That's it.",
+      desc: "We only email you when something real happensâ€”like your campus going live. That's it.",
       color: 'text-emerald-500 bg-emerald-50',
       span: 'lg:col-span-6',
     },
@@ -110,7 +110,7 @@ export async function WhyJoinEarly() {
                 </div>
                 <div className="mt-6 flex h-44 w-full shrink-0 items-center justify-center rounded-2xl bg-white shadow-[var(--shadow-card)] ring-1 ring-[var(--purple-100)] transition-transform duration-500 group-hover:scale-[1.02] sm:h-48 lg:mt-0 lg:h-52 lg:w-56">
                   <div className="text-center">
-                    <div className="text-[3.5rem] font-black leading-none text-[var(--purple-600)]">₹0</div>
+                    <div className="text-[3.5rem] font-black leading-none text-[var(--purple-600)]">â‚¹0</div>
                     <div className="mt-1 text-[13px] font-bold uppercase tracking-wide text-gray-400">For Students</div>
                   </div>
                 </div>
@@ -165,10 +165,10 @@ export async function WhyJoinEarly() {
           <div className="mx-auto mt-14 max-w-lg border-t border-gray-200 pt-10 text-center lg:mt-20">
             <h3 className="text-[18px] font-bold">Built by students, for students.</h3>
             <p className="mt-3 text-[16px] leading-relaxed text-gray-500">
-              We started Naavik because we faced the exact same problems you do — missed deadlines, scattered notes, zero network. We&apos;re building the app we wished we had.
+              We started Naavik because we faced the exact same problems you do â€” missed deadlines, scattered notes, zero network. We&apos;re building the app we wished we had.
             </p>
-            <a href="mailto:hello@naavik.in" className="mt-5 inline-flex text-[15px] font-semibold text-[var(--purple-600)]">
-              hello@naavik.in →
+            <a href="mailto:naavik.team@gmail.com" className="mt-5 inline-flex text-[15px] font-semibold text-[var(--purple-600)]">
+              naavik.team@gmail.com â†’
             </a>
           </div>
         </Reveal>

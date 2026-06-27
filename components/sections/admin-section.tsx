@@ -2,7 +2,7 @@
 
 import { Reveal } from '@/components/animations/reveal'
 import { AdminButton } from '@/components/ui/cta-buttons'
-import { Shield, Zap, Award, ArrowRight } from 'lucide-react'
+import { Shield, Zap, Award, ArrowRight, Rocket, Users, Star } from 'lucide-react'
 import {
   PageContainer,
   Section,
@@ -12,19 +12,28 @@ import {
 
 const benefits = [
   {
-    title: 'Founding Admin Badge',
-    desc: 'A permanent verified badge on your Naavik profile, visible to everyone across all colleges.',
+    title: 'Official Founding Admin',
+    desc: 'Become the verified student leader for your college with a permanent Founding Admin badge and public recognition across the Naavik community.',
+    descMobile: 'Verified campus leader with a permanent Founding Admin badge.',
     icon: Award,
   },
   {
-    title: 'Direct Founder Access',
-    desc: 'Work directly with the Naavik team. Your feedback shapes what we build next.',
-    icon: Shield,
+    title: 'Priority Future Opportunities',
+    desc: 'Receive priority visibility for future recruiter features, campus ambassador programs, exclusive partnerships, internships, and career opportunities as Naavik grows.',
+    descMobile: 'Priority access to future opportunities and recruiter features.',
+    icon: Rocket,
   },
   {
-    title: 'First Access to Features',
-    desc: 'Beta test every new update and feature before it rolls out to everyone else.',
-    icon: Zap,
+    title: 'Build With the Founders',
+    desc: 'Work directly with the Naavik team, influence the product roadmap, test upcoming features early, and help shape the future of the platform.',
+    descMobile: 'Work directly with the founders and shape Naavik.',
+    icon: Users,
+  },
+  {
+    title: 'Leave Your Legacy',
+    desc: "Launch and grow your college's official Naavik community, help thousands of students discover opportunities, and be remembered as the student who brought Naavik to your campus.",
+    descMobile: 'Build your college community and leave your mark.',
+    icon: Star,
   },
 ]
 
@@ -70,19 +79,28 @@ function JourneySteps() {
 
 function BenefitCards() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex h-full flex-col gap-[18px] sm:gap-4">
       {benefits.map((benefit) => (
         <div
           key={benefit.title}
-          className="rounded-xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/10 p-4 backdrop-blur-sm lg:p-5"
+          className="group flex flex-1 flex-col justify-center rounded-xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/10 p-3.5 sm:p-4 backdrop-blur-sm transition-all duration-300 hover:border-[var(--purple-400)]/50 hover:bg-[var(--purple-600)]/20 hover:shadow-[0_8px_30px_rgba(124,58,237,0.12)] lg:p-5"
         >
-          <div className="flex gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--purple-600)]/25 text-[var(--purple-300)]">
+          <div className="flex gap-3 sm:gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--purple-600)]/25 text-[var(--purple-300)] transition-transform duration-300 group-hover:scale-110">
               <benefit.icon className="h-5 w-5" />
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1 pr-2 sm:pr-0">
               <p className="text-[14px] font-bold text-[var(--purple-200)] lg:text-[15px]">{benefit.title}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-gray-400">{benefit.desc}</p>
+              
+              {/* Desktop Description */}
+              <p className="mt-1 hidden text-[13px] leading-relaxed text-gray-400 transition-colors duration-300 group-hover:text-gray-300 sm:block">
+                {benefit.desc}
+              </p>
+
+              {/* Mobile Description */}
+              <p className="mt-1.5 max-w-[240px] text-[12.5px] leading-[1.6] text-gray-400 transition-colors duration-300 group-hover:text-gray-300 sm:hidden">
+                {benefit.descMobile}
+              </p>
             </div>
           </div>
         </div>
@@ -126,7 +144,7 @@ export function AdminSection() {
                 </div>
                 <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                   <AdminButton id="admin-cta" className="naavik-btn naavik-btn-primary h-14 !rounded-2xl px-8 text-[16px]">
-                    Apply for your College <ArrowRight className="h-5 w-5" />
+                    Become a Founding Admin <ArrowRight className="h-5 w-5" />
                   </AdminButton>
                   <p className="text-[13px] font-semibold text-gray-500">
                     Takes 5 minutes. <br />Reviewed personally.
