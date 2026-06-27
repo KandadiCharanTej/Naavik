@@ -52,7 +52,7 @@ export function WaitlistModalPortal({
     <>
       <div
         aria-hidden
-        className="fixed inset-0 z-[200] bg-[rgba(0,0,0,0.45)] backdrop-blur-[8px] max-md:animate-in max-md:fade-in-0 max-md:duration-300"
+        className="fixed inset-0 z-[200] bg-[rgba(0,0,0,0.65)] backdrop-blur-[10px] animate-in fade-in-0 duration-[220ms]"
         onClick={() => {
           if (!preventClose) onClose()
         }}
@@ -62,9 +62,8 @@ export function WaitlistModalPortal({
         aria-modal="true"
         className={cn(
           'fixed z-[201] flex flex-col overflow-hidden bg-white outline-none',
-          'top-1/2 left-1/2 max-h-[90dvh] w-[95vw] -translate-x-1/2 -translate-y-1/2',
-          'max-md:inset-x-0 max-md:bottom-0 max-md:top-auto max-md:h-[100dvh] max-md:max-h-[100dvh] max-md:w-full max-md:translate-x-0 max-md:translate-y-0',
-          'max-md:animate-in max-md:slide-in-from-bottom max-md:duration-300 max-md:ease-out',
+          'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+          'animate-in zoom-in-95 fade-in-0 duration-[220ms] ease-out',
           className,
         )}
         onClick={(event) => event.stopPropagation()}

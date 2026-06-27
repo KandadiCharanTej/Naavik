@@ -129,7 +129,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
         preventClose={navigating}
         className={cn(
           'border border-white/20 bg-white shadow-[0_40px_100px_rgba(0,0,0,0.25)]',
-          'max-md:rounded-t-[28px] max-md:border-b-0 max-md:shadow-[0_-8px_40px_rgba(0,0,0,0.12)]',
+          'max-md:w-[92vw] max-md:max-w-[420px] max-md:max-h-[98dvh] max-md:rounded-[28px] max-md:shadow-[0_0_60px_rgba(124,58,237,0.15)]',
           'md:h-[min(90dvh,760px)] md:w-[95vw] md:rounded-[24px]',
           'lg:h-[650px] lg:max-h-[90vh] lg:w-[1000px] lg:max-w-[1050px] lg:rounded-[28px]',
         )}

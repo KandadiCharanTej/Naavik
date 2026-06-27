@@ -1,9 +1,8 @@
 'use client'
 
 import { memo } from 'react'
-import { ArrowLeft, X, AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
+import { ArrowLeft, X, AlertCircle, Loader2 } from 'lucide-react'
 import { Logo } from '@/components/ui/logo'
-import { Eyebrow } from '@/components/design/primitives'
 import { WAITLIST_GOAL, type JoinEarlyAccessModalProps } from './join-early-access-shared'
 
 const FORM_ID = 'join-early-access-phone-form'
@@ -12,18 +11,22 @@ function MobileWaitlistProgress({ count }: { count: number }) {
   const pct = Math.min(100, Math.round((count / WAITLIST_GOAL) * 100))
 
   return (
-    <div className="mt-6 rounded-2xl bg-[var(--purple-50)] p-4 ring-1 ring-[var(--purple-100)]">
-      <div className="flex items-baseline justify-between gap-3">
-        <p className="text-[14px] font-semibold text-gray-600">
-          <span className="text-[17px] font-bold text-foreground">{count}</span>
-          {' / '}
-          {WAITLIST_GOAL} students joined
-        </p>
-        <span className="text-[14px] font-bold tabular-nums text-[var(--purple-600)]">{pct}%</span>
+    <div className="relative overflow-hidden rounded-[16px] border border-[var(--purple-200)] bg-gradient-to-br from-[var(--purple-50)] to-white p-3 shadow-sm mb-3">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex flex-col">
+          <span className="text-[12px] font-semibold text-gray-500">Students joined</span>
+          <span className="text-[16px] font-extrabold text-foreground tracking-tight leading-none mt-0.5">
+            {count} <span className="text-[13px] font-semibold text-gray-400">/ {WAITLIST_GOAL}</span>
+          </span>
+        </div>
+        <span className="flex h-6 items-center justify-center rounded-full bg-[var(--purple-100)] px-2 text-[12px] font-bold text-[var(--purple-700)]">
+          {pct}%
+        </span>
       </div>
-      <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-white ring-1 ring-[var(--purple-100)]">
+      
+      <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--purple-100)] shadow-inner">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)]"
+          className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)] transition-[width] duration-700 ease-out shadow-[0_0_12px_rgba(124,58,237,0.5)]"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -49,7 +52,7 @@ function MobileField({
   disabled?: boolean
 }) {
   return (
-    <div className="relative w-full min-w-0">
+    <div className="relative w-full">
       <input
         id={id}
         name={name}
@@ -57,15 +60,14 @@ function MobileField({
         required={required}
         disabled={disabled}
         placeholder=" "
-        className="peer block h-14 w-full min-w-0 rounded-2xl border border-gray-200/80 bg-white px-4 pb-2 pt-6 text-[15px] text-gray-900 outline-none transition-[border-color,box-shadow] placeholder:text-transparent focus:border-[var(--purple-300)] focus:shadow-[0_0_0_4px_rgba(124,58,237,0.1)] disabled:opacity-60"
+        className="peer block h-[50px] w-full rounded-[14px] border border-gray-200/80 bg-gray-50/50 px-3.5 pb-1 pt-5 text-[15px] font-medium text-gray-900 outline-none transition-all placeholder:text-transparent focus:border-[var(--purple-300)] focus:bg-white focus:shadow-[0_0_0_4px_rgba(124,58,237,0.1)] focus:ring-0 disabled:opacity-60"
       />
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-4 top-4 text-[13px] font-semibold text-gray-500 transition-all peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-[var(--purple-600)] peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px]"
+        className="pointer-events-none absolute left-3.5 top-[15px] text-[15px] font-medium text-gray-400 transition-all peer-focus:top-[6px] peer-focus:text-[11px] peer-focus:font-semibold peer-focus:text-[var(--purple-600)] peer-[:not(:placeholder-shown)]:top-[6px] peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-gray-500"
       >
         {label}
       </label>
-      <span className="sr-only">{placeholder}</span>
     </div>
   )
 }
@@ -78,111 +80,117 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
   onClose,
 }: JoinEarlyAccessModalProps) {
   return (
-    <div className="flex h-full min-h-0 w-full flex-col bg-white">
-      <header className="shrink-0 px-6 pt-[max(2rem,env(safe-area-inset-top))]">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center">
-          <button
-            type="button"
-            onClick={onClose}
-            className="-ml-1 flex items-center gap-1.5 rounded-xl py-2 pr-2 text-gray-600 transition-colors active:text-gray-900"
-            aria-label="Go back"
-          >
-            <ArrowLeft className="h-5 w-5 shrink-0" />
-            <span className="text-[15px] font-semibold">Back</span>
-          </button>
+    <div className="flex w-full flex-col bg-white overflow-hidden p-4 sm:p-5">
+      
+      {/* HEADER */}
+      <header className="relative flex w-full items-center justify-between shrink-0 mb-3">
+        <button
+          type="button"
+          onClick={onClose}
+          className="-ml-2 flex h-9 w-9 items-center justify-center rounded-full text-gray-500 transition-colors active:bg-gray-100 z-10"
+          aria-label="Go back"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
 
-          <Logo theme="light" className="pointer-events-none [&_img]:!h-7 [&_img]:!w-auto" />
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="-mr-1 justify-self-end flex h-10 w-10 items-center justify-center rounded-xl text-gray-400 transition-colors active:bg-gray-100 active:text-gray-700"
-            aria-label="Close"
-          >
-            <X className="h-5 w-5" />
-          </button>
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <Logo theme="light" className="[&_img]:h-[110px] [&_img]:w-auto" />
         </div>
 
-        <div className="mt-8 text-left">
-          <Eyebrow tone="purple">🟣 Early Access</Eyebrow>
-
-          <h2 className="mt-4 text-[1.875rem] font-extrabold leading-[1.08] tracking-[-0.035em] text-foreground">
-            Join Early Access
-          </h2>
-
-          <p className="mt-3 text-[15px] font-medium leading-relaxed text-gray-500">
-            Join the first students helping shape Naavik. We&apos;ll notify you as soon as your campus goes live.
-          </p>
-
-          <MobileWaitlistProgress count={waitlistCount} />
-        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="-mr-2 flex h-9 w-9 items-center justify-center rounded-full text-gray-400 transition-colors active:bg-gray-100 z-10"
+          aria-label="Close"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </header>
 
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))]">
-        <form id={FORM_ID} onSubmit={onSubmit} className="w-full min-w-0 space-y-4">
-          <MobileField
-            id="phone-name"
-            name="name"
-            type="text"
-            label="Name"
-            placeholder="Your full name"
-            required
-            disabled={submitting}
-          />
-          <MobileField
-            id="phone-email"
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="you@college.edu.in"
-            required
-            disabled={submitting}
-          />
-          <MobileField
-            id="phone-college"
-            name="college"
-            type="text"
-            label="College"
-            placeholder="Your college name"
-            required
-            disabled={submitting}
-          />
-          <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
+      {/* BADGE */}
+      <div className="mb-4 mt-2 flex shrink-0">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-100 bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-gray-700 shadow-sm ring-1 ring-gray-900/5">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-500)]" />
+          Early Access
+        </span>
+      </div>
+      
+      {/* TITLE */}
+      <h2 className="text-[30px] font-extrabold leading-[1.05] tracking-tight text-[#111827] mb-2.5 shrink-0">
+        Join Early Access
+      </h2>
+      
+      {/* DESCRIPTION */}
+      <p className="text-[14px] font-medium leading-[1.3] text-gray-500 mb-3 shrink-0">
+        Join the first students shaping Naavik. We&apos;ll notify you when your campus is live.
+      </p>
 
-          {error ? (
-            <div
-              role="alert"
-              className="flex items-start gap-2 rounded-2xl border border-red-100 bg-red-50 p-3.5 text-[13px] font-medium text-red-600"
-            >
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-              <span>{error}</span>
-            </div>
-          ) : null}
+      {/* PROGRESS CARD */}
+      <MobileWaitlistProgress count={waitlistCount} />
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="naavik-btn naavik-btn-primary group flex h-14 w-full items-center justify-center gap-2 whitespace-nowrap !rounded-2xl text-[16px] font-bold disabled:cursor-not-allowed disabled:opacity-70"
+      {/* FORM */}
+      <form id={FORM_ID} onSubmit={onSubmit} className="flex flex-col gap-2.5 shrink-0">
+        <MobileField
+          id="phone-name"
+          name="name"
+          type="text"
+          label="Name"
+          placeholder="Your full name"
+          required
+          disabled={submitting}
+        />
+        <MobileField
+          id="phone-email"
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="you@college.edu.in"
+          required
+          disabled={submitting}
+        />
+        <MobileField
+          id="phone-college"
+          name="college"
+          type="text"
+          label="College"
+          placeholder="Your college name"
+          required
+          disabled={submitting}
+        />
+        <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
+
+        {error ? (
+          <div
+            role="alert"
+            className="flex items-center gap-2 rounded-[10px] border border-red-100 bg-red-50 p-2 text-[13px] font-medium text-red-600 animate-in fade-in-50 duration-200"
           >
-            {submitting ? (
-              <>
-                <Loader2 className="h-5 w-5 shrink-0 animate-spin" />
-                Joining...
-              </>
-            ) : (
-              <>
-                Join Early Access
-                <ArrowRight className="h-4 w-4 shrink-0" />
-              </>
-            )}
-          </button>
-        </form>
+            <AlertCircle className="h-4 w-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        ) : null}
 
-        <div className="mt-6 text-center text-[12px] font-medium leading-relaxed text-gray-400">
-          <p>No spam. One email when your campus goes live.</p>
-          <p className="mt-1">Free forever for engineering students.</p>
-        </div>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="naavik-btn naavik-btn-primary mt-1 flex h-[50px] w-full items-center justify-center !rounded-[14px] text-[15px] font-bold shadow-[0_4px_12px_rgba(124,58,237,0.2)] transition-transform duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {submitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Joining...
+            </>
+          ) : (
+            "Join Early Access"
+          )}
+        </button>
+      </form>
+
+      {/* FOOTER TEXT */}
+      <div className="mt-3 mx-auto w-full text-center text-[12px] font-medium leading-[1.4] text-gray-400 shrink-0">
+        <p>No spam. One email when your campus goes live.</p>
+        <p>Free forever for engineering students.</p>
       </div>
     </div>
   )
 })
+

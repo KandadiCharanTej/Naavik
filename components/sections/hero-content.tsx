@@ -43,7 +43,7 @@ function EarlyAccessBadge() {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--purple-400)] opacity-60" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--purple-500)]" />
       </span>
-      🟣 Early Access Now Open
+      Early Access Now Open
     </motion.span>
   )
 }
