@@ -133,12 +133,6 @@ const WithNaavikCard = memo(function WithNaavikCard() {
           </div>
         ))}
       </div>
-
-      <div className="mt-6 flex h-[72px] items-center justify-center rounded-xl border border-[var(--purple-100)] bg-white sm:mt-8">
-        <span className="text-[15px] font-extrabold tracking-wide text-[var(--purple-700)]">
-          One place.
-        </span>
-      </div>
     </Card>
   )
 })

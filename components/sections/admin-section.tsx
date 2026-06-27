@@ -11,23 +11,84 @@ import {
 } from '@/components/design/primitives'
 
 const benefits = [
-  { title: 'Founding Admin Badge', desc: 'A permanent verified badge on your Naavik profile, visible to everyone across all colleges.', icon: Award, atStep: 7 },
-  { title: 'Direct Founder Access', desc: 'Work directly with the Naavik team. Your feedback shapes the product roadmap.', icon: Shield, atStep: 2 },
-  { title: 'First Access to Features', desc: 'Beta test every new update and feature before it rolls out to the rest of the platform.', icon: Zap, atStep: 4 },
+  {
+    title: 'Founding Admin Badge',
+    desc: 'A permanent verified badge on your Naavik profile, visible to everyone across all colleges.',
+    icon: Award,
+  },
+  {
+    title: 'Direct Founder Access',
+    desc: 'Work directly with the Naavik team. Your feedback shapes what we build next.',
+    icon: Shield,
+  },
+  {
+    title: 'First Access to Features',
+    desc: 'Beta test every new update and feature before it rolls out to everyone else.',
+    icon: Zap,
+  },
 ]
 
 const steps = [
   { step: 1, title: 'Apply', desc: 'Submit your profile for campus admin role.' },
   { step: 2, title: 'Review', desc: 'Our team reviews your application.' },
   { step: 3, title: 'Selected', desc: 'Get approved as a campus representative.' },
-  { step: 4, title: 'Onboarding', desc: 'Learn the platform and best practices.' },
+  { step: 4, title: 'Onboarding', desc: 'Get onboarded and learn best practices.' },
   { step: 5, title: 'Launch Your Campus', desc: 'Introduce Naavik to your college.' },
   { step: 6, title: 'Upload Resources & Updates', desc: 'Add notes and campus announcements.' },
   { step: 7, title: 'Become a Verified Founding Admin', desc: 'Earn your official founding badge.' },
 ]
 
-function getBenefitForStep(stepNum: number) {
-  return benefits.find((b) => b.atStep === stepNum)
+function JourneySteps() {
+  return (
+    <div className="relative">
+      <div
+        aria-hidden
+        className="absolute bottom-4 left-[15px] top-4 w-px bg-gradient-to-b from-[var(--purple-600)]/60 via-white/15 to-[var(--purple-600)]/60"
+      />
+      <ol className="space-y-0">
+        {steps.map((s) => (
+          <li key={s.step} className="relative flex gap-4 pb-6 last:pb-0">
+            <div
+              className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[12px] font-bold ${
+                s.step === 1 || s.step === 7
+                  ? 'bg-[var(--purple-600)] text-white shadow-[0_0_16px_rgba(124,58,237,0.45)]'
+                  : 'bg-white/10 text-gray-400'
+              }`}
+            >
+              {s.step}
+            </div>
+            <div className="min-w-0 flex-1 pt-0.5">
+              <p className="text-[14px] font-bold text-white lg:text-[15px]">{s.title}</p>
+              <p className="mt-0.5 text-[13px] leading-relaxed text-gray-500">{s.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+function BenefitCards() {
+  return (
+    <div className="flex flex-col gap-4">
+      {benefits.map((benefit) => (
+        <div
+          key={benefit.title}
+          className="rounded-xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/10 p-4 backdrop-blur-sm lg:p-5"
+        >
+          <div className="flex gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--purple-600)]/25 text-[var(--purple-300)]">
+              <benefit.icon className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[14px] font-bold text-[var(--purple-200)] lg:text-[15px]">{benefit.title}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-gray-400">{benefit.desc}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export function AdminSection() {
@@ -61,7 +122,7 @@ export function AdminSection() {
                 </h2>
                 <div className="mt-6 space-y-4 text-[17px] font-medium leading-relaxed text-gray-400">
                   <p>We are selecting exactly one student per college to lead their campus on Naavik. This isn&apos;t a form submission; it&apos;s a real leadership role.</p>
-                  <p>You&apos;ll curate study resources, verify campus updates, and build your college&apos;s digital hub from the ground up.</p>
+                  <p>You&apos;ll upload and organise study resources, verify campus updates, and build your college&apos;s digital hub from the ground up.</p>
                 </div>
                 <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                   <AdminButton id="admin-cta" className="naavik-btn naavik-btn-primary h-14 !rounded-2xl px-8 text-[16px]">
@@ -80,96 +141,19 @@ export function AdminSection() {
                   The Selection Process
                 </p>
 
-                {/* Desktop: horizontal journey path */}
-                <div className="relative mt-10 hidden lg:block">
-                  <div
-                    aria-hidden
-                    className="absolute left-[7%] right-[7%] top-4 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  />
-                  <div className="flex items-start justify-between gap-1">
-                    {steps.map((s) => {
-                      const benefit = getBenefitForStep(s.step)
-                      return (
-                        <div key={s.step} className="group relative flex flex-1 flex-col items-center">
-                          <div
-                            className={`relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-bold ring-4 ring-[#06060A] transition-colors ${
-                              benefit
-                                ? 'bg-[var(--purple-600)] text-white shadow-[0_0_20px_rgba(124,58,237,0.5)]'
-                                : s.step === 1
-                                  ? 'bg-[var(--purple-600)]/80 text-white'
-                                  : 'bg-white/10 text-gray-400'
-                            }`}
-                          >
-                            {s.step}
-                          </div>
-                          <p className="mt-3 max-w-[88px] text-center text-[11px] font-bold leading-tight text-white">
-                            {s.title}
-                          </p>
-                          <p className="mt-1 max-w-[96px] text-center text-[10px] leading-snug text-gray-500">
-                            {s.desc}
-                          </p>
-                          {benefit && (
-                            <div className="absolute -bottom-2 left-1/2 z-20 mt-16 w-[200px] -translate-x-1/2 translate-y-full rounded-xl border border-[var(--purple-500)]/30 bg-[var(--purple-600)]/10 p-3 backdrop-blur-md">
-                              <div className="flex items-start gap-2.5">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--purple-600)]/30 text-[var(--purple-300)]">
-                                  <benefit.icon className="h-4 w-4" />
-                                </div>
-                                <div className="min-w-0 text-left">
-                                  <p className="text-[12px] font-bold leading-tight text-[var(--purple-200)]">{benefit.title}</p>
-                                  <p className="mt-0.5 text-[10px] leading-snug text-gray-400">{benefit.desc}</p>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })}
+                <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                  <div>
+                    <p className="mb-6 text-[11px] font-bold uppercase tracking-[0.12em] text-gray-500 lg:mb-8">
+                      Your Journey
+                    </p>
+                    <JourneySteps />
                   </div>
-                  <div className="h-28" aria-hidden />
-                </div>
 
-                {/* Mobile: vertical journey path */}
-                <div className="relative mt-8 lg:hidden">
-                  <div
-                    aria-hidden
-                    className="absolute bottom-4 left-[15px] top-4 w-px bg-gradient-to-b from-[var(--purple-600)]/60 via-white/15 to-[var(--purple-600)]/60"
-                  />
-                  <div className="space-y-0">
-                    {steps.map((s) => {
-                      const benefit = getBenefitForStep(s.step)
-                      return (
-                        <div key={s.step} className="relative flex gap-4 pb-6 last:pb-0">
-                          <div
-                            className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[12px] font-bold ${
-                              benefit
-                                ? 'bg-[var(--purple-600)] text-white shadow-[0_0_16px_rgba(124,58,237,0.45)]'
-                                : s.step === 1
-                                  ? 'bg-[var(--purple-600)] text-white'
-                                  : 'bg-white/10 text-gray-400'
-                            }`}
-                          >
-                            {s.step}
-                          </div>
-                          <div className="min-w-0 flex-1 pt-0.5">
-                            <p className="text-[14px] font-bold text-white">{s.title}</p>
-                            <p className="mt-0.5 text-[13px] leading-relaxed text-gray-500">{s.desc}</p>
-                            {benefit && (
-                              <div className="mt-3 rounded-xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/10 p-3.5 backdrop-blur-sm">
-                                <div className="flex gap-3">
-                                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--purple-600)]/25 text-[var(--purple-300)]">
-                                    <benefit.icon className="h-4 w-4" />
-                                  </div>
-                                  <div>
-                                    <p className="text-[13px] font-bold text-[var(--purple-200)]">{benefit.title}</p>
-                                    <p className="mt-0.5 text-[12px] leading-relaxed text-gray-400">{benefit.desc}</p>
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )
-                    })}
+                  <div>
+                    <p className="mb-6 text-[11px] font-bold uppercase tracking-[0.12em] text-gray-500 lg:mb-8">
+                      What You Get
+                    </p>
+                    <BenefitCards />
                   </div>
                 </div>
               </div>

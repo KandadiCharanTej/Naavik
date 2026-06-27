@@ -10,12 +10,11 @@ import {
   type ReactNode,
 } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import {
-  Dialog,
-  DialogContent,
-} from '@/components/ui/dialog'
+import { Loader2 } from 'lucide-react'
 import { trackWaitlistButtonClick, trackWaitlistSubmitted } from '@/lib/analytics'
-import { WaitlistFormPanel } from '@/components/waitlist/waitlist-flow-ui'
+import { cn } from '@/lib/utils'
+import { JoinEarlyAccessModal } from '@/components/waitlist/JoinEarlyAccessModal'
+import { WaitlistModalPortal } from '@/components/waitlist/WaitlistModalPortal'
 
 type WaitlistContextValue = {
   open: () => void
@@ -32,23 +31,32 @@ export function useWaitlist() {
 export function WaitlistProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [navigating, setNavigating] = useState(false)
   const [error, setError] = useState('')
   const [waitlistCount, setWaitlistCount] = useState(128)
   const router = useRouter()
   const pathname = usePathname()
 
-  // Auto-close modal immediately upon page routing navigation change
   useEffect(() => {
-    setIsOpen(false)
+    if (pathname === '/success') {
+      setIsOpen(false)
+      setSubmitting(false)
+      setNavigating(false)
+    }
   }, [pathname])
 
   const open = useCallback(() => {
     setError('')
-    setIsOpen(false) // Reset state before opening
     setSubmitting(false)
+    setNavigating(false)
     setIsOpen(true)
     trackWaitlistButtonClick()
   }, [])
+
+  const close = useCallback(() => {
+    if (navigating) return
+    setIsOpen(false)
+  }, [navigating])
 
   const value = useMemo(() => ({ open }), [open])
 
@@ -99,32 +107,56 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
 
       setWaitlistCount(data.position)
       trackWaitlistSubmitted(college)
-      // Navigate directly. Dialog auto-closes on pathname change.
+      setNavigating(true)
       router.push(
         `/success?position=${data.position}&name=${encodeURIComponent(name)}`,
       )
     } catch {
       setError('Network error. Please check your connection and try again.')
       setSubmitting(false)
+      setNavigating(false)
     }
   }
+
+  const showLoadingOverlay = submitting || navigating
 
   return (
     <WaitlistContext.Provider value={value}>
       {children}
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent
-          overlayClassName="!bg-black/50 backdrop-blur-sm transition-all duration-300"
-          className="!flex max-h-[90vh] lg:max-h-[680px] w-[95vw] lg:w-[1020px] max-w-[1050px] flex-col overflow-hidden rounded-[24px] lg:rounded-[28px] border border-white/20 bg-white p-0 shadow-[0_40px_100px_rgba(0,0,0,0.25)] transition-all duration-300"
-        >
-          <WaitlistFormPanel
+      <WaitlistModalPortal
+        open={isOpen}
+        onClose={close}
+        preventClose={navigating}
+        className={cn(
+          'border border-white/20 bg-white shadow-[0_40px_100px_rgba(0,0,0,0.25)]',
+          'max-md:rounded-t-[28px] max-md:border-b-0 max-md:shadow-[0_-8px_40px_rgba(0,0,0,0.12)]',
+          'md:h-[min(90dvh,760px)] md:w-[95vw] md:rounded-[24px]',
+          'lg:h-[650px] lg:max-h-[90vh] lg:w-[1000px] lg:max-w-[1050px] lg:rounded-[28px]',
+        )}
+      >
+        <div className="relative flex h-full min-h-0 w-full flex-col">
+          <JoinEarlyAccessModal
             waitlistCount={waitlistCount}
             error={error}
             submitting={submitting}
             onSubmit={handleSubmit}
+            onClose={close}
           />
-        </DialogContent>
-      </Dialog>
+
+          {showLoadingOverlay ? (
+            <div
+              aria-live="polite"
+              aria-busy="true"
+              className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/90"
+            >
+              <Loader2 className="h-8 w-8 animate-spin text-[var(--purple-600)]" />
+              <p className="mt-3 text-[14px] font-semibold text-gray-600">
+                {navigating ? 'Taking you to your confirmation…' : 'Joining…'}
+              </p>
+            </div>
+          ) : null}
+        </div>
+      </WaitlistModalPortal>
     </WaitlistContext.Provider>
   )
 }

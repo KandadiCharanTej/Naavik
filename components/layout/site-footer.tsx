@@ -2,6 +2,7 @@
 
 import { Logo } from '@/components/ui/logo'
 import { PageContainer, Divider } from '@/components/design/primitives'
+import { CONTACT_EMAIL } from '@/lib/constants'
 
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -66,7 +67,7 @@ export function SiteFooter() {
               <nav className="mt-4 flex flex-col gap-2.5">
                 <a href="/privacy" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Privacy Policy</a>
                 <a href="/terms" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Terms of Use</a>
-                <a href="mailto:naavik.team@gmail.com" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">naavik.team@gmail.com</a>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">{CONTACT_EMAIL}</a>
               </nav>
             </div>
           </div>
