@@ -32,12 +32,11 @@ export function ProductPreview() {
         {/* Apple Style Header */}
         <Reveal>
           <div className="text-center mb-12">
-            <h2 className="text-[40px] md:text-[64px] font-extrabold tracking-tight leading-tight mb-6">
-              A workspace that <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">actually works.</span>
+            <h2 className="text-[36px] md:text-[56px] font-extrabold tracking-tight leading-[1.1] md:leading-[1.05] text-white">
+              This is what it looks like.
             </h2>
-            <p className="text-[18px] md:text-[20px] text-gray-400 font-medium max-w-[600px] mx-auto">
-              We built Naavik to feel like a high-end professional tool, not another clunky college portal.
+            <p className="mt-5 text-[18px] text-gray-400 max-w-[600px] mx-auto font-medium">
+              Designed for how engineering students actually work.
             </p>
           </div>
         </Reveal>
@@ -86,7 +85,7 @@ export function ProductPreview() {
               </div>
               <div className="mx-auto w-[240px] h-7 bg-black/40 rounded-md border border-white/5 flex items-center justify-center text-[12px] text-gray-400 font-semibold tracking-wide">
                 <Search className="w-3 h-3 mr-2 opacity-50" />
-                naavik.app/workspace
+                naavik.in/workspace
               </div>
             </div>
 

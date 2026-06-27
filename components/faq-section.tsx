@@ -9,27 +9,27 @@ export function FaqSection() {
   const faqs = [
     {
       question: 'What is Naavik?',
-      answer: 'Naavik is a student app built for engineering students in Telangana and Andhra Pradesh. It gives you access to internships, hackathons, college study resources, a cross-campus student network, and campus updates — all in one place, personalised to your branch and semester. No more juggling 7 different apps.',
+      answer: 'Naavik is a student app for engineering students in Telangana and Andhra Pradesh. Find internships, access college notes, build projects, connect with teammates, and stay updated with campus events — all in one place, filtered for your branch and year.',
     },
     {
       question: 'Is it free?',
-      answer: 'Yes. Naavik is completely free for students. No credit card needed, no trial that expires, no hidden charges. It will remain free for students. We may introduce optional premium features in the future, but the core product will always be free.',
+      answer: 'Yes. Completely free for students. No credit card, no trial, no catch. Always free for engineering students.',
     },
     {
       question: 'When will Naavik launch?',
-      answer: 'We\'re actively building Naavik with early student feedback right now. Everyone who joins Early Access will be notified personally before their campus goes live. The more students who join, the faster we can activate more colleges.',
+      answer: 'We\'re actively building with early student feedback. Everyone who joins Early Access will be notified personally before their college goes live.',
     },
     {
       question: 'Which colleges are supported?',
-      answer: 'We\'re starting in Telangana and Andhra Pradesh, activating campuses one at a time as student admins join. If your college isn\'t activated yet, it simply means no founding admin has applied from your campus. That can be you.',
+      answer: 'Starting in Telangana and Andhra Pradesh, activating one campus at a time as student admins join. Applying to be a founding admin is the fastest way to bring Naavik to your campus.',
     },
     {
       question: 'How is Naavik different from LinkedIn or Internshala?',
-      answer: 'LinkedIn and Internshala are job boards built for professionals. Naavik is built for your college life. Campus-specific notes, PYQs, lab records, campus announcements — things LinkedIn doesn\'t touch. Opportunities filtered by your branch and year. A Team Finder for hackathons. A network of students across Telangana & Andhra Pradesh. They\'re job boards. We\'re your student workspace.',
+      answer: 'Those are job boards. Naavik is built for your college life — campus notes, PYQs, hackathon team-finding, campus announcements, and opportunities filtered by your branch and year. LinkedIn doesn\'t do any of that.',
     },
   ]
 
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
     <section className="bg-gray-50 py-[64px] lg:py-[112px] border-t border-gray-200" id="faq">

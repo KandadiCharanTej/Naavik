@@ -53,8 +53,8 @@ export function HeroContent({
                 {[
                   { icon: Briefcase, text: 'Find internships & hackathons' },
                   { icon: BookOpen, text: 'Access notes, PYQs & lab manuals' },
-                  { icon: Code, text: 'Build projects & showcase your work' },
-                  { icon: Users, text: 'Find teammates across Telangana & AP' },
+                  { icon: Code, text: 'Showcase your projects' },
+                  { icon: Users, text: 'Find teammates across Telangana & Andhra Pradesh' },
                   { icon: Bell, text: 'Stay updated with campus events' },
                 ].map((item, idx) => (
                   <motion.div 

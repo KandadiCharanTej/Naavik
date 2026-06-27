@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Logo } from '@/components/logo'
 import { InstagramIcon } from '@/components/instagram-icon'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.in'
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/'
 const LINKEDIN_URL = 'https://linkedin.com/'
 

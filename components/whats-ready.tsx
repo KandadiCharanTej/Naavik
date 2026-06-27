@@ -3,7 +3,7 @@ import { Reveal, StaggerContainer, StaggerItem } from '@/components/reveal'
 export function WhatsReady() {
   const columns = [
     {
-      title: '✅ AT LAUNCH',
+      title: '✅ Available on Day One',
       items: [
         { name: 'Opportunities', desc: 'Find internships, hackathons and scholarships filtered for your branch and year.' },
         { name: 'Study Vault', desc: 'Notes, PYQs, and semester study materials uploaded and verified by student admins.' },
@@ -12,15 +12,15 @@ export function WhatsReady() {
       ]
     },
     {
-      title: '⏳ COMING SOON',
+      title: '⏳ Coming Next',
       items: [
-        { name: 'College Workspace', desc: 'Your private campus hub for notes, announcements, and community.' },
+        { name: 'College Hub', desc: 'Your private campus hub for notes, announcements, and community.' },
         { name: 'Campus Updates', desc: 'Verified fests and official notices from your college — before they\'re buried.' },
         { name: 'Leaderboards', desc: 'Recognition for students who contribute the most to their campus community.' },
       ]
     },
     {
-      title: '🔮 PLANNED',
+      title: '🚀 Future Vision',
       items: [
         { name: 'AI Study Assistant', desc: 'Semantic search across notes and study vaults — find anything in seconds.' },
         { name: 'Recruiter Hub', desc: 'Get found by companies based on your verified projects and skills.' },
@@ -45,10 +45,10 @@ export function WhatsReady() {
         </Reveal>
 
         {/* 3 Column Table */}
-        <StaggerContainer delay={100} className="grid grid-cols-1 lg:grid-cols-3 gap-y-12 gap-x-0 lg:divide-x divide-border">
+        <StaggerContainer delay={100} className="grid grid-cols-1 md:grid-cols-3 gap-y-12 md:gap-x-8 md:divide-x divide-border">
           
           {columns.map((col, i) => (
-            <StaggerItem key={i} className="flex flex-col lg:px-10 first:lg:pl-0 last:lg:pr-0">
+            <StaggerItem key={i} className="flex flex-col md:px-8 first:md:pl-0 last:md:pr-0">
               <h3 className="text-[14px] font-semibold tracking-widest uppercase text-[#111827] mb-8">
                 {col.title}
               </h3>

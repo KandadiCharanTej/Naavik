@@ -35,7 +35,7 @@ export function DashboardMockup() {
           </div>
           <div className="flex-1 max-w-[300px] mx-4">
             <div className="w-full h-7 rounded-md bg-white/50 border border-white/60 flex items-center justify-center px-3 text-[11px] font-medium text-gray-500 shadow-sm">
-              app.naavik.in
+              naavik.in
             </div>
           </div>
           <div className="w-[52px]" />

@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-base font-semibold text-foreground">4. Opt-Out</h2>
               <p className="mt-2">
-                If you ever want to be removed from the waitlist, simply email us at <strong>hello@naavik.app</strong> and we will delete your record immediately.
+                If you ever want to be removed from the waitlist, simply email us at <strong>hello@naavik.in</strong> and we will delete your record immediately.
               </p>
             </div>
           </div>

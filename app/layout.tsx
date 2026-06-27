@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.app'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.in'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

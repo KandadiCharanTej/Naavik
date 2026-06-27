@@ -39,8 +39,8 @@ export function DayWithNaavik() {
         <Reveal>
           <div className="mb-12 md:mb-16">
             <span className="eyebrow-label">A DAY WITH NAAVIK</span>
-            <h2 className="text-[32px] md:text-[48px] font-bold tracking-tight leading-[1.1] text-foreground">
-              See how it fits into your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-400)]">day.</span>
+            <h2 className="text-[32px] md:text-[48px] font-bold tracking-tight leading-[1.1] text-foreground whitespace-normal overflow-visible break-normal">
+              See how it fits into your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-400)] pb-1 pr-1">day.</span>
             </h2>
             <p className="mt-4 text-[16px] md:text-[18px] text-muted-foreground leading-relaxed max-w-[600px]">
               Real scenarios. Real value. Every day.

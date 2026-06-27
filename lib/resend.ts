@@ -56,7 +56,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
     return
   }
 
-  const from = process.env.RESEND_FROM_EMAIL || 'Naavik <welcome@naavik.app>'
+  const from = process.env.RESEND_FROM_EMAIL || 'Naavik <welcome@naavik.in>'
 
   await resend.emails.send({
     from,

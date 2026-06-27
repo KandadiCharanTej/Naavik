@@ -80,7 +80,7 @@ export async function WhyJoinEarly() {
                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center mb-5">
                 <Vote className="w-5 h-5" />
               </div>
-              <h3 className="text-[20px] font-bold text-[#111827] mb-2">Shape the Product</h3>
+              <h3 className="text-[20px] font-bold text-[#111827] mb-2">Help Shape Naavik</h3>
               <p className="text-[15px] text-[#4B5563] leading-relaxed flex-1">
                 Early members vote on which features get built next. Your feedback goes directly to the founders.
               </p>
@@ -107,7 +107,7 @@ export async function WhyJoinEarly() {
                <div className="w-10 h-10 rounded-xl bg-white/10 text-yellow-400 flex items-center justify-center mb-5 border border-white/5">
                 <BellRing className="w-5 h-5" />
               </div>
-              <h3 className="text-[20px] font-bold text-white mb-2">Instant Alerts</h3>
+              <h3 className="text-[20px] font-bold text-white mb-2">Campus Alerts</h3>
               <p className="text-[15px] text-gray-400 leading-relaxed flex-1">
                 The exact moment your college is activated, you get the notification. Straight to your inbox.
               </p>
@@ -125,17 +125,10 @@ export async function WhyJoinEarly() {
             >
               Get Early Access Now
             </WaitlistButton>
-            <div className="mt-5 flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className={`w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-[10px] font-bold text-gray-500 overflow-hidden`}>
-                    <img src={`https://api.dicebear.com/7.x/notionists/svg?seed=${i + 10}&backgroundColor=f3f4f6`} alt="avatar" />
-                  </div>
-                ))}
-              </div>
+            <div className="mt-5 flex items-center justify-center">
               <p className="text-[14px] font-semibold text-[#6B7280]">
-                Join the first students building the Naavik community.<br />
-                <span className="text-[#111827]">{waitlistCount}</span> students joined so far.
+                Join the first students building Naavik.<br />
+                <span className="text-[#111827]">Early Access is open now.</span>
               </p>
             </div>
           </div>
@@ -146,7 +139,7 @@ export async function WhyJoinEarly() {
           <div className="mt-24 pt-12 border-t border-[var(--border)] w-full max-w-[640px] mx-auto text-center">
             <h3 className="text-[18px] font-bold text-[#111827] mb-4">Built by students, for students.</h3>
             <p className="text-[16px] text-muted-foreground leading-relaxed mb-6 font-medium">
-              We started Naavik because we faced the exact same problems you do — missed deadlines, scattered notes, zero network. We're building the platform we wished we had.
+              We started Naavik because we faced the exact same problems you do — missed deadlines, scattered notes, zero network. We're building the app we wished we had.
             </p>
             <a href="mailto:hello@naavik.in" className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--purple-600)] hover:text-[var(--purple-700)] transition-colors">
               hello@naavik.in &rarr;

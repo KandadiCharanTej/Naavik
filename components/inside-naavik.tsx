@@ -87,47 +87,43 @@ export function InsideNaavik() {
 
   const collegeFeatures = [
     {
-      title: "Study Vault",
+      title: "DBMS Previous Year Paper 2024",
       desc: "Notes, PYQs, and lab manuals sorted by semester.",
       icon: BookOpen,
-      tag: "PDF",
-      tagColor: "text-red-500",
+      tag: "📁 STUDY RESOURCE",
+      tagColor: "text-[#065F46] bg-[#D1FAE5] border-[#6EE7B7]",
       previewContent: (
-        <div className="flex flex-col gap-1.5">
-          <div className="flex justify-between items-start">
-            <span className="font-bold text-[14px] sm:text-[15px] text-gray-900">DBMS Notes & PYQs</span>
-            <span className="text-[11px] sm:text-[12px] font-semibold text-gray-500 shrink-0 ml-2">2.4 MB</span>
+        <div className="flex flex-col gap-2">
+          <div className="text-[13px] text-gray-500 font-medium">
+            CSE · Semester 4<br />
+            Uploaded by Senior Admin
           </div>
-          <div className="text-[12px] text-gray-500 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-            <span className="font-medium text-gray-700">Semester 4</span>
-            <span>•</span>
-            <span>CSE / IT</span>
-            <span>•</span>
-            <span className="text-emerald-600 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>Admin Verified</span>
-          </div>
+          <button className="w-full mt-1 bg-gray-900 text-white font-medium text-[13px] py-2 rounded-lg hover:bg-gray-800 transition-colors">
+            Download PDF
+          </button>
         </div>
       )
     },
     {
-      title: "Campus Updates",
+      title: "Convergence Tech Fest 2026",
       desc: "No more spam. Only verified announcements.",
       icon: Calendar,
-      tag: "Event",
-      tagColor: "text-[var(--purple-600)]",
+      tag: "📢 CAMPUS UPDATE",
+      tagColor: "text-blue-700 bg-blue-50 border-blue-200",
       previewContent: (
-        <div className="flex flex-col gap-1.5">
-          <div className="flex justify-between items-start">
-            <span className="font-bold text-[14px] sm:text-[15px] text-gray-900 pr-2">Convergence Tech Fest 2026</span>
-            <span className="text-[10px] font-semibold text-[var(--purple-600)] bg-[var(--purple-50)] px-1.5 py-0.5 rounded border border-[var(--purple-100)] shrink-0 mt-0.5">Official</span>
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-start text-[13px] text-gray-500 font-medium">
+            <div>
+              IEEE Student Branch<br />
+              Prize Pool: ₹30,000
+            </div>
+            <div className="text-right text-gray-900 font-semibold">
+              March 15–18
+            </div>
           </div>
-          <div className="text-[12px] text-gray-500 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
-            <span className="font-medium text-gray-700">IEEE Student Branch</span>
-            <span>•</span>
-            <span>Mar 15 - Mar 18</span>
-          </div>
-          <div className="text-[11px] text-gray-600 mt-0.5 line-clamp-1">
-            Registrations are now open for all technical events and hackathons. Early bird discounts apply.
-          </div>
+          <button className="w-full mt-1 bg-gray-900 text-white font-medium text-[13px] py-2 rounded-lg hover:bg-gray-800 transition-colors">
+            View Details
+          </button>
         </div>
       )
     },
@@ -135,22 +131,21 @@ export function InsideNaavik() {
       title: "Leaderboards",
       desc: "Earn points by contributing resources.",
       icon: Trophy,
-      tag: "Monthly",
-      tagColor: "text-amber-500",
+      tag: "🏆 TOP CONTRIBUTORS — This Month",
+      tagColor: "text-amber-700 bg-amber-50 border-amber-200",
       previewContent: (
-        <div className="flex flex-col gap-1.5">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <span className="text-[16px]">🥇</span>
-              <span className="font-bold text-[14px] sm:text-[15px] text-gray-900">E. Sai Kiran</span>
-            </div>
-            <span className="text-[12px] font-bold text-amber-600 shrink-0">490 pts</span>
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center text-[14px] font-medium text-gray-700 py-1 border-b border-gray-100">
+            <span>E. Sai</span>
+            <div className="flex items-center gap-2"><span className="font-bold text-gray-900">490 pts</span> 🥇</div>
           </div>
-          <div className="text-[12px] text-gray-500 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 ml-7">
-            <span>3rd Year ECE</span>
-            <span>•</span>
-            <span>12 Documents Uploaded</span>
+          <div className="flex justify-between items-center text-[14px] font-medium text-gray-700 py-1 mb-1">
+            <span>V. Keerthi</span>
+            <div className="flex items-center gap-2"><span className="font-bold text-gray-900">430 pts</span> 🥈</div>
           </div>
+          <button className="w-full mt-1 bg-gray-50 text-gray-700 border border-gray-200 font-medium text-[13px] py-2 rounded-lg hover:bg-gray-100 transition-colors">
+            See Full Board
+          </button>
         </div>
       )
     }
@@ -171,7 +166,7 @@ export function InsideNaavik() {
               Two spaces. <br className="md:hidden" />Everything you <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--purple-600)] to-[#A855F7]">need.</span>
             </h2>
             <p className="mt-6 text-[18px] text-muted-foreground leading-relaxed max-w-[640px] mx-auto font-medium">
-              A powerful dual-system designed for engineering students. Switch effortlessly between your global career and your local campus.
+              Two connected spaces — one for your growth, one for your college. Everything outside your classroom and everything inside your campus, together in one app.
             </p>
           </div>
         </Reveal>
@@ -219,34 +214,50 @@ export function InsideNaavik() {
                 >
                   {/* Left: Description */}
                   <div className="md:col-span-5 flex flex-col justify-center">
-                    <h3 className="text-[28px] font-extrabold text-foreground leading-tight mb-4">
-                      {activeTab === 'growth' ? "Everything beyond your college." : "Everything inside your college."}
-                    </h3>
-                    <p className="text-[16px] text-muted-foreground leading-relaxed mb-6 font-medium">
-                      {activeTab === 'growth' 
-                        ? "Find opportunities, build teams, and connect with peers from Engineering colleges across Telangana & Andhra Pradesh."
-                        : "Your private campus hub. Access verified notes, track events, and engage with seniors securely."}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {activeTab === 'growth' ? (
-                        <>
+                    {activeTab === 'growth' ? (
+                      <>
+                        <h3 className="text-[28px] font-extrabold text-foreground leading-tight mb-4">
+                          Everything beyond your college.
+                        </h3>
+                        <p className="text-[16px] text-muted-foreground leading-relaxed mb-6 font-medium">
+                          Find opportunities, build teams, and connect with peers from engineering campuses across Telangana & Andhra Pradesh.
+                        </p>
+                        <div className="flex flex-wrap gap-2 mt-4">
                           {['100+ Opportunities Monthly', 'Project Showcase', 'Team Finder', 'Public Student Feed', 'Student Communities', 'Hackathons', 'Internships', 'Workshops', 'Startup Opportunities'].map((feature, i) => (
-                            <span key={i} className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-[12px] font-semibold text-gray-600 shadow-sm whitespace-nowrap">
+                            <span key={i} className="chip-growth">
                               {feature}
                             </span>
                           ))}
-                        </>
-                      ) : (
-                        <>
-                          {['College Updates', 'Verified Admin Posts', 'Events', 'Resources & PYQs', 'Notices', 'Clubs', 'Attendance (Future)', 'Academic Dashboard (Future)'].map((feature, i) => (
-                            <span key={i} className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200 text-[12px] font-semibold text-gray-600 shadow-sm whitespace-nowrap">
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="mb-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-[20px]">🏫</span>
+                            <span className="eyebrow-label !mb-0">COLLEGE</span>
+                          </div>
+                          <h3 className="text-[28px] font-extrabold text-foreground leading-tight">
+                            Everything inside your college.
+                          </h3>
+                        </div>
+                        <p className="text-[16px] text-muted-foreground leading-relaxed mb-4 font-medium">
+                          Notes, events, and resources — verified and organised.
+                        </p>
+                        <div className="mb-6">
+                          <span className="inline-flex items-center px-3 py-1 bg-[#D1FAE5] text-[#065F46] border border-[#6EE7B7] rounded-full text-[12px] font-semibold">
+                            Activated by a verified student admin
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {['📁 Notes', '📄 PYQs', '🧪 Lab Manuals', '📢 Announcements', '🎪 Clubs', '📅 Events', '🎓 Seniors', '🏆 Leaderboard', '📚 Resources'].map((feature, i) => (
+                            <span key={i} className="chip-college">
                               {feature}
                             </span>
                           ))}
-                        </>
-                      )}
-                    </div>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* Right: Rich Preview Cards (Bento style) */}
@@ -278,6 +289,22 @@ export function InsideNaavik() {
                         </div>
                       </motion.div>
                     ))}
+                    
+                    {activeTab === 'college' && (
+                      <div className="trust-callout mt-2">
+                        <div className="flex items-start gap-3">
+                          <span className="text-[20px] mt-0.5">🛡️</span>
+                          <div>
+                            <h4 className="text-[14px] font-bold text-[#92400E] mb-1.5">Verified Workspaces Only</h4>
+                            <p className="text-[13px] text-[#B45309] leading-relaxed font-medium">
+                              Each campus workspace goes live only after a verified student admin activates and manages it.<br />
+                              We don't create empty campuses.<br />
+                              Quality over scale — always.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                 </motion.div>

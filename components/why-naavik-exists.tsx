@@ -6,7 +6,7 @@ export async function WhyNaavikExists() {
     { before: '7 apps to check every morning', after: 'One personalised feed' },
     { before: 'Notes buried in Drive folders', after: 'Semester-sorted study vault' },
     { before: 'Opportunities found by luck', after: 'Filtered to your branch & year' },
-    { before: 'Teammates only from your class', after: 'Engineering colleges across Telangana & Andhra Pradesh' },
+    { before: 'Teammates only from your class', after: 'Engineering students across Telangana & Andhra Pradesh' },
     { before: 'Campus updates lost in spam', after: 'Verified, in one clean place' },
   ]
 
@@ -24,6 +24,19 @@ export async function WhyNaavikExists() {
             <h2 className="text-[36px] md:text-[56px] font-extrabold text-foreground max-w-[900px] mx-auto leading-[1.1] md:leading-[1.05] tracking-tight">
               Engineering life is scattered across <span className="text-[var(--purple-600)]">too many apps.</span>
             </h2>
+          </div>
+        </Reveal>
+        {/* App Logos Row */}
+        <Reveal delay={50} className="w-full text-center mt-10 mb-10 max-w-[800px] mx-auto">
+          <p className="text-[16px] text-gray-700 font-medium leading-relaxed mb-6">
+            Students switch between WhatsApp, LinkedIn, Google Drive, Unstop, GitHub and more every day. Naavik brings everything into one place.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
+            {['WhatsApp', 'LinkedIn', 'Google Drive', 'Unstop', 'GitHub', 'ERP Portal', 'Google Forms'].map((logo, i) => (
+              <span key={i} className="flex items-center justify-center h-[36px] font-bold text-gray-600 text-[15px] grayscale opacity-70">
+                {logo}
+              </span>
+            ))}
           </div>
         </Reveal>
 
