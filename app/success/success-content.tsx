@@ -5,13 +5,12 @@ import { Suspense, useState, useEffect, memo } from 'react'
 import {
   CheckCircle2,
   Copy,
-  BellRing,
-  Mail,
-  ShieldCheck,
-  ArrowLeft,
   ArrowRight,
   Sparkles,
   Rocket,
+  ArrowLeft,
+  Megaphone,
+  Lock,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
@@ -24,6 +23,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.in'
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/'
 const LINKEDIN_URL = 'https://linkedin.com/'
 const WAITLIST_GOAL = 500
+
+const ease = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -44,136 +45,251 @@ function LinkedInIcon({ className }: { className?: string }) {
   )
 }
 
-const TIMELINE = [
+const NEXT_STEPS = [
   {
     title: 'Signup confirmed',
-    desc: "You're officially on the list.",
+    desc: "You'll receive launch updates.",
     icon: CheckCircle2,
+    emoji: '✓',
     tone: 'emerald',
   },
   {
-    title: 'Launch updates',
-    desc: "We'll email you when Early Access opens.",
-    icon: Mail,
-    tone: 'blue',
-  },
-  {
-    title: 'Campus notification',
-    desc: "You'll know exactly when your college is live.",
-    icon: BellRing,
+    title: 'Campus activation',
+    desc: "We'll notify you when your college goes live.",
+    icon: Megaphone,
+    emoji: '📢',
     tone: 'purple',
   },
   {
-    title: 'No spam',
-    desc: 'Only important updates. Unsubscribe anytime.',
-    icon: ShieldCheck,
+    title: 'Early access',
+    desc: "You'll enter before everyone else.",
+    icon: Rocket,
+    emoji: '🚀',
+    tone: 'blue',
+  },
+  {
+    title: 'Zero spam',
+    desc: 'Only important updates.',
+    icon: Lock,
+    emoji: '🔒',
     tone: 'gray',
   },
 ] as const
 
 const toneStyles = {
-  emerald: 'bg-emerald-50 text-emerald-600 ring-emerald-100',
-  blue: 'bg-blue-50 text-blue-600 ring-blue-100',
-  purple: 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]',
-  gray: 'bg-gray-50 text-gray-500 ring-gray-200',
+  emerald: 'bg-emerald-50 text-emerald-600 ring-emerald-100/80',
+  blue: 'bg-blue-50 text-blue-600 ring-blue-100/80',
+  purple: 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]/80',
+  gray: 'bg-gray-50 text-gray-500 ring-gray-200/80',
 }
 
-const FloatingShapes = memo(function FloatingShapes() {
+function useCountUp(target: number, active: boolean, duration = 1100) {
+  const [value, setValue] = useState(0)
+
+  useEffect(() => {
+    if (!active) return
+    let frame = 0
+    const start = performance.now()
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - (1 - progress) ** 3
+      setValue(Math.max(1, Math.round(eased * target)))
+      if (progress < 1) frame = requestAnimationFrame(tick)
+    }
+
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [target, active, duration])
+
+  return value
+}
+
+function PageBackground() {
   return (
     <>
+      <MeshGradient />
+      <GridLines className="opacity-[0.32]" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-32 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.08),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-15%,rgba(124,58,237,0.14),transparent_65%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-20 bottom-40 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.1),transparent_70%)]"
+        className="pointer-events-none absolute -left-32 top-1/4 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.08),transparent_70%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute right-[8%] top-[18%] hidden h-20 w-20 rounded-3xl border border-[var(--purple-100)]/60 bg-white/60 shadow-[var(--shadow-soft)] lg:block"
+        className="pointer-events-none absolute -right-24 bottom-1/4 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.1),transparent_70%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-[22%] left-[6%] hidden h-16 w-16 rounded-2xl border border-emerald-100/80 bg-emerald-50/40 shadow-[var(--shadow-soft)] lg:block"
+        className="pointer-events-none absolute right-[10%] top-[12%] hidden h-16 w-16 rounded-2xl border border-[var(--purple-100)]/50 bg-white/50 shadow-[var(--shadow-soft)] lg:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-[18%] left-[8%] hidden h-12 w-12 rounded-xl border border-emerald-100/60 bg-emerald-50/40 shadow-[var(--shadow-soft)] lg:block"
       />
     </>
   )
-})
+}
 
-const SuccessIcon = memo(function SuccessIcon({ className }: { className?: string }) {
+const SuccessIcon = memo(function SuccessIcon({ size = 'default' }: { size?: 'default' | 'compact' }) {
+  const compact = size === 'compact'
+
   return (
-    <div className={cn("relative mx-auto mb-4 flex h-[72px] w-[72px] items-center justify-center sm:mb-5 sm:h-20 sm:w-20", className)}>
-      <div className="relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-100)] via-white to-[var(--purple-50)] shadow-[0_8px_32px_rgba(124,58,237,0.2)] ring-1 ring-[var(--purple-100)]">
-        <Sparkles className="h-8 w-8 text-[var(--purple-600)] sm:h-9 sm:w-9" />
+    <div
+      className={cn(
+        'success-icon-pop relative mx-auto flex shrink-0 items-center justify-center',
+        compact ? 'h-12 w-12' : 'h-16 w-16 sm:h-[72px] sm:w-[72px]',
+      )}
+    >
+      <div
+        aria-hidden
+        className={cn(
+          'absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.28),transparent_70%)]',
+          compact ? 'blur-md' : 'blur-xl',
+        )}
+      />
+      <div
+        className={cn(
+          'relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-100)] via-white to-[var(--purple-50)] shadow-[0_8px_32px_rgba(124,58,237,0.22)] ring-1 ring-[var(--purple-100)]',
+        )}
+      >
+        <Sparkles className={cn('text-[var(--purple-600)]', compact ? 'h-6 w-6' : 'h-7 w-7 sm:h-8 sm:w-8')} />
       </div>
-      <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg ring-2 ring-white">
-        <CheckCircle2 className="h-4 w-4" />
+      <div
+        className={cn(
+          'absolute flex items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg ring-2 ring-white',
+          compact ? '-bottom-0.5 -right-0.5 h-5 w-5' : '-bottom-1 -right-1 h-6 w-6 sm:h-7 sm:w-7',
+        )}
+      >
+        <CheckCircle2 className={cn(compact ? 'h-3 w-3' : 'h-3.5 w-3.5 sm:h-4 sm:w-4')} />
       </div>
     </div>
   )
 })
 
-const PositionHeroCard = memo(function PositionHeroCard({ position }: { position: string }) {
+const PositionHeroCard = memo(function PositionHeroCard({
+  position,
+  animate = true,
+  compact = false,
+}: {
+  position: string
+  animate?: boolean
+  compact?: boolean
+}) {
   const numericPosition = parseInt(position, 10) || 128
   const pct = Math.min(100, Math.round((numericPosition / WAITLIST_GOAL) * 100))
-  const [mounted, setMounted] = useState(false)
+  const displayNum = useCountUp(numericPosition, animate)
+  const [barReady, setBarReady] = useState(false)
 
   useEffect(() => {
-    const id = setTimeout(() => setMounted(true), 100)
+    const id = setTimeout(() => setBarReady(true), 200)
     return () => clearTimeout(id)
   }, [])
 
   return (
-    <div className="relative mx-auto w-full max-w-[560px]">
+    <div
+      className={cn(
+        'success-card-rise relative mx-auto w-full',
+        compact ? 'max-w-[400px]' : 'max-w-[480px] lg:max-w-[520px]',
+      )}
+    >
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-3 rounded-[32px] bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.14),transparent_70%)]"
+        className={cn(
+          'pointer-events-none absolute -inset-3 rounded-[28px] bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.2),transparent_68%)]',
+          compact ? 'blur-lg' : 'blur-2xl',
+        )}
       />
 
       <div
-        className="relative rounded-[24px] p-[1px] shadow-[0_32px_80px_rgba(124,58,237,0.18)] bg-gradient-to-br from-[var(--purple-300)]/40 via-[var(--purple-200)]/20 to-white/40"
+        className="relative rounded-[24px] p-px shadow-[0_28px_80px_rgba(124,58,237,0.22)]"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(124,58,237,0.45) 0%, rgba(167,139,250,0.25) 50%, rgba(255,255,255,0.6) 100%)',
+        }}
       >
-        <div className="relative overflow-hidden rounded-[23px] bg-white px-6 py-6 sm:px-8 sm:py-7">
+        <div
+          className={cn(
+            'relative overflow-hidden rounded-[23px] border border-white/70 bg-white/80 backdrop-blur-xl',
+            compact ? 'px-5 py-5' : 'px-6 py-7 sm:px-8 sm:py-8',
+          )}
+        >
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--purple-300)]/60 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--purple-300)]/70 to-transparent"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[var(--purple-100)]/30"
           />
 
-          <p className="relative text-center text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 sm:text-[11px]">
+          <p
+            className={cn(
+              'relative text-center font-bold uppercase tracking-[0.2em] text-gray-400',
+              compact ? 'text-[9px]' : 'text-[10px] sm:text-[11px]',
+            )}
+          >
             Early Access Position
           </p>
 
-          <div className="relative mt-3 text-center">
-            <span className="block text-[4.75rem] font-black leading-none tracking-tight text-[var(--purple-600)] sm:text-[5rem] lg:text-[5.5rem]">
-              #{numericPosition}
+          <div className="relative mt-2 text-center sm:mt-3">
+            <span
+              className={cn(
+                'block font-black leading-none tracking-tight text-[var(--purple-600)] tabular-nums',
+                compact ? 'text-[3.25rem]' : 'text-[4rem] sm:text-[4.75rem] lg:text-[5.5rem]',
+              )}
+            >
+              #{displayNum}
             </span>
           </div>
 
-          <div className="relative mt-4 flex justify-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--purple-100)] bg-gradient-to-r from-[var(--purple-50)] to-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-[var(--purple-700)] shadow-sm">
-              <Rocket className="h-3.5 w-3.5" />
+          <div className="relative mt-3 flex justify-center sm:mt-4">
+            <span
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-full border border-[var(--purple-100)] bg-gradient-to-r from-[var(--purple-50)] to-white font-bold uppercase tracking-wider text-[var(--purple-700)] shadow-sm',
+                compact ? 'px-3 py-1 text-[9px]' : 'px-4 py-1.5 text-[10px] sm:text-[11px]',
+              )}
+            >
+              <Rocket className={cn(compact ? 'h-3 w-3' : 'h-3.5 w-3.5')} />
               Founding Student
             </span>
           </div>
 
-          <div className="relative mt-6">
-            <div className="flex items-baseline justify-between text-[12px] font-semibold text-gray-500 sm:text-[13px]">
+          <div className="relative mt-5 sm:mt-6">
+            <div
+              className={cn(
+                'flex items-baseline justify-between font-semibold text-gray-500',
+                compact ? 'text-[11px]' : 'text-[12px] sm:text-[13px]',
+              )}
+            >
               <span>
                 {numericPosition} / {WAITLIST_GOAL}
               </span>
               <span className="font-bold text-[var(--purple-600)]">{pct}%</span>
             </div>
-            <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-[var(--purple-50)] ring-1 ring-[var(--purple-100)]">
+            <div
+              className={cn(
+                'mt-2 overflow-hidden rounded-full bg-[var(--purple-50)] ring-1 ring-[var(--purple-100)]',
+                compact ? 'h-2' : 'h-2.5',
+              )}
+            >
               <div
-                className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] via-[var(--purple-600)] to-[#9333EA] transition-all duration-1000 ease-out"
-                style={{ width: mounted ? `${pct}%` : '0%' }}
+                className="h-full origin-left rounded-full bg-gradient-to-r from-[var(--purple-500)] via-[var(--purple-600)] to-[#9333EA] transition-transform duration-1000 ease-out"
+                style={{ transform: barReady ? `scaleX(${pct / 100})` : 'scaleX(0)' }}
               />
             </div>
           </div>
 
-          <p className="relative mt-4 text-center text-[13px] font-medium leading-relaxed text-gray-500 sm:text-[14px]">
-            You&apos;re among the first students helping build Naavik.
+          <p
+            className={cn(
+              'relative mt-4 text-center font-medium text-gray-500',
+              compact ? 'text-[11px] leading-snug' : 'text-[12px] leading-relaxed sm:text-[13px]',
+            )}
+          >
+            You&apos;re among the first students shaping Naavik before launch.
           </p>
         </div>
       </div>
@@ -181,67 +297,98 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
   )
 })
 
-function WaitlistResultDisplay() {
+function WaitlistResultDisplay({
+  animate = true,
+  compact = false,
+}: {
+  animate?: boolean
+  compact?: boolean
+}) {
   const searchParams = useSearchParams()
   const position = searchParams.get('position')
 
   if (position) {
-    return <PositionHeroCard position={position} />
+    return <PositionHeroCard position={position} animate={animate} compact={compact} />
   }
 
   return (
-    <div className="mx-auto w-full max-w-[560px] rounded-[24px] border border-gray-200/70 bg-white p-8 text-center shadow-[var(--shadow-card)]">
+    <div
+      className={cn(
+        'mx-auto w-full rounded-[24px] border border-gray-200/70 bg-white/80 text-center shadow-[var(--shadow-card)] backdrop-blur-sm',
+        compact ? 'max-w-[400px] p-5' : 'max-w-[520px] p-6 sm:p-8',
+      )}
+    >
       <Sparkles className="mx-auto h-8 w-8 text-[var(--purple-600)]" />
-      <p className="mt-4 text-[15px] font-medium text-gray-500">
+      <p className="mt-3 text-[14px] font-medium leading-relaxed text-gray-500">
         Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future.
       </p>
     </div>
   )
 }
 
-function WaitlistResultFallback() {
-  // Skeleton to reserve layout space and completely eliminate CLS
+function WaitlistResultFallback({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="relative mx-auto w-full max-w-[560px]">
-      <div className="relative rounded-[24px] border border-gray-100 bg-white px-6 py-8 sm:px-8 sm:py-9 shadow-[var(--shadow-soft)] animate-pulse">
-        {/* Placeholder text for Title */}
-        <div className="h-4 w-32 bg-gray-200 rounded mx-auto animate-pulse" />
-        {/* Placeholder for position count */}
-        <div className="h-24 w-40 bg-gray-200 rounded mx-auto mt-6 animate-pulse" />
-        {/* Placeholder for badge */}
-        <div className="h-8 w-36 bg-gray-200 rounded-full mx-auto mt-6 animate-pulse" />
-        {/* Placeholder for progress line */}
-        <div className="h-6 bg-gray-100 rounded mt-8 animate-pulse" />
-        {/* Placeholder for helper text */}
-        <div className="h-4 bg-gray-100 rounded mt-6 animate-pulse" />
+    <div className={cn('relative mx-auto w-full animate-pulse', compact ? 'max-w-[400px]' : 'max-w-[520px]')}>
+      <div className={cn('rounded-[24px] border border-gray-100 bg-white/80', compact ? 'px-5 py-6' : 'px-6 py-8')}>
+        <div className="mx-auto h-3 w-32 rounded bg-gray-200" />
+        <div className={cn('mx-auto mt-4 rounded bg-gray-200', compact ? 'h-14 w-24' : 'h-20 w-32')} />
+        <div className="mx-auto mt-4 h-7 w-36 rounded-full bg-gray-200" />
+        <div className="mt-4 h-2.5 rounded-full bg-gray-100" />
       </div>
     </div>
   )
 }
 
-const NextStepsGrid = memo(function NextStepsGrid() {
+const NextStepsGrid = memo(function NextStepsGrid({ compact = false }: { compact?: boolean }) {
   return (
     <div className="w-full">
-      <h3 className="mb-2 text-center text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400 sm:mb-3">
+      <p
+        className={cn(
+          'mb-3 text-center font-bold uppercase tracking-[0.14em] text-gray-400',
+          compact ? 'text-[9px]' : 'text-[10px] sm:text-[11px]',
+        )}
+      >
         What happens next
-      </h3>
-      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
-        {TIMELINE.map((item) => (
+      </p>
+      <div className={cn('grid grid-cols-2', compact ? 'gap-2' : 'gap-2.5 sm:gap-3 lg:gap-4')}>
+        {NEXT_STEPS.map((item, i) => (
           <div
             key={item.title}
-            className="flex items-start gap-3 rounded-[20px] border border-gray-100/90 bg-white p-3 shadow-[var(--shadow-soft)] sm:p-3"
+            className={cn(
+              'success-step-card group rounded-2xl border border-gray-100/90 bg-white/90 shadow-[var(--shadow-soft)] ring-1 ring-black/[0.02] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]',
+              compact ? 'p-2.5' : 'p-3 sm:p-3.5 lg:p-4',
+            )}
+            style={{ animationDelay: `${320 + i * 70}ms` }}
           >
-            <div
-              className={cn(
-                "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9",
-                toneStyles[item.tone]
-              )}
-            >
-              <item.icon className="h-4 w-4" />
-            </div>
-            <div className="min-w-0">
-              <h4 className="text-[13px] font-bold text-foreground sm:text-[14px]">{item.title}</h4>
-              <p className="mt-0.5 text-[12px] leading-snug text-gray-500">{item.desc}</p>
+            <div className="flex items-start gap-2.5">
+              <div
+                className={cn(
+                  'flex shrink-0 items-center justify-center rounded-xl ring-1',
+                  compact ? 'h-8 w-8' : 'h-9 w-9',
+                  toneStyles[item.tone],
+                )}
+              >
+                <item.icon className={cn(compact ? 'h-3.5 w-3.5' : 'h-4 w-4')} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h4
+                  className={cn(
+                    'font-bold leading-tight text-foreground',
+                    compact ? 'text-[11px]' : 'text-[12px] sm:text-[13px]',
+                  )}
+                >
+                  <span className="mr-1">{item.emoji}</span>
+                  {item.title}
+                </h4>
+                <p
+                  className={cn(
+                    'mt-0.5 leading-snug text-gray-500',
+                    compact ? 'text-[10px] line-clamp-2' : 'text-[11px] sm:text-[12px]',
+                  )}
+                >
+                  {item.desc}
+                </p>
+              </div>
             </div>
           </div>
         ))}
@@ -253,49 +400,56 @@ const NextStepsGrid = memo(function NextStepsGrid() {
 const ShareSection = memo(function ShareSection({
   copied,
   onCopy,
+  compact = false,
 }: {
   copied: boolean
   onCopy: () => void
+  compact?: boolean
 }) {
+  const btn = cn(
+    'group flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-2xl border font-bold transition-all duration-200 hover:-translate-y-0.5',
+    compact ? 'px-2 text-[11px]' : 'px-3 text-[12px] sm:text-[13px]',
+  )
+
   return (
     <div className="w-full">
-      <p className="mb-3 text-center text-[12px] font-medium text-gray-400 sm:text-[13px]">
+      <p className={cn('mb-3 text-center font-medium text-gray-400', compact ? 'text-[11px]' : 'text-[12px] sm:text-[13px]')}>
         Help us bring Naavik to more engineering students.
       </p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+      <div className="flex gap-2 sm:gap-3">
         <a
-          href={SITE_URL}
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => {
-            window.open(INSTAGRAM_URL, '_blank')
-          }}
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] px-2 text-[11px] font-bold text-white shadow-[0_8px_24px_rgba(124,58,237,0.3)] transition-all hover:shadow-[0_12px_32px_rgba(124,58,237,0.38)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
+          className={cn(
+            btn,
+            'border-transparent bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-white shadow-[0_8px_24px_rgba(124,58,237,0.32)] hover:shadow-[0_12px_32px_rgba(124,58,237,0.4)]',
+          )}
         >
-          <InstagramIcon className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" />
+          <InstagramIcon className="h-4 w-4 shrink-0" />
           <span className="truncate">Instagram</span>
         </a>
         <a
-          href="mailto:naavik.team@gmail.com"
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-gray-300 sm:h-12 sm:gap-2.5 sm:text-[13px]"
+          href={LINKEDIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            btn,
+            'border-gray-200/90 bg-white text-foreground shadow-[var(--shadow-soft)] hover:border-[#0A66C2]/30 hover:shadow-[var(--shadow-card)]',
+          )}
         >
-          <Mail className="h-4 w-4 shrink-0 text-gray-500 sm:h-[18px] sm:w-[18px]" />
-          <span className="truncate">Mail</span>
+          <LinkedInIcon className="h-4 w-4 shrink-0 text-[#0A66C2]" />
+          <span className="truncate">LinkedIn</span>
         </a>
         <button
           type="button"
-          onClick={(e) => e.preventDefault()}
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[#0A66C2]/30 sm:h-12 sm:gap-2.5 sm:text-[13px]"
-        >
-          <LinkedInIcon className="h-4 w-4 shrink-0 text-[#0A66C2] sm:h-[18px] sm:w-[18px]" />
-          <span className="truncate">LinkedIn</span>
-        </button>
-        <button
-          type="button"
           onClick={onCopy}
-          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[var(--purple-200)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
+          className={cn(
+            btn,
+            'border-gray-200/90 bg-white text-foreground shadow-[var(--shadow-soft)] hover:border-[var(--purple-200)] hover:shadow-[var(--shadow-card)]',
+          )}
         >
-          <Copy className="h-4 w-4 shrink-0 text-gray-400 sm:h-[18px] sm:w-[18px]" />
+          <Copy className="h-4 w-4 shrink-0 text-gray-400 transition-colors group-hover:text-[var(--purple-600)]" />
           <span className="truncate">{copied ? 'Copied!' : 'Copy Link'}</span>
         </button>
       </div>
@@ -303,44 +457,62 @@ const ShareSection = memo(function ShareSection({
   )
 })
 
-const PrimaryActions = memo(function PrimaryActions() {
+const PrimaryActions = memo(function PrimaryActions({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="flex w-full flex-col items-center gap-2.5 mt-2">
+    <div className={cn('flex w-full flex-col', compact ? 'gap-2' : 'gap-2.5 sm:flex-row sm:gap-3')}>
       <Link
         href="/"
-        className="group flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-[15px] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]"
+        className={cn(
+          'group flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]',
+          compact ? 'text-[14px]' : 'text-[15px] lg:min-h-[52px]',
+        )}
+      >
+        Continue
+        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+      </Link>
+      <Link
+        href="/"
+        className={cn(
+          'flex min-h-[44px] flex-1 items-center justify-center rounded-2xl border border-gray-200 bg-white font-semibold text-gray-600 transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800',
+          compact ? 'text-[13px]' : 'text-[14px]',
+        )}
       >
         Back to Home
-        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
       </Link>
     </div>
   )
 })
 
-const DesktopNextSteps = memo(function DesktopNextSteps() {
+function SuccessHeader({ compact = false }: { compact?: boolean }) {
   return (
-    <ul className="mt-8 space-y-4">
-      {TIMELINE.map((item) => (
-        <li key={item.title} className="flex items-start gap-3">
-          <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1", toneStyles[item.tone])}>
-            <item.icon className="h-4 w-4" />
-          </div>
-          <div className="flex flex-col">
-            <h4 className="text-[14px] font-bold text-foreground">{item.title}</h4>
-            <p className="mt-0.5 text-[13px] leading-snug text-gray-500">{item.desc}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div className={cn('success-header-rise text-center', compact ? 'space-y-1.5' : 'space-y-2 sm:space-y-3')}>
+      <SuccessIcon size={compact ? 'compact' : 'default'} />
+      <h1
+        className={cn(
+          'font-extrabold leading-[1.08] tracking-[-0.04em] text-foreground',
+          compact ? 'text-[1.375rem]' : 'text-[1.75rem] sm:text-[2.125rem] lg:text-[2.375rem]',
+        )}
+      >
+        🎉 You&apos;re officially on the list!
+      </h1>
+      <div className={cn('mx-auto max-w-md space-y-1', compact ? 'max-w-[32ch]' : '')}>
+        <p className={cn('font-semibold text-foreground', compact ? 'text-[13px]' : 'text-[15px] sm:text-[16px]')}>
+          Welcome aboard.
+        </p>
+        <p className={cn('font-medium leading-relaxed text-gray-500', compact ? 'text-[11px] leading-snug' : 'text-[14px] sm:text-[15px]')}>
+          You&apos;re one of the first engineering students helping build Naavik.
+        </p>
+      </div>
+    </div>
   )
-})
+}
 
-export function ThankYouContent() {
+function ThankYouInner() {
   const [copied, setCopied] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const id = setTimeout(() => setMounted(true), 50)
+    const id = setTimeout(() => setReady(true), 60)
     return () => clearTimeout(id)
   }, [])
 
@@ -352,132 +524,158 @@ export function ThankYouContent() {
   }
 
   return (
-    <>
-    <div className="lg:hidden relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-[#FAFAFC]">
-      <MeshGradient />
-      <GridLines className="opacity-[0.35]" />
-      <FloatingShapes />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[55vh] bg-[radial-gradient(ellipse_90%_70%_at_50%_-15%,rgba(124,58,237,0.12),transparent)]"
-      />
+    <div
+      className={cn(
+        'relative min-h-[100dvh] w-full overflow-x-hidden bg-[#FAFAFC] transition-opacity duration-500',
+        ready ? 'opacity-100' : 'opacity-0',
+      )}
+    >
+      <PageBackground />
 
-      <header className="relative z-20 flex shrink-0 items-center justify-center px-4 py-5 sm:px-6 sm:py-6">
-        <div className="scale-125 sm:scale-150">
-          <Logo theme="light" />
-        </div>
-      </header>
+      {/* ── Mobile: dedicated compact full-screen layout ── */}
+      <div className="relative z-10 flex min-h-[100dvh] flex-col lg:hidden">
+        <header className="flex shrink-0 items-center justify-between px-4 pb-2 pt-[max(12px,env(safe-area-inset-top))]">
+          <Link
+            href="/"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-500 transition-colors active:bg-gray-100"
+            aria-label="Back to Naavik"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+          <Logo theme="light" className="pointer-events-none [&_img]:!h-7 [&_img]:!w-auto" />
+          <div className="w-10" aria-hidden />
+        </header>
 
-      <main
-        className={cn(
-          "relative z-10 mx-auto flex w-full max-w-[720px] flex-1 flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6 lg:max-w-[900px] lg:pb-4 transition-all duration-500 ease-out will-change-[transform,opacity]",
-          mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-        )}
-      >
-        <div className="flex flex-1 flex-col justify-center gap-4 py-1 sm:gap-5 lg:gap-4 lg:py-2">
-          <div className="text-center">
-            <SuccessIcon />
-            <h1 className="text-[1.75rem] font-extrabold leading-[1.08] tracking-[-0.04em] sm:text-[2.25rem] lg:text-[2.375rem]">
-              🎉 You&apos;re officially on the list!
-            </h1>
-            <p className="mx-auto mt-2 max-w-lg text-[14px] font-medium leading-relaxed text-gray-500 sm:mt-2.5 sm:text-[15px]">
-              Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future. We&apos;ll email you as soon as Early Access opens.
-            </p>
-          </div>
-
-          <Suspense fallback={<WaitlistResultFallback />}>
-            <WaitlistResultDisplay />
-          </Suspense>
-
-          <NextStepsGrid />
-
-          <div className="space-y-4">
-            <ShareSection copied={copied} onCopy={copyLink} />
-            <PrimaryActions />
-          </div>
-        </div>
-
-        <footer className="relative z-10 flex shrink-0 flex-col items-center gap-2 border-t border-gray-100/80 pt-3 mt-1 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-[11px] font-medium text-gray-500 sm:text-[12px]">
-            Questions?{' '}
-            <a href="mailto:naavik.team@gmail.com" className="font-bold text-foreground hover:underline">
-              naavik.team@gmail.com
-            </a>
-          </p>
-          <nav className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-gray-500 sm:text-[12px]">
-            <Link href="/privacy" className="transition-colors hover:text-foreground">
-              Privacy
-            </Link>
-            <Link href="/terms" className="transition-colors hover:text-foreground">
-              Terms
-            </Link>
-            <span className="text-gray-400">Built by an engineering student, for engineering students.</span>
-          </nav>
-        </footer>
-      </main>
-    </div>
-
-    {/* PREMIUM DESKTOP LAYOUT */}
-    <div className="hidden lg:flex relative min-h-[100dvh] w-full items-center justify-center bg-[#FAFAFC] overflow-x-hidden p-8">
-      <MeshGradient />
-      <GridLines className="opacity-[0.35]" />
-      <FloatingShapes />
-      
-      <div 
-        className={cn(
-          "relative grid h-[640px] w-full max-w-[1100px] overflow-hidden rounded-[32px] border border-gray-100/80 bg-white shadow-[0_40px_100px_rgba(0,0,0,0.15)] transition-all duration-700 ease-out will-change-[transform,opacity]",
-          mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        )}
-        style={{ gridTemplateColumns: '40% 60%' }}
-      >
-        {/* LEFT PANEL */}
-        <aside className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#FAFAFF] via-white to-[#F5F3FF] p-10 xl:p-12 border-r border-gray-100/80">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.12),transparent_70%)]"
-          />
-          <div className="relative z-10">
-            <SuccessIcon className="mx-0 mb-6 sm:mb-8" />
-            <h1 className="text-[2.25rem] font-extrabold leading-[1.08] tracking-tight text-foreground">
-              🎉 You&apos;re officially on the list!
-            </h1>
-            <p className="mt-4 text-[15px] font-medium leading-relaxed text-gray-500">
-              Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future. We&apos;ll email you as soon as Early Access opens.
-            </p>
-            
-            <DesktopNextSteps />
-          </div>
-
-          <div className="relative z-10 mt-8">
-             <ShareSection copied={copied} onCopy={copyLink} />
-          </div>
-        </aside>
-
-        {/* RIGHT PANEL */}
-        <section className="relative flex flex-col items-center justify-center overflow-hidden bg-white p-10 xl:p-12">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-16 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.1),transparent_70%)]"
-          />
-          
-          <div className="relative z-10 w-full max-w-[560px]">
-            <Suspense fallback={<WaitlistResultFallback />}>
-              <WaitlistResultDisplay />
+        <main className="mx-auto flex w-full max-w-[440px] flex-1 flex-col justify-center px-5 pb-[max(16px,env(safe-area-inset-bottom))]">
+          <div className="flex flex-col gap-3 [@media(max-height:700px)]:gap-2.5">
+            <SuccessHeader compact />
+            <Suspense fallback={<WaitlistResultFallback compact />}>
+              <WaitlistResultDisplay animate={ready} compact />
             </Suspense>
+            <NextStepsGrid compact />
+            <ShareSection copied={copied} onCopy={copyLink} compact />
+            <PrimaryActions compact />
+          </div>
+        </main>
+      </div>
 
-            <div className="mt-8 flex justify-center">
-              <Link
-                href="/"
-                className="group flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-[15px] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]"
-              >
-                Back to Home
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
+      {/* ── Desktop: premium two-part composition, one screen ── */}
+      <div className="relative z-10 hidden min-h-[100dvh] flex-col lg:flex">
+        <header className="flex shrink-0 items-center justify-between px-8 py-5 xl:px-12">
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2 rounded-full border border-gray-200/70 bg-white/80 px-4 py-2 text-[13px] font-semibold text-gray-500 shadow-[var(--shadow-soft)] transition-colors hover:text-foreground"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
+            Back to Naavik
+          </Link>
+          <Logo theme="light" className="[&_img]:!h-9 [&_img]:!w-auto" />
+          <div className="w-[120px]" aria-hidden />
+        </header>
+
+        <main className="mx-auto flex w-full max-w-[1080px] flex-1 flex-col justify-center px-8 pb-8 xl:max-w-[1140px] xl:px-12 xl:pb-10">
+          <div className="grid items-center gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:gap-12">
+            <div className="flex flex-col gap-6 xl:gap-8">
+              <SuccessHeader />
+              <div className="hidden xl:block">
+                <NextStepsGrid />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-6">
+              <Suspense fallback={<WaitlistResultFallback />}>
+                <WaitlistResultDisplay animate={ready} />
+              </Suspense>
+              <div className="xl:hidden">
+                <NextStepsGrid />
+              </div>
+              <ShareSection copied={copied} onCopy={copyLink} />
+              <PrimaryActions />
             </div>
           </div>
-        </section>
+        </main>
+
+        <footer className="shrink-0 border-t border-gray-100/80 px-8 py-4 text-center xl:px-12">
+          <p className="text-[12px] font-medium text-gray-400">
+            Questions?{' '}
+            <a href="mailto:hello@naavik.in" className="font-semibold text-gray-600 hover:text-foreground hover:underline">
+              hello@naavik.in
+            </a>
+          </p>
+        </footer>
       </div>
+
+      <style jsx global>{`
+        @keyframes success-icon-pop {
+          0% {
+            opacity: 0;
+            transform: scale(0.6);
+          }
+          70% {
+            transform: scale(1.06);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes success-header-rise {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes success-card-rise {
+          from {
+            opacity: 0;
+            transform: translateY(24px) scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        @keyframes success-step-rise {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .success-icon-pop {
+          animation: success-icon-pop 0.65s ${ease} both;
+        }
+        .success-header-rise {
+          animation: success-header-rise 0.6s ${ease} 0.08s both;
+        }
+        .success-card-rise {
+          animation: success-card-rise 0.7s ${ease} 0.16s both;
+        }
+        .success-step-card {
+          animation: success-step-rise 0.55s ${ease} both;
+        }
+      `}</style>
     </div>
-    </>
+  )
+}
+
+export function ThankYouContent() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[100dvh] items-center justify-center bg-[#FAFAFC]">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--purple-600)] border-t-transparent" />
+        </div>
+      }
+    >
+      <ThankYouInner />
+    </Suspense>
   )
 }
