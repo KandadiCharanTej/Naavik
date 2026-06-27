@@ -392,3 +392,9 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* GPU compositing helpers — used on scroll-heavy sections */
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

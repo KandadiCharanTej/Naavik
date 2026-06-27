@@ -12,13 +12,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import {
-  PageContainer,
-  Section,
-  SectionHeader,
-  Eyebrow,
-  Card,
-} from '@/components/design/primitives'
+import { PageContainer, Section, Eyebrow } from '@/components/design/primitives'
 
 const iconMap: Record<string, LucideIcon> = {
   Opportunities: Briefcase,
@@ -34,213 +28,194 @@ const iconMap: Record<string, LucideIcon> = {
   'Clubs & Alumni': Users,
 }
 
-type FeatureCell = {
+type FeatureItem = {
   name: string
   desc: string
-  span: string
-  featured?: boolean
 }
 
-type FeatureGroup = {
-  title: string
-  accent: string
-  iconRing: string
-  headerSpan: string
-  items: FeatureCell[]
-}
-
-const groups: FeatureGroup[] = [
+const dayOne: FeatureItem[] = [
   {
-    title: '✅ Available on Day One',
-    accent: 'from-emerald-50/90 via-white to-white border-emerald-100/80',
-    iconRing: 'bg-emerald-50 text-emerald-600 ring-emerald-100',
-    headerSpan: 'lg:col-span-12',
-    items: [
-      {
-        name: 'Opportunities',
-        desc: 'Find internships, hackathons and scholarships filtered for your branch and year.',
-        span: 'sm:col-span-2 lg:col-span-6 lg:row-span-2',
-        featured: true,
-      },
-      {
-        name: 'Study Vault',
-        desc: 'Notes, PYQs, and semester study materials uploaded and verified by student admins.',
-        span: 'lg:col-span-3',
-      },
-      {
-        name: 'Projects',
-        desc: 'Showcase your builds to peers, founders, and recruiters looking for student developers.',
-        span: 'lg:col-span-3',
-      },
-      {
-        name: 'Connect & Team Finder',
-        desc: 'Find and chat with teammates for hackathons from colleges across TG & AP.',
-        span: 'sm:col-span-2 lg:col-span-6',
-      },
-    ],
+    name: 'Opportunities',
+    desc: 'Find internships, hackathons and scholarships filtered for your branch and year.',
   },
   {
-    title: '⏳ Coming Next',
-    accent: 'from-amber-50/70 via-white to-white border-amber-100/80',
-    iconRing: 'bg-amber-50 text-amber-600 ring-amber-100',
-    headerSpan: 'lg:col-span-12',
-    items: [
-      {
-        name: 'College Hub',
-        desc: 'Your private campus hub for notes, announcements, and community.',
-        span: 'lg:col-span-4 lg:row-span-2',
-        featured: true,
-      },
-      {
-        name: 'Campus Updates',
-        desc: "Verified fests and official notices from your college — before they're buried.",
-        span: 'lg:col-span-8',
-      },
-      {
-        name: 'Leaderboards',
-        desc: 'Recognition for students who contribute the most to their campus community.',
-        span: 'lg:col-span-8',
-      },
-    ],
+    name: 'Study Vault',
+    desc: 'Notes, PYQs, and semester study materials uploaded and verified by student admins.',
   },
   {
-    title: '🚀 Future Vision',
-    accent: 'from-[var(--purple-50)] via-white to-white border-[var(--purple-100)]',
-    iconRing: 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]',
-    headerSpan: 'lg:col-span-12',
-    items: [
-      {
-        name: 'AI Study Assistant',
-        desc: 'Semantic search across notes and study vaults — find anything in seconds.',
-        span: 'lg:col-span-5 lg:row-span-2',
-        featured: true,
-      },
-      {
-        name: 'Recruiter Hub',
-        desc: 'Get found by companies based on your verified projects and skills.',
-        span: 'lg:col-span-4',
-      },
-      {
-        name: 'Placement Reviews',
-        desc: 'Verified interview experiences from your seniors at top companies.',
-        span: 'lg:col-span-3',
-      },
-      {
-        name: 'Clubs & Alumni',
-        desc: 'Connect with active student chapters and graduates from your college.',
-        span: 'lg:col-span-7 lg:col-start-6',
-      },
-    ],
+    name: 'Projects',
+    desc: 'Showcase your builds to peers, founders, and recruiters looking for student developers.',
+  },
+  {
+    name: 'Connect & Team Finder',
+    desc: 'Find and chat with teammates for hackathons from colleges across TG & AP.',
   },
 ]
 
-function CategoryHeader({ title, accent, className }: { title: string; accent: string; className?: string }) {
+const comingSoon: FeatureItem[] = [
+  {
+    name: 'College Hub',
+    desc: 'Your private campus hub for notes, announcements, and community.',
+  },
+  {
+    name: 'Campus Updates',
+    desc: "Verified fests and official notices from your college — before they're buried.",
+  },
+  {
+    name: 'Leaderboards',
+    desc: 'Recognition for students who contribute the most to their campus community.',
+  },
+]
+
+const future: FeatureItem[] = [
+  {
+    name: 'AI Study Assistant',
+    desc: 'Semantic search across notes and study vaults — find anything in seconds.',
+  },
+  {
+    name: 'Recruiter Hub',
+    desc: 'Get found by companies based on your verified projects and skills.',
+  },
+  {
+    name: 'Placement Reviews',
+    desc: 'Verified interview experiences from your seniors at top companies.',
+  },
+  {
+    name: 'Clubs & Alumni',
+    desc: 'Connect with active student chapters and graduates from your college.',
+  },
+]
+
+function GroupLabel({
+  title,
+  variant,
+}: {
+  title: string
+  variant: 'dayOne' | 'coming' | 'future'
+}) {
+  const styles = {
+    dayOne: 'border-emerald-200/80 bg-gradient-to-r from-emerald-50/90 to-white text-emerald-800',
+    coming: 'border-amber-200/80 bg-gradient-to-r from-amber-50/80 to-white text-amber-900',
+    future: 'border-[var(--purple-100)] bg-gradient-to-r from-[var(--purple-50)]/80 to-white text-[var(--purple-800)]',
+  }
+
   return (
-    <div className={cn('flex items-center', className)}>
-      <Card className={cn('w-full bg-gradient-to-r px-5 py-3.5', accent)}>
-        <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-700 sm:text-[12px] sm:tracking-[0.12em]">
-          {title}
-        </h3>
-      </Card>
+    <div className={cn('inline-flex items-center rounded-full border px-4 py-1.5', styles[variant])}>
+      <span className="text-[10px] font-bold uppercase tracking-[0.14em] sm:text-[11px]">{title}</span>
     </div>
   )
 }
 
-function FeatureBentoCell({
-  item,
-  iconRing,
-  accent,
-  delay,
-}: {
-  item: FeatureCell
-  iconRing: string
-  accent: string
-  delay: number
-}) {
+function DayOneCard({ item, delay }: { item: FeatureItem; delay: number }) {
   const Icon = iconMap[item.name] ?? Briefcase
 
   return (
-    <Reveal delay={delay} className={cn('min-h-[140px]', item.span)}>
-      <Card
-        hover
-        variant={item.featured ? 'elevated' : 'default'}
+    <Reveal delay={delay} className="h-full">
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-emerald-100/80 bg-white p-4 shadow-[0_8px_32px_rgba(16,185,129,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(16,185,129,0.12)] sm:p-5">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-emerald-100/50 blur-2xl transition-opacity group-hover:opacity-80"
+        />
+        <span className="relative mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100 transition-transform duration-300 group-hover:scale-105">
+          <Icon className="h-5 w-5" />
+        </span>
+        <h4 className="relative text-[15px] font-bold tracking-[-0.02em] text-foreground sm:text-[16px]">{item.name}</h4>
+        <p className="relative mt-1.5 line-clamp-3 text-[12px] leading-relaxed text-gray-500 sm:text-[13px]">{item.desc}</p>
+      </article>
+    </Reveal>
+  )
+}
+
+function CompactCard({
+  item,
+  delay,
+  variant,
+}: {
+  item: FeatureItem
+  delay: number
+  variant: 'coming' | 'future'
+}) {
+  const Icon = iconMap[item.name] ?? Briefcase
+  const isFuture = variant === 'future'
+
+  return (
+    <Reveal delay={delay} className="h-full">
+      <article
         className={cn(
-          'group relative flex h-full flex-col overflow-hidden bg-gradient-to-br p-5 sm:p-6',
-          accent,
-          item.featured && 'lg:p-7',
+          'group flex h-full items-start gap-3 rounded-[24px] border p-3.5 transition-all duration-300 sm:p-4',
+          isFuture
+            ? 'border-gray-200/70 bg-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-[var(--purple-100)] hover:shadow-[0_8px_24px_rgba(124,58,237,0.06)]'
+            : 'border-amber-100/70 bg-white shadow-[0_4px_20px_rgba(245,158,11,0.06)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(245,158,11,0.1)]',
         )}
       >
-        {item.featured && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/60 blur-2xl transition-opacity duration-500 group-hover:opacity-80"
-          />
-        )}
-        <div className="relative flex flex-1 flex-col">
-          <span
-            className={cn(
-              'mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-500 group-hover:scale-105',
-              iconRing,
-              item.featured && 'h-11 w-11',
-            )}
-          >
-            <Icon className={cn('h-4 w-4', item.featured && 'h-5 w-5')} />
-          </span>
-          <h4 className={cn('font-bold text-foreground', item.featured ? 'text-[18px] sm:text-[20px]' : 'text-[16px]')}>
+        <span
+          className={cn(
+            'flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9',
+            isFuture
+              ? 'bg-gray-50 text-gray-500 ring-gray-100 group-hover:bg-[var(--purple-50)] group-hover:text-[var(--purple-600)] group-hover:ring-[var(--purple-100)]'
+              : 'bg-amber-50 text-amber-600 ring-amber-100',
+          )}
+        >
+          <Icon className="h-4 w-4" />
+        </span>
+        <div className="min-w-0">
+          <h4 className={cn('font-bold tracking-[-0.02em]', isFuture ? 'text-[13px] text-gray-700 sm:text-[14px]' : 'text-[14px] text-foreground')}>
             {item.name}
           </h4>
-          <p
-            className={cn(
-              'mt-2 flex-1 leading-relaxed text-gray-500',
-              item.featured ? 'text-[14px] sm:text-[15px]' : 'text-[14px]',
-            )}
-          >
+          <p className={cn('mt-1 line-clamp-2 leading-snug', isFuture ? 'text-[11px] text-gray-400 sm:text-[12px]' : 'text-[12px] text-gray-500')}>
             {item.desc}
           </p>
         </div>
-      </Card>
+      </article>
     </Reveal>
   )
 }
 
 export function WhatsReady() {
-  let cellIndex = 0
-
   return (
-    <Section surface="purple">
+    <Section surface="purple" pad="compact">
       <PageContainer size="wide">
         <Reveal>
-          <SectionHeader
-            eyebrow={<Eyebrow tone="purple">WHAT YOU GET</Eyebrow>}
-            title={
-              <>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <Eyebrow tone="purple">WHAT YOU GET</Eyebrow>
+              <h2 className="mt-2 text-[1.875rem] font-extrabold tracking-[-0.035em] sm:text-[2.25rem] lg:text-[2.5rem]">
                 Available at <span className="text-[var(--purple-600)]">launch.</span>
-              </>
-            }
-          />
+              </h2>
+            </div>
+          </div>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 lg:grid-cols-12 lg:gap-4">
-          {groups.map((group, gi) => (
-            <div key={group.title} className="contents">
-              <Reveal delay={40 + gi * 30} className={group.headerSpan}>
-                <CategoryHeader title={group.title} accent={group.accent} />
-              </Reveal>
-              {group.items.map((item) => {
-                const delay = 80 + cellIndex * 35
-                cellIndex += 1
-                return (
-                  <FeatureBentoCell
-                    key={item.name}
-                    item={item}
-                    iconRing={group.iconRing}
-                    accent={group.accent}
-                    delay={delay}
-                  />
-                )
-              })}
+        <div className="mt-8 space-y-8 lg:mt-10 lg:space-y-7">
+          {/* Available Day One */}
+          <div>
+            <GroupLabel title="✅ Available on Day One" variant="dayOne" />
+            <div className="mt-4 grid grid-cols-2 gap-3 lg:mt-3 lg:grid-cols-4 lg:gap-4">
+              {dayOne.map((item, i) => (
+                <DayOneCard key={item.name} item={item} delay={40 + i * 30} />
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Coming Next */}
+          <div>
+            <GroupLabel title="⏳ Coming Next" variant="coming" />
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:mt-3 lg:gap-4">
+              {comingSoon.map((item, i) => (
+                <CompactCard key={item.name} item={item} delay={160 + i * 25} variant="coming" />
+              ))}
+            </div>
+          </div>
+
+          {/* Future Vision */}
+          <div>
+            <GroupLabel title="🚀 Future Vision" variant="future" />
+            <div className="mt-4 grid grid-cols-2 gap-3 lg:mt-3 lg:grid-cols-4 lg:gap-4">
+              {future.map((item, i) => (
+                <CompactCard key={item.name} item={item} delay={240 + i * 20} variant="future" />
+              ))}
+            </div>
+          </div>
         </div>
       </PageContainer>
     </Section>

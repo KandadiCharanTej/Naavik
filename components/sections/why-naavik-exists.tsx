@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/reveal'
+import { LightReveal } from '@/components/animations/light-reveal'
 import {
   MessageCircle,
   Briefcase,
@@ -16,7 +16,6 @@ import {
   SectionHeader,
   Eyebrow,
   Card,
-  GridLines,
 } from '@/components/design/primitives'
 
 const contrastItems = [
@@ -45,10 +44,8 @@ const scatteredIcons = [MessageCircle, Briefcase, Cloud, Globe, Code, Database, 
 export async function WhyNaavikExists() {
   return (
     <Section id="whats-inside" surface="subtle">
-      <GridLines className="opacity-20" />
-
       <PageContainer className="relative">
-        <Reveal>
+        <LightReveal>
           <SectionHeader
             align="center"
             eyebrow={<Eyebrow>The Problem</Eyebrow>}
@@ -60,18 +57,17 @@ export async function WhyNaavikExists() {
             }
             lead="Students lose hours every day switching between disconnected platforms just to stay updated. Naavik brings your entire daily ecosystem into a single workspace."
           />
-        </Reveal>
+        </LightReveal>
 
-        {/* Floating app logo chips */}
-        <Reveal delay={80}>
-          <div className="relative mx-auto mt-10 h-[88px] max-w-4xl sm:mt-12 sm:h-[72px]">
+        <LightReveal delay={80}>
+          <div className="transform-gpu relative mx-auto mt-10 h-[88px] max-w-4xl sm:mt-12 sm:h-[72px]">
             {appLogos.map((logo) => (
               <span
                 key={logo.name}
                 style={{
                   left: logo.x,
                   top: logo.y,
-                  transform: `rotate(${logo.rotate}deg)`,
+                  transform: `translateZ(0) rotate(${logo.rotate}deg)`,
                 }}
                 className="absolute inline-flex items-center rounded-xl border border-gray-200/80 bg-white px-3 py-2 text-[12px] font-semibold text-gray-500 shadow-[var(--shadow-soft)] ring-1 ring-gray-100/80 sm:text-[13px]"
               >
@@ -79,17 +75,12 @@ export async function WhyNaavikExists() {
               </span>
             ))}
           </div>
-        </Reveal>
+        </LightReveal>
 
-        {/* Overlapping before/after panels */}
-        <div className="relative mt-14 lg:mt-20">
-          {/* Chaos panel — Old Way */}
-          <Reveal delay={100}>
-            <div className="relative z-10 lg:mr-[18%]">
-              <Card
-                className="relative overflow-hidden border-red-100/80 bg-white p-6 shadow-[0_8px_40px_-12px_rgba(239,68,68,0.12)] sm:p-8 lg:min-h-[480px] lg:max-w-[72%]"
-                hover
-              >
+        <div className="isolate relative mt-14 lg:mt-20 lg:min-h-[520px]">
+          <LightReveal delay={100}>
+            <div className="transform-gpu relative z-10 lg:mr-[18%]">
+              <Card className="relative overflow-hidden border-red-100/80 bg-white p-6 shadow-[0_8px_24px_rgba(239,68,68,0.08)] sm:p-8 lg:min-h-[480px] lg:max-w-[72%]">
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-400 to-red-500" />
 
                 <div className="flex items-center gap-3">
@@ -99,7 +90,6 @@ export async function WhyNaavikExists() {
                   <h3 className="text-[20px] font-bold">The Old Way</h3>
                 </div>
 
-                {/* Scattered chaos icons */}
                 <div className="pointer-events-none absolute right-4 top-16 hidden opacity-40 sm:block lg:right-8 lg:top-20">
                   <div className="relative h-32 w-40">
                     {scatteredIcons.map((Icon, idx) => (
@@ -108,7 +98,7 @@ export async function WhyNaavikExists() {
                         style={{
                           left: `${(idx * 17) % 80}%`,
                           top: `${(idx * 23) % 70}%`,
-                          transform: `rotate(${(idx % 3 - 1) * 12}deg)`,
+                          transform: `translateZ(0) rotate(${(idx % 3 - 1) * 12}deg)`,
                         }}
                         className="absolute flex h-9 w-9 items-center justify-center rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-100"
                       >
@@ -130,8 +120,8 @@ export async function WhyNaavikExists() {
                   ))}
                 </ul>
 
-                <div className="mt-6 rounded-xl bg-gray-50/80 p-4 ring-1 ring-gray-100 sm:mt-8">
-                  <div className="flex flex-wrap gap-2 opacity-70 grayscale">
+                <div className="mt-6 rounded-xl bg-gray-50 p-4 ring-1 ring-gray-100 sm:mt-8">
+                  <div className="flex flex-wrap gap-2 opacity-70">
                     {scatteredIcons.map((Icon, idx) => (
                       <div
                         key={idx}
@@ -144,15 +134,11 @@ export async function WhyNaavikExists() {
                 </div>
               </Card>
             </div>
-          </Reveal>
+          </LightReveal>
 
-          {/* Clarity panel — With Naavik, overlapping */}
-          <Reveal delay={180}>
-            <div className="relative z-20 -mt-8 ml-0 sm:-mt-12 lg:absolute lg:right-0 lg:top-12 lg:mt-0 lg:w-[58%]">
-              <Card
-                className="relative overflow-hidden border-[var(--purple-200)] bg-gradient-to-br from-white via-white to-[var(--purple-50)]/40 p-6 shadow-[var(--shadow-float)] sm:p-8 lg:min-h-[480px]"
-                hover
-              >
+          <LightReveal delay={120}>
+            <div className="transform-gpu relative z-20 -mt-8 ml-0 sm:-mt-12 lg:absolute lg:right-0 lg:top-12 lg:mt-0 lg:w-[58%]">
+              <Card className="relative isolate overflow-hidden border-[var(--purple-200)] bg-white p-6 shadow-[0_8px_24px_rgba(124,58,237,0.08)] sm:p-8 lg:min-h-[480px]">
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--purple-500)] to-[#A855F7]" />
 
                 <div className="flex items-center gap-3">
@@ -162,13 +148,12 @@ export async function WhyNaavikExists() {
                   <h3 className="text-[20px] font-bold">With Naavik</h3>
                 </div>
 
-                {/* Row comparison on desktop */}
                 <div className="mt-6 space-y-0">
                   {contrastItems.map((item, idx) => (
                     <div
                       key={item.after}
                       className={`grid items-center gap-3 border-b border-[var(--purple-50)] py-3.5 last:border-0 sm:grid-cols-[1fr_auto_1fr] sm:gap-4 ${
-                        idx % 2 === 0 ? 'bg-transparent' : 'bg-[var(--purple-50)]/20 sm:rounded-lg sm:px-3'
+                        idx % 2 === 0 ? 'bg-transparent' : 'bg-[#FBF8FF] sm:rounded-lg sm:px-3'
                       }`}
                     >
                       <span className="hidden text-[12px] font-medium text-gray-400 line-through sm:block sm:text-[13px]">
@@ -185,20 +170,19 @@ export async function WhyNaavikExists() {
                   ))}
                 </div>
 
-                <div className="mt-6 flex h-[72px] items-center justify-center rounded-xl border border-[var(--purple-100)] bg-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] sm:mt-8">
+                <div className="mt-6 flex h-[72px] items-center justify-center rounded-xl border border-[var(--purple-100)] bg-white sm:mt-8">
                   <span className="text-[15px] font-extrabold tracking-wide text-[var(--purple-700)]">
                     One place.
                   </span>
                 </div>
               </Card>
             </div>
-          </Reveal>
+          </LightReveal>
         </div>
 
-        {/* Spacer for overlapping panel on desktop */}
         <div className="hidden lg:block lg:h-24" />
 
-        <Reveal delay={240}>
+        <LightReveal delay={240}>
           <div className="mt-14 flex flex-col items-center gap-3 text-center sm:mt-20 sm:flex-row sm:justify-center sm:gap-8">
             <span className="text-[1.625rem] font-extrabold tracking-tight sm:text-[2.25rem]">
               One account.
@@ -212,7 +196,7 @@ export async function WhyNaavikExists() {
               One place.
             </span>
           </div>
-        </Reveal>
+        </LightReveal>
       </PageContainer>
     </Section>
   )
