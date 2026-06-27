@@ -101,9 +101,9 @@ const FloatingShapes = memo(function FloatingShapes() {
   )
 })
 
-const SuccessIcon = memo(function SuccessIcon() {
+const SuccessIcon = memo(function SuccessIcon({ className }: { className?: string }) {
   return (
-    <div className="relative mx-auto mb-4 flex h-[72px] w-[72px] items-center justify-center sm:mb-5 sm:h-20 sm:w-20">
+    <div className={cn("relative mx-auto mb-4 flex h-[72px] w-[72px] items-center justify-center sm:mb-5 sm:h-20 sm:w-20", className)}>
       <div className="relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-100)] via-white to-[var(--purple-50)] shadow-[0_8px_32px_rgba(124,58,237,0.2)] ring-1 ring-[var(--purple-100)]">
         <Sparkles className="h-8 w-8 text-[var(--purple-600)] sm:h-9 sm:w-9" />
       </div>
@@ -134,7 +134,7 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
       <div
         className="relative rounded-[24px] p-[1px] shadow-[0_32px_80px_rgba(124,58,237,0.18)] bg-gradient-to-br from-[var(--purple-300)]/40 via-[var(--purple-200)]/20 to-white/40"
       >
-        <div className="relative overflow-hidden rounded-[23px] bg-white px-6 py-8 sm:px-8 sm:py-9">
+        <div className="relative overflow-hidden rounded-[23px] bg-white px-6 py-6 sm:px-8 sm:py-7">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--purple-300)]/60 to-transparent"
@@ -145,7 +145,7 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
           </p>
 
           <div className="relative mt-3 text-center">
-            <span className="block text-[4.75rem] font-black leading-none tracking-tight text-[var(--purple-600)] sm:text-[5.75rem] lg:text-[6.25rem]">
+            <span className="block text-[4.75rem] font-black leading-none tracking-tight text-[var(--purple-600)] sm:text-[5rem] lg:text-[5.5rem]">
               #{numericPosition}
             </span>
           </div>
@@ -172,7 +172,7 @@ const PositionHeroCard = memo(function PositionHeroCard({ position }: { position
             </div>
           </div>
 
-          <p className="relative mt-5 text-center text-[13px] font-medium leading-relaxed text-gray-500 sm:text-[14px]">
+          <p className="relative mt-4 text-center text-[13px] font-medium leading-relaxed text-gray-500 sm:text-[14px]">
             You&apos;re among the first students helping build Naavik.
           </p>
         </div>
@@ -222,14 +222,14 @@ function WaitlistResultFallback() {
 const NextStepsGrid = memo(function NextStepsGrid() {
   return (
     <div className="w-full">
-      <h3 className="mb-3 text-center text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400 sm:mb-4">
+      <h3 className="mb-2 text-center text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400 sm:mb-3">
         What happens next
       </h3>
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
         {TIMELINE.map((item) => (
           <div
             key={item.title}
-            className="flex items-start gap-3 rounded-[20px] border border-gray-100/90 bg-white p-3.5 shadow-[var(--shadow-soft)] sm:p-4"
+            className="flex items-start gap-3 rounded-[20px] border border-gray-100/90 bg-white p-3 shadow-[var(--shadow-soft)] sm:p-3"
           >
             <div
               className={cn(
@@ -262,7 +262,7 @@ const ShareSection = memo(function ShareSection({
       <p className="mb-3 text-center text-[12px] font-medium text-gray-400 sm:text-[13px]">
         Help us bring Naavik to more engineering students.
       </p>
-      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
         <a
           href={SITE_URL}
           target="_blank"
@@ -276,20 +276,26 @@ const ShareSection = memo(function ShareSection({
           <span className="truncate">Instagram</span>
         </a>
         <a
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="mailto:naavik.team@gmail.com"
+          className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-gray-300 sm:h-12 sm:gap-2.5 sm:text-[13px]"
+        >
+          <Mail className="h-4 w-4 shrink-0 text-gray-500 sm:h-[18px] sm:w-[18px]" />
+          <span className="truncate">Mail</span>
+        </a>
+        <button
+          type="button"
+          onClick={(e) => e.preventDefault()}
           className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[#0A66C2]/30 sm:h-12 sm:gap-2.5 sm:text-[13px]"
         >
           <LinkedInIcon className="h-4 w-4 shrink-0 text-[#0A66C2] sm:h-[18px] sm:w-[18px]" />
           <span className="truncate">LinkedIn</span>
-        </a>
+        </button>
         <button
           type="button"
           onClick={onCopy}
           className="flex h-11 items-center justify-center gap-1.5 rounded-2xl border border-gray-200 bg-white px-2 text-[11px] font-bold text-foreground shadow-[var(--shadow-soft)] transition-colors hover:border-[var(--purple-200)] sm:h-12 sm:gap-2.5 sm:text-[13px]"
         >
-          <Copy className="h-4 w-4 shrink-0 text-gray-400" />
+          <Copy className="h-4 w-4 shrink-0 text-gray-400 sm:h-[18px] sm:w-[18px]" />
           <span className="truncate">{copied ? 'Copied!' : 'Copy Link'}</span>
         </button>
       </div>
@@ -299,21 +305,33 @@ const ShareSection = memo(function ShareSection({
 
 const PrimaryActions = memo(function PrimaryActions() {
   return (
-    <div className="flex w-full flex-col items-center gap-2.5">
+    <div className="flex w-full flex-col items-center gap-2.5 mt-2">
       <Link
         href="/"
         className="group flex h-14 w-full max-w-md items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-[15px] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]"
       >
-        Continue
+        Back to Home
         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
       </Link>
-      <Link
-        href="/"
-        className="flex h-10 w-full max-w-md items-center justify-center rounded-xl border border-gray-200 bg-white text-[13px] font-semibold text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-800"
-      >
-        Back to Home
-      </Link>
     </div>
+  )
+})
+
+const DesktopNextSteps = memo(function DesktopNextSteps() {
+  return (
+    <ul className="mt-8 space-y-4">
+      {TIMELINE.map((item) => (
+        <li key={item.title} className="flex items-start gap-3">
+          <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1", toneStyles[item.tone])}>
+            <item.icon className="h-4 w-4" />
+          </div>
+          <div className="flex flex-col">
+            <h4 className="text-[14px] font-bold text-foreground">{item.title}</h4>
+            <p className="mt-0.5 text-[13px] leading-snug text-gray-500">{item.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
   )
 })
 
@@ -334,7 +352,8 @@ export function ThankYouContent() {
   }
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-[#FAFAFC]">
+    <>
+    <div className="lg:hidden relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-[#FAFAFC]">
       <MeshGradient />
       <GridLines className="opacity-[0.35]" />
       <FloatingShapes />
@@ -343,31 +362,25 @@ export function ThankYouContent() {
         className="pointer-events-none absolute inset-x-0 top-0 h-[55vh] bg-[radial-gradient(ellipse_90%_70%_at_50%_-15%,rgba(124,58,237,0.12),transparent)]"
       />
 
-      <header className="relative z-20 flex shrink-0 items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
-        <Link
-          href="/"
-          className="group inline-flex items-center gap-2 rounded-full border border-gray-200/70 bg-white px-3 py-2 text-[12px] font-semibold text-gray-500 shadow-[var(--shadow-soft)] transition-colors hover:text-foreground sm:text-[13px]"
-        >
-          <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
-          Back to Naavik
-        </Link>
-        <Logo theme="light" />
-        <div className="w-[88px] sm:w-24" aria-hidden />
+      <header className="relative z-20 flex shrink-0 items-center justify-center px-4 py-5 sm:px-6 sm:py-6">
+        <div className="scale-125 sm:scale-150">
+          <Logo theme="light" />
+        </div>
       </header>
 
       <main
         className={cn(
-          "relative z-10 mx-auto flex w-full max-w-[720px] flex-1 flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6 lg:max-w-[900px] lg:pb-6 transition-all duration-500 ease-out will-change-[transform,opacity]",
+          "relative z-10 mx-auto flex w-full max-w-[720px] flex-1 flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6 lg:max-w-[900px] lg:pb-4 transition-all duration-500 ease-out will-change-[transform,opacity]",
           mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         )}
       >
-        <div className="flex flex-1 flex-col justify-center gap-5 py-2 sm:gap-6 lg:gap-5 lg:py-4">
+        <div className="flex flex-1 flex-col justify-center gap-4 py-1 sm:gap-5 lg:gap-4 lg:py-2">
           <div className="text-center">
             <SuccessIcon />
             <h1 className="text-[1.75rem] font-extrabold leading-[1.08] tracking-[-0.04em] sm:text-[2.25rem] lg:text-[2.375rem]">
-              ðŸŽ‰ You&apos;re officially on the list!
+              🎉 You&apos;re officially on the list!
             </h1>
-            <p className="mx-auto mt-2.5 max-w-lg text-[14px] font-medium leading-relaxed text-gray-500 sm:mt-3 sm:text-[15px]">
+            <p className="mx-auto mt-2 max-w-lg text-[14px] font-medium leading-relaxed text-gray-500 sm:mt-2.5 sm:text-[15px]">
               Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future. We&apos;ll email you as soon as Early Access opens.
             </p>
           </div>
@@ -384,7 +397,7 @@ export function ThankYouContent() {
           </div>
         </div>
 
-        <footer className="relative z-10 mt-4 flex shrink-0 flex-col items-center gap-2 border-t border-gray-100/80 pt-4 text-center sm:flex-row sm:justify-between sm:text-left">
+        <footer className="relative z-10 flex shrink-0 flex-col items-center gap-2 border-t border-gray-100/80 pt-3 mt-1 text-center sm:flex-row sm:justify-between sm:text-left">
           <p className="text-[11px] font-medium text-gray-500 sm:text-[12px]">
             Questions?{' '}
             <a href="mailto:naavik.team@gmail.com" className="font-bold text-foreground hover:underline">
@@ -398,10 +411,73 @@ export function ThankYouContent() {
             <Link href="/terms" className="transition-colors hover:text-foreground">
               Terms
             </Link>
-            <span className="text-gray-400">Made in Hyderabad</span>
+            <span className="text-gray-400">Built by an engineering student, for engineering students.</span>
           </nav>
         </footer>
       </main>
     </div>
+
+    {/* PREMIUM DESKTOP LAYOUT */}
+    <div className="hidden lg:flex relative min-h-[100dvh] w-full items-center justify-center bg-[#FAFAFC] overflow-x-hidden p-8">
+      <MeshGradient />
+      <GridLines className="opacity-[0.35]" />
+      <FloatingShapes />
+      
+      <div 
+        className={cn(
+          "relative grid h-[640px] w-full max-w-[1100px] overflow-hidden rounded-[32px] border border-gray-100/80 bg-white shadow-[0_40px_100px_rgba(0,0,0,0.15)] transition-all duration-700 ease-out will-change-[transform,opacity]",
+          mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        )}
+        style={{ gridTemplateColumns: '40% 60%' }}
+      >
+        {/* LEFT PANEL */}
+        <aside className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#FAFAFF] via-white to-[#F5F3FF] p-10 xl:p-12 border-r border-gray-100/80">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.12),transparent_70%)]"
+          />
+          <div className="relative z-10">
+            <SuccessIcon className="mx-0 mb-6 sm:mb-8" />
+            <h1 className="text-[2.25rem] font-extrabold leading-[1.08] tracking-tight text-foreground">
+              🎉 You&apos;re officially on the list!
+            </h1>
+            <p className="mt-4 text-[15px] font-medium leading-relaxed text-gray-500">
+              Thanks for joining Naavik. You&apos;re now one of the first students helping shape our future. We&apos;ll email you as soon as Early Access opens.
+            </p>
+            
+            <DesktopNextSteps />
+          </div>
+
+          <div className="relative z-10 mt-8">
+             <ShareSection copied={copied} onCopy={copyLink} />
+          </div>
+        </aside>
+
+        {/* RIGHT PANEL */}
+        <section className="relative flex flex-col items-center justify-center overflow-hidden bg-white p-10 xl:p-12">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-16 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.1),transparent_70%)]"
+          />
+          
+          <div className="relative z-10 w-full max-w-[560px]">
+            <Suspense fallback={<WaitlistResultFallback />}>
+              <WaitlistResultDisplay />
+            </Suspense>
+
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/"
+                className="group flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] text-[15px] font-bold text-white shadow-[0_10px_32px_rgba(124,58,237,0.38)] transition-all hover:shadow-[0_14px_40px_rgba(124,58,237,0.45)]"
+              >
+                Back to Home
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    </>
   )
 }

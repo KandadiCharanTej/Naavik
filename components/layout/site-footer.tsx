@@ -87,7 +87,7 @@ export function SiteFooter() {
         <Divider className="my-10" />
         <div className="flex flex-col gap-2 text-[12px] text-gray-400 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; {new Date().getFullYear()} Naavik. All rights reserved.</p>
-          <p>Built in Hyderabad for engineering students.</p>
+          <p>Built by an engineering student, for engineering students.</p>
         </div>
       </PageContainer>
     </footer>

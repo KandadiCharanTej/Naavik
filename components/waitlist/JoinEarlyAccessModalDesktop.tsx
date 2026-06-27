@@ -21,7 +21,7 @@ export const JoinEarlyAccessModalDesktop = memo(function JoinEarlyAccessModalDes
       className="grid h-full min-h-0 w-full overflow-hidden"
       style={{ gridTemplateColumns: '40% 60%' }}
     >
-      <aside className="relative flex min-h-0 items-center overflow-hidden bg-gradient-to-br from-[#FAFAFF] via-white to-[#F5F3FF] px-10 xl:px-12">
+      <aside className="relative flex min-h-0 items-center overflow-hidden bg-gradient-to-br from-[#FAFAFF] via-white to-[#F5F3FF] px-8 xl:px-10">
         <div
           aria-hidden
           className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.12),transparent_70%)]"
@@ -38,7 +38,7 @@ export const JoinEarlyAccessModalDesktop = memo(function JoinEarlyAccessModalDes
         />
 
         <div
-          className="relative w-[440px] max-w-full shrink-0 rounded-[24px] border border-gray-100/80 bg-white p-8 shadow-[0_24px_64px_rgba(124,58,237,0.1),0_8px_24px_rgba(0,0,0,0.06)]"
+          className="relative w-[440px] max-w-full shrink-0 rounded-[24px] border border-gray-100/80 bg-white p-6 shadow-[0_24px_64px_rgba(124,58,237,0.1),0_8px_24px_rgba(0,0,0,0.06)]"
           style={{ width: 440 }}
         >
           <div
@@ -54,7 +54,7 @@ export const JoinEarlyAccessModalDesktop = memo(function JoinEarlyAccessModalDes
             onSubmit={onSubmit}
           />
 
-          <FormPrivacyText className="mt-5" />
+          <FormPrivacyText className="mt-4" />
         </div>
       </section>
     </div>

@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider'
 import { GoogleAnalytics, MicrosoftClarity, ScrollDepthTracker } from '@/components/providers/analytics'
 import { Toaster } from '@/components/ui/sonner'
 import { WaitlistProvider } from '@/components/providers/waitlist-provider'
+import { getSupabaseAdmin } from '@/lib/supabase'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -76,11 +77,24 @@ export const viewport: Viewport = {
   themeColor: '#FAFAFC',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  let initialWaitlistCount = 128
+  try {
+    const supabase = getSupabaseAdmin()
+    const { count } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true })
+    if (count !== null) {
+      initialWaitlistCount = count
+    }
+  } catch (error) {
+    console.error('Failed to fetch initial waitlist count:', error)
+  }
+
   return (
     <html
       lang="en"
@@ -132,7 +146,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <WaitlistProvider>
+          <WaitlistProvider initialCount={initialWaitlistCount}>
             {children}
             <Toaster 
               position="top-center" 

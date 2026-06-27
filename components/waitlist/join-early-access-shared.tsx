@@ -97,7 +97,7 @@ export const LeftPanelContent = memo(function LeftPanelContent({
         Join the first students helping shape Naavik. We&apos;ll notify you as soon as your campus goes live.
       </p>
 
-      <ul className="mt-8 space-y-3">
+      <ul className="mt-5 space-y-2">
         {BENEFITS.map((benefit) => (
           <li key={benefit} className="flex items-center gap-3 text-[14px] font-semibold text-gray-700">
             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--purple-50)] text-[var(--purple-600)] ring-1 ring-[var(--purple-100)]">
@@ -108,7 +108,7 @@ export const LeftPanelContent = memo(function LeftPanelContent({
         ))}
       </ul>
 
-      <div className="mt-8 space-y-5">
+      <div className="mt-6 space-y-4">
         <WaitlistProgress count={waitlistCount} />
         <AvatarStack />
         <span className="inline-flex items-center gap-2 rounded-full border border-[var(--purple-100)] bg-white px-3.5 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--purple-700)] shadow-sm">
@@ -146,11 +146,11 @@ function FloatingField({
         required={required}
         disabled={disabled}
         placeholder=" "
-        className="peer block h-14 w-full min-w-0 rounded-2xl border border-gray-200/80 bg-white px-4 pb-2 pt-6 text-[15px] text-gray-900 shadow-[var(--shadow-soft)] outline-none transition-[border-color,box-shadow] placeholder:text-transparent focus:border-[var(--purple-300)] focus:shadow-[0_0_0_4px_rgba(124,58,237,0.1)] disabled:opacity-60"
+        className="peer block h-[52px] w-full min-w-0 rounded-2xl border border-gray-200/80 bg-white px-4 pb-1.5 pt-5 text-[14px] text-gray-900 shadow-[var(--shadow-soft)] outline-none transition-[border-color,box-shadow] placeholder:text-transparent focus:border-[var(--purple-300)] focus:shadow-[0_0_0_4px_rgba(124,58,237,0.1)] disabled:opacity-60"
       />
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-4 top-4 text-[13px] font-semibold text-gray-500 transition-all peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-[var(--purple-600)] peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px]"
+        className="pointer-events-none absolute left-4 top-3.5 text-[13px] font-semibold text-gray-500 transition-all peer-focus:top-1.5 peer-focus:text-[11px] peer-focus:text-[var(--purple-600)] peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:text-[11px]"
       >
         {label}
       </label>
@@ -174,7 +174,7 @@ export const SubmitButton = memo(function SubmitButton({
       form={formId}
       disabled={submitting}
       className={cn(
-        'naavik-btn naavik-btn-primary group flex h-14 w-full min-w-0 shrink-0 items-center justify-center whitespace-nowrap !rounded-2xl text-[16px] font-bold disabled:cursor-not-allowed disabled:opacity-70',
+        'naavik-btn naavik-btn-primary group flex h-[52px] w-full min-w-0 shrink-0 items-center justify-center whitespace-nowrap !rounded-2xl text-[15px] font-bold disabled:cursor-not-allowed disabled:opacity-70',
         className,
       )}
     >
@@ -209,7 +209,7 @@ export const JoinEarlyAccessForm = memo(function JoinEarlyAccessForm({
   fieldPrefix: string
 }) {
   return (
-    <form id={formId} onSubmit={onSubmit} className="w-full min-w-0 space-y-4">
+    <form id={formId} onSubmit={onSubmit} className="w-full min-w-0 space-y-3">
       <FloatingField
         id={`${fieldPrefix}-name`}
         name="name"

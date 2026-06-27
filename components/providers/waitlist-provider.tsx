@@ -28,12 +28,12 @@ export function useWaitlist() {
   return ctx
 }
 
-export function WaitlistProvider({ children }: { children: ReactNode }) {
+export function WaitlistProvider({ children, initialCount = 128 }: { children: ReactNode; initialCount?: number }) {
   const [isOpen, setIsOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [navigating, setNavigating] = useState(false)
   const [error, setError] = useState('')
-  const [waitlistCount, setWaitlistCount] = useState(128)
+  const [waitlistCount, setWaitlistCount] = useState(initialCount)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -131,7 +131,7 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
           'border border-white/20 bg-white shadow-[0_40px_100px_rgba(0,0,0,0.25)]',
           'max-md:w-[92vw] max-md:max-w-[420px] max-md:max-h-[98dvh] max-md:rounded-[28px] max-md:shadow-[0_0_60px_rgba(124,58,237,0.15)]',
           'md:h-[min(90dvh,760px)] md:w-[95vw] md:rounded-[24px]',
-          'lg:h-[650px] lg:max-h-[90vh] lg:w-[1000px] lg:max-w-[1050px] lg:rounded-[28px]',
+          'lg:h-[540px] lg:max-h-[90vh] lg:w-[1000px] lg:max-w-[1050px] lg:rounded-[28px]',
         )}
       >
         <div className="relative flex h-full min-h-0 w-full flex-col">
