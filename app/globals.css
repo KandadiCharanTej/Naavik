@@ -18,6 +18,17 @@
 
 :root {
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Naavik premium design tokens ── */
+  --naavik-radius: 14px;
+  --naavik-radius-lg: 20px;
+  --naavik-radius-xl: 28px;
+  --shadow-soft: 0 1px 2px rgba(17, 24, 39, 0.04);
+  --shadow-card: 0 0 0 1px rgba(17, 24, 39, 0.04), 0 2px 4px rgba(17, 24, 39, 0.02), 0 12px 32px rgba(17, 24, 39, 0.06);
+  --shadow-elevated: 0 0 0 1px rgba(17, 24, 39, 0.05), 0 8px 16px rgba(17, 24, 39, 0.04), 0 24px 56px rgba(17, 24, 39, 0.1);
+  --shadow-float: 0 0 0 1px rgba(124, 58, 237, 0.1), 0 32px 80px rgba(124, 58, 237, 0.14), 0 12px 32px rgba(17, 24, 39, 0.08);
+  --shadow-dark: 0 40px 100px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-glow-purple: var(--shadow-float);
 }
 
 @theme inline {
@@ -249,9 +260,135 @@
   animation: float 6s ease-in-out infinite;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Naavik component classes ── */
+.naavik-card {
+  border-radius: var(--naavik-radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+.naavik-card-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+.naavik-card-glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+}
+.naavik-card-dark {
+  border-radius: var(--naavik-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #111116;
+  box-shadow: var(--shadow-dark);
+}
+.naavik-card-hover {
+  transition: transform 0.35s var(--ease-premium), box-shadow 0.35s var(--ease-premium);
+}
+.naavik-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.naavik-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 52px;
+  padding: 0 1.5rem;
+  border-radius: var(--naavik-radius);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-premium);
+  cursor: pointer;
+  border: none;
+}
+.naavik-btn-primary {
+  background: var(--purple-600);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+}
+.naavik-btn-primary:hover {
+  background: #6d28d9;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.42);
+  transform: translateY(-1px);
+}
+.naavik-btn-secondary {
+  background: #fff;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+.naavik-btn-secondary:hover {
+  border-color: #d1d5db;
+  background: #fafafa;
+}
+
 /* Visible focus ring for keyboard navigation */
 :focus-visible {
   outline: 2px solid #8B5CF6;
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* ── Continuous page flow ── */
+.naavik-page-flow {
+  --flow-purple: rgba(124, 58, 237, 0.06);
+}
+
+.naavik-page-flow > section {
+  position: relative;
+  isolation: isolate;
+}
+
+.naavik-section-connector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(100%, 1400px);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.12), transparent);
+  pointer-events: none;
+}
+
+.naavik-stage-perspective {
+  perspective: 2200px;
+  perspective-origin: 50% 40%;
+}
+
+.naavik-stage-tilt {
+  transform: rotateX(4deg) scale(1.02);
+  transform-style: preserve-3d;
+  transition: transform 0.8s var(--ease-premium);
+}
+
+@media (min-width: 1024px) {
+  .naavik-stage-tilt:hover {
+    transform: rotateX(2deg) scale(1.025);
+  }
+}
+
+.naavik-glass-dark {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

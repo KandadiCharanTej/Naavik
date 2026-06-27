@@ -27,31 +27,115 @@ export function ProductPreview() {
   }
 
   return (
-    <section className="bg-[#0A0A0A] text-white py-[64px] lg:py-[100px] relative overflow-hidden" id="product-preview">
-      {/* Dark mode mesh gradient background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--purple-600)] rounded-full blur-[180px] opacity-20 pointer-events-none"></div>
+    <section
+      className="naavik-section-connector relative overflow-hidden bg-[#030306] pb-0 pt-20 text-white sm:pt-24 lg:pt-32"
+      id="product-preview"
+    >
+      {/* Upward bleed from light sections */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white via-[#F8F8FA] to-transparent opacity-[0.04]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_100%_80%_at_50%_-20%,rgba(124,58,237,0.45),transparent_55%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-25"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+          maskImage: 'radial-gradient(ellipse 90% 70% at 50% 30%, black, transparent)',
+        }}
+      />
 
-      <div className="mx-auto max-w-[1200px] px-0 sm:px-8 relative z-10">
-        
-        {/* Apple Style Header */}
-        <Reveal>
-          <div className="text-center mb-10 px-5 sm:px-0">
-            <h2 className="text-[32px] md:text-[56px] font-extrabold tracking-tight leading-[1.1] md:leading-[1.05] text-white">
-              This is what it looks like.
-            </h2>
-            <p className="mt-4 text-[16px] md:text-[18px] text-gray-400 max-w-[600px] mx-auto font-medium">
-              Designed for how engineering students actually work.
-            </p>
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-8">
+        {/* Editorial header — asymmetric */}
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+          <Reveal>
+            <div className="max-w-2xl lg:pb-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--purple-400)]">
+                Product
+              </p>
+              <h2 className="mt-4 text-[2.25rem] font-extrabold tracking-[-0.04em] text-balance sm:text-[3rem] lg:text-[3.5rem] lg:leading-[1.02]">
+                This is what it looks like.
+              </h2>
+              <p className="mt-5 max-w-lg text-[16px] font-medium leading-relaxed text-gray-400 sm:text-[18px]">
+                Designed for how engineering students actually work.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Desktop tab rail — floating pill */}
+          <Reveal delay={60} className="hidden lg:block">
+            <div className="naavik-glass-dark flex gap-1 rounded-2xl p-1.5">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as TabId)}
+                  className={cn(
+                    'flex items-center gap-2 rounded-xl px-4 py-2.5 text-[13px] font-semibold transition-all duration-300',
+                    activeTab === tab.id
+                      ? 'bg-white text-black shadow-lg shadow-black/20'
+                      : 'text-gray-400 hover:bg-white/5 hover:text-white',
+                  )}
+                >
+                  <tab.icon className="h-4 w-4" />
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Mobile tab strip — dedicated layout */}
+        <Reveal delay={40} className="mt-8 lg:hidden">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as TabId)}
+                className={cn(
+                  'flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all',
+                  activeTab === tab.id
+                    ? 'bg-white text-black'
+                    : 'naavik-glass-dark text-gray-400',
+                )}
+              >
+                <tab.icon className="h-4 w-4" />
+                {tab.label}
+              </button>
+            ))}
           </div>
         </Reveal>
 
-        {/* Massive Apple-Style Window - Scaled down for better preview */}
+        {/* Cinematic stage — bleeds into next section */}
         <Reveal delay={100}>
-          <motion.div 
-            className="w-full sm:max-w-[1000px] mx-auto sm:rounded-[24px] overflow-hidden sm:border border-white/20 bg-[#0F0F0F] sm:shadow-[0_40px_100px_rgba(0,0,0,0.5)] sm:ring-1 ring-white/10 flex flex-col relative h-[100vh] sm:h-[650px] max-h-[850px]"
-            animate={{ scale: [0.98, 1], y: [20, 0], opacity: [0, 1] }}
-            transition={{ duration: 0.8, ease: premiumEasing }}
-          >
+          <div className="relative mt-10 lg:mt-14 lg:-mx-8 xl:-mx-16">
+            {/* Depth layers */}
+            <div
+              aria-hidden
+              className="absolute -left-4 top-8 hidden h-48 w-64 rounded-3xl naavik-glass-dark shadow-[var(--shadow-dark)] lg:block xl:-left-12"
+            />
+            <div
+              aria-hidden
+              className="absolute -right-2 bottom-24 hidden h-36 w-52 rounded-3xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/15 shadow-[0_0_80px_rgba(124,58,237,0.25)] lg:block xl:-right-8"
+            />
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 hidden h-[70%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.15)_0%,transparent_70%)] blur-2xl lg:block"
+            />
+
+            <div className="naavik-stage-perspective">
+              <motion.div
+                className="naavik-stage-tilt relative flex w-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-[#0A0A0E] shadow-[0_60px_120px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.05)] sm:rounded-[32px] h-[min(78vh,680px)] sm:h-[min(72vh,720px)] lg:h-[720px]"
+                initial={{ opacity: 0, y: 48 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.9, ease: premiumEasing }}
+              >
             {/* Desktop macOS Window Controls */}
             <div className="hidden sm:flex items-center gap-2 px-6 py-4 border-b border-white/10 bg-[#1A1A1A]">
               <div className="flex gap-2">
@@ -151,10 +235,23 @@ export function ProductPreview() {
               </div>
             </div>
 
-          </motion.div>
-        </Reveal>
+              </motion.div>
+            </div>
 
+            {/* Stage glow spill into next section */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-[120%] -translate-x-1/2 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(124,58,237,0.2),transparent)]"
+            />
+          </div>
+        </Reveal>
       </div>
+
+      {/* Bottom fade into light section */}
+      <div
+        aria-hidden
+        className="pointer-events-none relative z-0 mt-8 h-24 bg-gradient-to-b from-transparent to-white sm:h-32 lg:h-40"
+      />
     </section>
   )
 }

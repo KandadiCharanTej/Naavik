@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main className="naavik-page-flow relative overflow-x-clip">
         <Hero />
         <WhyNaavikExists />
         <InsideNaavik />

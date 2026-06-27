@@ -1,140 +1,278 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Briefcase, BookOpen, Code, Users, Bell } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Briefcase, BookOpen, Code, Users, Bell } from 'lucide-react'
 import { WaitlistButton } from '../ui/cta-buttons'
 import { DashboardMockup } from '../sections/dashboard-mockup'
-import { StaggerContainer, StaggerItem } from '../animations/reveal'
+import { PageContainer } from '@/components/design/primitives'
 
-export function HeroContent({
-  waitlistCount,
-  waitlistGoal,
-  progressPercentage,
-}: {
+const FEATURES = [
+  { icon: Briefcase, text: 'Find internships & hackathons' },
+  { icon: BookOpen, text: 'Access notes, PYQs & lab manuals' },
+  { icon: Code, text: 'Showcase your projects' },
+  { icon: Users, text: 'Find teammates across Telangana & Andhra Pradesh' },
+  { icon: Bell, text: 'Stay updated with campus events' },
+] as const
+
+const TRUST = [
+  'Built by engineering students',
+  'Free forever',
+  'Privacy first',
+  'Campus-by-campus rollout',
+] as const
+
+type Props = {
   waitlistCount: number
   waitlistGoal: number
   progressPercentage: number
-}) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  })
-  
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, 120])
-  const opacityParallax = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+}
 
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
+}
+
+function EarlyAccessBadge() {
   return (
-    <div ref={containerRef} className="w-full max-w-[1400px] mx-auto relative z-10 flex flex-col ">
-      
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
-        
-        <div className="w-full lg:w-1/2 flex flex-col items-start px-4 sm:px-8">
-          <StaggerContainer delay={100} className="flex flex-col items-start w-full">
-            
-            <StaggerItem className="mb-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/80 backdrop-blur-md px-3.5 py-1.5 text-[12px] font-semibold tracking-wide text-[var(--purple-600)] shadow-sm">
-                🟣 Early Access Now Open
-              </div>
-            </StaggerItem>
+    <motion.span
+      {...fadeUp}
+      className="inline-flex items-center gap-2 rounded-full border border-[var(--purple-200)] bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--purple-700)] shadow-[var(--shadow-soft)] backdrop-blur-sm sm:text-[11px]"
+    >
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--purple-400)] opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--purple-500)]" />
+      </span>
+      🟣 Early Access Now Open
+    </motion.span>
+  )
+}
 
-            <StaggerItem>
-              <h1 className="text-[36px] sm:text-[42px] lg:text-[64px] xl:text-[72px] font-extrabold leading-[1.05] tracking-tight text-foreground max-w-[600px]">
-                Never miss an <br className="hidden md:block" />
-                opportunity <br />
-                <span className="text-[var(--purple-600)]">again.</span>
-              </h1>
-            </StaggerItem>
+function Headline({ mobile }: { mobile?: boolean }) {
+  return (
+    <motion.h1
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+      className={`mt-5 font-extrabold tracking-[-0.04em] text-foreground ${
+        mobile
+          ? 'text-[2.125rem] leading-[1.07] sm:text-[2.5rem]'
+          : 'text-[3.25rem] leading-[1.02] xl:text-[3.75rem]'
+      }`}
+    >
+      Never miss an <br className={mobile ? 'hidden sm:block' : ''} />
+      opportunity <br />
+      <span className="bg-gradient-to-r from-[var(--purple-600)] to-[#9333EA] bg-clip-text text-transparent">
+        again.
+      </span>
+    </motion.h1>
+  )
+}
 
-            <StaggerItem className="mt-8 lg:mt-10 w-full">
-              <div className="flex flex-col gap-4">
-                {[
-                  { icon: Briefcase, text: 'Find internships & hackathons' },
-                  { icon: BookOpen, text: 'Access notes, PYQs & lab manuals' },
-                  { icon: Code, text: 'Showcase your projects' },
-                  { icon: Users, text: 'Find teammates across Telangana & Andhra Pradesh' },
-                  { icon: Bell, text: 'Stay updated with campus events' },
-                ].map((item, idx) => (
-                  <motion.div 
-                    key={idx}
-                    className="flex items-center gap-4"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + idx * 0.1 }}
-                  >
-                    <div className="w-8 h-8 rounded-full bg-[var(--purple-50)] flex flex-shrink-0 items-center justify-center text-[var(--purple-600)]">
-                      <item.icon size={16} />
-                    </div>
-                    <span className="text-[15px] sm:text-[16px] lg:text-[18px] text-gray-600 font-medium">
-                      {item.text}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </StaggerItem>
+function FeatureList() {
+  return (
+    <ul className="mt-6 space-y-2.5 sm:space-y-3">
+      {FEATURES.map((f, i) => (
+        <motion.li
+          key={f.text}
+          initial={{ opacity: 0, x: -14 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.18 + i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="group flex items-center gap-3"
+        >
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[var(--purple-50)] text-[var(--purple-600)] ring-1 ring-[var(--purple-100)] transition-all duration-300 group-hover:bg-[var(--purple-100)] group-hover:ring-[var(--purple-200)]">
+            <f.icon className="h-4 w-4" />
+          </span>
+          <span className="text-[14px] font-medium text-gray-600 sm:text-[15px]">{f.text}</span>
+        </motion.li>
+      ))}
+    </ul>
+  )
+}
 
-            <StaggerItem className="mt-12 w-full">
-              <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[500px]">
-                <WaitlistButton 
-                  className="flex-1 h-[52px] px-[28px] bg-[var(--purple-600)] hover:bg-[var(--purple-700)] text-white text-[16px] font-bold rounded-full shadow-[0_8px_30px_rgba(124,58,237,0.3)] hover:shadow-[0_12px_40px_rgba(124,58,237,0.4)] transition-all"
-                  id="hero-primary-cta"
-                >
-                  Reserve My Spot
-                </WaitlistButton>
-                
-                <a
-                  href="#whats-inside"
-                  className="flex-1 flex items-center justify-center h-[52px] px-[28px] text-[16px] font-bold text-gray-700 bg-white border-2 border-gray-200 rounded-full hover:bg-gray-50 hover:border-gray-300 shadow-sm transition-all group w-full"
-                >
-                  Explore Features 
-                  <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
-              </div>
-            </StaggerItem>
-            
-            <StaggerItem className="mt-12 w-full max-w-[500px]">
-              <div className="flex flex-col gap-3">
-                <div className="flex justify-between items-baseline text-[14px] font-medium">
-                  <span><span className="text-foreground font-extrabold text-[15px]">{waitlistCount}</span> students joined</span>
-                  <span className="text-gray-500 font-semibold tracking-wide">Goal: {waitlistGoal}</span>
-                </div>
-                <div className="w-full h-3 rounded-full bg-gray-100 overflow-hidden relative shadow-inner">
-                  <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)] rounded-full transition-all duration-1000 ease-out" style={{ width: `${progressPercentage}%` }}></div>
-                </div>
-                <p className="text-[13px] text-gray-500 mt-1 font-medium">
-                  Launching campus by campus across Telangana & Andhra Pradesh.
-                </p>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
+function CtaGroup({ stacked }: { stacked?: boolean }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.45, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className={`grid gap-3 ${stacked ? 'grid-cols-1' : 'grid-cols-2'}`}
+    >
+      <WaitlistButton
+        id="hero-primary-cta"
+        className="naavik-btn naavik-btn-primary h-[52px] w-full !rounded-[var(--naavik-radius)]"
+      >
+        Reserve My Spot
+      </WaitlistButton>
+      <a
+        href="#whats-inside"
+        className="naavik-btn naavik-btn-secondary group h-[52px] w-full !rounded-[var(--naavik-radius)]"
+      >
+        Explore Features
+        <span className="transition-transform group-hover:translate-x-0.5">→</span>
+      </a>
+    </motion.div>
+  )
+}
 
-        <div className="w-full lg:w-1/2 relative z-20 hidden lg:flex justify-end px-2 sm:px-8 mt-12 lg:mt-0 perspective-[2000px]">
-          <motion.div 
-            style={{ y: yParallax, opacity: opacityParallax }}
-            className="w-full flex justify-center lg:justify-end"
+function WaitlistProgress({
+  waitlistCount,
+  waitlistGoal,
+  progressPercentage,
+}: Pick<Props, 'waitlistCount' | 'waitlistGoal' | 'progressPercentage'>) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.55, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="naavik-card mt-5 p-4"
+    >
+      <div className="flex items-baseline justify-between text-[13px] font-medium">
+        <span>
+          <strong className="text-[15px] text-foreground">{waitlistCount}</strong>{' '}
+          students joined
+        </span>
+        <span className="text-gray-500">Goal: {waitlistGoal}</span>
+      </div>
+      <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-gray-100">
+        <motion.div
+          className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)]"
+          initial={{ width: 0 }}
+          animate={{ width: `${progressPercentage}%` }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        />
+      </div>
+      <p className="mt-2 text-[12px] font-medium text-gray-500 sm:text-[13px]">
+        Launching campus by campus across Telangana & Andhra Pradesh.
+      </p>
+    </motion.div>
+  )
+}
+
+function TrustBadges({ mobile }: { mobile?: boolean }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.65, duration: 0.5 }}
+      className={`mt-4 flex flex-wrap gap-2 ${mobile ? 'grid grid-cols-2' : ''}`}
+    >
+      {TRUST.map((t) => (
+        <span
+          key={t}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8F8FA] px-2.5 py-2 text-[11px] font-semibold text-gray-500 ring-1 ring-gray-100 sm:text-[12px]"
+        >
+          <span className="text-[var(--purple-600)]">✓</span>
+          {t}
+        </span>
+      ))}
+    </motion.div>
+  )
+}
+
+function HeroVisual({ mobile }: { mobile?: boolean }) {
+  return (
+    <div className={`relative ${mobile ? 'w-full' : 'w-full'}`}>
+      {!mobile && (
+        <>
+          {/* Depth layer — rear glow */}
+          <div
+            aria-hidden
+            className="absolute -right-8 top-6 h-[92%] w-[96%] rounded-[var(--naavik-radius-xl)] bg-gradient-to-br from-[var(--purple-200)]/50 via-[var(--purple-100)]/30 to-transparent"
+          />
+          {/* Depth layer — mid accent card */}
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute -left-6 bottom-8 z-0 h-28 w-44 rounded-2xl border border-white/90 bg-white/70 shadow-[var(--shadow-card)] backdrop-blur-xl"
+          />
+          {/* Depth layer — top-right chip */}
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute -right-4 top-0 z-20 flex items-center gap-2 rounded-xl border border-[var(--purple-100)] bg-white/90 px-3 py-2 shadow-[var(--shadow-soft)] backdrop-blur-md"
           >
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className="w-full max-w-[1000px]"
-            >
-              <DashboardMockup />
-            </motion.div>
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="text-[11px] font-semibold text-gray-600">Live feed</span>
           </motion.div>
+          {/* Depth layer — bottom stat */}
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute -bottom-4 left-8 z-20 rounded-xl border border-white/80 bg-white/85 px-4 py-2.5 shadow-[var(--shadow-float)] backdrop-blur-xl"
+          >
+            <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">Today</p>
+            <p className="text-[13px] font-bold text-[var(--purple-700)]">12 new opportunities</p>
+          </motion.div>
+        </>
+      )}
+
+      <motion.div
+        initial={{ opacity: 0, y: 36, rotateX: 6 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+        className="relative z-10 rounded-[var(--naavik-radius-xl)] p-[3px] shadow-[var(--shadow-float)]"
+        style={{
+          perspective: 1400,
+          background: 'linear-gradient(135deg, rgba(124,58,237,0.25) 0%, rgba(255,255,255,0.6) 40%, rgba(147,51,234,0.15) 100%)',
+        }}
+      >
+        <div className="overflow-hidden rounded-[calc(var(--naavik-radius-xl)-3px)] bg-white">
+          <DashboardMockup variant={mobile ? 'mobile' : 'desktop'} />
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+export function HeroContent(props: Props) {
+  return (
+    <>
+      {/* Desktop — cinematic asymmetric: copy ~40%, dashboard ~60% */}
+      <PageContainer size="full" className="hidden pb-20 pt-10 lg:block">
+        <div className="grid grid-cols-[minmax(0,38%)_minmax(0,62%)] items-center gap-8 xl:grid-cols-[minmax(0,40%)_minmax(0,60%)] xl:gap-12">
+          <div className="relative z-10 max-w-[520px] pr-4">
+            <EarlyAccessBadge />
+            <Headline />
+            <FeatureList />
+            <div className="mt-7">
+              <CtaGroup />
+            </div>
+            <WaitlistProgress {...props} />
+            <TrustBadges />
+          </div>
+
+          <div className="relative -mr-4 xl:-mr-8">
+            <HeroVisual />
+          </div>
+        </div>
+      </PageContainer>
+
+      {/* Mobile — stack: copy → CTAs → dashboard → progress → trust */}
+      <PageContainer className="pb-12 pt-8 lg:hidden">
+        <div>
+          <EarlyAccessBadge />
+          <Headline mobile />
+          <FeatureList />
         </div>
 
-      </div>
+        <div className="mt-7">
+          <CtaGroup stacked />
+        </div>
 
-      <div className="mt-20 lg:mt-32 w-full max-w-[1000px] mx-auto border-t border-gray-200/60 pt-8 px-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-[12px] sm:text-[13px] font-semibold text-gray-400 tracking-wide">
-        <div className="flex items-center gap-1.5"><span className="text-[var(--purple-600)]">✓</span> Built by engineering students</div>
-        <div className="flex items-center gap-1.5"><span className="text-[var(--purple-600)]">✓</span> Free forever</div>
-        <div className="flex items-center gap-1.5"><span className="text-[var(--purple-600)]">✓</span> Privacy first</div>
-        <div className="flex items-center gap-1.5"><span className="text-[var(--purple-600)]">✓</span> Campus-by-campus rollout</div>
-      </div>
-      
-    </div>
+        <div className="mt-8">
+          <HeroVisual mobile />
+        </div>
+
+        <WaitlistProgress {...props} />
+        <TrustBadges mobile />
+      </PageContainer>
+    </>
   )
 }

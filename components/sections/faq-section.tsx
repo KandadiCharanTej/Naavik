@@ -1,71 +1,83 @@
 'use client'
 
 import { useState } from 'react'
-import { Reveal, StaggerContainer, StaggerItem } from '@/components/animations/reveal'
-import { Plus, Minus } from 'lucide-react'
+import { Reveal } from '@/components/animations/reveal'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
+import { PageContainer, Section, SectionHeader, Divider } from '@/components/design/primitives'
+
+const faqs = [
+  {
+    question: 'What is Naavik?',
+    answer:
+      'Naavik is a student app for engineering students in Telangana and Andhra Pradesh. Find internships, access college notes, build projects, connect with teammates, and stay updated with campus events — all in one place, filtered for your branch and year.',
+  },
+  {
+    question: 'Is it free?',
+    answer:
+      'Yes. Completely free for students. No credit card, no trial, no catch. Always free for engineering students.',
+  },
+  {
+    question: 'When will Naavik launch?',
+    answer:
+      "We're actively building with early student feedback. Everyone who joins Early Access will be notified personally before their college goes live.",
+  },
+  {
+    question: 'Which colleges are supported?',
+    answer:
+      'Starting in Telangana and Andhra Pradesh, activating one campus at a time as student admins join. Applying to be a founding admin is the fastest way to bring Naavik to your campus.',
+  },
+  {
+    question: 'How is Naavik different from LinkedIn or Internshala?',
+    answer:
+      "Those are job boards. Naavik is built for your college life — campus notes, PYQs, hackathon team-finding, campus announcements, and opportunities filtered by your branch and year. LinkedIn doesn't do any of that.",
+  },
+]
 
 export function FaqSection() {
-  const faqs = [
-    {
-      question: 'What is Naavik?',
-      answer: 'Naavik is a student app for engineering students in Telangana and Andhra Pradesh. Find internships, access college notes, build projects, connect with teammates, and stay updated with campus events — all in one place, filtered for your branch and year.',
-    },
-    {
-      question: 'Is it free?',
-      answer: 'Yes. Completely free for students. No credit card, no trial, no catch. Always free for engineering students.',
-    },
-    {
-      question: 'When will Naavik launch?',
-      answer: 'We\'re actively building with early student feedback. Everyone who joins Early Access will be notified personally before their college goes live.',
-    },
-    {
-      question: 'Which colleges are supported?',
-      answer: 'Starting in Telangana and Andhra Pradesh, activating one campus at a time as student admins join. Applying to be a founding admin is the fastest way to bring Naavik to your campus.',
-    },
-    {
-      question: 'How is Naavik different from LinkedIn or Internshala?',
-      answer: 'Those are job boards. Naavik is built for your college life — campus notes, PYQs, hackathon team-finding, campus announcements, and opportunities filtered by your branch and year. LinkedIn doesn\'t do any of that.',
-    },
-  ]
-
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="bg-gray-50 py-14 md:py-[72px] lg:py-24 border-t border-gray-200" id="faq">
-      <div className="mx-auto max-w-[1000px] px-5 sm:px-8">
-        
-        {/* Header */}
-        <Reveal className="w-full text-center">
-          <div className="mb-16">
-            <h2 className="text-[32px] md:text-[40px] tracking-tight font-extrabold leading-[1.1] text-foreground mb-4">
-              Questions? <span className="text-gray-400">Answered.</span>
-            </h2>
-            <p className="text-[18px] text-gray-500 font-medium">Everything you need to know about the product and launch.</p>
-          </div>
+    <Section id="faq" surface="white">
+      <PageContainer size="narrow">
+        <Reveal>
+          <SectionHeader
+            align="center"
+            title={
+              <>
+                Questions? <span className="text-gray-400">Answered.</span>
+              </>
+            }
+            lead="Everything you need to know about the product and launch."
+          />
         </Reveal>
 
-        {/* Minimalist Accordion */}
-        <StaggerContainer delay={100} className="w-full flex flex-col gap-3">
+        <div className="mx-auto mt-12 max-w-[600px]">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index
             return (
-              <StaggerItem key={index}>
-                <div 
-                  className={`bg-white rounded-[16px] overflow-hidden transition-all duration-300 ${isOpen ? 'shadow-[0_8px_30px_rgba(0,0,0,0.04)] ring-1 ring-gray-200' : 'shadow-sm border border-gray-100 hover:border-gray-200 hover:shadow-md'}`}
-                >
+              <Reveal key={faq.question} delay={50 + index * 30}>
+                <div>
+                  {index > 0 && <Divider className="my-0" />}
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full flex items-center justify-between px-6 md:px-8 py-5 text-left focus:outline-none group"
+                    className="group flex w-full items-start justify-between gap-6 py-6 text-left sm:py-7"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${index}`}
                   >
-                    <span className={`text-[16px] md:text-[17px] font-bold transition-colors ${isOpen ? 'text-[var(--purple-600)]' : 'text-gray-900 group-hover:text-[var(--purple-600)]'} pr-4`}>
+                    <span
+                      className={`text-[16px] font-semibold leading-snug tracking-[-0.01em] transition-colors duration-200 sm:text-[17px] ${
+                        isOpen ? 'text-[var(--purple-600)]' : 'text-gray-900 group-hover:text-gray-700'
+                      }`}
+                    >
                       {faq.question}
                     </span>
-                    <span className={`shrink-0 transition-transform duration-300 ${isOpen ? 'text-[var(--purple-600)] rotate-180' : 'text-gray-400 group-hover:text-[var(--purple-400)]'}`}>
-                      {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
-                    </span>
+                    <ChevronDown
+                      className={`mt-0.5 h-5 w-5 shrink-0 text-gray-300 transition-transform duration-300 ease-out ${
+                        isOpen ? 'rotate-180 text-[var(--purple-500)]' : 'group-hover:text-gray-400'
+                      }`}
+                      strokeWidth={1.75}
+                    />
                   </button>
                   <AnimatePresence initial={false}>
                     {isOpen && (
@@ -74,21 +86,22 @@ export function FaqSection() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
                       >
-                        <div className="px-6 md:px-8 pb-6">
-                          <p className="text-[15px] md:text-[16px] text-gray-500 leading-relaxed font-medium">{faq.answer}</p>
-                        </div>
+                        <p className="pb-6 text-[15px] leading-[1.7] text-gray-500 sm:pb-7 sm:text-[16px]">
+                          {faq.answer}
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
-              </StaggerItem>
+              </Reveal>
             )
           })}
-        </StaggerContainer>
-
-      </div>
-    </section>
+          <Divider className="my-0" />
+        </div>
+      </PageContainer>
+    </Section>
   )
 }
