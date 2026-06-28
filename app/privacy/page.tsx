@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             href="/"
             className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
-            â† Back to home
+            ← Back to home
           </Link>
         </header>
 
@@ -39,51 +39,128 @@ export default function PrivacyPage() {
         <main className="prose dark:prose-invert">
           <h1 className="text-2xl font-semibold tracking-tight">Privacy Policy</h1>
           <p className="text-xs text-muted-foreground mt-1">
-            Last Updated: June 25, 2026
+            <strong>Last Updated:</strong> June 2026
           </p>
 
           <div className="mt-8 space-y-6 text-sm leading-relaxed text-muted-foreground">
             <p>
-              Naavik is built by and for engineering students. We respect your privacy and only request data that helps us build a better platform for you.
+              Naavik values your privacy.
+            </p>
+            <p>
+              We're building Naavik to help engineering students discover opportunities, connect with peers, and grow their careers. During this early access phase, we collect only the information necessary to validate demand, improve the product, and communicate with our waitlist members.
             </p>
 
+            <hr className="border-border" />
+
             <div>
-              <h2 className="text-base font-semibold text-foreground">1. Data We Collect</h2>
+              <h2 className="text-base font-semibold text-foreground">Information We Collect</h2>
               <p className="mt-2">
-                When you sign up for early access, we collect:
+                When you join the Naavik waitlist, we may collect:
               </p>
               <ul className="mt-2 list-disc pl-5 space-y-1">
-                <li>Your full name (to address you personally)</li>
-                <li>Your email address (to contact you with updates and launch access)</li>
-                <li>Your college name (to set up a local workspace for your campus)</li>
+                <li>Full Name</li>
+                <li>Email Address</li>
+                <li>College or University Name</li>
               </ul>
+              <p className="mt-4">
+                We intentionally collect only the minimum information required. We do not request passwords, payment information, or sensitive personal data during this validation phase.
+              </p>
             </div>
 
+            <hr className="border-border" />
+
             <div>
-              <h2 className="text-base font-semibold text-foreground">2. How We Use It</h2>
+              <h2 className="text-base font-semibold text-foreground">How We Use Your Information</h2>
               <p className="mt-2">
-                We use your data strictly to:
+                Your information is used solely to:
               </p>
               <ul className="mt-2 list-disc pl-5 space-y-1">
-                <li>Measure waitlist numbers across campuses in Telangana and AP.</li>
-                <li>Email you a single welcome message + one notification when we launch.</li>
+                <li>Reserve your place on the early access waitlist.</li>
+                <li>Understand student interest across colleges and regions.</li>
+                <li>Send important product updates.</li>
+                <li>Notify you when Naavik launches.</li>
+                <li>Improve the platform based on community interest and feedback.</li>
               </ul>
-              <p className="mt-2">
-                We will never sell, lease, or distribute your email or personal information to third parties. There is no tracking or third-party ads.
+              <p className="mt-4">
+                We will never sell, rent, trade, or share your personal information with advertisers or third parties for marketing purposes.
               </p>
             </div>
 
+            <hr className="border-border" />
+
             <div>
-              <h2 className="text-base font-semibold text-foreground">3. Security</h2>
+              <h2 className="text-base font-semibold text-foreground">Data Security</h2>
               <p className="mt-2">
-                All data is encrypted in transit and stored inside our private database. Since this is an early validation website, we do not require password creation, avoiding standard credential theft vulnerabilities.
+                Protecting your information is important to us.
+              </p>
+              <p className="mt-2">
+                We use industry-standard security practices to protect data while it is transmitted and stored. Access to waitlist information is restricted to authorized team members only.
+              </p>
+              <p className="mt-2">
+                Although no online service can guarantee absolute security, we continuously work to safeguard the information you share with us.
               </p>
             </div>
 
+            <hr className="border-border" />
+
             <div>
-              <h2 className="text-base font-semibold text-foreground">4. Opt-Out</h2>
+              <h2 className="text-base font-semibold text-foreground">Cookies & Analytics</h2>
               <p className="mt-2">
-                If you ever want to be removed from the waitlist, simply email us at <strong>naavik.team@gmail.com</strong> and we will delete your record immediately.
+                Naavik may use basic analytics to understand website performance and improve user experience.
+              </p>
+              <p className="mt-2">
+                These analytics help us understand metrics such as:
+              </p>
+              <ul className="mt-2 list-disc pl-5 space-y-1">
+                <li>Number of visitors</li>
+                <li>Waitlist conversions</li>
+                <li>Device types</li>
+                <li>General usage patterns</li>
+              </ul>
+              <p className="mt-4">
+                We do not use invasive tracking or sell browsing data.
+              </p>
+            </div>
+
+            <hr className="border-border" />
+
+            <div>
+              <h2 className="text-base font-semibold text-foreground">Your Rights</h2>
+              <p className="mt-2">
+                You may request to:
+              </p>
+              <ul className="mt-2 list-disc pl-5 space-y-1">
+                <li>Access your information</li>
+                <li>Correct inaccurate information</li>
+                <li>Delete your waitlist record</li>
+                <li>Stop receiving emails at any time</li>
+              </ul>
+              <p className="mt-4">
+                Simply contact us using the email below.
+              </p>
+            </div>
+
+            <hr className="border-border" />
+
+            <div>
+              <h2 className="text-base font-semibold text-foreground">Changes to This Policy</h2>
+              <p className="mt-2">
+                As Naavik evolves, this Privacy Policy may be updated to reflect new features or legal requirements.
+              </p>
+              <p className="mt-2">
+                Any significant changes will be reflected by updating the "Last Updated" date on this page.
+              </p>
+            </div>
+
+            <hr className="border-border" />
+
+            <div>
+              <h2 className="text-base font-semibold text-foreground">Contact</h2>
+              <p className="mt-2">
+                For privacy-related questions or requests, contact us at:
+              </p>
+              <p className="mt-2">
+                <strong>Email:</strong> <a href="mailto:naavik.team@gmail.com" className="text-primary hover:underline">naavik.team@gmail.com</a>
               </p>
             </div>
           </div>
@@ -91,7 +168,7 @@ export default function PrivacyPage() {
       </div>
 
       <footer className="mt-16 text-center text-xs text-muted-foreground">
-        Â© {new Date().getFullYear()} Naavik Â· Made in Hyderabad
+        © {new Date().getFullYear()} Naavik. Built for Students. Designed for Growth.
       </footer>
     </div>
   )

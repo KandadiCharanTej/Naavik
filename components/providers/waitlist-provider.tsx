@@ -62,7 +62,7 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitting(true)
+    if (submitting) return
     setError('')
 
     const form = e.currentTarget
@@ -74,51 +74,42 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
 
     if (!name || name.length < 2) {
       setError('Please enter your full name.')
-      setSubmitting(false)
       return
     }
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Please enter a valid email address.')
-      setSubmitting(false)
       return
     }
 
     if (!college || college.length < 3) {
       setError('Please enter your college name.')
-      setSubmitting(false)
       return
     }
 
-    try {
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, college, website }),
-      })
+    // Client validation passed. Prevent duplicate clicks.
+    setSubmitting(true)
+    setNavigating(true)
 
-      const data = await res.json()
+    // Calculate optimistic position
+    const optimisticPosition = waitlistCount + 1
+    setWaitlistCount(optimisticPosition)
 
-      if (!res.ok) {
-        setError(data.error || 'Something went wrong. Please try again.')
-        setSubmitting(false)
-        return
-      }
+    // Track analytics
+    trackWaitlistSubmitted(college)
 
-      setWaitlistCount(data.position)
-      trackWaitlistSubmitted(college)
-      setNavigating(true)
-      router.push(
-        `/success?position=${data.position}&name=${encodeURIComponent(name)}`,
-      )
-    } catch {
-      setError('Network error. Please check your connection and try again.')
-      setSubmitting(false)
-      setNavigating(false)
-    }
+    // Instant navigation to success page
+    router.push(
+      `/success?position=${optimisticPosition}&name=${encodeURIComponent(name)}`
+    )
+
+    // Fire and forget background submission
+    fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, college, website }),
+    }).catch(console.error)
   }
-
-  const showLoadingOverlay = submitting || navigating
 
   return (
     <WaitlistContext.Provider value={value}>
@@ -138,23 +129,10 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
           <JoinEarlyAccessModal
             waitlistCount={waitlistCount}
             error={error}
-            submitting={submitting}
+            submitting={false}
             onSubmit={handleSubmit}
             onClose={close}
           />
-
-          {showLoadingOverlay ? (
-            <div
-              aria-live="polite"
-              aria-busy="true"
-              className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/90"
-            >
-              <Loader2 className="h-8 w-8 animate-spin text-[var(--purple-600)]" />
-              <p className="mt-3 text-[14px] font-semibold text-gray-600">
-                {navigating ? 'Taking you to your confirmation…' : 'Joining…'}
-              </p>
-            </div>
-          ) : null}
         </div>
       </WaitlistModalPortal>
     </WaitlistContext.Provider>

@@ -443,7 +443,15 @@ function MobileFeatureCarousel({ features, accent }: { features: Feature[]; acce
   )
 }
 
-function TabToggle({ activeTab, setActiveTab }: { activeTab: TabId; setActiveTab: (t: TabId) => void }) {
+function TabToggle({ 
+  activeTab, 
+  setActiveTab,
+  layoutIdPrefix = 'desktop'
+}: { 
+  activeTab: TabId; 
+  setActiveTab: (t: TabId) => void;
+  layoutIdPrefix?: string;
+}) {
   return (
     <div className="inline-flex w-full max-w-[280px] rounded-2xl bg-[#F0F0F4] p-1 ring-1 ring-gray-200/80 sm:max-w-none">
       {([
@@ -460,7 +468,7 @@ function TabToggle({ activeTab, setActiveTab }: { activeTab: TabId; setActiveTab
         >
           {activeTab === tab.id && (
             <motion.div
-              layoutId="inside-ecosystem-tab"
+              layoutId={`${layoutIdPrefix}-inside-ecosystem-tab`}
               className="absolute inset-0 rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
               transition={{ type: 'spring', bounce: 0.18, duration: 0.5 }}
             />
@@ -588,7 +596,7 @@ export function InsideNaavik() {
           </Reveal>
 
           <div className="mt-5">
-            <TabToggle activeTab={activeTab} setActiveTab={setActiveTab} />
+            <TabToggle activeTab={activeTab} setActiveTab={setActiveTab} layoutIdPrefix="mobile" />
           </div>
 
           <div className="mt-4">
