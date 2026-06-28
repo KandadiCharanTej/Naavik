@@ -96,28 +96,7 @@ export async function POST(request: NextRequest) {
 
     const supabase = getSupabaseAdmin()
 
-    // Check for duplicate email
-    const { data: existing } = await supabase
-      .from('waitlist')
-      .select('id')
-      .eq('email', cleanEmail)
-      .maybeSingle()
-
-    if (existing) {
-      return NextResponse.json(
-        { error: 'This email is already on the waitlist!' },
-        { status: 409 },
-      )
-    }
-
-    // Get current count for position
-    const { count } = await supabase
-      .from('waitlist')
-      .select('*', { count: 'exact', head: true })
-
-    const position = (count ?? 0) + 1
-
-    // Insert into waitlist
+    // 1. Insert directly (relying on PostgreSQL unique constraint to catch duplicates instantly)
     const { error: insertError } = await supabase.from('waitlist').insert({
       full_name: cleanName,
       email: cleanEmail,
@@ -140,12 +119,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send welcome email after successful database insert
-    try {
-      await sendWelcomeEmail(cleanEmail, cleanName)
-    } catch (err) {
+    // Send welcome email in the background without blocking the response
+    sendWelcomeEmail(cleanEmail, cleanName).catch((err) => {
       console.error('Failed to send welcome email:', err)
-    }
+    })
 
     const token = await generateSuccessToken()
     const cookieStore = await cookies()
@@ -157,7 +134,7 @@ export async function POST(request: NextRequest) {
       path: '/',
     })
 
-    return NextResponse.json({ success: true, position })
+    return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Waitlist API error:', error)
     return NextResponse.json(
