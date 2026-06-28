@@ -119,6 +119,11 @@ export async function POST(request: NextRequest) {
     }
 
 
+    // Get updated exact count
+    const { count } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true })
+
     const token = await generateSuccessToken()
     const cookieStore = await cookies()
     cookieStore.set('naavik_success_token', token, {
@@ -129,7 +134,7 @@ export async function POST(request: NextRequest) {
       path: '/',
     })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, position: count || 128 })
   } catch (error) {
     console.error('Waitlist API error:', error)
     return NextResponse.json(

@@ -18,6 +18,7 @@ import { WaitlistModalPortal } from '@/components/waitlist/WaitlistModalPortal'
 
 type WaitlistContextValue = {
   open: () => void
+  count: number
 }
 
 const WaitlistContext = createContext<WaitlistContextValue | null>(null)
@@ -36,6 +37,25 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
   const [waitlistCount, setWaitlistCount] = useState(initialCount)
   const router = useRouter()
   const pathname = usePathname()
+
+  useEffect(() => {
+    // Fetch real count from /api/waitlist/count on mount and periodically
+    const fetchCount = async () => {
+      try {
+        const res = await fetch('/api/waitlist/count')
+        const data = await res.json()
+        if (data.count) {
+          setWaitlistCount(data.count)
+        }
+      } catch (err) {
+        console.error('Failed to fetch waitlist count', err)
+      }
+    }
+    
+    fetchCount()
+    const interval = setInterval(fetchCount, 30000) // Poll every 30 seconds
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     if (pathname === '/success') {
@@ -58,7 +78,7 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
     setIsOpen(false)
   }, [navigating])
 
-  const value = useMemo(() => ({ open }), [open])
+  const value = useMemo(() => ({ open, count: waitlistCount }), [open, waitlistCount])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -146,7 +166,7 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
           <JoinEarlyAccessModal
             waitlistCount={waitlistCount}
             error={error}
-            submitting={false}
+            submitting={submitting}
             onSubmit={handleSubmit}
             onClose={close}
           />

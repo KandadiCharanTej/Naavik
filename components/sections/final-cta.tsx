@@ -1,5 +1,6 @@
 import { Reveal } from '@/components/animations/reveal'
 import { WaitlistButton } from '@/components/ui/cta-buttons'
+import { LiveFinalCtaProgress } from '@/components/ui/live-final-cta-progress'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { headers } from 'next/headers'
 import { PageContainer, Section, MeshGradient } from '@/components/design/primitives'
@@ -55,22 +56,7 @@ export async function FinalCta() {
               Join Early Access today and be among the first students when your campus goes live.
             </p>
 
-            <div className="relative mx-auto mt-10 max-w-sm">
-              <div className="flex items-baseline justify-between gap-4">
-                <p className="text-[13px] font-medium text-gray-500 sm:text-[14px]">
-                  {waitlistCount} / {waitlistGoal} students have joined early access.
-                </p>
-                <span className="text-[13px] font-bold tabular-nums text-[var(--purple-600)]">
-                  {progressPercentage}%
-                </span>
-              </div>
-              <div className="mt-2.5 h-1 overflow-hidden rounded-full bg-[var(--purple-50)] ring-1 ring-[var(--purple-100)]">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)] transition-all duration-1000"
-                  style={{ width: `${progressPercentage}%` }}
-                />
-              </div>
-            </div>
+            <LiveFinalCtaProgress initialWaitlistCount={waitlistCount} waitlistGoal={waitlistGoal} />
 
             <div className="relative mx-auto mt-10 max-w-xs">
               <WaitlistButton

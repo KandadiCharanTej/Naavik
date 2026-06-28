@@ -5,6 +5,7 @@ import { Briefcase, BookOpen, Code, Users, Bell } from 'lucide-react'
 import { WaitlistButton } from '../ui/cta-buttons'
 import { DashboardMockup } from '../sections/dashboard-mockup'
 import { PageContainer } from '@/components/design/primitives'
+import { useWaitlist } from '@/components/providers/waitlist-provider'
 
 const FEATURES = [
   { icon: Briefcase, text: 'Find internships & hackathons' },
@@ -116,10 +117,14 @@ function CtaGroup({ stacked }: { stacked?: boolean }) {
 }
 
 function WaitlistProgress({
-  waitlistCount,
+  waitlistCount: initialWaitlistCount,
   waitlistGoal,
-  progressPercentage,
+  progressPercentage: initialPercentage,
 }: Pick<Props, 'waitlistCount' | 'waitlistGoal' | 'progressPercentage'>) {
+  const { count } = useWaitlist()
+  const displayCount = Math.max(initialWaitlistCount, count)
+  const displayPercentage = Math.round((displayCount / waitlistGoal) * 100)
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -129,7 +134,7 @@ function WaitlistProgress({
     >
       <div className="flex items-baseline justify-between text-[13px] font-medium">
         <span>
-          <strong className="text-[15px] text-foreground">{waitlistCount}</strong>{' '}
+          <strong className="text-[15px] text-foreground">{displayCount}</strong>{' '}
           students joined
         </span>
         <span className="text-gray-500">Goal: {waitlistGoal}</span>
@@ -138,7 +143,7 @@ function WaitlistProgress({
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-[var(--purple-500)] to-[var(--purple-600)]"
           initial={{ width: 0 }}
-          animate={{ width: `${progressPercentage}%` }}
+          animate={{ width: `${displayPercentage}%` }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         />
       </div>
