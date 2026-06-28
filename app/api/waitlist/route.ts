@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendWelcomeEmail } from '@/lib/resend'
 import { cookies } from 'next/headers'
@@ -120,8 +120,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Send welcome email in the background without blocking the response
-    sendWelcomeEmail(cleanEmail, cleanName).catch((err) => {
-      console.error('Failed to send welcome email:', err)
+    after(() => {
+      sendWelcomeEmail(cleanEmail, cleanName).catch((err) => {
+        console.error('Failed to send welcome email:', err)
+      })
     })
 
     const token = await generateSuccessToken()
