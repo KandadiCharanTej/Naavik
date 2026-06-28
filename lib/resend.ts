@@ -136,11 +136,11 @@ function buildWelcomeHtml({
       <tr>
         <td align="center" style="padding:40px 32px 0;">
           <a href="${siteUrl}" target="_blank" style="text-decoration:none;">
-            <!-- Light logo (shown by default) -->
-            <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/light-logo.png" alt="Naavik Logo" width="140" class="light-logo" style="display:block;border:0;max-width:140px;height:auto;" />
-            <!-- Dark logo (hidden by default) -->
+            <!-- Default logo (for light backgrounds) -->
+            <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/dark-logo.png" alt="Naavik Logo" width="140" class="light-logo" style="display:block;border:0;max-width:140px;height:auto;" />
+            <!-- Dark mode logo (for dark backgrounds) -->
             <div class="dark-logo" style="display:none;mso-hide:all;">
-              <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/dark-logo.png" alt="Naavik Logo" width="140" style="display:block;border:0;max-width:140px;height:auto;" />
+              <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/light-logo.png" alt="Naavik Logo" width="140" style="display:block;border:0;max-width:140px;height:auto;" />
             </div>
           </a>
         </td>
