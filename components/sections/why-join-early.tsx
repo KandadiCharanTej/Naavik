@@ -102,16 +102,16 @@ export async function WhyJoinEarly() {
                     <HeartHandshake className="h-5 w-5" />
                   </div>
                   <h3 className="text-[1.75rem] font-extrabold leading-tight sm:text-[2rem]">
-                    Free forever. <br />No exceptions.
+                    Join Early Access <br />for Free.
                   </h3>
                   <p className="mt-3 max-w-lg text-[16px] leading-relaxed text-gray-600">
-                    No credit card required. No trial period that expires. Naavik is completely free for engineering students. We won&apos;t charge you to access your own college&apos;s resources.
+                    No payment required. No credit card needed. Join Naavik today at no cost during Early Access and access your college&apos;s verified resources from day one.
                   </p>
                 </div>
                 <div className="mt-6 flex h-44 w-full shrink-0 items-center justify-center rounded-2xl bg-white shadow-[var(--shadow-card)] ring-1 ring-[var(--purple-100)] transition-transform duration-500 group-hover:scale-[1.02] sm:h-48 lg:mt-0 lg:h-52 lg:w-56">
                   <div className="text-center">
                     <div className="text-[3.5rem] font-black leading-none text-[var(--purple-600)]">₹0</div>
-                    <div className="mt-1 text-[13px] font-bold uppercase tracking-wide text-gray-400">For Students</div>
+                    <div className="mt-1 text-[13px] font-bold uppercase tracking-wide text-gray-400">During Early Access</div>
                   </div>
                 </div>
               </div>

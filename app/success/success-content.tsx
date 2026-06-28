@@ -21,7 +21,7 @@ import { MeshGradient, GridLines } from '@/components/design/primitives'
 import { cn } from '@/lib/utils'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://naavik.in'
-const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/'
+const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/joinnaavik?igsh=MXBueGtoZWF2ajRxdQ=='
 const LINKEDIN_URL = 'https://linkedin.com/'
 const WAITLIST_GOAL = 500
 

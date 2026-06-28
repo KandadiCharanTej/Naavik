@@ -46,7 +46,7 @@ export function SiteFooter() {
                 <MailIcon />
               </a>
               <a
-                href="https://www.instagram.com/joinnaavik"
+                href="https://www.instagram.com/joinnaavik?igsh=MXBueGtoZWF2ajRxdQ=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 transition-colors hover:text-gray-900"

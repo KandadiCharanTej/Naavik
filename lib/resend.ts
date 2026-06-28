@@ -18,7 +18,7 @@ export function getResend(): Resend | null {
 
 /** Send the welcome email to a new waitlist member. */
 export async function sendWelcomeEmail(to: string, name: string) {
-  const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/naviko.app'
+  const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/joinnaavik?igsh=MXBueGtoZWF2ajRxdQ=='
   const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL || '' // Do not use personal profile. Hide if not provided.
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://naviko.app'
   

@@ -153,7 +153,7 @@ export function ProductPreview() {
             <div className="sm:hidden flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#141414]/90 backdrop-blur-xl sticky top-0 z-50">
               <div className="flex items-center gap-3 w-full">
                 <div className="w-8 h-8 rounded-full bg-gray-800 border border-white/10 overflow-hidden shrink-0">
-                  <Image src="/dark-logo.png" alt="Naavik" width={32} height={32} className="object-cover p-1.5 opacity-90" />
+                  <Image src="/light-logo.png" alt="Naavik" width={48} height={48} className="object-contain p-1 opacity-90" />
                 </div>
                 <div className="flex-1 bg-white/5 h-9 rounded-full border border-white/10 flex items-center px-4">
                    <Search className="w-4 h-4 text-gray-500 mr-2" />
@@ -172,7 +172,7 @@ export function ProductPreview() {
               {/* Desktop Sidebar */}
               <div className="w-[80px] bg-[#0A0A0A] border-r border-white/5 flex-col items-center py-6 gap-6 hidden sm:flex shrink-0 z-20">
                 <div className="mb-4">
-                  <Image src="/dark-logo.png" alt="Naavik" width={32} height={32} className="object-contain opacity-90" />
+                  <Image src="/light-logo.png" alt="Naavik" width={56} height={56} className="object-contain opacity-90" />
                 </div>
                 
                 <div className="flex flex-col gap-2 w-full px-3">

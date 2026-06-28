@@ -16,7 +16,7 @@ const FEATURES = [
 
 const TRUST = [
   'Built by engineering students',
-  'Free forever',
+  'Free During Early Access',
   'Privacy first',
   'Campus-by-campus rollout',
 ] as const

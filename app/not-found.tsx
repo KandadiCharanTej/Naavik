@@ -72,7 +72,7 @@ export default function NotFoundPage() {
             <Link href="/#whats-inside" className="text-[15px] font-semibold text-gray-600 hover:text-[var(--purple-600)] transition-colors">Features</Link>
             <Link href="/#admin" className="text-[15px] font-semibold text-gray-600 hover:text-[var(--purple-600)] transition-colors">Campus Admin</Link>
             <Link href="/#faq" className="text-[15px] font-semibold text-gray-600 hover:text-[var(--purple-600)] transition-colors">FAQ</Link>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[15px] font-semibold text-gray-600 hover:text-[var(--purple-600)] transition-colors">Instagram</a>
+            <a href="https://www.instagram.com/joinnaavik?igsh=MXBueGtoZWF2ajRxdQ==" target="_blank" rel="noopener noreferrer" className="text-[15px] font-semibold text-gray-600 hover:text-[var(--purple-600)] transition-colors">Instagram</a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-[15px] font-semibold text-gray-600 hover:text-[var(--purple-600)] transition-colors">LinkedIn</a>
           </div>
         </div>

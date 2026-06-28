@@ -15,7 +15,7 @@ const faqs = [
   {
     question: 'Is it free?',
     answer:
-      'Yes. Completely free for students. No credit card, no trial, no catch. Always free for engineering students.',
+      'Yes. Join Naavik today at no cost during Early Access. No payment required. No credit card needed. Core student features are free to access.',
   },
   {
     question: 'When will Naavik launch?',

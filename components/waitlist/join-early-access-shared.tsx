@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 export const WAITLIST_GOAL = 500
 
 export const BENEFITS = [
-  'Free forever',
+  'Free During Early Access',
   'First access',
   'Founding member',
   'Zero spam',
@@ -262,7 +262,7 @@ export const FormPrivacyText = memo(function FormPrivacyText({
   return (
     <div className={cn('text-[12px] font-medium leading-relaxed text-gray-400', className)}>
       <p>No spam. One email when your campus goes live.</p>
-      <p className="mt-1">Free forever for engineering students.</p>
+      <p className="mt-1">No payment required to join.</p>
     </div>
   )
 })

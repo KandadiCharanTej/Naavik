@@ -188,7 +188,7 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
       {/* FOOTER TEXT */}
       <div className="mt-5 mx-auto w-full text-center text-[11px] font-medium leading-[1.4] text-gray-400 shrink-0">
         <p>No spam. One email when your campus goes live.</p>
-        <p>Free forever for engineering students.</p>
+        <p>Free during Early Access.</p>
       </div>
     </div>
   )
