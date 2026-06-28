@@ -110,6 +110,13 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
       // Track analytics
       trackWaitlistSubmitted(college)
 
+      // Fire background email fetch so it runs reliably in Vercel
+      fetch('/api/send-welcome', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name }),
+      }).catch(console.error)
+
       // Navigate to success page
       router.push(
         `/success?position=${data.position || waitlistCount + 1}&name=${encodeURIComponent(name)}`
