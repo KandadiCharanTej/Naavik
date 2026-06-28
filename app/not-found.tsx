@@ -53,13 +53,7 @@ export default function NotFoundPage() {
             Back to Homepage
           </Link>
           
-          <button 
-            onClick={() => window.history.back()}
-            className="w-full sm:w-auto px-8 h-12 flex items-center justify-center gap-2 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-[15px] font-bold shadow-sm transition-all hover:scale-[1.02]"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Go Back
-          </button>
+
         </div>
       </div>
 
