@@ -110,9 +110,6 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
       // Track analytics
       trackWaitlistSubmitted(college)
 
-      // Form reset prevents duplicate submissions if user hits back button
-      form.reset()
-
       // Navigate to success page
       router.push(
         `/success?position=${data.position || waitlistCount + 1}&name=${encodeURIComponent(name)}`

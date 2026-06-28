@@ -115,6 +115,11 @@ function buildWelcomeHtml({
       .responsive-padding { padding: 24px 16px !important; }
       .button-wrapper { width: 100% !important; display: block !important; margin-bottom: 12px !important; }
     }
+    .dark-logo { display: none !important; }
+    @media (prefers-color-scheme: dark) {
+      .light-logo { display: none !important; }
+      .dark-logo { display: block !important; }
+    }
   </style>
 </head>
 <body style="margin:0;padding:0;background-color:#F8FAFC;font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0F172A;-webkit-font-smoothing:antialiased;">
@@ -131,7 +136,12 @@ function buildWelcomeHtml({
       <tr>
         <td align="center" style="padding:40px 32px 0;">
           <a href="${siteUrl}" target="_blank" style="text-decoration:none;">
-            <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/light-logo.png" alt="Naavik Logo" width="140" style="display:block;border:0;max-width:140px;height:auto;" />
+            <!-- Light logo (shown by default) -->
+            <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/light-logo.png" alt="Naavik Logo" width="140" class="light-logo" style="display:block;border:0;max-width:140px;height:auto;" />
+            <!-- Dark logo (hidden by default) -->
+            <div class="dark-logo" style="display:none;mso-hide:all;">
+              <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/dark-logo.png" alt="Naavik Logo" width="140" style="display:block;border:0;max-width:140px;height:auto;" />
+            </div>
           </a>
         </td>
       </tr>
