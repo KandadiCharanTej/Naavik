@@ -518,7 +518,7 @@ function ThankYouInner() {
   }, [])
 
   function copyLink() {
-    navigator.clipboard?.writeText(SITE_URL)
+    navigator.clipboard?.writeText(window.location.origin)
     setCopied(true)
     toast.success('Link copied successfully.')
     setTimeout(() => setCopied(false), 3000)
