@@ -22,7 +22,7 @@ const cards = [
     time: '🌤 2:15 PM',
     title: 'Afternoon',
     body: 'The IEEE club event starts in 2 hours. Your campus just posted a reminder.\n\nYou almost forgot. Again.',
-    cta: 'RSVP Now',
+    cta: 'Register Now',
   },
   {
     time: '🌆 7:00 PM',
