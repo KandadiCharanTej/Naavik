@@ -77,7 +77,7 @@ export async function FinalCta() {
                 id="final-cta-btn"
                 className="naavik-btn naavik-btn-primary h-14 w-full !rounded-2xl bg-[var(--purple-600)] text-white shadow-[0_8px_24px_rgba(124,58,237,0.3)] hover:bg-[var(--purple-700)]"
               >
-                Join the First Students &rarr;
+                Join the First Students
               </WaitlistButton>
               <p className="mt-4 text-[12px] font-medium text-gray-400">
                 No spam. One email when your campus is ready.

@@ -11,7 +11,7 @@ function MobileWaitlistProgress({ count }: { count: number }) {
   const pct = Math.min(100, Math.round((count / WAITLIST_GOAL) * 100))
 
   return (
-    <div className="relative overflow-hidden rounded-[16px] border border-[var(--purple-200)] bg-gradient-to-br from-[var(--purple-50)] to-white p-2.5 shadow-sm mb-2">
+    <div className="relative overflow-hidden rounded-[16px] border border-[var(--purple-200)] bg-gradient-to-br from-[var(--purple-50)] to-white p-3 shadow-sm mb-5">
       <div className="flex items-center justify-between mb-1.5">
         <div className="flex flex-col">
           <span className="text-[12px] font-semibold text-gray-500">Students joined</span>
@@ -80,10 +80,10 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
   onClose,
 }: JoinEarlyAccessModalProps) {
   return (
-    <div className="flex w-full flex-col bg-white overflow-hidden p-3.5 sm:p-5">
+    <div className="flex w-full flex-col bg-white overflow-hidden p-5 sm:p-6">
       
       {/* HEADER */}
-      <header className="relative flex w-full items-center justify-between shrink-0 mb-1.5">
+      <header className="relative flex w-full items-center justify-between shrink-0 mb-4">
         <button
           type="button"
           onClick={onClose}
@@ -108,7 +108,7 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
       </header>
 
       {/* BADGE */}
-      <div className="mb-2 mt-0 flex shrink-0">
+      <div className="mb-3 mt-0 flex shrink-0">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-100 bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-gray-700 shadow-sm ring-1 ring-gray-900/5">
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--purple-500)]" />
           Early Access
@@ -116,12 +116,12 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
       </div>
       
       {/* TITLE */}
-      <h2 className="text-[26px] font-extrabold leading-[1.05] tracking-tight text-[#111827] mb-1.5 shrink-0">
+      <h2 className="text-[26px] font-extrabold leading-[1.05] tracking-tight text-[#111827] mb-2 shrink-0">
         Join Early Access
       </h2>
       
       {/* DESCRIPTION */}
-      <p className="text-[13px] font-medium leading-[1.3] text-gray-500 mb-2.5 shrink-0">
+      <p className="text-[13px] font-medium leading-[1.4] text-gray-500 mb-5 shrink-0">
         Join the first students shaping Naavik. We&apos;ll notify you when your campus is live.
       </p>
 
@@ -129,7 +129,7 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
       <MobileWaitlistProgress count={waitlistCount} />
 
       {/* FORM */}
-      <form id={FORM_ID} onSubmit={onSubmit} className="flex flex-col gap-2 shrink-0">
+      <form id={FORM_ID} onSubmit={onSubmit} className="flex flex-col gap-3.5 shrink-0">
         <MobileField
           id="phone-name"
           name="name"
@@ -172,7 +172,7 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
         <button
           type="submit"
           disabled={submitting}
-          className="naavik-btn naavik-btn-primary mt-0.5 flex h-[46px] w-full items-center justify-center !rounded-[14px] text-[14px] font-bold shadow-[0_4px_12px_rgba(124,58,237,0.2)] transition-transform duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+          className="naavik-btn naavik-btn-primary mt-2 flex h-[46px] w-full items-center justify-center !rounded-[14px] text-[14px] font-bold shadow-[0_4px_12px_rgba(124,58,237,0.2)] transition-transform duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {submitting ? (
             <>
@@ -186,7 +186,7 @@ export const JoinEarlyAccessModalPhone = memo(function JoinEarlyAccessModalPhone
       </form>
 
       {/* FOOTER TEXT */}
-      <div className="mt-2.5 mx-auto w-full text-center text-[11px] font-medium leading-[1.4] text-gray-400 shrink-0">
+      <div className="mt-5 mx-auto w-full text-center text-[11px] font-medium leading-[1.4] text-gray-400 shrink-0">
         <p>No spam. One email when your campus goes live.</p>
         <p>Free forever for engineering students.</p>
       </div>

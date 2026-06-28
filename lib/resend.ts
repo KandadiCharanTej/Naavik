@@ -131,7 +131,7 @@ function buildWelcomeHtml({
       <tr>
         <td align="center" style="padding:40px 32px 0;">
           <a href="${siteUrl}" target="_blank" style="text-decoration:none;">
-            <img src="${siteUrl}/light-logo.png" alt="Naavik Logo" width="140" style="display:block;border:0;max-width:140px;height:auto;" />
+            <img src="https://raw.githubusercontent.com/NavikoApp/website/main/public/light-logo.png" alt="Naavik Logo" width="140" style="display:block;border:0;max-width:140px;height:auto;" />
           </a>
         </td>
       </tr>

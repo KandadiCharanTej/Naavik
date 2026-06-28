@@ -18,7 +18,7 @@ export function Logo({
         width={400}
         height={120}
         priority
-        className="h-16 md:h-20 lg:h-24 w-auto object-contain shrink-0"
+        className="h-24 md:h-28 lg:h-32 w-auto object-contain shrink-0"
       />
     </div>
   )
