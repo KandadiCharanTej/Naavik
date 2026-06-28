@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useMemo } from 'react'
 import {
   Download,
   Loader2,
@@ -12,12 +12,40 @@ import {
   TrendingUp,
   Mail,
   Copy,
+  ChevronLeft,
+  ChevronRight,
+  Flame,
+  Target,
+  Trophy,
+  Medal,
+  RefreshCw,
+  BarChart3,
+  Calendar,
+  MoreVertical,
+  Settings,
+  ArrowUpRight,
+  Activity
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Logo } from '@/components/ui/logo'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Area,
+  AreaChart,
+} from 'recharts'
+
+// ─── Constants ────────────────────────────────────────────
+const GOAL = 500
 
 // ─── Types ────────────────────────────────────────────────
 type WaitlistUser = {
@@ -35,6 +63,20 @@ type Stats = {
   dailySignups: Record<string, number>
 }
 
+// ─── Animations ───────────────────────────────────────────
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, ease: 'easeOut' },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } },
+}
+
 // ─── Main Component ───────────────────────────────────────
 export function DashboardContent() {
   const [token, setToken] = useState<string | null>(null)
@@ -42,15 +84,14 @@ export function DashboardContent() {
 
   useEffect(() => {
     const saved = localStorage.getItem('naavik-dashboard-token')
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setToken(saved)
     setIsLoading(false)
   }, [])
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      <div className="flex min-h-screen items-center justify-center bg-[#06060A]">
+        <Loader2 className="h-6 w-6 animate-spin text-[var(--purple-500)]" />
       </div>
     )
   }
@@ -99,45 +140,78 @@ function LoginView({ onLogin }: { onLogin: (token: string) => void }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-5">
-      <div className="w-full max-w-sm">
-        <div className="text-center">
-          <Logo theme="dark" className="justify-center scale-150 mb-6" />
-          <h1 className="mt-6 text-2xl font-semibold tracking-tight">
-            Founder Dashboard
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Enter the dashboard password to continue.
-          </p>
-        </div>
+    <div className="relative flex min-h-screen items-center justify-center bg-[#06060A] px-5 overflow-hidden text-white">
+      {/* Background Effects */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(124,58,237,0.15),transparent)]" />
+      <div className="absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-[var(--purple-600)]/10 blur-[120px]" />
+      <div className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-[var(--purple-500)]/15 blur-[100px]" />
+      
+      {/* Grid Lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="dashboard-password">Password</Label>
-            <Input
-              id="dashboard-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
-              required
-              autoFocus
-            />
+      <div className="relative z-10 w-full max-w-md animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out">
+        <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.02] p-8 shadow-[0_0_80px_-20px_rgba(124,58,237,0.15)] backdrop-blur-xl sm:p-10">
+          
+          <div className="text-center">
+            <div className="mx-auto mb-8 flex justify-center">
+              <Logo theme="dark" className="scale-125" />
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              Founder Dashboard
+            </h1>
+            <p className="mt-2.5 text-[14px] text-gray-400">
+              Enter the master password to access your workspace.
+            </p>
           </div>
-          {error && (
-            <p className="text-sm text-red-500" role="alert">{error}</p>
-          )}
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <>
-                <Lock className="h-4 w-4" />
-                Access Dashboard
-              </>
+
+          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+            <div className="space-y-2.5">
+              <Label htmlFor="dashboard-password" className="text-xs font-bold uppercase tracking-wider text-gray-400">
+                Password
+              </Label>
+              <div className="relative">
+                <Input
+                  id="dashboard-password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="h-12 border-white/10 bg-white/5 pl-4 pr-10 text-white placeholder:text-gray-600 focus-visible:border-[var(--purple-500)] focus-visible:ring-1 focus-visible:ring-[var(--purple-500)] transition-all"
+                  required
+                  autoFocus
+                />
+              </div>
+            </div>
+            
+            {error && (
+              <div className="rounded-lg bg-red-500/10 p-3 border border-red-500/20 text-center animate-in zoom-in-95 duration-200">
+                <p className="text-xs font-medium text-red-400" role="alert">{error}</p>
+              </div>
             )}
-          </Button>
-        </form>
+            
+            <Button 
+              type="submit" 
+              className="group relative h-12 w-full overflow-hidden rounded-xl bg-[var(--purple-600)] text-white hover:bg-[var(--purple-500)] transition-all" 
+              disabled={loading}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out" />
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <span className="flex items-center gap-2 font-semibold text-[15px]">
+                  Access Dashboard
+                  <Lock className="h-4 w-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+                </span>
+              )}
+            </Button>
+          </form>
+          
+        </div>
+        
+        {/* Footer */}
+        <p className="mt-8 text-center text-xs text-gray-600">
+          Secure area. Unauthorized access is prohibited.
+        </p>
       </div>
     </div>
   )
@@ -157,9 +231,10 @@ function DashboardView({
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
-  const limit = 50
+  const [refreshing, setRefreshing] = useState(false)
+  const limit = 15
 
-  const headers = { Authorization: `Bearer ${token}` }
+  const headers = useMemo(() => ({ Authorization: `Bearer ${token}` }), [token])
 
   const fetchStats = useCallback(async () => {
     try {
@@ -170,8 +245,7 @@ function DashboardView({
     } catch (err) {
       console.error('Failed to fetch stats:', err)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token])
+  }, [headers, onLogout])
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -188,13 +262,17 @@ function DashboardView({
     } catch (err) {
       console.error('Failed to fetch users:', err)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, page, search])
+  }, [headers, onLogout, page, search])
+
+  const refreshAll = useCallback(async () => {
+    setRefreshing(true)
+    await Promise.all([fetchStats(), fetchUsers()])
+    setRefreshing(false)
+  }, [fetchStats, fetchUsers])
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    Promise.all([fetchStats(), fetchUsers()]).finally(() => setLoading(false))
-  }, [fetchStats, fetchUsers])
+    refreshAll().finally(() => setLoading(false))
+  }, [refreshAll])
 
   async function handleExport() {
     try {
@@ -216,156 +294,398 @@ function DashboardView({
   function copyEmails() {
     const emails = users.map((u) => u.email).join('\n')
     navigator.clipboard?.writeText(emails)
-    toast.success(`${users.length} emails copied!`)
+    toast.success(`${users.length} emails copied to clipboard!`)
   }
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      <div className="flex min-h-screen items-center justify-center bg-[#06060A]">
+        <Loader2 className="h-6 w-6 animate-spin text-[var(--purple-500)]" />
       </div>
     )
   }
 
-  const sortedColleges = stats
-    ? Object.entries(stats.collegeCounts).sort(([, a], [, b]) => b - a)
-    : []
+  // --- Computed Metrics ---
+  const todayStr = new Date().toISOString().split('T')[0]
+  const yesterday = new Date()
+  yesterday.setDate(yesterday.getDate() - 1)
+  const yesterdayStr = yesterday.toISOString().split('T')[0]
+
+  const todaySignups = stats?.dailySignups[todayStr] || 0
+  const yesterdaySignups = stats?.dailySignups[yesterdayStr] || 0
+  
+  let growthRate = 0
+  if (yesterdaySignups === 0 && todaySignups > 0) growthRate = 100
+  else if (yesterdaySignups > 0) growthRate = Math.round(((todaySignups - yesterdaySignups) / yesterdaySignups) * 100)
+
+  const sortedColleges = stats ? Object.entries(stats.collegeCounts).sort(([, a], [, b]) => b - a) : []
+  const topCollege = sortedColleges[0]
+  const topCollegePercent = stats?.totalCount && topCollege ? Math.round((topCollege[1] / stats.totalCount) * 100) : 0
+  const remainingGoal = Math.max(0, GOAL - (stats?.totalCount || 0))
+  const goalPercent = stats ? Math.min(100, Math.round((stats.totalCount / GOAL) * 100)) : 0
+
+  // Format data for Recharts
+  const chartData = []
+  if (stats) {
+    const dates = Object.keys(stats.dailySignups).sort()
+    // Take last 30 days
+    const recentDates = dates.slice(-30)
+    for (const d of recentDates) {
+      chartData.push({
+        date: new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        signups: stats.dailySignups[d]
+      })
+    }
+  }
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="rounded-xl border border-white/10 bg-[#0A0A0A]/90 p-3 shadow-2xl backdrop-blur-xl">
+          <p className="mb-1 text-xs font-semibold text-gray-400">{label}</p>
+          <p className="text-sm font-bold text-white">
+            <span className="text-[var(--purple-400)]">{payload[0].value}</span> signups
+          </p>
+        </div>
+      )
+    }
+    return null
+  }
 
   const totalPages = Math.ceil(totalUsers / limit)
+  const currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white">
-      {/* Background Glow */}
-      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(124,58,237,0.15),transparent)]" />
+    <div className="min-h-screen bg-[#06060A] text-white selection:bg-[var(--purple-500)] selection:text-white pb-20">
       
-      {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-          <div className="flex items-center gap-3">
-            <Logo theme="dark" className="scale-125 origin-left" />
-            <span className="rounded-md bg-white/5 border border-white/10 px-2 py-0.5 text-xs font-semibold text-white/80">
-              Admin Dashboard
+      {/* Premium Background */}
+      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_-20%,rgba(124,58,237,0.12),transparent)]" />
+      <div className="fixed top-0 left-0 right-0 h-[500px] bg-gradient-to-b from-[var(--purple-900)]/10 to-transparent pointer-events-none z-0" />
+      
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#06060A]/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6">
+          <div className="flex items-center gap-6">
+            <Logo theme="dark" className="scale-110" />
+            <div className="h-4 w-px bg-white/10" />
+            <span className="hidden text-sm font-medium text-gray-300 sm:block">Founder Dashboard</span>
+            <span className="hidden rounded-full bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-gray-400 border border-white/5 sm:block">
+              {currentDate}
             </span>
           </div>
-          <Button variant="ghost" size="sm" onClick={onLogout} className="text-gray-400 hover:text-white hover:bg-white/5">
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
+          
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={refreshAll} 
+              disabled={refreshing}
+              className="text-gray-400 hover:text-white hover:bg-white/5 hidden sm:flex"
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
+            <div className="h-4 w-px bg-white/10 hidden sm:block" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-500)] to-indigo-600 font-bold shadow-[0_0_15px_rgba(124,58,237,0.5)] ring-2 ring-white/10">
+              F
+            </div>
+            <Button variant="ghost" size="icon" onClick={onLogout} className="text-gray-400 hover:text-white hover:bg-white/5">
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-7xl px-5 py-8">
-        <h1 className="sr-only">Founder Dashboard Overview</h1>
+      <main className="relative z-10 mx-auto max-w-[1400px] px-6 py-10">
         
-        {/* Welcome Text */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold tracking-tight text-white">Welcome back, Founder</h2>
-          <p className="text-sm text-gray-400 mt-1">Here is how your waitlist is growing today.</p>
-        </div>
+        <motion.div 
+          variants={containerVariants} 
+          initial="hidden" 
+          animate="show"
+          className="flex flex-col gap-8"
+        >
+          {/* Header Row */}
+          <motion.div variants={itemVariants} className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-white">Overview</h1>
+              <p className="text-[15px] text-gray-400 mt-1">Real-time waitlist analytics and growth.</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={copyEmails} className="bg-white/[0.02] border-white/10 text-white hover:bg-white/10 h-10 px-4 rounded-xl shadow-sm">
+                <Copy className="h-4 w-4 mr-2 text-gray-400" />
+                Copy List
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleExport} className="bg-white text-black hover:bg-gray-100 border-0 h-10 px-4 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all hover:scale-105">
+                <Download className="h-4 w-4 mr-2" />
+                Export CSV
+              </Button>
+            </div>
+          </motion.div>
 
-        {/* Stats cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard
-            icon={Users}
-            label="Total Signups"
-            value={stats?.totalCount ?? 0}
-          />
-          <StatCard
-            icon={Building2}
-            label="Unique Colleges"
-            value={sortedColleges.length}
-          />
-          <StatCard
-            icon={TrendingUp}
-            label="Joined Today"
-            value={
-              stats?.dailySignups[new Date().toISOString().split('T')[0]] ?? 0
-            }
-          />
-          <StatCard
-            icon={Mail}
-            label="Emails Collected"
-            value={stats?.totalCount ?? 0}
-          />
-        </div>
+          {/* Hero Metrics */}
+          <motion.div variants={itemVariants} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <MetricCard
+              label="Total Waitlist"
+              value={stats?.totalCount || 0}
+              icon={Users}
+              trend={growthRate > 0 ? `+${growthRate}% vs yesterday` : 'No change today'}
+              trendUp={growthRate >= 0}
+            />
+            <MetricCard
+              label="Joined Today"
+              value={todaySignups}
+              icon={TrendingUp}
+              trend={`${yesterdaySignups} joined yesterday`}
+              trendUp={todaySignups >= yesterdaySignups}
+              highlight
+            />
+            <MetricCard
+              label="Unique Colleges"
+              value={sortedColleges.length}
+              icon={Building2}
+              trend="Expanding reach"
+              trendUp={true}
+            />
+            <MetricCard
+              label="Goal Progress"
+              value={`${goalPercent}%`}
+              icon={Target}
+              trend={`${remainingGoal} to reach ${GOAL}`}
+              trendUp={true}
+            />
+          </motion.div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-3">
-          
-          {/* Main Users Table Area - takes up 2 columns */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="text-lg font-semibold tracking-tight text-white">
-                Waitlist Users <span className="text-gray-500 font-normal">({totalUsers})</span>
-              </h2>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={copyEmails} className="bg-white/5 border-white/10 text-white hover:bg-white/10">
-                  <Copy className="h-4 w-4 mr-2" />
-                  Copy Emails
-                </Button>
-                <Button variant="outline" size="sm" onClick={handleExport} className="bg-[var(--purple-600)] border-[var(--purple-500)] text-white hover:bg-[var(--purple-500)]">
-                  <Download className="h-4 w-4 mr-2" />
-                  Export CSV
-                </Button>
+          {/* Middle Row: Progress & Chart & Insights */}
+          <div className="grid gap-6 lg:grid-cols-3">
+            
+            {/* Left Column (Span 2) - Goal Progress & Chart */}
+            <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
+              
+              {/* Goal Progress Bar */}
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg relative overflow-hidden">
+                <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[var(--purple-500)]/5 to-transparent pointer-events-none" />
+                <div className="flex justify-between items-end mb-4">
+                  <div>
+                    <h3 className="text-[15px] font-semibold text-white flex items-center gap-2">
+                      <Target className="h-4 w-4 text-[var(--purple-400)]" />
+                      Milestone: {GOAL} Students
+                    </h3>
+                    <p className="text-sm text-gray-400 mt-1">{stats?.totalCount || 0} / {GOAL} registered</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-3xl font-black text-white">{goalPercent}%</span>
+                  </div>
+                </div>
+                <div className="h-3 w-full bg-black/50 rounded-full overflow-hidden border border-white/5">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${goalPercent}%` }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-[var(--purple-600)] to-indigo-400 rounded-full relative"
+                  >
+                    <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                  </motion.div>
+                </div>
               </div>
-            </div>
 
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <Input
-                className="pl-9 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus-visible:ring-[var(--purple-500)]"
-                placeholder="Search by name, email, or college..."
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value)
-                  setPage(1)
-                }}
-              />
-            </div>
+              {/* Waitlist Growth Chart */}
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-[15px] font-semibold text-white flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-[var(--purple-400)]" />
+                    Growth Trend (30 Days)
+                  </h3>
+                  <div className="flex gap-1 bg-black/40 rounded-lg p-1 border border-white/5">
+                    <button className="px-3 py-1 text-xs font-medium rounded-md bg-white/10 text-white shadow-sm">30d</button>
+                    <button className="px-3 py-1 text-xs font-medium rounded-md text-gray-400 hover:text-white transition-colors">All</button>
+                  </div>
+                </div>
+                <div className="h-[280px] w-full">
+                  {chartData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="colorSignups" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="var(--purple-500)" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="var(--purple-500)" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
+                        <XAxis 
+                          dataKey="date" 
+                          stroke="rgba(255,255,255,0.3)" 
+                          fontSize={12} 
+                          tickLine={false}
+                          axisLine={false}
+                          minTickGap={20}
+                        />
+                        <YAxis 
+                          stroke="rgba(255,255,255,0.3)" 
+                          fontSize={12}
+                          tickLine={false}
+                          axisLine={false}
+                        />
+                        <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} />
+                        <Area 
+                          type="monotone" 
+                          dataKey="signups" 
+                          stroke="var(--purple-400)" 
+                          strokeWidth={3}
+                          fillOpacity={1} 
+                          fill="url(#colorSignups)" 
+                          animationDuration={1500}
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm text-gray-500">Not enough data to display chart.</div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
 
-            {/* Table */}
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-md">
+            {/* Right Column (Span 1) - Smart Insights & Top Colleges */}
+            <motion.div variants={itemVariants} className="flex flex-col gap-6">
+              
+              {/* Smart Insights */}
+              <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[var(--purple-900)]/20 to-black p-6 backdrop-blur-xl shadow-lg relative overflow-hidden">
+                <div className="absolute -right-10 -top-10 h-32 w-32 bg-[var(--purple-500)]/20 blur-3xl" />
+                <h3 className="text-[15px] font-semibold text-white flex items-center gap-2 mb-4">
+                  <Flame className="h-4 w-4 text-orange-400" />
+                  Smart Insights
+                </h3>
+                <div className="space-y-4">
+                  {topCollege && (
+                    <div className="flex gap-3 items-start p-3 rounded-xl bg-white/5 border border-white/5">
+                      <div className="mt-0.5 w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0" />
+                      <p className="text-sm text-gray-300 leading-snug">
+                        <strong className="text-white">{topCollege[0]}</strong> is leading with {topCollegePercent}% of all signups ({topCollege[1]} students).
+                      </p>
+                    </div>
+                  )}
+                  <div className="flex gap-3 items-start p-3 rounded-xl bg-white/5 border border-white/5">
+                    <div className="mt-0.5 w-1.5 h-1.5 rounded-full bg-green-400 shrink-0" />
+                    <p className="text-sm text-gray-300 leading-snug">
+                      You need <strong className="text-white">{remainingGoal}</strong> more signups to reach your next major milestone.
+                    </p>
+                  </div>
+                  {growthRate > 0 && (
+                    <div className="flex gap-3 items-start p-3 rounded-xl bg-white/5 border border-white/5">
+                      <div className="mt-0.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                      <p className="text-sm text-gray-300 leading-snug">
+                        Signups increased by <strong className="text-white">{growthRate}%</strong> compared to yesterday!
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Leaderboard */}
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg flex-1 flex flex-col">
+                <h3 className="text-[15px] font-semibold text-white flex items-center gap-2 mb-5">
+                  <Trophy className="h-4 w-4 text-yellow-400" />
+                  College Leaderboard
+                </h3>
+                <div className="flex flex-col gap-3 flex-1 overflow-y-auto max-h-[250px] pr-2 custom-scrollbar">
+                  {sortedColleges.length > 0 ? sortedColleges.slice(0, 15).map(([college, count], idx) => (
+                    <div key={college} className="flex items-center justify-between group">
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                          idx === 0 ? 'bg-yellow-500/20 text-yellow-500 border border-yellow-500/30' :
+                          idx === 1 ? 'bg-gray-300/20 text-gray-300 border border-gray-300/30' :
+                          idx === 2 ? 'bg-amber-700/20 text-amber-500 border border-amber-700/30' :
+                          'bg-white/5 text-gray-500'
+                        }`}>
+                          {idx + 1}
+                        </div>
+                        <span className="truncate text-[13px] font-medium text-gray-300 group-hover:text-white transition-colors">{college}</span>
+                      </div>
+                      <div className="flex items-center gap-2 pl-3">
+                        <span className="text-[13px] font-semibold text-white">{count}</span>
+                      </div>
+                    </div>
+                  )) : (
+                    <p className="text-sm text-gray-500 text-center my-auto">No data available.</p>
+                  )}
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+
+          {/* Bottom Row: Enhanced Table & Activity Feed */}
+          <motion.div variants={itemVariants} className="grid gap-6 lg:grid-cols-4">
+            
+            {/* Table Column (Span 3) */}
+            <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-lg flex flex-col overflow-hidden">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 border-b border-white/5 gap-4">
+                <h3 className="text-[15px] font-semibold text-white flex items-center gap-2">
+                  <Users className="h-4 w-4 text-[var(--purple-400)]" />
+                  Waitlist Database
+                </h3>
+                <div className="relative max-w-sm w-full">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <Input
+                    className="pl-9 h-9 bg-black/40 border-white/10 text-sm text-white placeholder:text-gray-500 focus-visible:ring-[var(--purple-500)] rounded-xl"
+                    placeholder="Search name, email, college..."
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value)
+                      setPage(1)
+                    }}
+                  />
+                </div>
+              </div>
+
               <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left">
-                  <thead className="text-xs uppercase text-gray-400 bg-black/20">
+                <table className="w-full text-sm text-left border-collapse">
+                  <thead className="text-[11px] uppercase tracking-wider text-gray-400 bg-black/20 sticky top-0 z-10">
                     <tr>
-                      <th className="px-5 py-4 font-semibold">Position</th>
-                      <th className="px-5 py-4 font-semibold">Student</th>
-                      <th className="px-5 py-4 font-semibold">College</th>
-                      <th className="px-5 py-4 font-semibold">Joined Date</th>
+                      <th className="px-6 py-4 font-semibold w-16">Pos</th>
+                      <th className="px-6 py-4 font-semibold">Student Profile</th>
+                      <th className="px-6 py-4 font-semibold">College</th>
+                      <th className="px-6 py-4 font-semibold">Date Joined</th>
+                      <th className="px-6 py-4 font-semibold text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {users.length === 0 ? (
                       <tr>
-                        <td colSpan={4} className="px-5 py-12 text-center text-gray-500">
-                          {search ? 'No students found matching your search.' : 'No signups yet. Share your link!'}
+                        <td colSpan={5} className="px-6 py-12 text-center text-gray-500 bg-white/[0.01]">
+                          {search ? 'No results found.' : 'Waitlist is empty.'}
                         </td>
                       </tr>
                     ) : (
                       users.map((user) => (
-                        <tr key={user.id} className="hover:bg-white/5 transition-colors">
-                          <td className="px-5 py-4 whitespace-nowrap">
-                            <span className="inline-flex items-center justify-center px-2 py-1 rounded bg-white/10 text-white font-mono text-xs">
+                        <tr key={user.id} className="hover:bg-white/[0.04] transition-colors group">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className="inline-flex items-center justify-center px-2 py-1 rounded bg-white/5 text-gray-300 font-mono text-xs border border-white/5">
                               #{user.position}
                             </span>
                           </td>
-                          <td className="px-5 py-4">
+                          <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-500)] to-[var(--purple-700)] text-white font-bold text-xs uppercase shadow-sm">
+                              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-gray-700 to-gray-900 text-white font-bold text-xs uppercase shadow-inner border border-white/10 group-hover:border-[var(--purple-500)]/50 transition-colors">
                                 {user.name.charAt(0)}
                               </div>
                               <div className="flex flex-col">
-                                <span className="font-medium text-white">{user.name}</span>
-                                <span className="text-xs text-gray-400">{user.email}</span>
+                                <span className="font-medium text-white text-[14px]">{user.name}</span>
+                                <span className="text-[12px] text-gray-400">{user.email}</span>
                               </div>
                             </div>
                           </td>
-                          <td className="px-5 py-4 text-gray-300">
-                            {user.college}
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center rounded-full bg-white/5 px-2.5 py-1 text-xs font-medium text-gray-300 border border-white/5">
+                              {user.college}
+                            </span>
                           </td>
-                          <td className="px-5 py-4 text-gray-400 text-xs">
+                          <td className="px-6 py-4 text-gray-400 text-[13px]">
                             {new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-white hover:bg-white/10 rounded-lg">
+                              <MoreVertical className="h-4 w-4" />
+                            </Button>
                           </td>
                         </tr>
                       ))
@@ -373,100 +693,133 @@ function DashboardView({
                   </tbody>
                 </table>
               </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-between p-4 border-t border-white/5 bg-black/10">
+                  <p className="text-[13px] text-gray-400">
+                    Showing <strong className="text-white">{users.length}</strong> of <strong className="text-white">{totalUsers}</strong>
+                  </p>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      disabled={page <= 1} 
+                      onClick={() => setPage((p) => p - 1)} 
+                      className="h-8 bg-white/5 border-white/10 text-white hover:bg-white/10 text-xs rounded-lg"
+                    >
+                      <ChevronLeft className="h-4 w-4 mr-1" /> Prev
+                    </Button>
+                    <div className="flex items-center justify-center h-8 px-3 rounded-lg bg-white/5 text-xs text-white border border-white/5">
+                      {page} / {totalPages}
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      disabled={page >= totalPages} 
+                      onClick={() => setPage((p) => p + 1)} 
+                      className="h-8 bg-white/5 border-white/10 text-white hover:bg-white/10 text-xs rounded-lg"
+                    >
+                      Next <ChevronRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between mt-2">
-                <p className="text-xs text-gray-400">
-                  Showing page {page} of {totalPages}
-                </p>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => p - 1)} className="bg-white/5 border-white/10 text-white hover:bg-white/10">
-                    Prev
-                  </Button>
-                  <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)} className="bg-white/5 border-white/10 text-white hover:bg-white/10">
-                    Next
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Right Column - Colleges & Activity */}
-          <div className="flex flex-col gap-8">
-            {/* College breakdown */}
-            {sortedColleges.length > 0 && (
-              <section>
-                <h2 className="text-lg font-semibold tracking-tight text-white mb-4">
-                  Top Colleges
-                </h2>
-                <div className="flex flex-col gap-2">
-                  {sortedColleges.slice(0, 10).map(([college, count]) => (
-                    <div key={college} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10 transition-colors">
-                      <span className="truncate text-sm text-gray-300 pr-4">{college}</span>
-                      <span className="shrink-0 rounded-full bg-[var(--purple-500)]/20 border border-[var(--purple-500)]/30 px-2.5 py-0.5 text-xs font-bold text-[var(--purple-200)]">
-                        {count}
-                      </span>
+            {/* Activity Feed Column (Span 1) */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg flex flex-col">
+              <h3 className="text-[15px] font-semibold text-white flex items-center gap-2 mb-6">
+                <Activity className="h-4 w-4 text-[var(--purple-400)]" />
+                Recent Activity
+              </h3>
+              
+              <div className="relative pl-3 border-l border-white/10 space-y-6 flex-1 overflow-y-auto custom-scrollbar">
+                {users.slice(0, 8).map((user, i) => (
+                  <div key={user.id} className="relative">
+                    <div className="absolute -left-[17px] top-1 h-2 w-2 rounded-full bg-[var(--purple-500)] ring-4 ring-[#06060A]" />
+                    <div className="flex flex-col gap-1 pl-3">
+                      <p className="text-[13px] text-white">
+                        <strong className="font-semibold">{user.name}</strong> joined the waitlist.
+                      </p>
+                      <p className="text-[11px] text-gray-500">
+                        {user.college} &bull; Position #{user.position}
+                      </p>
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                  </div>
+                ))}
+                {users.length === 0 && (
+                  <p className="text-sm text-gray-500 pl-3">No recent activity.</p>
+                )}
+              </div>
+            </div>
 
-            {/* Daily signups */}
-            {stats && Object.keys(stats.dailySignups).length > 0 && (
-              <section>
-                <h2 className="text-lg font-semibold tracking-tight text-white mb-4">
-                  Activity (30 Days)
-                </h2>
-                <div className="flex items-end gap-1 overflow-x-auto rounded-xl border border-white/10 bg-white/5 p-5 min-h-[140px]">
-                  {Object.entries(stats.dailySignups).map(([date, count]) => {
-                    const maxCount = Math.max(...Object.values(stats.dailySignups))
-                    const height = maxCount > 0 ? (count / maxCount) * 80 : 0
-                    return (
-                      <div key={date} className="flex flex-1 flex-col items-center gap-2 group relative" title={`${date}: ${count} signups`}>
-                        <div className="absolute -top-8 bg-black text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
-                          {count} signups
-                        </div>
-                        <div
-                          className="w-full max-w-[20px] rounded-t bg-[var(--purple-500)]/50 transition-all hover:bg-[var(--purple-400)]"
-                          style={{ height: `${Math.max(height, 4)}px` }}
-                        />
-                      </div>
-                    )
-                  })}
-                </div>
-              </section>
-            )}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </main>
+
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      `}</style>
     </div>
   )
 }
 
-// ─── Stat Card ────────────────────────────────────────────
-function StatCard({
+// ─── Metric Card ──────────────────────────────────────────
+function MetricCard({
   icon: Icon,
   label,
   value,
+  trend,
+  trendUp,
+  highlight = false
 }: {
   icon: React.ElementType
   label: string
-  value: number
+  value: string | number
+  trend: string
+  trendUp: boolean
+  highlight?: boolean
 }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-md transition-all hover:border-white/20 group">
-      <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[var(--purple-500)]/20 blur-2xl group-hover:bg-[var(--purple-500)]/30 transition-colors" />
-      <div className="flex items-center gap-3 text-gray-400">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[var(--purple-400)] shadow-inner">
+    <div className={`relative overflow-hidden rounded-2xl border bg-white/[0.02] p-5 backdrop-blur-xl shadow-lg transition-all hover:-translate-y-1 ${
+      highlight ? 'border-[var(--purple-500)]/40 shadow-[0_0_30px_rgba(124,58,237,0.15)]' : 'border-white/10 hover:border-white/20'
+    }`}>
+      {highlight && (
+        <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[var(--purple-500)]/20 blur-2xl" />
+      )}
+      <div className="flex items-start justify-between relative z-10">
+        <div>
+          <p className="text-[13px] font-medium text-gray-400">{label}</p>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-white">{value}</p>
+        </div>
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border shadow-inner ${
+          highlight ? 'bg-[var(--purple-600)]/20 border-[var(--purple-500)]/30 text-[var(--purple-400)]' : 'bg-white/5 border-white/10 text-gray-400'
+        }`}>
           <Icon className="h-5 w-5" />
         </div>
-        <span className="text-sm font-medium">{label}</span>
       </div>
-      <div className="mt-5 flex items-end justify-between">
-        <p className="text-4xl font-black tracking-tight text-white">{value}</p>
+      <div className="mt-4 flex items-center gap-1.5 relative z-10">
+        {trendUp ? (
+          <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
+        ) : (
+          <TrendingUp className="h-3.5 w-3.5 text-rose-400 rotate-180" />
+        )}
+        <span className={`text-xs font-medium ${trendUp ? 'text-emerald-400/90' : 'text-rose-400/90'}`}>
+          {trend}
+        </span>
       </div>
     </div>
   )
