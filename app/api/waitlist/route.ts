@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase'
 import { sendWelcomeEmail } from '@/lib/resend'
+import { cookies } from 'next/headers'
+import { generateSuccessToken } from '@/lib/dashboard-auth'
 
 // ─── In-memory rate limiter ───────────────────────────────
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
@@ -144,6 +146,16 @@ export async function POST(request: NextRequest) {
     } catch (err) {
       console.error('Failed to send welcome email:', err)
     }
+
+    const token = await generateSuccessToken()
+    const cookieStore = await cookies()
+    cookieStore.set('naavik_success_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 60 * 5, // 5 minutes
+      path: '/',
+    })
 
     return NextResponse.json({ success: true, position })
   } catch (error) {

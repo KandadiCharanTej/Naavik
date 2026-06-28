@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { validatePassword, generateSessionToken } from '@/lib/dashboard-auth'
+import { cookies } from 'next/headers'
 
 // ─── Login Rate Limiter ──────────────────────────────────
 const loginRateLimitMap = new Map<string, { count: number; resetAt: number }>()
@@ -45,11 +46,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Generate token upon successful auth
-    const token = generateSessionToken()
+    // Generate JWT token upon successful auth
+    const token = await generateSessionToken()
 
-    return NextResponse.json({ success: true, token })
-  } catch {
+    // Set HttpOnly cookie
+    const cookieStore = await cookies()
+    cookieStore.set('naavik_dashboard_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 24, // 24 hours
+      path: '/',
+    })
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Login error:', error)
     return NextResponse.json(
       { error: 'Authentication failed' },
       { status: 500 },

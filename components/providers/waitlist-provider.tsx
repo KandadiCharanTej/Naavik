@@ -87,28 +87,41 @@ export function WaitlistProvider({ children, initialCount = 128 }: { children: R
       return
     }
 
-    // Client validation passed. Prevent duplicate clicks.
+    // Client validation passed.
     setSubmitting(true)
     setNavigating(true)
 
-    // Calculate optimistic position
-    const optimisticPosition = waitlistCount + 1
-    setWaitlistCount(optimisticPosition)
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, college, website }),
+      })
 
-    // Track analytics
-    trackWaitlistSubmitted(college)
+      const data = await res.json()
 
-    // Instant navigation to success page
-    router.push(
-      `/success?position=${optimisticPosition}&name=${encodeURIComponent(name)}`
-    )
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong.')
+        setSubmitting(false)
+        setNavigating(false)
+        return
+      }
 
-    // Fire and forget background submission
-    fetch('/api/waitlist', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, college, website }),
-    }).catch(console.error)
+      // Track analytics
+      trackWaitlistSubmitted(college)
+
+      // Form reset prevents duplicate submissions if user hits back button
+      form.reset()
+
+      // Navigate to success page
+      router.push(
+        `/success?position=${data.position || waitlistCount + 1}&name=${encodeURIComponent(name)}`
+      )
+    } catch (err) {
+      setError('Network error. Please try again.')
+      setSubmitting(false)
+      setNavigating(false)
+    }
   }
 
   return (

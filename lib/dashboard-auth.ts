@@ -1,53 +1,53 @@
-import crypto from 'crypto'
+import { SignJWT, jwtVerify } from 'jose'
 
-const ALGORITHM = 'aes-256-cbc'
-
-/**
- * Generate a session token for the dashboard.
- * Contains timestamp + random bytes, encrypted with dashboard password as key.
- */
-export function generateSessionToken(): string {
-  const password = process.env.DASHBOARD_PASSWORD
-  if (!password) throw new Error('DASHBOARD_PASSWORD not set')
-
-  const payload = JSON.stringify({
-    ts: Date.now(),
-    rand: crypto.randomBytes(8).toString('hex'),
-  })
-
-  const key = crypto.scryptSync(password, 'naavik-dashboard-salt', 32)
-  const iv = crypto.randomBytes(16)
-  const cipher = crypto.createCipheriv(ALGORITHM, key, iv)
-  let encrypted = cipher.update(payload, 'utf8', 'hex')
-  encrypted += cipher.final('hex')
-
-  return iv.toString('hex') + ':' + encrypted
+const getSecretKey = () => {
+  const secret = process.env.DASHBOARD_PASSWORD || 'fallback_secret_for_dev_only'
+  return new TextEncoder().encode(secret)
 }
 
 /**
- * Validate a session token.
- * Returns true if the token was generated with the current password
- * and is less than 24 hours old.
+ * Generate a JWT session token for the dashboard.
  */
-export function validateSessionToken(token: string): boolean {
-  const password = process.env.DASHBOARD_PASSWORD
-  if (!password || !token) return false
+export async function generateSessionToken(): Promise<string> {
+  const token = await new SignJWT({ auth: true })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('24h')
+    .sign(getSecretKey())
+  return token
+}
 
+/**
+ * Validate a JWT session token.
+ */
+export async function validateSessionToken(token: string): Promise<boolean> {
   try {
-    const [ivHex, encrypted] = token.split(':')
-    if (!ivHex || !encrypted) return false
+    await jwtVerify(token, getSecretKey())
+    return true
+  } catch {
+    return false
+  }
+}
 
-    const key = crypto.scryptSync(password, 'naavik-dashboard-salt', 32)
-    const iv = Buffer.from(ivHex, 'hex')
-    const decipher = crypto.createDecipheriv(ALGORITHM, key, iv)
-    let decrypted = decipher.update(encrypted, 'hex', 'utf8')
-    decrypted += decipher.final('utf8')
+/**
+ * Generate a temporary JWT token for the success page (5 minutes).
+ */
+export async function generateSuccessToken(): Promise<string> {
+  const token = await new SignJWT({ success: true })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('5m')
+    .sign(getSecretKey())
+  return token
+}
 
-    const payload = JSON.parse(decrypted) as { ts: number }
-    const age = Date.now() - payload.ts
-    const MAX_AGE = 24 * 60 * 60 * 1000 // 24 hours
-
-    return age < MAX_AGE
+/**
+ * Validate the success page JWT token.
+ */
+export async function validateSuccessToken(token: string): Promise<boolean> {
+  try {
+    const { payload } = await jwtVerify(token, getSecretKey())
+    return payload.success === true
   } catch {
     return false
   }

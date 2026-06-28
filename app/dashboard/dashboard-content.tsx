@@ -1,40 +1,32 @@
 'use client'
 
-import { useCallback, useEffect, useState, useMemo } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   Download,
   Loader2,
-  Lock,
   LogOut,
   Search,
   Users,
   Building2,
   TrendingUp,
-  Mail,
   Copy,
   ChevronLeft,
   ChevronRight,
   Flame,
   Target,
   Trophy,
-  Medal,
   RefreshCw,
   BarChart3,
-  Calendar,
   MoreVertical,
-  Settings,
-  ArrowUpRight,
   Activity
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Logo } from '@/components/ui/logo'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -77,154 +69,9 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } },
 }
 
-// ─── Main Component ───────────────────────────────────────
+// ─── Main Dashboard Component ─────────────────────────────
 export function DashboardContent() {
-  const [token, setToken] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    const saved = localStorage.getItem('naavik-dashboard-token')
-    setToken(saved)
-    setIsLoading(false)
-  }, [])
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#06060A]">
-        <Loader2 className="h-6 w-6 animate-spin text-[var(--purple-500)]" />
-      </div>
-    )
-  }
-
-  if (!token) {
-    return <LoginView onLogin={setToken} />
-  }
-
-  return <DashboardView token={token} onLogout={() => {
-    localStorage.removeItem('naavik-dashboard-token')
-    setToken(null)
-  }} />
-}
-
-// ─── Login View ───────────────────────────────────────────
-function LoginView({ onLogin }: { onLogin: (token: string) => void }) {
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-
-    try {
-      const res = await fetch('/api/dashboard/auth', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      })
-      const data = await res.json()
-
-      if (!res.ok) {
-        setError(data.error || 'Invalid password')
-        return
-      }
-
-      localStorage.setItem('naavik-dashboard-token', data.token)
-      onLogin(data.token)
-    } catch {
-      setError('Something went wrong')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  return (
-    <div className="relative flex min-h-screen items-center justify-center bg-[#06060A] px-5 overflow-hidden text-white">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(124,58,237,0.15),transparent)]" />
-      <div className="absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-[var(--purple-600)]/10 blur-[120px]" />
-      <div className="absolute -right-20 top-1/4 h-72 w-72 rounded-full bg-[var(--purple-500)]/15 blur-[100px]" />
-      
-      {/* Grid Lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
-
-      <div className="relative z-10 w-full max-w-md animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out">
-        <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.02] p-8 shadow-[0_0_80px_-20px_rgba(124,58,237,0.15)] backdrop-blur-xl sm:p-10">
-          
-          <div className="text-center">
-            <div className="mx-auto mb-8 flex justify-center">
-              <Logo theme="dark" className="scale-125" />
-            </div>
-            <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Founder Dashboard
-            </h1>
-            <p className="mt-2.5 text-[14px] text-gray-400">
-              Enter the master password to access your workspace.
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-            <div className="space-y-2.5">
-              <Label htmlFor="dashboard-password" className="text-xs font-bold uppercase tracking-wider text-gray-400">
-                Password
-              </Label>
-              <div className="relative">
-                <Input
-                  id="dashboard-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
-                  className="h-12 border-white/10 bg-white/5 pl-4 pr-10 text-white placeholder:text-gray-600 focus-visible:border-[var(--purple-500)] focus-visible:ring-1 focus-visible:ring-[var(--purple-500)] transition-all"
-                  required
-                  autoFocus
-                />
-              </div>
-            </div>
-            
-            {error && (
-              <div className="rounded-lg bg-red-500/10 p-3 border border-red-500/20 text-center animate-in zoom-in-95 duration-200">
-                <p className="text-xs font-medium text-red-400" role="alert">{error}</p>
-              </div>
-            )}
-            
-            <Button 
-              type="submit" 
-              className="group relative h-12 w-full overflow-hidden rounded-xl bg-[var(--purple-600)] text-white hover:bg-[var(--purple-500)] transition-all" 
-              disabled={loading}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out" />
-              {loading ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : (
-                <span className="flex items-center gap-2 font-semibold text-[15px]">
-                  Access Dashboard
-                  <Lock className="h-4 w-4 opacity-70 group-hover:opacity-100 transition-opacity" />
-                </span>
-              )}
-            </Button>
-          </form>
-          
-        </div>
-        
-        {/* Footer */}
-        <p className="mt-8 text-center text-xs text-gray-600">
-          Secure area. Unauthorized access is prohibited.
-        </p>
-      </div>
-    </div>
-  )
-}
-
-// ─── Dashboard View ───────────────────────────────────────
-function DashboardView({
-  token,
-  onLogout,
-}: {
-  token: string
-  onLogout: () => void
-}) {
+  const router = useRouter()
   const [stats, setStats] = useState<Stats | null>(null)
   const [users, setUsers] = useState<WaitlistUser[]>([])
   const [totalUsers, setTotalUsers] = useState(0)
@@ -234,18 +81,16 @@ function DashboardView({
   const [refreshing, setRefreshing] = useState(false)
   const limit = 15
 
-  const headers = useMemo(() => ({ Authorization: `Bearer ${token}` }), [token])
-
   const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch('/api/dashboard/stats', { headers })
-      if (res.status === 401) { onLogout(); return }
+      const res = await fetch('/api/dashboard/stats')
+      if (res.status === 401) { router.push('/dashboard/login'); return }
       const data = await res.json()
       setStats(data)
     } catch (err) {
       console.error('Failed to fetch stats:', err)
     }
-  }, [headers, onLogout])
+  }, [router])
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -254,15 +99,15 @@ function DashboardView({
         limit: String(limit),
         ...(search ? { search } : {}),
       })
-      const res = await fetch(`/api/dashboard/users?${params}`, { headers })
-      if (res.status === 401) { onLogout(); return }
+      const res = await fetch(`/api/dashboard/users?${params}`)
+      if (res.status === 401) { router.push('/dashboard/login'); return }
       const data = await res.json()
       setUsers(data.users)
       setTotalUsers(data.total)
     } catch (err) {
       console.error('Failed to fetch users:', err)
     }
-  }, [headers, onLogout, page, search])
+  }, [page, search, router])
 
   const refreshAll = useCallback(async () => {
     setRefreshing(true)
@@ -274,10 +119,20 @@ function DashboardView({
     refreshAll().finally(() => setLoading(false))
   }, [refreshAll])
 
+  async function handleLogout() {
+    try {
+      await fetch('/api/dashboard/logout', { method: 'POST' })
+      router.push('/dashboard/login')
+      router.refresh()
+    } catch {
+      toast.error('Failed to log out')
+    }
+  }
+
   async function handleExport() {
     try {
-      const res = await fetch('/api/dashboard/export', { headers })
-      if (res.status === 401) { onLogout(); return }
+      const res = await fetch('/api/dashboard/export')
+      if (res.status === 401) { router.push('/dashboard/login'); return }
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
@@ -389,7 +244,7 @@ function DashboardView({
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[var(--purple-500)] to-indigo-600 font-bold shadow-[0_0_15px_rgba(124,58,237,0.5)] ring-2 ring-white/10">
               F
             </div>
-            <Button variant="ghost" size="icon" onClick={onLogout} className="text-gray-400 hover:text-white hover:bg-white/5">
+            <Button variant="ghost" size="icon" onClick={handleLogout} className="text-gray-400 hover:text-white hover:bg-white/5">
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
@@ -397,7 +252,6 @@ function DashboardView({
       </header>
 
       <main className="relative z-10 mx-auto max-w-[1400px] px-6 py-10">
-        
         <motion.div 
           variants={containerVariants} 
           initial="hidden" 
@@ -458,10 +312,8 @@ function DashboardView({
           {/* Middle Row: Progress & Chart & Insights */}
           <div className="grid gap-6 lg:grid-cols-3">
             
-            {/* Left Column (Span 2) - Goal Progress & Chart */}
             <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
               
-              {/* Goal Progress Bar */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg relative overflow-hidden">
                 <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[var(--purple-500)]/5 to-transparent pointer-events-none" />
                 <div className="flex justify-between items-end mb-4">
@@ -488,7 +340,6 @@ function DashboardView({
                 </div>
               </div>
 
-              {/* Waitlist Growth Chart */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-[15px] font-semibold text-white flex items-center gap-2">
@@ -544,10 +395,8 @@ function DashboardView({
               </div>
             </motion.div>
 
-            {/* Right Column (Span 1) - Smart Insights & Top Colleges */}
             <motion.div variants={itemVariants} className="flex flex-col gap-6">
               
-              {/* Smart Insights */}
               <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-[var(--purple-900)]/20 to-black p-6 backdrop-blur-xl shadow-lg relative overflow-hidden">
                 <div className="absolute -right-10 -top-10 h-32 w-32 bg-[var(--purple-500)]/20 blur-3xl" />
                 <h3 className="text-[15px] font-semibold text-white flex items-center gap-2 mb-4">
@@ -580,7 +429,6 @@ function DashboardView({
                 </div>
               </div>
 
-              {/* Leaderboard */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg flex-1 flex flex-col">
                 <h3 className="text-[15px] font-semibold text-white flex items-center gap-2 mb-5">
                   <Trophy className="h-4 w-4 text-yellow-400" />
@@ -613,10 +461,8 @@ function DashboardView({
             </motion.div>
           </div>
 
-          {/* Bottom Row: Enhanced Table & Activity Feed */}
+          {/* Bottom Row */}
           <motion.div variants={itemVariants} className="grid gap-6 lg:grid-cols-4">
-            
-            {/* Table Column (Span 3) */}
             <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-lg flex flex-col overflow-hidden">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 border-b border-white/5 gap-4">
                 <h3 className="text-[15px] font-semibold text-white flex items-center gap-2">
@@ -694,7 +540,6 @@ function DashboardView({
                 </table>
               </div>
 
-              {/* Pagination */}
               {totalPages > 1 && (
                 <div className="flex items-center justify-between p-4 border-t border-white/5 bg-black/10">
                   <p className="text-[13px] text-gray-400">
@@ -727,7 +572,6 @@ function DashboardView({
               )}
             </div>
 
-            {/* Activity Feed Column (Span 1) */}
             <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl shadow-lg flex flex-col">
               <h3 className="text-[15px] font-semibold text-white flex items-center gap-2 mb-6">
                 <Activity className="h-4 w-4 text-[var(--purple-400)]" />
@@ -777,7 +621,6 @@ function DashboardView({
   )
 }
 
-// ─── Metric Card ──────────────────────────────────────────
 function MetricCard({
   icon: Icon,
   label,

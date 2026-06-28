@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { validateSessionToken } from '@/lib/dashboard-auth'
 import { getSupabaseAdmin } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
-  // Auth check
-  const token = request.headers.get('authorization')?.replace('Bearer ', '')
-  if (!token || !validateSessionToken(token)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
 
   try {
     const supabase = getSupabaseAdmin()
