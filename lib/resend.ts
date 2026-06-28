@@ -238,6 +238,3 @@ function buildWelcomeHtml({
 </html>
   `.trim()
 }
-  `.trim()
-}
-
