@@ -41,7 +41,12 @@ const growthFeatures: Feature[] = [
             <h5 className="text-[13.5px] font-extrabold text-gray-900 sm:text-[14.5px]">Software Engineering Intern</h5>
             <p className="text-[11px] font-bold text-gray-400">Google</p>
           </div>
-          <span className="shrink-0 rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-600 sm:text-[11px]">₹35k/mo</span>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-600 sm:text-[11px]">₹35k/mo</span>
+            <span className="rounded bg-purple-50 px-1.5 py-0.5 text-[8.5px] font-extrabold text-purple-600 uppercase tracking-wider">
+              ⚡ 100+ Roles Open
+            </span>
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-gray-500 font-semibold">
           <span>Bengaluru (Hybrid)</span>
@@ -69,7 +74,7 @@ const growthFeatures: Feature[] = [
       <div className="flex flex-col gap-2 text-left">
         <div className="flex items-start justify-between">
           <span className="text-[13px] font-extrabold text-gray-900">Smart India Hackathon 2026</span>
-          <span className="shrink-0 text-[11px] font-bold text-[var(--purple-600)]">₹2L Prize</span>
+          <span className="shrink-0 text-[11px] font-bold text-purple-600">₹2L Prize</span>
         </div>
         <div className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-gray-500 font-semibold">
           <span>Team: 2-4 members</span><span>•</span><span className="text-orange-600">Reg Ends: July 25</span>
@@ -94,7 +99,7 @@ const growthFeatures: Feature[] = [
             <h5 className="text-[13px] font-extrabold text-gray-900">Sai Teja</h5>
             <p className="text-[10.5px] font-bold text-gray-400">VNR VJIET · CSE 3rd Year</p>
           </div>
-          <button className="shrink-0 rounded-full bg-[var(--purple-600)] px-3 py-1 text-[10px] font-extrabold text-white hover:bg-[var(--purple-700)] transition-all duration-200 cursor-pointer">
+          <button className="shrink-0 rounded-full bg-purple-600 px-3 py-1 text-[10px] font-extrabold text-white hover:bg-purple-700 transition-all duration-200 cursor-pointer">
             Connect
           </button>
         </div>
@@ -200,7 +205,7 @@ const collegeFeatures: Feature[] = [
           </div>
           <span className="shrink-0 text-[10.5px] font-bold text-emerald-600 uppercase">Reg Open</span>
         </div>
-        <button className="w-full rounded-lg bg-[var(--purple-600)] py-1.5 text-[11px] font-bold text-white hover:bg-[var(--purple-700)] cursor-pointer">
+        <button className="w-full rounded-lg bg-purple-600 py-1.5 text-[11px] font-bold text-white hover:bg-purple-700 cursor-pointer">
           Register Now
         </button>
       </div>
@@ -227,7 +232,7 @@ const collegeFeatures: Feature[] = [
   {
     title: 'Leaderboards',
     desc: 'Earn points and get recognized by contributing resources to your campus.',
-    icon: BookOpen, // customized icon matching Study Vault uploader context
+    icon: BookOpen,
     tag: '🏆 Leaders',
     tagColor: 'text-amber-700 bg-amber-50 border-amber-200',
     previewContent: (
@@ -290,43 +295,13 @@ function HighlightChips({ accent }: { accent: TabId }) {
           className={cn(
             'inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-bold shadow-[0_2px_12px_rgba(0,0,0,0.03)] ring-1 transition-transform duration-200 hover:scale-[1.02]',
             accent === 'growth'
-              ? 'bg-white text-[var(--purple-700)] ring-[var(--purple-100)]'
+              ? 'bg-white text-purple-700 ring-purple-100'
               : 'bg-white text-emerald-800 ring-emerald-100',
           )}
         >
           {item.label}
         </span>
       ))}
-    </div>
-  )
-}
-
-function FloatingStatCard({ accent }: { accent: TabId }) {
-  const stat =
-    accent === 'growth'
-      ? { value: '100+', label: 'Monthly Opportunities' }
-      : { value: '📚', label: 'Campus Resources' }
-
-  return (
-    <div className="pointer-events-none absolute bottom-2 right-0 z-[5] hidden lg:block">
-      <div
-        className={cn(
-          'rounded-2xl border bg-white px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.06)]',
-          accent === 'growth'
-            ? 'border-[var(--purple-100)]/80'
-            : 'border-emerald-100/80',
-        )}
-      >
-        <p
-          className={cn(
-            'text-[1.375rem] font-black leading-none tracking-tight',
-            accent === 'growth' ? 'text-[var(--purple-600)]' : 'text-emerald-700',
-          )}
-        >
-          {stat.value}
-        </p>
-        <p className="mt-1 text-[11px] font-semibold text-gray-500">{stat.label}</p>
-      </div>
     </div>
   )
 }
@@ -352,11 +327,9 @@ function ConnectorLines({ accent }: { accent: TabId }) {
         </>
       ) : (
         <>
-          <path d="M 100 220 L 700 220" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
-          <path d="M 100 220 L 100 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
-          <path d="M 300 220 L 300 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
-          <path d="M 500 220 L 500 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
-          <path d="M 700 220 L 700 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 200 220 L 600 220" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 200 220 L 200 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 600 220 L 600 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
         </>
       )}
     </svg>
@@ -370,7 +343,7 @@ function HeroCard({ feature, accent }: { feature: Feature; accent: TabId }) {
         aria-hidden
         className={cn(
           'pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 blur-2xl',
-          accent === 'growth' ? 'bg-[var(--purple-150)]' : 'bg-emerald-100',
+          accent === 'growth' ? 'bg-purple-100' : 'bg-emerald-100',
         )}
       />
       <div className="relative flex gap-4">
@@ -378,7 +351,7 @@ function HeroCard({ feature, accent }: { feature: Feature; accent: TabId }) {
           className={cn(
             'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ring-1 transition-transform duration-300 hover:scale-105',
             accent === 'growth'
-              ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
+              ? 'bg-purple-50 text-purple-600 ring-purple-100'
               : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
           )}
         >
@@ -415,7 +388,7 @@ function SatelliteCard({
   return (
     <article
       className={cn(
-        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white p-4 shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
+        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white p-4.5 shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
         className,
       )}
     >
@@ -433,7 +406,7 @@ function SatelliteCard({
           className={cn(
             'flex shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105 h-9 w-9',
             accent === 'growth'
-              ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
+              ? 'bg-purple-50 text-purple-600 ring-purple-100'
               : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
           )}
         >
@@ -441,7 +414,7 @@ function SatelliteCard({
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
-            <h4 className="font-extrabold text-gray-900 tracking-[-0.02em] text-[14px]">
+            <h4 className="font-extrabold text-gray-900 tracking-[-0.02em] text-[14.5px]">
               {feature.title}
             </h4>
             <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider', feature.tagColor)}>
@@ -449,7 +422,7 @@ function SatelliteCard({
             </span>
           </div>
           <p className="mt-1 text-[12px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
-          <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
+          <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3.5 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
         </div>
       </div>
     </article>
@@ -476,7 +449,6 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
       />
       
       <ConnectorLines accent={activeTab} />
-      <FloatingStatCard accent={activeTab} />
 
       <div className="relative z-10 flex flex-col gap-6">
         {/* Top: Opportunities / Study Vault (Hero Card) spanning full canvas width */}
@@ -487,10 +459,10 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
         {/* Bottom supporting cards arranged horizontally directly under the Hero Card */}
         <div
           className={cn(
-            'grid gap-4 w-full',
+            'grid gap-5 w-full',
             isGrowth
               ? 'grid-cols-1 sm:grid-cols-3'
-              : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4'
+              : 'grid-cols-1 sm:grid-cols-2'
           )}
         >
           {supporting.map((feature, i) => (
@@ -522,7 +494,7 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
             className={cn(
               'inline-flex items-center rounded-full border px-3 py-1.5 text-[11.5px] font-bold shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default',
               isGrowth
-                ? 'border-purple-100 bg-white text-[var(--purple-700)] hover:border-[var(--purple-300)]'
+                ? 'border-purple-100 bg-white text-purple-700 hover:border-purple-300'
                 : 'border-emerald-100 bg-white text-emerald-800 hover:border-emerald-300',
             )}
           >
@@ -568,7 +540,7 @@ function MobileFeatureCarousel({ features, accent }: { features: Feature[]; acce
                 className={cn(
                   'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1',
                   accent === 'growth'
-                    ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
+                    ? 'bg-purple-50 text-purple-600 ring-purple-100'
                     : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
                 )}
               >
@@ -631,6 +603,7 @@ function TabToggle({
 }
 
 function LeftColumn({ activeTab }: { activeTab: TabId }) {
+  const isGrowth = activeTab === 'growth'
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -639,7 +612,7 @@ function LeftColumn({ activeTab }: { activeTab: TabId }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="flex flex-col"
+        className="flex flex-col gap-6"
       >
         {activeTab === 'growth' ? (
           <>
@@ -661,17 +634,35 @@ function LeftColumn({ activeTab }: { activeTab: TabId }) {
           </>
         )}
 
-        <div className="mt-6">
+        <div className="mt-2">
           <HighlightChips accent={activeTab} />
         </div>
 
-        <div className="mt-8 hidden lg:block">
-          <p className="mb-2 text-[14px] font-bold text-[#374151]">Don&apos;t see your college?</p>
+        {/* Premium Integrated Statistics Callout Box */}
+        <div className="hidden lg:block">
+          <div className="rounded-2xl border border-gray-150 bg-gray-50/50 p-4 shadow-sm max-w-sm flex items-center gap-3.5 transition-all duration-300 hover:shadow-md">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 ring-1 ring-purple-100">
+              {isGrowth ? <Briefcase className="h-5.5 w-5.5" /> : <BookOpen className="h-5.5 w-5.5" />}
+            </div>
+            <div>
+              <p className="text-[18px] font-black text-gray-900 leading-none">
+                {isGrowth ? '100+' : '📚'}
+              </p>
+              <p className="mt-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                {isGrowth ? 'Monthly Opportunities' : 'Campus Resources'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Solid Colored Apply Button */}
+        <div className="hidden lg:block">
+          <p className="mb-2.5 text-[14px] font-bold text-[#374151]">Don&apos;t see your college?</p>
           <a
             href={ADMIN_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-700)] px-6 py-3.5 text-[14px] font-bold text-white shadow-md shadow-[var(--purple-600)]/10 hover:shadow-lg hover:shadow-[var(--purple-600)]/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-2xl bg-purple-600 px-6 py-3.5 text-[14px] font-bold text-white shadow-md shadow-purple-600/10 hover:bg-purple-700 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             Apply to bring Naavik to your campus →
           </a>
@@ -699,7 +690,7 @@ export function TwoSpacesSection() {
             <Eyebrow tone="purple">INSIDE NAAVIK</Eyebrow>
             <h2 className="text-[2.25rem] font-extrabold leading-[1.06] tracking-[-0.04em] xl:text-[2.75rem]">
               Two spaces. Everything you{' '}
-              <span className="text-[var(--purple-600)]">need.</span>
+              <span className="text-purple-600">need.</span>
             </h2>
             <p className="max-w-sm text-[14.5px] font-semibold leading-relaxed text-gray-500">
               One for your growth, one for your college — together in one app.
@@ -731,7 +722,7 @@ export function TwoSpacesSection() {
             href={ADMIN_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-700)] px-6 py-3.5 font-bold text-white shadow-md shadow-[var(--purple-600)]/10 hover:shadow-lg hover:shadow-[var(--purple-600)]/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
+            className="inline-flex items-center justify-center w-full rounded-2xl bg-purple-600 px-6 py-3.5 font-bold text-white shadow-md shadow-purple-600/10 hover:bg-purple-700 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] sm:w-auto cursor-pointer"
           >
             Apply to bring Naavik to your campus →
           </a>
