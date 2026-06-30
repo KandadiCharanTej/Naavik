@@ -70,6 +70,38 @@ export function ProductPreview() {
   const [savedItems, setSavedItems] = useState<Record<string, boolean>>({})
   const [pollVotes, setPollVotes] = useState<Record<string, string>>({})
 
+  // Live feed ticker state
+  const liveFeedItems = [
+    { text: 'New hackathon announced by Microsoft', time: '2 min ago' },
+    { text: 'Razorpay posted 3 new internships', time: '5 min ago' },
+    { text: 'CBIT Placement Drive results are out', time: '12 min ago' },
+    { text: '28 students joined Naavik today', time: '18 min ago' },
+    { text: 'New study material uploaded for DBMS', time: '25 min ago' },
+    { text: 'AI Timetable Generator got 5 new stars', time: '30 min ago' },
+    { text: 'Smart India Hackathon registration closing soon', time: '45 min ago' },
+  ]
+  const [liveFeedIndex, setLiveFeedIndex] = useState(0)
+  const [newOpportunityCount, setNewOpportunityCount] = useState(12)
+
+  // Auto-cycle live feed
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLiveFeedIndex(prev => (prev + 1) % liveFeedItems.length)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [liveFeedItems.length])
+
+  // Simulate live opportunity count ticking up
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNewOpportunityCount(prev => {
+        const next = prev + 1
+        return next > 30 ? 12 : next
+      })
+    }, 8000)
+    return () => clearInterval(interval)
+  }, [])
+
   const mainTabs = [
     { id: 'home', label: 'Home', icon: Home },
     { id: 'growth', label: 'Growth', icon: Globe },
@@ -215,9 +247,29 @@ export function ProductPreview() {
                     <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/20"></div>
                     <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/20"></div>
                   </div>
-                  <div className="mx-auto w-[320px] h-8 bg-black/40 rounded-lg border border-white/5 flex items-center justify-center text-[12px] text-gray-400 font-bold tracking-wide shadow-inner">
+                  <div className="mx-auto w-[280px] h-8 bg-black/40 rounded-lg border border-white/5 flex items-center justify-center text-[12px] text-gray-400 font-bold tracking-wide shadow-inner">
                     <Search className="w-3.5 h-3.5 mr-2 opacity-40" />
-                    naavik.in/{activeTab}{activeTab === 'growth' ? `/${growthTab}` : activeTab === 'college' ? `/${collegeTab}` : ''}
+                    naavik
+                  </div>
+                  {/* Live Feed Ticker */}
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-[9px] font-extrabold text-emerald-400 uppercase tracking-wider">Live Feed</span>
+                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={liveFeedIndex}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.3, ease: premiumEasing }}
+                        className="flex items-center gap-2 max-w-[260px]"
+                      >
+                        <span className="text-[11px] font-bold text-gray-300 truncate">{liveFeedItems[liveFeedIndex].text}</span>
+                        <span className="text-[9px] text-gray-600 font-semibold shrink-0">{liveFeedItems[liveFeedIndex].time}</span>
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </div>
 
@@ -225,8 +277,8 @@ export function ProductPreview() {
                 <div className="relative w-full flex-1 flex overflow-hidden bg-[#0A0A0E]">
                   {/* Left Sidebar Menu */}
                   <div className="w-[88px] bg-[#050508] border-r border-white/5 flex flex-col items-center py-6 gap-8 hidden sm:flex shrink-0 z-20">
-                    <div className="relative h-9 w-9 overflow-hidden rounded-full bg-gradient-to-tr from-purple-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-inner">
-                      N
+                    <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white/5 flex items-center justify-center p-1.5">
+                      <Image src="/light-logo.png" alt="Naavik" width={48} height={48} className="object-contain" />
                     </div>
 
                     <div className="flex flex-col gap-3 w-full px-3">
@@ -361,6 +413,28 @@ export function ProductPreview() {
                   </div>
                 </div>
 
+                {/* Live Opportunity Counter - Bottom Left */}
+                <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-28 z-40 hidden sm:flex items-center gap-3 bg-[#101015]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-3 pr-5 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center font-bold text-white text-lg border-2 border-[#101015] shadow-md">
+                    S
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-extrabold text-emerald-400 uppercase tracking-wider">Today</span>
+                    <AnimatePresence mode="wait">
+                      <motion.p
+                        key={newOpportunityCount}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.25 }}
+                        className="text-[13px] font-extrabold text-white leading-tight"
+                      >
+                        {newOpportunityCount} new opportunities
+                      </motion.p>
+                    </AnimatePresence>
+                  </div>
+                </div>
+
                 {/* Mobile screen Bottom Navigation Bar */}
                 <div className="sm:hidden absolute bottom-0 left-0 right-0 bg-[#050508]/95 backdrop-blur-2xl border-t border-white/10 pb-safe z-50">
                   <div className="flex items-center justify-between px-6 py-2.5">
@@ -429,12 +503,27 @@ function HomeTab({
           <h3 className="text-[20px] sm:text-[24px] font-bold text-white tracking-tight">Good morning, Student 👋</h3>
           <p className="text-[12.5px] text-gray-500 mt-1 font-semibold">B.Tech CSE &middot; 3rd Year &middot; CBIT Hyderabad</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
           <div className="bg-purple-950/40 border border-purple-500/20 rounded-xl px-3 py-1.5 flex items-center gap-2">
             <Flame className="w-4 h-4 text-purple-400 animate-bounce" />
             <span className="text-[11.5px] font-extrabold text-purple-300">12 Days Streak</span>
           </div>
+          <div className="relative cursor-pointer">
+            <Bell className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border border-[#0A0A0E] animate-pulse" />
+          </div>
         </div>
+      </div>
+
+      {/* Search Bar */}
+      <div className="relative">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
+        <input
+          type="text"
+          placeholder="Search study materials, opportunities, people..."
+          className="w-full bg-[#101015] border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-[12.5px] text-white font-semibold placeholder:text-gray-600 focus:outline-none focus:border-purple-500/40 transition-colors"
+          readOnly
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
@@ -443,8 +532,8 @@ function HomeTab({
           {/* Quick Actions */}
           <div className="bg-[#101015] border border-white/5 rounded-2xl p-4">
             <h4 className="text-[12px] font-extrabold text-gray-400 uppercase tracking-wider mb-3">Quick Actions</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-              {['Upload Resource', 'Find Hack Team', 'Search Internships'].map((action, idx) => (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {['Upload Resource', 'Find Hack Team', 'Search Internships', 'Browse Notes'].map((action, idx) => (
                 <button
                   key={idx}
                   className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5 text-[12px] font-bold text-gray-300 hover:bg-white/5 hover:text-white transition-colors cursor-pointer text-center"
@@ -514,19 +603,39 @@ function HomeTab({
               <span className="text-[13px] text-gray-400 font-semibold">Rank in Campus</span>
               <span className="text-[14px] font-extrabold text-purple-400">#4 (Top 1%)</span>
             </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[13px] text-gray-400 font-semibold">Resources Shared</span>
+              <span className="text-[14px] font-extrabold text-emerald-400">14</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[13px] text-gray-400 font-semibold">Opportunities Applied</span>
+              <span className="text-[14px] font-extrabold text-orange-400">6</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[13px] text-gray-400 font-semibold">Connections Made</span>
+              <span className="text-[14px] font-extrabold text-blue-400">28</span>
+            </div>
           </div>
 
           {/* Continue Learning */}
           <div className="bg-[#101015] border border-white/5 rounded-2xl p-4">
             <h4 className="text-[12px] font-extrabold text-gray-400 uppercase tracking-wider mb-3">Continue Learning</h4>
-            <div className="flex gap-3 items-center bg-white/[0.01] hover:bg-white/[0.03] p-2 rounded-xl transition border border-white/5 cursor-pointer">
-              <div className="w-9 h-9 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center shrink-0">
-                <FileText className="w-5.5 h-5.5" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-[12.5px] font-bold text-white truncate">Normalization_Guide.pdf</p>
-                <p className="text-[10px] text-gray-500 mt-0.5">Unit 3 &bull; Opened 2h ago</p>
-              </div>
+            <div className="flex flex-col gap-2">
+              {[
+                { name: 'Normalization_Guide.pdf', sub: 'Unit 3 · Opened 2h ago', color: 'bg-red-500/10 text-red-400' },
+                { name: 'OS_Lab_Manual_2024.pdf', sub: 'Exp 6 · Opened yesterday', color: 'bg-blue-500/10 text-blue-400' },
+                { name: 'Cloud_PYQ_2023.pdf', sub: 'Sem 5 · Saved 3 days ago', color: 'bg-emerald-500/10 text-emerald-400' },
+              ].map((f, idx) => (
+                <div key={idx} className="flex gap-3 items-center bg-white/[0.01] hover:bg-white/[0.03] p-2 rounded-xl transition border border-white/5 cursor-pointer">
+                  <div className={cn('w-9 h-9 rounded-lg flex items-center justify-center shrink-0', f.color)}>
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[12.5px] font-bold text-white truncate">{f.name}</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">{f.sub}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -534,20 +643,41 @@ function HomeTab({
           <div className="bg-[#101015] border border-white/5 rounded-2xl p-4">
             <h4 className="text-[12px] font-extrabold text-gray-400 uppercase tracking-wider mb-3">Upcoming Deadlines</h4>
             <div className="space-y-3">
-              <div className="flex items-start gap-2.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 shrink-0" />
-                <div>
-                  <p className="text-[12.5px] font-bold text-white">DBMS Lab Assignment 4 Submission</p>
-                  <p className="text-[10px] text-orange-400 mt-0.5">Tomorrow, 11:59 PM</p>
+              {[
+                { title: 'DBMS Lab Assignment 4', time: 'Tomorrow, 11:59 PM', color: 'bg-orange-500' },
+                { title: 'Smart India Hackathon Reg.', time: 'Ends July 25', color: 'bg-purple-500' },
+                { title: 'Mini Project Phase II', time: 'July 30, 5:00 PM', color: 'bg-blue-500' },
+                { title: 'Algorithm Mid-Term Exam', time: 'Aug 3, 10:00 AM', color: 'bg-red-500' },
+              ].map((d, idx) => (
+                <div key={idx} className="flex items-start gap-2.5">
+                  <div className={cn('w-1.5 h-1.5 rounded-full mt-1.5 shrink-0', d.color)} />
+                  <div>
+                    <p className="text-[12.5px] font-bold text-white">{d.title}</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">{d.time}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 shrink-0" />
-                <div>
-                  <p className="text-[12.5px] font-bold text-white">Smart India Hackathon Registration</p>
-                  <p className="text-[10px] text-purple-400 mt-0.5">Ends July 25</p>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-[#101015] border border-white/5 rounded-2xl p-4">
+            <h4 className="text-[12px] font-extrabold text-gray-400 uppercase tracking-wider mb-3">Recent Activity</h4>
+            <div className="space-y-2.5">
+              {[
+                { action: 'Applied to Razorpay Intern', time: '1h ago', icon: '💼' },
+                { action: 'Uploaded DBMS Unit 4 notes', time: '3h ago', icon: '📤' },
+                { action: 'Connected with Priya S.', time: 'Yesterday', icon: '🤝' },
+                { action: 'Voted on campus poll', time: 'Yesterday', icon: '📊' },
+              ].map((a, idx) => (
+                <div key={idx} className="flex items-center gap-2.5">
+                  <span className="text-[14px]">{a.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11.5px] font-bold text-gray-300 truncate">{a.action}</p>
+                    <p className="text-[10px] text-gray-600 mt-0.5">{a.time}</p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -630,15 +760,20 @@ function GrowthTab({
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { id: 'op1', title: 'SDE Intern', company: 'Amazon', loc: 'Bengaluru (Hybrid)', sal: '₹45k/mo', type: 'Internship', skill: ['React', 'Node.js'] },
-                { id: 'op2', title: 'Frontend Developer', company: 'Zomato', loc: 'Remote', sal: '12 LPA', type: 'Full-time', skill: ['Next.js', 'Framer Motion'] },
-                { id: 'op3', title: 'Generative AI Challenge', company: 'Microsoft', loc: 'Virtual', sal: '₹5L Prize', type: 'Hackathon', skill: ['Python', 'OpenAI API'] },
-                { id: 'op4', title: 'OpenSource Contributor', company: 'Naavik Core', loc: 'Remote', sal: 'Unpaid', type: 'Open Source', skill: ['TypeScript', 'GraphQL'] },
+                { id: 'op1', title: 'SDE Intern', company: 'Amazon', loc: 'Bengaluru (Hybrid)', sal: '₹45k/mo', type: 'Internship', skill: ['React', 'Node.js'], deadline: '5 days left', verified: true },
+                { id: 'op2', title: 'Frontend Developer', company: 'Zomato', loc: 'Remote', sal: '12 LPA', type: 'Full-time', skill: ['Next.js', 'Framer'], deadline: '12 days left', verified: true },
+                { id: 'op3', title: 'GenAI Challenge 2026', company: 'Microsoft', loc: 'Virtual', sal: '₹5L Prize', type: 'Hackathon', skill: ['Python', 'OpenAI API'], deadline: 'Reg Open', verified: true },
+                { id: 'op4', title: 'Open Source Contributor', company: 'Naavik Core', loc: 'Remote', sal: 'Equity + Stipend', type: 'Open Source', skill: ['TypeScript', 'GraphQL'], deadline: 'Rolling', verified: false },
+                { id: 'op5', title: 'Backend Engineering Intern', company: 'CRED', loc: 'Bangalore', sal: '₹50k/mo', type: 'Internship', skill: ['Go', 'Kafka', 'PostgreSQL'], deadline: '3 days left', verified: true },
+                { id: 'op6', title: 'PM Intern — EdTech', company: 'Unacademy', loc: 'Remote', sal: '₹20k/mo', type: 'Internship', skill: ['Excel', 'Product Sense'], deadline: '8 days left', verified: true },
               ].map((opp) => (
                 <div key={opp.id} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5 hover:border-white/10 transition-all flex flex-col justify-between group">
                   <div>
                     <div className="flex justify-between items-start mb-3">
-                      <span className="text-[10px] font-extrabold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/10 uppercase tracking-wider">{opp.type}</span>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[10px] font-extrabold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/10 uppercase tracking-wider w-fit">{opp.type}</span>
+                        {opp.verified && <span className="text-[9px] font-extrabold text-emerald-400 flex items-center gap-0.5">✓ Verified</span>}
+                      </div>
                       <button
                         onClick={() => setSaved((p: any) => ({ ...p, [opp.id]: !p[opp.id] }))}
                         className="p-1 rounded-lg hover:bg-white/5 text-gray-500 hover:text-white cursor-pointer"
@@ -648,15 +783,18 @@ function GrowthTab({
                     </div>
                     <h4 className="text-[14.5px] font-extrabold text-white group-hover:text-purple-400 transition-colors leading-snug">{opp.title}</h4>
                     <p className="text-[12px] text-gray-500 font-semibold mt-0.5">{opp.company} &middot; {opp.loc}</p>
-                    <div className="flex gap-1.5 mt-3">
+                    <div className="flex gap-1.5 mt-3 flex-wrap">
                       {opp.skill.map((s, idx) => (
                         <span key={idx} className="rounded bg-white/5 px-2 py-0.5 text-[9px] text-gray-400 font-bold">{s}</span>
                       ))}
                     </div>
                   </div>
                   <div className="mt-4 pt-3.5 border-t border-white/5 flex justify-between items-center">
-                    <span className="text-[12px] font-bold text-emerald-500">{opp.sal}</span>
-                    <button className="rounded-lg bg-purple-600 hover:bg-purple-700 px-3.5 py-1.5 text-[11px] font-bold text-white cursor-pointer">Apply</button>
+                    <span className="text-[11px] font-bold text-emerald-500">{opp.sal}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold text-orange-400">{opp.deadline}</span>
+                      <button className="rounded-lg bg-purple-600 hover:bg-purple-700 px-3.5 py-1.5 text-[11px] font-bold text-white cursor-pointer">Apply</button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -668,8 +806,11 @@ function GrowthTab({
           <motion.div key="p_hub" variants={variants} initial="hidden" animate="visible" exit="exit" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { id: 'proj1', title: 'Peer-to-Peer Delivery Hub', creator: 'Sai Teja (VNR VJIET)', stars: 12, forks: 3, tech: ['Flutter', 'Node.js', 'PostgreSQL'], des: 'Mobile app connecting students for local deliveries inside campus.' },
-                { id: 'proj2', title: 'Naavik Admin Dashboard', creator: 'Rahul K. (Vasavi)', stars: 24, forks: 8, tech: ['Next.js', 'Supabase', 'Tailwind'], des: 'Full-featured server admin management panel for university workspaces.' },
+                { id: 'proj1', title: 'Peer-to-Peer Delivery Hub', creator: 'Sai Teja (VNR VJIET)', stars: 12, forks: 3, tech: ['Flutter', 'Node.js', 'PostgreSQL'], des: 'Mobile app connecting students for local deliveries inside campus.', status: '🔍 Looking for: UI Designer' },
+                { id: 'proj2', title: 'Naavik Admin Dashboard', creator: 'Rahul K. (Vasavi)', stars: 24, forks: 8, tech: ['Next.js', 'Supabase', 'Tailwind'], des: 'Full-featured server admin management panel for university workspaces.', status: '🟢 Open to contributions' },
+                { id: 'proj3', title: 'Campus Lost & Found App', creator: 'Priya S. (CBIT)', stars: 7, forks: 2, tech: ['React Native', 'Firebase'], des: 'Locate lost items across campus with live map and push notifications.', status: '🔍 Looking for: Backend Dev' },
+                { id: 'proj4', title: 'AI Timetable Generator', creator: 'Karthik M. (JNTUH)', stars: 19, forks: 5, tech: ['Python', 'FastAPI', 'OpenAI'], des: 'Automatically generates optimal exam timetables using AI scheduling.', status: '🟢 Open to testing' },
+                { id: 'proj5', title: 'Smart Attendance Tracker', creator: 'Ananya V. (Vasavi)', stars: 15, forks: 4, tech: ['React', 'TypeScript', 'Node.js'], des: 'QR-code based automated attendance system for lectures.', status: '🔍 Looking for: Tester' },
               ].map((proj) => (
                 <div key={proj.id} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5 flex flex-col justify-between group">
                   <div>
@@ -681,12 +822,13 @@ function GrowthTab({
                       </div>
                     </div>
                     <p className="text-[10px] font-bold text-purple-400">By {proj.creator}</p>
-                    <p className="text-[12px] text-gray-400 mt-2 leading-relaxed italic">"{proj.des}"</p>
+                    <p className="text-[12px] text-gray-400 mt-2 leading-relaxed italic">&quot;{proj.des}&quot;</p>
                     <div className="flex flex-wrap gap-1.5 mt-3">
                       {proj.tech.map((t, idx) => (
                         <span key={idx} className="rounded bg-white/5 px-2 py-0.5 text-[9px] text-gray-400 font-bold">{t}</span>
                       ))}
                     </div>
+                    <div className="mt-2 text-[10.5px] font-bold text-amber-400">{proj.status}</div>
                   </div>
                   <div className="mt-4 pt-3.5 border-t border-white/5 flex gap-2">
                     <button className="flex-1 h-9 rounded-xl bg-purple-600 hover:bg-purple-700 text-[11.5px] font-bold text-white cursor-pointer transition-colors flex items-center justify-center gap-1.5">
@@ -708,6 +850,8 @@ function GrowthTab({
               {[
                 { name: 'Rahul K.', clg: 'VNR VJIET &bull; CSE 3rd Year', skills: 'React, Node.js, SQL', project: 'SIH Hackathon Dashboard', looking: 'Frontend UI/UX Designer', availability: '10h/week' },
                 { name: 'Priya S.', clg: 'CBIT &bull; ECE 4th Year', skills: 'Figma, Tailwind, Flutter', project: 'Campus Lost & Found Portal', looking: 'Backend Developer', availability: '15h/week' },
+                { name: 'Karthik M.', clg: 'JNTUH &bull; IT 3rd Year', skills: 'Python, PyTorch, FastAPI', project: 'AI Timetable Generator', looking: 'Frontend React Developer', availability: '8h/week' },
+                { name: 'Ananya V.', clg: 'Vasavi &bull; CSE 2nd Year', skills: 'React, TypeScript, Tailwind', project: 'Hacktoberfest OSS Bot', looking: 'DevOps / CI Engineer', availability: '12h/week' },
               ].map((p) => {
                 const status = connected[p.name] || 'idle'
                 return (
@@ -762,14 +906,19 @@ function GrowthTab({
         {subTab === 'growth_feed' && (
           <motion.div key="feed_tab" variants={variants} initial="hidden" animate="visible" exit="exit" className="space-y-4">
             {[
-              { id: 'f1', author: 'Razorpay Recruiter', text: 'We are hiring Frontend Engineering Interns for our Bengaluru workspace! Apply via Naavik dashboard. React/TypeScript preferred.', likes: 42, comments: 14 },
-              { id: 'f2', author: 'CBIT Hackathon Club', text: 'Congratulations to our students who finished top 3 in the National Web3 hackathon!', likes: 110, comments: 8 }
+              { id: 'f1', author: 'Razorpay Recruiter', badge: '🏢 Company', text: 'We are hiring Frontend Engineering Interns for our Bengaluru workspace! Apply via Naavik. React/TypeScript preferred. Stipend ₹40k/mo.', likes: 42, comments: 14 },
+              { id: 'f2', author: 'CBIT Hackathon Club', badge: '🏫 Campus', text: 'Congratulations to our students who placed Top 3 in the National Web3 Hackathon 2026! 🎉 Proud of Team CBIT-X.', likes: 110, comments: 8 },
+              { id: 'f3', author: 'Swiggy Hiring', badge: '🏢 Company', text: 'Looking for Mobile App Developers (Android / React Native) for our Hyderabad office. 2024/2025 batch welcome.', likes: 78, comments: 22 },
+              { id: 'f4', author: 'Rahul K. (VNR VJIET)', badge: '👨‍💻 Student', text: 'Just shipped the v1 of my SIH Dashboard. 12 stars on GitHub in 24 hours 🚀 Would love design feedback from anyone!', likes: 34, comments: 16 },
             ].map((post) => (
               <div key={post.id} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5">
                 <div className="flex gap-2.5 items-center mb-3">
                   <div className="w-8 h-8 rounded-full bg-purple-600/10 border border-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">{post.author.charAt(0)}</div>
-                  <div>
-                    <h5 className="text-[12.5px] font-extrabold text-white">{post.author}</h5>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h5 className="text-[12.5px] font-extrabold text-white truncate">{post.author}</h5>
+                      <span className="text-[9px] font-bold text-gray-500 bg-white/5 border border-white/5 px-1.5 py-0.5 rounded shrink-0">{post.badge}</span>
+                    </div>
                     <p className="text-[10px] text-gray-600 font-semibold mt-0.5">2h ago</p>
                   </div>
                 </div>
@@ -782,6 +931,7 @@ function GrowthTab({
                     <Heart className={cn('w-3.5 h-3.5', liked[post.id] && 'fill-purple-500')} /> {post.likes + (liked[post.id] ? 1 : 0)}
                   </button>
                   <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" /> {post.comments}</span>
+                  <span className="flex items-center gap-1 hover:text-white cursor-pointer"><Share2 className="w-3.5 h-3.5" /> Share</span>
                 </div>
               </div>
             ))}
@@ -857,13 +1007,18 @@ function CollegeTab({
         {subTab === 'college_updates' && (
           <motion.div key="updates" variants={variants} initial="hidden" animate="visible" exit="exit" className="space-y-4">
             {[
-              { title: 'Convergence Tech Fest 2026 Registration Open', desc: 'CBIT IEEE Student branch announces the annual tech symposium. Cash prizes worth ₹1L.', badge: 'Fest Update' },
-              { title: 'Mid-Exam Semester 4 Timetable Released', desc: 'Exams scheduled from Monday July 6. Check official PDF attachment.', badge: 'Exam Update' }
+              { title: 'Convergence Tech Fest 2026 Registration Open', desc: 'CBIT IEEE Student branch announces the annual tech symposium. Cash prizes worth ₹1L+. 12 technical events, 6 non-technical tracks.', badge: 'Fest Update', time: 'Posted 1h ago' },
+              { title: 'Mid-Exam Semester 4 Timetable Released', desc: 'Exams scheduled from Monday July 6. Check official PDF attached. Labs begin from July 14.', badge: 'Exam Update', time: 'Posted 3h ago' },
+              { title: 'Campus Placement Drive — Infosys', desc: 'Infosys campus placements start Monday, July 8. Eligible: 2025 batch, 70%+ aggregate. Register via Placement Cell portal.', badge: 'Placement', time: 'Posted 5h ago' },
+              { title: 'Holiday Notice: Dr. APJ Abdul Kalam Jayanti', desc: 'The college will remain closed on October 15th in honour of Dr. APJ Abdul Kalam Jayanti. All lab sessions rescheduled.', badge: 'Holiday', time: 'Posted 2 days ago' },
             ].map((up, idx) => (
               <div key={idx} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5 flex flex-col gap-2 relative group hover:border-white/10 transition-colors">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-extrabold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/10 uppercase tracking-wider">{up.badge}</span>
-                  <span className="text-[11px] font-bold text-gray-600">✓ Verified Official</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-600 font-semibold">{up.time}</span>
+                    <span className="text-[10px] font-bold text-emerald-500">✓ Verified Official</span>
+                  </div>
                 </div>
                 <h4 className="text-[14.5px] font-extrabold text-white mt-1 leading-snug">{up.title}</h4>
                 <p className="text-[12.5px] text-gray-400 leading-relaxed font-semibold">{up.desc}</p>
@@ -905,24 +1060,61 @@ function CollegeTab({
               </div>
             </div>
 
-            {/* Chat Thread */}
-            <div className="bg-[#101015] border border-white/5 rounded-2xl p-4.5">
-              <div className="flex gap-2.5 items-center mb-3">
-                <div className="w-8 h-8 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-xs">V</div>
-                <div>
-                  <h5 className="text-[12.5px] font-extrabold text-white">V. Keerthi (VNR VJIET)</h5>
-                  <p className="text-[10px] text-gray-600 font-semibold mt-0.5">3h ago</p>
+            {/* Chat Threads */}
+            {[
+              { id: 'c1', avatar: 'V', color: 'bg-orange-500/10 border-orange-500/20 text-orange-400', name: 'V. Keerthi (VNR VJIET)', time: '3h ago', text: 'Is the DBMS mid-term syllabus strictly from unit-3 or unit-4 as well?', likes: 24, replies: 12 },
+              { id: 'c2', avatar: 'A', color: 'bg-blue-500/10 border-blue-500/20 text-blue-400', name: 'Ananya V. (Vasavi)', time: '5h ago', text: 'Can someone share the Cloud Computing lab manual? The drive link expired.', likes: 18, replies: 9 },
+              { id: 'c3', avatar: 'R', color: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400', name: 'Rohit S. (CBIT)', time: 'Yesterday', text: 'The new sports complex construction deadline pushed to August. Anyone know the revised schedule?', likes: 31, replies: 7 },
+              { id: 'c4', avatar: 'P', color: 'bg-purple-500/10 border-purple-500/20 text-purple-400', name: 'Priya M. (JNTUH)', time: 'Yesterday', text: 'Looking for teammates for the IEEE paper presentation next week. Topic: Edge Computing in IoT. DM me!', likes: 15, replies: 4 },
+            ].map((post) => (
+              <div key={post.id} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5">
+                <div className="flex gap-2.5 items-center mb-3">
+                  <div className={cn('w-8 h-8 rounded-full border flex items-center justify-center font-bold text-xs', post.color)}>{post.avatar}</div>
+                  <div>
+                    <h5 className="text-[12.5px] font-extrabold text-white">{post.name}</h5>
+                    <p className="text-[10px] text-gray-600 font-semibold mt-0.5">{post.time}</p>
+                  </div>
+                </div>
+                <p className="text-[12.5px] text-gray-300 leading-relaxed">&quot;{post.text}&quot;</p>
+                <div className="flex items-center gap-4 mt-4 pt-3.5 border-t border-white/5 text-[11.5px] text-gray-500 font-bold">
+                  <button
+                    onClick={() => setLiked((p: any) => ({ ...p, [post.id]: !p[post.id] }))}
+                    className={cn('flex items-center gap-1 hover:text-white cursor-pointer transition-colors', liked[post.id] && 'text-purple-500')}
+                  >
+                    <Heart className={cn('w-3.5 h-3.5', liked[post.id] && 'fill-purple-500')} /> {post.likes + (liked[post.id] ? 1 : 0)}
+                  </button>
+                  <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" /> {post.replies} replies</span>
+                  <span className="flex items-center gap-1 hover:text-white cursor-pointer"><Share2 className="w-3.5 h-3.5" /> Share</span>
                 </div>
               </div>
-              <p className="text-[12.5px] text-gray-300 leading-relaxed">&quot;Is the DBMS mid-term syllabus strictly from unit-3 or unit-4 as well?&quot;</p>
-              <div className="flex items-center gap-4 mt-4 pt-3.5 border-t border-white/5 text-[11.5px] text-gray-500 font-bold">
-                <button
-                  onClick={() => setLiked((p: any) => ({ ...p, c1: !p.c1 }))}
-                  className={cn('flex items-center gap-1 hover:text-white cursor-pointer transition-colors', liked.c1 && 'text-purple-500')}
-                >
-                  <Heart className={cn('w-3.5 h-3.5', liked.c1 && 'fill-purple-500')} /> {24 + (liked.c1 ? 1 : 0)}
-                </button>
-                <span className="flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5" /> 12 replies</span>
+            ))}
+
+            {/* Second Poll */}
+            <div className="bg-[#101015] border border-white/5 rounded-2xl p-4.5 text-left">
+              <span className="text-[10px] font-extrabold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/10 uppercase tracking-wider">Campus Poll</span>
+              <h5 className="text-[13.5px] font-extrabold text-gray-200 mt-2.5 mb-3 leading-snug">Which elective should be introduced next semester?</h5>
+              <div className="space-y-2">
+                {[
+                  { key: 'blockchain', label: 'Blockchain Development (42%)' },
+                  { key: 'genai', label: 'Generative AI & LLMs (38%)' },
+                  { key: 'cybersec', label: 'Cybersecurity Essentials (20%)' },
+                ].map((opt) => {
+                  const voted = pollVotes.p2 === opt.key
+                  const anyVoted = !!pollVotes.p2
+                  return (
+                    <button
+                      key={opt.key}
+                      onClick={() => handleVote('p2', opt.key)}
+                      className={cn(
+                        'w-full text-left rounded-xl border p-3 text-[12px] font-bold transition-all cursor-pointer',
+                        voted ? 'border-purple-500 bg-purple-500/10 text-purple-300' : 'border-white/5 bg-white/[0.01] hover:border-white/10 text-gray-300',
+                        anyVoted && !voted && 'opacity-60'
+                      )}
+                    >
+                      {opt.label} {voted && '✓'}
+                    </button>
+                  )
+                })}
               </div>
             </div>
           </motion.div>
@@ -937,19 +1129,26 @@ function CollegeTab({
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { title: 'Compiler Design Unit 1-5', size: '12 MB', type: 'PDF', uploader: 'Admin Verified' },
-                { title: 'Web Tech 2024 PYQ Solved', size: '4 MB', type: 'PDF', uploader: 'Admin Verified' },
-                { title: 'Machine Learning Lab Manual', size: '1 MB', type: 'DOCX', uploader: 'Student Contrib' },
-                { title: 'Data Analytics Midnotes', size: '8 MB', type: 'PDF', uploader: 'Admin Verified' }
+                { title: 'Compiler Design Unit 1-5', size: '12 MB', type: 'PDF', uploader: 'Admin Verified', downloads: 340 },
+                { title: 'Web Tech 2024 PYQ Solved', size: '4 MB', type: 'PDF', uploader: 'Admin Verified', downloads: 512 },
+                { title: 'Machine Learning Lab Manual', size: '1 MB', type: 'DOCX', uploader: 'Student Contrib', downloads: 87 },
+                { title: 'Data Analytics Midnotes', size: '8 MB', type: 'PDF', uploader: 'Admin Verified', downloads: 215 },
+                { title: 'Operating Systems PYQ 2023', size: '6 MB', type: 'PDF', uploader: 'Admin Verified', downloads: 429 },
+                { title: 'DBMS Normalization Notes', size: '3 MB', type: 'PDF', uploader: 'Student Contrib', downloads: 198 },
+                { title: 'Computer Networks Lab Manual', size: '2 MB', type: 'DOCX', uploader: 'Admin Verified', downloads: 156 },
+                { title: 'Software Engineering Unit 1-3', size: '9 MB', type: 'PDF', uploader: 'Student Contrib', downloads: 94 },
               ].map((file, idx) => (
                 <div key={idx} className="bg-[#101015] border border-white/5 rounded-2xl p-4 flex gap-3.5 items-start hover:bg-[#16161c] transition-colors cursor-pointer group">
                   <div className={cn('w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-inner', file.type === 'PDF' ? 'bg-red-500/10 text-red-400' : 'bg-blue-500/10 text-blue-400')}>
-                    <FileText className="w-5.5 h-5.5" />
+                    <FileText className="w-5 h-5" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h5 className="text-[13px] font-bold text-white truncate group-hover:text-purple-400 transition-colors">{file.title}</h5>
                     <p className="text-[11px] text-gray-500 font-semibold mt-0.5">{file.size} &bull; {file.type}</p>
-                    <span className="text-[10px] text-emerald-500 mt-2 inline-flex items-center gap-1 font-bold">✓ {file.uploader}</span>
+                    <div className="flex items-center gap-3 mt-1.5">
+                      <span className="text-[10px] text-emerald-500 inline-flex items-center gap-1 font-bold">✓ {file.uploader}</span>
+                      <span className="text-[10px] text-gray-600 font-semibold">{file.downloads} downloads</span>
+                    </div>
                   </div>
                   <button className="w-8 h-8 rounded-full bg-white/5 hover:bg-white hover:text-black flex items-center justify-center transition-colors cursor-pointer shrink-0">
                     <Download className="w-3.5 h-3.5" />
@@ -964,22 +1163,39 @@ function CollegeTab({
           <motion.div key="events" variants={variants} initial="hidden" animate="visible" exit="exit" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { title: 'Intro to Web3 Seminar', club: 'GDSC CBIT Branch', status: 'Reg Open' },
-                { title: 'Generative AI Hackathon 2026', club: 'IEEE CSE Society', status: 'Reg Open' }
+                { title: 'Intro to Web3 Seminar', club: 'GDSC CBIT Branch', status: 'Reg Open', date: 'July 8, 4:00 PM', venue: 'Seminar Hall 2', type: 'Workshop', spots: '45/120 filled' },
+                { title: 'Generative AI Hackathon 2026', club: 'IEEE CSE Society', status: 'Reg Open', date: 'July 12-13', venue: 'CS Lab Block A', type: 'Hackathon', spots: '28 teams registered' },
+                { title: 'Flutter Dev Bootcamp', club: 'Mobile App Club', status: 'Reg Open', date: 'July 15-17', venue: 'Online (Zoom)', type: 'Bootcamp', spots: '80/100 filled' },
+                { title: 'Competitive Programming Contest', club: 'CodeChef CBIT Chapter', status: 'Coming Soon', date: 'July 20, 10:00 AM', venue: 'Lab 304', type: 'Contest', spots: 'Registrations open July 10' },
+                { title: 'Resume Building Workshop', club: 'Placement Cell', status: 'Reg Open', date: 'July 22, 2:00 PM', venue: 'Auditorium', type: 'Workshop', spots: '150/200 filled' },
+                { title: 'Photography Club Exhibition', club: 'Shutter Club', status: 'Ongoing', date: 'July 1-7', venue: 'Main Gallery', type: 'Exhibition', spots: '32 entries submitted' },
               ].map((ev, idx) => (
-                <div key={idx} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5 flex flex-col justify-between group">
+                <div key={idx} className="bg-[#101015] border border-white/5 rounded-2xl p-4.5 flex flex-col justify-between group hover:border-white/10 transition-colors">
                   <div>
-                    <div className="flex justify-between items-start mb-3.5">
-                      <div>
-                        <span className="text-[13px] font-extrabold text-white leading-snug">{ev.title}</span>
-                        <p className="text-[10px] font-bold text-gray-500 mt-0.5">{ev.club}</p>
-                      </div>
-                      <span className="text-[9.5px] font-extrabold text-emerald-500 uppercase shrink-0">{ev.status}</span>
+                    <div className="flex justify-between items-start mb-2">
+                      <span className={cn(
+                        'text-[9.5px] font-extrabold px-2 py-0.5 rounded border uppercase tracking-wider',
+                        ev.status === 'Reg Open' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/10' :
+                        ev.status === 'Coming Soon' ? 'text-amber-400 bg-amber-500/10 border-amber-500/10' :
+                        'text-blue-400 bg-blue-500/10 border-blue-500/10'
+                      )}>{ev.status}</span>
+                      <span className="text-[9px] font-bold text-gray-600 bg-white/5 border border-white/5 px-1.5 py-0.5 rounded">{ev.type}</span>
+                    </div>
+                    <h5 className="text-[13.5px] font-extrabold text-white leading-snug mt-1 group-hover:text-purple-400 transition-colors">{ev.title}</h5>
+                    <p className="text-[10.5px] font-bold text-purple-400 mt-1">{ev.club}</p>
+                    <div className="mt-2.5 space-y-1 text-[11px] text-gray-500 font-semibold">
+                      <div className="flex items-center gap-1.5"><Clock className="w-3 h-3 text-gray-600" /> {ev.date}</div>
+                      <div className="flex items-center gap-1.5"><ArrowUpRight className="w-3 h-3 text-gray-600" /> {ev.venue}</div>
+                      <div className="text-[10px] text-gray-600 mt-1">{ev.spots}</div>
                     </div>
                   </div>
                   <div className="mt-4 pt-3 border-t border-white/5">
-                    <button className="w-full rounded-xl bg-purple-600 hover:bg-purple-700 py-2.5 text-[11.5px] font-bold text-white cursor-pointer transition-colors">
-                      Register Now
+                    <button className={cn(
+                      'w-full rounded-xl py-2.5 text-[11.5px] font-bold cursor-pointer transition-colors',
+                      ev.status === 'Coming Soon' ? 'bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white' :
+                      'bg-purple-600 hover:bg-purple-700 text-white'
+                    )}>
+                      {ev.status === 'Coming Soon' ? 'Notify Me' : ev.status === 'Ongoing' ? 'View Details' : 'Register Now'}
                     </button>
                   </div>
                 </div>

@@ -59,7 +59,7 @@ export async function FinalCta() {
             <LiveFinalCtaProgress initialWaitlistCount={waitlistCount} waitlistGoal={waitlistGoal} />
 
             <div className="relative mx-auto mt-8 max-w-xs flex flex-col items-center">
-              <p className="text-[12.5px] font-bold text-[var(--purple-600)] bg-[var(--purple-50)] px-3.5 py-1.5 rounded-full mb-5 shadow-sm border border-[var(--purple-100)] text-center leading-none">
+              <p className="text-[12px] font-bold text-[var(--purple-600)] bg-[var(--purple-50)] px-3.5 py-2 rounded-full mb-5 shadow-sm border border-[var(--purple-100)] text-center leading-none">
                 Early Access is currently limited to the first 500 students.
               </p>
               <WaitlistButton
