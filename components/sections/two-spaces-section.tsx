@@ -386,28 +386,22 @@ function HeroCard({ feature, accent }: { feature: Feature; accent: TabId }) {
 }
 
 function SatelliteCard({
-  label,
   feature,
   accent,
   className,
   delay = 0,
-  compact,
 }: {
-  label?: string
-  feature?: Feature
+  feature: Feature
   accent: TabId
   className?: string
   delay?: number
-  compact?: boolean
 }) {
-  const title = feature?.title ?? label ?? ''
-  const Icon = feature?.icon ?? Briefcase
+  const Icon = feature.icon ?? Briefcase
 
   return (
     <article
       className={cn(
-        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
-        compact ? 'p-3' : 'p-4.5',
+        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white p-4.5 shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
         className,
       )}
     >
@@ -423,32 +417,25 @@ function SatelliteCard({
       <div className="relative flex items-start gap-3">
         <div
           className={cn(
-            'flex shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105',
-            compact ? 'h-7 w-7' : 'h-9 w-9',
+            'flex shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105 h-9 w-9',
             accent === 'growth'
               ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
               : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
           )}
         >
-          <Icon className={compact ? 'h-3.5 w-3.5' : 'h-4.5 w-4.5'} />
+          <Icon className="h-4.5 w-4.5" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
-            <h4 className={cn('font-extrabold text-gray-900 tracking-[-0.02em]', compact ? 'text-[12px] leading-none mt-1.5' : 'text-[14.5px]')}>
-              {title}
+            <h4 className="font-extrabold text-gray-900 tracking-[-0.02em] text-[14.5px]">
+              {feature.title}
             </h4>
-            {!compact && feature && (
-              <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider', feature.tagColor)}>
-                {feature.tag}
-              </span>
-            )}
+            <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider', feature.tagColor)}>
+              {feature.tag}
+            </span>
           </div>
-          {!compact && feature && (
-            <>
-              <p className="mt-1 text-[12px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
-              <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3.5 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
-            </>
-          )}
+          <p className="mt-1 text-[12px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
+          <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3.5 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
         </div>
       </div>
     </article>
@@ -459,15 +446,10 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
   const isGrowth = activeTab === 'growth'
   const features = isGrowth ? growthFeatures : collegeFeatures
   const satellites = isGrowth ? growthSatellites : collegeSatellites
-  
-  const hero = features[0]
-  const second = features[1]
-  const third = features[2]
-  const fourth = features[3]
-  const fifth = features[4] // Leaderboards (only in College)
+  const [hero, ...supporting] = features
 
   return (
-    <div className="relative min-h-[420px] lg:min-h-[460px]">
+    <div className="relative">
       {/* Ambient background glows */}
       <div
         aria-hidden
@@ -478,71 +460,57 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
             : 'bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.1),transparent_65%)]',
         )}
       />
-      <div
-        aria-hidden
-        className={cn(
-          'pointer-events-none absolute -bottom-6 -right-4 h-48 w-56 rounded-full opacity-70 lg:h-56 lg:w-64',
-          isGrowth
-            ? 'bg-[radial-gradient(circle,rgba(124,58,237,0.1),transparent_70%)]'
-            : 'bg-[radial-gradient(circle,rgba(16,185,129,0.08),transparent_70%)]',
-        )}
-      />
       
       <ConnectorLines accent={activeTab} />
       <FloatingStatCard accent={activeTab} />
 
-      <div className="relative z-10 grid grid-cols-12 gap-3 lg:gap-4">
-        {/* Main Hero Card (takes 7 columns on desktop) */}
-        <div className="col-span-12 lg:col-span-7 lg:row-span-3">
+      <div className="relative z-10 grid grid-cols-12 gap-4 lg:gap-6 items-start">
+        {/* Left Column: Hero Card (spans 7 columns on desktop) */}
+        <div className="col-span-12 lg:col-span-7">
           <HeroCard feature={hero} accent={activeTab} />
         </div>
 
-        {/* Top Right Card */}
-        {second && (
-          <div className="col-span-6 lg:col-span-5 lg:-mt-6 lg:translate-x-2">
-            <SatelliteCard feature={second} accent={activeTab} delay={0.12} className="lg:rotate-[1.5deg]" />
-          </div>
-        )}
+        {/* Right Column: Supporting Cards stack (spans 5 columns on desktop) */}
+        <div className="col-span-12 lg:col-span-5 flex flex-col gap-4">
+          {supporting.map((feature, i) => (
+            <SatelliteCard
+              key={feature.title}
+              feature={feature}
+              accent={activeTab}
+              delay={0.12 + i * 0.05}
+              className={cn(
+                i === 0 && 'lg:rotate-[0.5deg] lg:translate-x-1',
+                i === 1 && 'lg:-rotate-[0.5deg] lg:-translate-x-1',
+                i === 2 && 'lg:rotate-[0.8deg]',
+                i === 3 && 'lg:-rotate-[0.8deg] lg:translate-y-1',
+              )}
+            />
+          ))}
+        </div>
+      </div>
 
-        {/* Middle Right Card */}
-        {third && (
-          <div className="col-span-6 lg:col-span-5 lg:col-start-8 lg:-mt-4">
-            <SatelliteCard feature={third} accent={activeTab} delay={0.2} className="lg:-rotate-[1deg]" />
-          </div>
-        )}
-
-        {/* Bottom Right Card (Growth Feed / Project Hub / College Feed) */}
-        {fourth && (
-          <div className="col-span-6 lg:col-span-5 lg:col-start-8 lg:-mt-2">
-            <SatelliteCard feature={fourth} accent={activeTab} delay={0.25} className="lg:rotate-[0.5deg]" />
-          </div>
-        )}
-
-        {/* Fifth Card (Leaderboards - only for College) */}
-        {fifth && (
-          <div className="col-span-6 lg:col-span-5 lg:col-start-8 lg:-mt-1">
-            <SatelliteCard feature={fifth} accent={activeTab} delay={0.3} className="lg:-rotate-[0.5deg]" />
-          </div>
-        )}
-
-        {/* Floating compact satellite pills overlapping at the bottom */}
-        {satellites.slice(0, 4).map((label, i) => (
-          <div
+      {/* Floating pills tagcloud directly below composition */}
+      <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-2 max-w-4xl relative z-20">
+        <span className="text-[11px] font-extrabold uppercase tracking-wider text-gray-400 mr-1.5">Quick Tags:</span>
+        {satellites.map((label, i) => (
+          <motion.span
             key={label}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 + i * 0.03, duration: 0.2 }}
             className={cn(
-              'col-span-4 lg:col-span-3 z-20',
-              i === 0 && 'lg:col-start-2 lg:-mt-3',
-              i === 1 && 'lg:col-start-5 lg:-mt-1',
-              i === 2 && 'lg:col-start-8 lg:-mt-4',
-              i === 3 && 'lg:col-start-10 lg:-mt-2',
+              'inline-flex items-center rounded-full border px-3 py-1.5 text-[11.5px] font-bold shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default',
+              isGrowth
+                ? 'border-purple-100 bg-white text-[var(--purple-700)] hover:border-[var(--purple-300)]'
+                : 'border-emerald-100 bg-white text-emerald-800 hover:border-emerald-300',
             )}
           >
-            <SatelliteCard label={label} accent={activeTab} compact delay={0.28 + i * 0.06} />
-          </div>
+            {label}
+          </motion.span>
         ))}
       </div>
 
-      {/* Verified Workspaces Only callout with correct top spacing */}
+      {/* Verified Workspaces Only callout */}
       {activeTab === 'college' && (
         <div className="trust-callout relative z-20 mt-6">
           <div className="flex items-start gap-3">
