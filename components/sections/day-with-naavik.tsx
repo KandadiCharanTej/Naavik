@@ -14,25 +14,29 @@ import { cn } from '@/lib/utils'
 const cards = [
   {
     time: '☀️ 8:30 AM',
-    title: 'Morning',
+    pillar: 'Morning',
+    title: 'Opportunities',
     body: 'A new internship notification from Razorpay just arrived. Deadline: tomorrow.\n\nYou almost missed it last time. Not anymore.',
     cta: 'Apply Now',
   },
   {
     time: '🌤 2:15 PM',
-    title: 'Afternoon',
+    pillar: 'Afternoon',
+    title: 'College Updates',
     body: 'The IEEE club event starts in 2 hours. Your campus just posted a reminder.\n\nYou almost forgot. Again.',
     cta: 'Register Now',
   },
   {
     time: '🌆 7:00 PM',
-    title: 'Evening',
+    pillar: 'Evening',
+    title: 'Study Vault',
     body: "Your senior just uploaded DBMS unit 3 & 4 notes. Exam: 3 days away.\n\nNo more 'bhai notes bhejo' at midnight.",
     cta: 'Download Notes',
   },
   {
     time: '🌙 11:00 PM',
-    title: 'Night',
+    pillar: 'Night',
+    title: 'Connect',
     body: 'A student from CBIT needs a React Native dev for SIH. Deadline: 48 hours.\n\nYour next hackathon team is one tap away.',
     cta: 'View Post',
   },
@@ -42,7 +46,7 @@ function TimelineNode({ active = false }: { active?: boolean }) {
   return (
     <motion.div
       className={cn(
-        'relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-4 ring-white',
+        'relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-4 ring-white shadow-[0_2px_8px_rgba(0,0,0,0.05)]',
         active ? 'bg-[var(--purple-600)]' : 'bg-gray-200',
       )}
       animate={active ? { scale: [1, 1.12, 1] } : { scale: 1 }}
@@ -76,33 +80,36 @@ function JourneyCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: premiumEasing }}
+      whileHover={{ y: -6, scale: 1.01 }}
       className={cn(
-        'group relative flex h-full min-w-[280px] max-w-[320px] flex-col snap-center border border-gray-200/70 bg-white p-6 transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(124,58,237,0.08)] sm:min-w-[300px]',
+        'group relative flex h-full min-w-[280px] max-w-[320px] flex-col snap-center rounded-2xl border border-gray-200/70 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-[var(--purple-200)] hover:shadow-[0_16px_40px_rgba(124,58,237,0.08)] sm:min-w-[300px]',
         className,
       )}
     >
       <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[var(--purple-300)] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">
-        {card.time}
+      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--purple-500)]">
+        {card.time} &middot; {card.pillar}
       </p>
-      <h3 className="mt-2 text-[18px] font-bold tracking-[-0.02em]">{card.title}</h3>
-      <p className="mt-3 flex-1 whitespace-pre-wrap text-[14px] leading-relaxed text-gray-500">
+      <h3 className="mt-2 text-[20px] font-extrabold tracking-[-0.03em] text-gray-900 leading-tight">{card.title}</h3>
+      <p className="mt-3.5 flex-1 whitespace-pre-wrap text-[14.5px] leading-relaxed text-gray-500 font-medium">
         {card.body}
       </p>
-      <a
-        href="#"
-        className="mt-5 inline-flex items-center gap-1 text-[13px] font-bold text-[var(--purple-600)] transition-colors hover:text-[var(--purple-700)]"
-      >
-        {card.cta}
-        <motion.span
-          className="inline-block"
-          initial={false}
-          whileHover={{ x: 3 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      <div className="mt-6 flex">
+        <a
+          href="#"
+          className="inline-flex items-center gap-1.5 px-4 py-2 bg-[var(--purple-50)] text-[13px] font-bold text-[var(--purple-600)] rounded-xl transition-all duration-300 hover:bg-[var(--purple-600)] hover:text-white shadow-sm"
         >
-          →
-        </motion.span>
-      </a>
+          {card.cta}
+          <motion.span
+            className="inline-block"
+            initial={false}
+            whileHover={{ x: 3 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          >
+            →
+          </motion.span>
+        </a>
+      </div>
     </motion.article>
   )
 }

@@ -29,18 +29,18 @@ const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
 
 export function SiteFooter() {
   return (
-    <footer className="bg-white pb-10 pt-16">
+    <footer className="bg-white pb-12 pt-20">
       <PageContainer>
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-xs">
             <Logo theme="light" />
-            <p className="mt-4 text-[14px] leading-relaxed text-gray-500">
+            <p className="mt-4 text-[14px] leading-relaxed text-gray-500 font-medium">
               Built by engineering students, for engineering students.
             </p>
-            <div className="mt-5 flex gap-3">
+            <div className="mt-5 flex gap-3.5">
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="text-gray-400 transition-colors hover:text-gray-900"
+                className="text-gray-400 transition-colors hover:text-gray-900 hover:scale-105 transform duration-200"
                 aria-label="Email"
               >
                 <MailIcon />
@@ -49,13 +49,13 @@ export function SiteFooter() {
                 href="https://www.instagram.com/joinnaavik?igsh=MXBueGtoZWF2ajRxdQ=="
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-gray-900"
+                className="text-gray-400 transition-colors hover:text-gray-900 hover:scale-105 transform duration-200"
                 aria-label="Instagram"
               >
                 <InstagramIcon />
               </a>
               <div
-                className="text-gray-400"
+                className="text-gray-400 hover:text-gray-900 cursor-pointer transition-colors duration-200 hover:scale-105 transform"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon />
@@ -63,31 +63,31 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="flex gap-16 sm:gap-20">
+          <div className="flex gap-16 sm:gap-24">
             <div>
-              <p className="text-[11px] font-semibold tracking-wide text-gray-400">Product</p>
-              <nav className="mt-4 flex flex-col gap-2.5">
-                <a href="#whats-inside" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Features</a>
-                <a href="#product-preview" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Preview</a>
-                <a href="#early-access" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Early Access</a>
-                <a href="#admin" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Campus Admin</a>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400">Product</p>
+              <nav className="mt-4 flex flex-col gap-3">
+                <a href="#whats-inside" className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">Features</a>
+                <a href="#product-preview" className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">Preview</a>
+                <a href="#early-access" className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">Early Access</a>
+                <a href="#admin" className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">Campus Admin</a>
               </nav>
             </div>
             <div>
-              <p className="text-[11px] font-semibold tracking-wide text-gray-400">Legal & Contact</p>
-              <nav className="mt-4 flex flex-col gap-2.5">
-                <a href="/privacy" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Privacy Policy</a>
-                <a href="/terms" className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">Terms of Use</a>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="text-[14px] text-gray-600 transition-colors hover:text-gray-900">{CONTACT_EMAIL}</a>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-400">Legal & Contact</p>
+              <nav className="mt-4 flex flex-col gap-3">
+                <a href="/privacy" className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">Privacy Policy</a>
+                <a href="/terms" className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">Terms of Use</a>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-[13.5px] font-semibold text-gray-600 transition-colors hover:text-gray-900">{CONTACT_EMAIL}</a>
               </nav>
             </div>
           </div>
         </div>
 
         <Divider className="my-10" />
-        <div className="flex flex-col gap-2 text-[12px] text-gray-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2.5 text-[12px] text-gray-400 sm:flex-row sm:items-center sm:justify-between font-medium">
           <p>&copy; {new Date().getFullYear()} Naavik. All rights reserved.</p>
-          <p>Built by an engineering student, for engineering students.</p>
+          <p>Built by engineering students, for engineering students.</p>
         </div>
       </PageContainer>
     </footer>

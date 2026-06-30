@@ -58,10 +58,13 @@ export async function FinalCta() {
 
             <LiveFinalCtaProgress initialWaitlistCount={waitlistCount} waitlistGoal={waitlistGoal} />
 
-            <div className="relative mx-auto mt-10 max-w-xs">
+            <div className="relative mx-auto mt-8 max-w-xs flex flex-col items-center">
+              <p className="text-[12.5px] font-bold text-[var(--purple-600)] bg-[var(--purple-50)] px-3.5 py-1.5 rounded-full mb-5 shadow-sm border border-[var(--purple-100)] text-center leading-none">
+                Early Access is currently limited to the first 500 students.
+              </p>
               <WaitlistButton
                 id="final-cta-btn"
-                className="naavik-btn naavik-btn-primary h-14 w-full !rounded-2xl bg-[var(--purple-600)] text-white shadow-[0_8px_24px_rgba(124,58,237,0.3)] hover:bg-[var(--purple-700)]"
+                className="naavik-btn naavik-btn-primary h-14 w-full !rounded-2xl bg-[var(--purple-600)] text-white shadow-[0_8px_24px_rgba(124,58,237,0.3)] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] hover:bg-[var(--purple-700)]"
               >
                 Join the First Students
               </WaitlistButton>

@@ -83,7 +83,7 @@ function BenefitCards() {
       {benefits.map((benefit) => (
         <div
           key={benefit.title}
-          className="group flex flex-1 flex-col justify-center rounded-xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/10 p-3.5 sm:p-4 backdrop-blur-sm transition-all duration-300 hover:border-[var(--purple-400)]/50 hover:bg-[var(--purple-600)]/20 hover:shadow-[0_8px_30px_rgba(124,58,237,0.12)] lg:p-5"
+          className="group transform-gpu flex flex-1 flex-col justify-center rounded-xl border border-[var(--purple-500)]/25 bg-[var(--purple-600)]/10 p-3.5 sm:p-4 backdrop-blur-sm transition-all duration-300 hover:border-[var(--purple-400)]/50 hover:bg-[var(--purple-600)]/20 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(124,58,237,0.14)] lg:p-5"
         >
           <div className="flex gap-3 sm:gap-4">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--purple-600)]/25 text-[var(--purple-300)] transition-transform duration-300 group-hover:scale-110">
@@ -136,15 +136,15 @@ export function AdminSection() {
                   Lead Your Campus
                 </Eyebrow>
                 <h2 className="text-[2.25rem] font-extrabold leading-[1.05] tracking-tight sm:text-[3rem] lg:text-[3.25rem]">
-                  Become a <span className="text-[var(--purple-400)]">Founding Admin.</span>
+                  Lead Your College <span className="text-[var(--purple-400)]">on Naavik.</span>
                 </h2>
-                <div className="mt-6 space-y-4 text-[17px] font-medium leading-relaxed text-gray-400">
+                <div className="mt-6 space-y-4 text-[17px] font-semibold leading-relaxed text-gray-400">
                   <p>We are selecting exactly one student per college to lead their campus on Naavik. This isn&apos;t a form submission; it&apos;s a real leadership role.</p>
                   <p>You&apos;ll upload and organise study resources, verify campus updates, and build your college&apos;s digital hub from the ground up.</p>
                 </div>
                 <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                  <AdminButton id="admin-cta" className="naavik-btn naavik-btn-primary h-14 !rounded-2xl px-8 text-[16px]">
-                    Become a Founding Admin <ArrowRight className="h-5 w-5" />
+                  <AdminButton id="admin-cta" className="naavik-btn naavik-btn-primary h-14 !rounded-2xl px-8 text-[16px] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]">
+                    Lead Your College on Naavik <ArrowRight className="h-5 w-5" />
                   </AdminButton>
                   <p className="text-[13px] font-semibold text-gray-500">
                     Takes 5 minutes. <br />Reviewed personally.

@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Briefcase, BookOpen, Code, Users, Bell } from 'lucide-react'
 import { WaitlistButton } from '../ui/cta-buttons'
 import { DashboardMockup } from '../sections/dashboard-mockup'
@@ -32,6 +33,111 @@ const fadeUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] as const },
+}
+
+const ACTIVITIES = [
+  { text: 'New internship posted', time: 'Just now' },
+  { text: 'New hackathon announced', time: '2 min ago' },
+  { text: 'Student uploaded project', time: '5 min ago' },
+  { text: 'Looking for teammates', time: '10 min ago' },
+  { text: 'College admin posted announcement', time: '15 min ago' },
+  { text: 'New study resource uploaded', time: '25 min ago' },
+]
+
+export function useCountUp(target: number, duration: number = 1500) {
+  const [count, setCount] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setCount(target)
+      return
+    }
+
+    let startTimestamp: number | null = null
+    let frameId: number
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+      const ease = progress * (2 - progress) // Ease out quad
+      setCount(Math.floor(ease * target))
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(step)
+      } else {
+        setCount(target)
+      }
+    }
+
+    frameId = window.requestAnimationFrame(step)
+    return () => window.cancelAnimationFrame(frameId)
+  }, [target, duration, shouldReduceMotion])
+
+  return count
+}
+
+function LiveFeedBadge() {
+  const [index, setIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (isHovered) return
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % ACTIVITIES.length)
+    }, 7000)
+    return () => clearInterval(interval)
+  }, [isHovered])
+
+  const current = ACTIVITIES[index]
+
+  const slideVariants = shouldReduceMotion
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+      }
+    : {
+        initial: { opacity: 0, y: 10 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -10 },
+      }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.55, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute -right-4 top-0 z-20 flex h-[38px] w-[310px] items-center gap-2 rounded-xl border border-[var(--purple-100)] bg-white/95 px-3 shadow-[var(--shadow-soft)] backdrop-blur-md transition-shadow duration-300 hover:shadow-[var(--shadow-card)]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <span className="relative flex h-2 w-2 shrink-0">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+      </span>
+      <span className="text-[9px] font-extrabold tracking-wider text-emerald-600 uppercase shrink-0">
+        LIVE FEED
+      </span>
+      <span className="h-3 w-px bg-gray-200 shrink-0" />
+      <div className="relative flex-1 overflow-hidden h-4">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={index}
+            variants={slideVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center justify-between gap-2 w-full text-[11px] font-semibold text-gray-600"
+          >
+            <span className="truncate text-gray-700">{current.text}</span>
+            <span className="shrink-0 text-[10px] font-normal text-gray-400">{current.time}</span>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  )
 }
 
 function EarlyAccessBadge() {
@@ -101,13 +207,13 @@ function CtaGroup({ stacked }: { stacked?: boolean }) {
     >
       <WaitlistButton
         id="hero-primary-cta"
-        className="naavik-btn naavik-btn-primary h-[52px] w-full !rounded-[var(--naavik-radius)]"
+        className="naavik-btn naavik-btn-primary h-[52px] w-full !rounded-[var(--naavik-radius)] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
       >
         Reserve My Spot
       </WaitlistButton>
       <a
         href="#whats-inside"
-        className="naavik-btn naavik-btn-secondary group h-[52px] w-full !rounded-[var(--naavik-radius)]"
+        className="naavik-btn naavik-btn-secondary group h-[52px] w-full !rounded-[var(--naavik-radius)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
       >
         Explore Features
         <span className="transition-transform group-hover:translate-x-0.5">→</span>
@@ -123,6 +229,7 @@ function WaitlistProgress({
 }: Pick<Props, 'waitlistCount' | 'waitlistGoal' | 'progressPercentage'>) {
   const { count } = useWaitlist()
   const displayCount = Math.max(initialWaitlistCount, count)
+  const animatedCount = useCountUp(displayCount, 1500)
   const displayPercentage = Math.round((displayCount / waitlistGoal) * 100)
 
   return (
@@ -130,11 +237,11 @@ function WaitlistProgress({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.55, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="naavik-card mt-5 p-4"
+      className="naavik-card mt-5 p-4 transition-all duration-300 hover:shadow-[var(--shadow-elevated)]"
     >
       <div className="flex items-baseline justify-between text-[13px] font-medium">
         <span>
-          <strong className="text-[15px] text-foreground">{displayCount}</strong>{' '}
+          <strong className="text-[15px] text-foreground">{animatedCount}</strong>{' '}
           students joined
         </span>
         <span className="text-gray-500">Goal: {waitlistGoal}</span>
@@ -165,7 +272,7 @@ function TrustBadges({ mobile }: { mobile?: boolean }) {
       {TRUST.map((t) => (
         <span
           key={t}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8F8FA] px-2.5 py-2 text-[11px] font-semibold text-gray-500 ring-1 ring-gray-100 sm:text-[12px]"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8F8FA] px-2.5 py-2 text-[11px] font-semibold text-gray-500 ring-1 ring-gray-100 sm:text-[12px] transition-all duration-300 hover:bg-gray-100"
         >
           <span className="text-[var(--purple-600)]">✓</span>
           {t}
@@ -194,16 +301,7 @@ function HeroVisual({ mobile }: { mobile?: boolean }) {
             className="absolute -left-6 bottom-8 z-0 h-28 w-44 rounded-2xl border border-white/90 bg-white/70 shadow-[var(--shadow-card)] backdrop-blur-xl"
           />
           {/* Depth layer — top-right chip */}
-          <motion.div
-            aria-hidden
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -right-4 top-0 z-20 flex items-center gap-2 rounded-xl border border-[var(--purple-100)] bg-white/90 px-3 py-2 shadow-[var(--shadow-soft)] backdrop-blur-md"
-          >
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span className="text-[11px] font-semibold text-gray-600">Live feed</span>
-          </motion.div>
+          <LiveFeedBadge />
           {/* Depth layer — bottom stat */}
           <motion.div
             aria-hidden

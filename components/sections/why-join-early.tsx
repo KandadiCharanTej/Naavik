@@ -1,7 +1,7 @@
 import { Reveal } from '@/components/animations/reveal'
 import { WaitlistButton } from '@/components/ui/cta-buttons'
 import { getSupabaseAdmin } from '@/lib/supabase'
-import { Rocket, ShieldCheck, HeartHandshake, BellRing, Vote, type LucideIcon } from 'lucide-react'
+import { Rocket, ShieldCheck, HeartHandshake, BellRing, Vote, Award, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   PageContainer,
@@ -54,17 +54,24 @@ export async function WhyJoinEarly() {
     {
       icon: ShieldCheck,
       title: 'Zero Spam',
-      desc: "We only email you when something real happensâ€”like your campus going live. That's it.",
+      desc: "We only email you when something real happens—like your campus going live. That's it.",
       color: 'text-emerald-500 bg-emerald-50',
-      span: 'lg:col-span-6',
+      span: 'lg:col-span-4',
     },
     {
       icon: BellRing,
       title: 'Campus Alerts',
       desc: 'The exact moment your college is activated, you get the notification. Straight to your inbox.',
       color: 'text-yellow-500 bg-yellow-50',
-      span: 'lg:col-span-6',
+      span: 'lg:col-span-4',
       dark: true,
+    },
+    {
+      icon: Award,
+      title: 'Founding Member',
+      desc: 'Be recognized as one of the first students who joined Naavik before launch.',
+      color: 'text-purple-500 bg-purple-50',
+      span: 'lg:col-span-4',
     },
   ]
 
@@ -165,7 +172,7 @@ export async function WhyJoinEarly() {
           <div className="mx-auto mt-14 max-w-lg border-t border-gray-200 pt-10 text-center lg:mt-20">
             <h3 className="text-[18px] font-bold">Built by students, for students.</h3>
             <p className="mt-3 text-[16px] leading-relaxed text-gray-500">
-              We started Naavik because we faced the exact same problems you do — missed deadlines, scattered notes, zero network. We&apos;re building the app we wished we had.
+              We built Naavik because we experienced the same frustrations every engineering student faces—missed opportunities, scattered notes, disconnected communities, and too many apps. Instead of adapting to the chaos, we decided to build one place that simply works.
             </p>
             <a href="mailto:naavik.team@gmail.com" className="mt-5 inline-flex text-[15px] font-semibold text-[var(--purple-600)]">
               naavik.team@gmail.com →

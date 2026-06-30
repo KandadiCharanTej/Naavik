@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Script from 'next/script'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { GoogleAnalytics, MicrosoftClarity, ScrollDepthTracker } from '@/components/providers/analytics'
 import { Toaster } from '@/components/ui/sonner'
@@ -105,6 +106,7 @@ export default async function RootLayout({
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
@@ -122,6 +124,7 @@ export default async function RootLayout({
         />
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
@@ -139,7 +142,10 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900 selection:bg-[var(--purple-100)] selection:text-[var(--purple-900)] overflow-x-hidden w-full m-0 p-0 max-w-[100vw] min-h-screen flex flex-col`}>
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900 selection:bg-[var(--purple-100)] selection:text-[var(--purple-900)] overflow-x-hidden w-full m-0 p-0 max-w-[100vw] min-h-screen flex flex-col`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

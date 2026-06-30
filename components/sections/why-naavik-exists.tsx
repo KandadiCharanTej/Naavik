@@ -1,4 +1,7 @@
+'use client'
+
 import { IntersectionReveal as Reveal } from '@/components/animations/intersection-reveal'
+import { motion } from 'framer-motion'
 import {
   MessageCircle,
   Briefcase,
@@ -44,14 +47,14 @@ const scatteredIcons = [MessageCircle, Briefcase, Cloud, Globe, Code, Database, 
 
 const OldWayCard = memo(function OldWayCard() {
   return (
-    <Card className="relative h-full overflow-hidden border-red-100/80 bg-white p-6 shadow-[0_8px_24px_rgba(239,68,68,0.08)] sm:p-8">
+    <Card className="relative h-full overflow-hidden border-red-100/85 bg-white p-6 shadow-[0_8px_24px_rgba(239,68,68,0.06)] transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(239,68,68,0.1)] sm:p-8">
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-400 to-red-500" />
 
       <div className="flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-500">
           <XCircle className="h-5 w-5" />
         </span>
-        <h3 className="text-[20px] font-bold">The Old Way</h3>
+        <h3 className="text-[20px] font-bold text-gray-900">Without Naavik</h3>
       </div>
 
       <div className="pointer-events-none absolute right-4 top-16 hidden opacity-40 xl:block">
@@ -72,20 +75,20 @@ const OldWayCard = memo(function OldWayCard() {
         </div>
       </div>
 
-      <ul className="relative mt-6 space-y-3 sm:space-y-4">
+      <ul className="relative mt-6 space-y-4">
         {contrastItems.map((item) => (
           <li
             key={item.before}
-            className="flex items-start gap-3 border-b border-gray-50 pb-3 text-[14px] font-medium text-gray-500 last:border-0 last:pb-0 sm:text-[15px]"
+            className="flex items-start gap-3 border-b border-gray-50 pb-3.5 text-[14px] font-medium text-gray-400 last:border-0 last:pb-0 sm:text-[15px]"
           >
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-300" />
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-red-300" />
             {item.before}
           </li>
         ))}
       </ul>
 
-      <div className="mt-6 rounded-xl bg-gray-50 p-4 ring-1 ring-gray-100 sm:mt-8">
-        <div className="flex flex-wrap gap-2 opacity-70">
+      <div className="mt-6 rounded-xl bg-gray-50/70 p-4 ring-1 ring-gray-100 sm:mt-8">
+        <div className="flex flex-wrap gap-2 opacity-60">
           {scatteredIcons.map((Icon, idx) => (
             <div
               key={idx}
@@ -102,42 +105,58 @@ const OldWayCard = memo(function OldWayCard() {
 
 const WithNaavikCard = memo(function WithNaavikCard() {
   return (
-    <Card className="relative h-full isolate overflow-hidden border-[var(--purple-200)] bg-white p-6 shadow-[0_8px_24px_rgba(124,58,237,0.08)] sm:p-8">
+    <Card className="relative h-full isolate overflow-hidden border-[var(--purple-200)] bg-white p-6 shadow-[0_8px_24px_rgba(124,58,237,0.06)] transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(124,58,237,0.1)] sm:p-8">
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--purple-500)] to-[#A855F7]" />
 
       <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--purple-100)] text-[var(--purple-600)]">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--purple-100)] text-[var(--purple-600)] shadow-inner">
           <CheckCircle2 className="h-5 w-5" />
         </span>
-        <h3 className="text-[20px] font-bold">With Naavik</h3>
+        <h3 className="text-[20px] font-bold text-gray-900">With Naavik</h3>
       </div>
 
-      <div className="mt-6 space-y-0">
+      <div className="mt-6 space-y-1">
         {contrastItems.map((item, idx) => (
-          <div
+          <motion.div
             key={item.after}
-            className={`grid items-center gap-3 border-b border-[var(--purple-50)] py-3.5 last:border-0 sm:grid-cols-[1fr_auto_1fr] sm:gap-4 ${
-              idx % 2 === 0 ? 'bg-transparent' : 'bg-[#FBF8FF] sm:rounded-lg sm:px-3'
-            }`}
+            whileHover="hover"
+            initial="rest"
+            className={`grid items-center gap-3 border-b border-[var(--purple-50)] py-3 px-2 last:border-0 sm:grid-cols-[1fr_auto_1fr] sm:gap-4 transition-colors duration-200 hover:bg-[#F5EFFF]/40 rounded-lg`}
           >
-            <span className="hidden text-[12px] font-medium text-gray-400 line-through sm:block sm:text-[13px]">
+            <span className="hidden text-[12px] font-medium text-gray-400/80 line-through sm:block sm:text-[13px] transition-colors duration-200">
               {item.before}
             </span>
-            <span className="hidden text-gray-300 sm:block">→</span>
+            <motion.span
+              className="hidden text-gray-300 sm:block"
+              variants={{
+                rest: { x: 0, color: '#D1D5DB' },
+                hover: { x: 3, color: '#8B5CF6' }
+              }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              →
+            </motion.span>
             <span className="flex items-start gap-2.5 sm:col-start-3">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--purple-500)] sm:h-5 sm:w-5" />
-              <span className="text-[14px] font-bold text-foreground sm:text-[15px]">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--purple-500)] sm:h-5 sm:w-5 transition-transform duration-200" />
+              <motion.span
+                className="text-[14px] font-bold text-foreground sm:text-[15px]"
+                variants={{
+                  rest: { scale: 1 },
+                  hover: { scale: 1.01, color: '#6D28D9' }
+                }}
+                transition={{ duration: 0.2 }}
+              >
                 {item.after}
-              </span>
+              </motion.span>
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
     </Card>
   )
 })
 
-export async function WhyNaavikExists() {
+export function WhyNaavikExists() {
   return (
     <Section id="whats-inside" surface="subtle">
       <PageContainer className="relative">

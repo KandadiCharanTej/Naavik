@@ -32,6 +32,51 @@ const faqs = [
     answer:
       "Those are job boards. Naavik is built for your college life — campus notes, PYQs, hackathon team-finding, campus announcements, and opportunities filtered by your branch and year. LinkedIn doesn't do any of that.",
   },
+  {
+    question: 'Can students from different colleges connect?',
+    answer:
+      'Yes, you can search and filter for teammates, co-founders, or peers across all active colleges in Telangana and Andhra Pradesh.',
+  },
+  {
+    question: 'How are opportunities verified?',
+    answer:
+      'Our team manually checks every internship, hackathon, and scholarship post directly with the sourcing platforms to ensure no fake postings or dead links.',
+  },
+  {
+    question: 'Who uploads study resources?',
+    answer:
+      'Verified campus admins and senior students upload study notes, lab manuals, and previous year papers, which are reviewed before going live.',
+  },
+  {
+    question: 'Can I become a campus admin later?',
+    answer:
+      'Yes, but only if the spot is open. We assign one primary founding admin per college to maintain resource quality.',
+  },
+  {
+    question: 'Will Naavik be available on Android and iOS?',
+    answer:
+      'Yes, Naavik will launch as a web app first and will be available on both the Google Play Store and Apple App Store shortly after.',
+  },
+  {
+    question: 'Can I showcase my own projects?',
+    answer:
+      'Absolutely. The Project Hub is built specifically for students to share their creations, get feedback from peers, and catch the eye of recruiters.',
+  },
+  {
+    question: 'How does Early Access work?',
+    answer:
+      'Join the waitlist with your college email. As soon as a student admin activates your campus workspace, we will invite you to sign up.',
+  },
+  {
+    question: 'Is my college supported?',
+    answer:
+      'We support all major engineering colleges in Telangana and AP. If your campus is not yet active, you can apply as an admin to launch it.',
+  },
+  {
+    question: 'Can students post in the community?',
+    answer:
+      'Yes, students can share discussion posts, ask questions, find teammates, and interact with peers, while moderators keep discussions constructive.',
+  },
 ]
 
 export function FaqSection() {

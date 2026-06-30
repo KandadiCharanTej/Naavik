@@ -17,8 +17,8 @@ import { PageContainer, Section, Eyebrow } from '@/components/design/primitives'
 const iconMap: Record<string, LucideIcon> = {
   Opportunities: Briefcase,
   'Study Vault': BookOpen,
-  Projects: Rocket,
-  'Connect & Team Finder': Users,
+  'Project Hub': Rocket,
+  Connect: Users,
   'College Hub': Building2,
   'Campus Updates': MessageSquare,
   Leaderboards: Trophy,
@@ -43,11 +43,11 @@ const dayOne: FeatureItem[] = [
     desc: 'Notes, PYQs, and semester study materials uploaded and verified by student admins.',
   },
   {
-    name: 'Projects',
+    name: 'Project Hub',
     desc: 'Showcase your builds to peers, founders, and recruiters looking for student developers.',
   },
   {
-    name: 'Connect & Team Finder',
+    name: 'Connect',
     desc: 'Find and chat with teammates for hackathons from colleges across TG & AP.',
   },
 ]
@@ -94,9 +94,9 @@ function GroupLabel({
   variant: 'dayOne' | 'coming' | 'future'
 }) {
   const styles = {
-    dayOne: 'border-emerald-200/80 bg-gradient-to-r from-emerald-50/90 to-white text-emerald-800',
-    coming: 'border-amber-200/80 bg-gradient-to-r from-amber-50/80 to-white text-amber-900',
-    future: 'border-[var(--purple-100)] bg-gradient-to-r from-[var(--purple-50)]/80 to-white text-[var(--purple-800)]',
+    dayOne: 'border-emerald-250/80 bg-gradient-to-r from-emerald-50/90 to-white text-emerald-800 shadow-sm',
+    coming: 'border-amber-250/80 bg-gradient-to-r from-amber-50/80 to-white text-amber-900 shadow-sm',
+    future: 'border-[var(--purple-200)] bg-gradient-to-r from-[var(--purple-50)]/80 to-white text-[var(--purple-800)] shadow-sm',
   }
 
   return (
@@ -111,16 +111,16 @@ function DayOneCard({ item, delay }: { item: FeatureItem; delay: number }) {
 
   return (
     <Reveal delay={delay} className="h-full">
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-emerald-100/80 bg-white p-4 shadow-[0_8px_32px_rgba(16,185,129,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(16,185,129,0.12)] sm:p-5">
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-emerald-100/80 bg-white p-4 shadow-[0_8px_32px_rgba(16,185,129,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_16px_48px_rgba(16,185,129,0.1)] sm:p-5">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-emerald-100/50 blur-2xl transition-opacity group-hover:opacity-80"
+          className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-emerald-100/50 blur-2xl transition-opacity group-hover:opacity-85"
         />
-        <span className="relative mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100 transition-transform duration-300 group-hover:scale-105">
+        <span className="relative mb-3.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100 transition-transform duration-300 group-hover:scale-105">
           <Icon className="h-5 w-5" />
         </span>
-        <h4 className="relative text-[15px] font-bold tracking-[-0.02em] text-foreground sm:text-[16px]">{item.name}</h4>
-        <p className="relative mt-1.5 line-clamp-3 text-[12px] leading-relaxed text-gray-500 sm:text-[13px]">{item.desc}</p>
+        <h4 className="relative text-[15px] font-extrabold tracking-[-0.02em] text-gray-900 sm:text-[16px]">{item.name}</h4>
+        <p className="relative mt-2 line-clamp-3 text-[12.5px] leading-relaxed text-gray-500 font-medium sm:text-[13px]">{item.desc}</p>
       </article>
     </Reveal>
   )
@@ -144,13 +144,13 @@ function CompactCard({
         className={cn(
           'group flex h-full items-start gap-3 rounded-[24px] border p-3.5 transition-all duration-300 sm:p-4',
           isFuture
-            ? 'border-gray-200/70 bg-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:border-[var(--purple-100)] hover:shadow-[0_8px_24px_rgba(124,58,237,0.06)]'
-            : 'border-amber-100/70 bg-white shadow-[0_4px_20px_rgba(245,158,11,0.06)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(245,158,11,0.1)]',
+            ? 'border-gray-200/70 bg-white/80 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:border-[var(--purple-200)] hover:shadow-[0_8px_24px_rgba(124,58,237,0.06)]'
+            : 'border-amber-100/70 bg-white shadow-[0_4px_20px_rgba(245,158,11,0.04)] hover:-translate-y-0.5 hover:border-amber-200 hover:shadow-[0_12px_32px_rgba(245,158,11,0.08)]',
         )}
       >
         <span
           className={cn(
-            'flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9',
+            'flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9 transition-transform duration-300 group-hover:scale-105',
             isFuture
               ? 'bg-gray-50 text-gray-500 ring-gray-100 group-hover:bg-[var(--purple-50)] group-hover:text-[var(--purple-600)] group-hover:ring-[var(--purple-100)]'
               : 'bg-amber-50 text-amber-600 ring-amber-100',
@@ -159,10 +159,10 @@ function CompactCard({
           <Icon className="h-4 w-4" />
         </span>
         <div className="min-w-0">
-          <h4 className={cn('font-bold tracking-[-0.02em]', isFuture ? 'text-[13px] text-gray-700 sm:text-[14px]' : 'text-[14px] text-foreground')}>
+          <h4 className={cn('font-extrabold tracking-[-0.02em] text-gray-900', isFuture ? 'text-[13px] sm:text-[14px]' : 'text-[14px]')}>
             {item.name}
           </h4>
-          <p className={cn('mt-1 line-clamp-2 leading-snug', isFuture ? 'text-[11px] text-gray-400 sm:text-[12px]' : 'text-[12px] text-gray-500')}>
+          <p className={cn('mt-1 line-clamp-2 leading-relaxed font-medium text-gray-500', isFuture ? 'text-[11px] sm:text-[12px]' : 'text-[12.5px]')}>
             {item.desc}
           </p>
         </div>
@@ -180,7 +180,7 @@ export function WhatsReady() {
             <div>
               <Eyebrow tone="purple">WHAT YOU GET</Eyebrow>
               <h2 className="mt-2 text-[1.875rem] font-extrabold tracking-[-0.035em] sm:text-[2.25rem] lg:text-[2.5rem]">
-                Available at <span className="text-[var(--purple-600)]">launch.</span>
+                Available on <span className="text-[var(--purple-600)]">Day One.</span>
               </h2>
             </div>
           </div>
@@ -197,9 +197,9 @@ export function WhatsReady() {
             </div>
           </div>
 
-          {/* Coming Next */}
+          {/* Coming Soon */}
           <div>
-            <GroupLabel title="⏳ Coming Next" variant="coming" />
+            <GroupLabel title="⏳ Coming Soon" variant="coming" />
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:mt-3 lg:gap-4">
               {comingSoon.map((item, i) => (
                 <CompactCard key={item.name} item={item} delay={160 + i * 25} variant="coming" />
@@ -207,9 +207,9 @@ export function WhatsReady() {
             </div>
           </div>
 
-          {/* Future Vision */}
+          {/* Long-Term Vision */}
           <div>
-            <GroupLabel title="🚀 Future Vision" variant="future" />
+            <GroupLabel title="🚀 Long-Term Vision" variant="future" />
             <div className="mt-4 grid grid-cols-2 gap-3 lg:mt-3 lg:grid-cols-4 lg:gap-4">
               {future.map((item, i) => (
                 <CompactCard key={item.name} item={item} delay={240 + i * 20} variant="future" />

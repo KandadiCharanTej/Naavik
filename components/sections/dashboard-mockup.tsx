@@ -1,6 +1,5 @@
-'use client'
-
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   BookOpen,
   Briefcase,
@@ -21,12 +20,56 @@ const navItems = [
   { icon: Users, label: 'Connect' },
 ]
 
+const PLACEHOLDERS = [
+  'Search internships...',
+  'Search hackathons...',
+  'Search study materials...',
+  'Search PYQs...',
+  'Search project teams...',
+]
+
 export function DashboardMockup({
   variant = 'desktop',
 }: {
   variant?: 'desktop' | 'mobile'
 }) {
   const isMobile = variant === 'mobile'
+  const shouldReduceMotion = useReducedMotion()
+
+  const [currentPlaceholder, setCurrentPlaceholder] = useState('')
+  const [placeholderIndex, setPlaceholderIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setCurrentPlaceholder(PLACEHOLDERS[0])
+      return
+    }
+
+    const fullText = PLACEHOLDERS[placeholderIndex]
+    let timer: NodeJS.Timeout
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setCurrentPlaceholder((prev) => prev.slice(0, -1))
+      }, 40)
+    } else {
+      timer = setTimeout(() => {
+        setCurrentPlaceholder((prev) => fullText.slice(0, prev.length + 1))
+      }, 80)
+    }
+
+    if (!isDeleting && currentPlaceholder === fullText) {
+      timer = setTimeout(() => setIsDeleting(true), 2500)
+    } else if (isDeleting && currentPlaceholder === '') {
+      setIsDeleting(false)
+      setPlaceholderIndex((prev) => (prev + 1) % PLACEHOLDERS.length)
+    }
+
+    return () => clearTimeout(timer)
+  }, [currentPlaceholder, isDeleting, placeholderIndex, shouldReduceMotion])
+
+  const placeholderText = shouldReduceMotion ? PLACEHOLDERS[0] : currentPlaceholder
 
   return (
     <div
@@ -43,7 +86,7 @@ export function DashboardMockup({
       <div className="group relative flex h-full w-full flex-col overflow-hidden rounded-[20px] border border-white/60 bg-white/70 shadow-[0_32px_80px_-12px_rgba(0,0,0,0.14),0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-2xl lg:rounded-[24px]">
         {/* Window chrome - desktop only */}
         {!isMobile && (
-          <div className="flex h-11 w-full shrink-0 items-center justify-between border-b border-white/50 bg-white/50 px-4">
+          <div className="flex h-11 w-full shrink-0 items-center justify-between border-b border-white/5 bg-white/50 px-4">
             <div className="flex items-center gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
               <div className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
@@ -114,13 +157,19 @@ export function DashboardMockup({
             <div className="flex shrink-0 items-center justify-between gap-2">
               <div className="flex h-8 min-w-0 flex-1 items-center rounded-full border border-gray-100 bg-white px-3 shadow-sm sm:h-9 sm:max-w-[220px]">
                 <Search size={13} className="mr-2 shrink-0 text-gray-400" />
-                <span className="truncate text-[11px] font-medium text-gray-400 sm:text-[12px]">
-                  Search internships...
+                <span className="truncate text-[11px] font-medium text-gray-400 sm:text-[12px] min-h-[16px] inline-block">
+                  {placeholderText}
+                  {!shouldReduceMotion && (
+                    <span className="inline-block w-[1px] h-[12px] ml-0.5 bg-[var(--purple-500)] animate-pulse" />
+                  )}
                 </span>
               </div>
-              <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-100 bg-white text-gray-400 shadow-sm sm:h-9 sm:w-9">
+              <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-100 bg-white text-gray-400 shadow-sm sm:h-9 sm:w-9 transition-transform duration-300 hover:scale-105">
                 <Bell size={15} />
-                <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full border border-white bg-red-500" />
+                <span className="absolute right-1.5 top-1.5 flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full border border-white bg-red-500" />
+                </span>
               </div>
             </div>
 
