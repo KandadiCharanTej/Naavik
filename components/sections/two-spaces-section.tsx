@@ -255,6 +255,7 @@ const growthHighlights = [
   { label: '🤝 Connect' },
   { label: '🚀 Project Hub' },
   { label: '📢 Growth Feed' },
+  { label: '📈 100+ Monthly Opportunities' },
 ]
 
 const collegeHighlights = [
@@ -638,22 +639,7 @@ function LeftColumn({ activeTab }: { activeTab: TabId }) {
           <HighlightChips accent={activeTab} />
         </div>
 
-        {/* Premium Integrated Statistics Callout Box */}
-        <div className="hidden lg:block">
-          <div className="rounded-2xl border border-gray-150 bg-gray-50/50 p-4 shadow-sm max-w-sm flex items-center gap-3.5 transition-all duration-300 hover:shadow-md">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 ring-1 ring-purple-100">
-              {isGrowth ? <Briefcase className="h-5.5 w-5.5" /> : <BookOpen className="h-5.5 w-5.5" />}
-            </div>
-            <div>
-              <p className="text-[18px] font-black text-gray-900 leading-none">
-                {isGrowth ? '100+' : '📚'}
-              </p>
-              <p className="mt-1 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                {isGrowth ? 'Monthly Opportunities' : 'Campus Resources'}
-              </p>
-            </div>
-          </div>
-        </div>
+
 
         {/* Solid Colored Apply Button */}
         <div className="hidden lg:block">
