@@ -1,7 +1,8 @@
 import { SiteHeader } from '@/components/layout/site-header'
 import { Hero } from '@/components/sections/hero'
 import { WhyNaavikExists } from '@/components/sections/why-naavik-exists'
-import { InsideNaavik } from '@/components/sections/inside-naavik'
+import { TwoSpacesSection } from '@/components/sections/two-spaces-section'
+import { InsideNaavik } from '@/components/sections/inside-naavik' // keeping fallback reference if needed
 import { DayWithNaavik } from '@/components/sections/day-with-naavik'
 import { ProductPreview } from '@/components/sections/product-preview'
 import { WhatsReady } from '@/components/sections/whats-ready'
@@ -18,7 +19,7 @@ export default function Home() {
       <main className="naavik-page-flow relative overflow-x-clip">
         <Hero />
         <WhyNaavikExists />
-        <InsideNaavik />
+        <TwoSpacesSection />
         <DayWithNaavik />
         <ProductPreview />
         <WhatsReady />
