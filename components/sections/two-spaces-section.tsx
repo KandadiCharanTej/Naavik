@@ -94,7 +94,7 @@ const growthFeatures: Feature[] = [
             <h5 className="text-[13px] font-extrabold text-gray-900">Sai Teja</h5>
             <p className="text-[10.5px] font-bold text-gray-400">VNR VJIET · CSE 3rd Year</p>
           </div>
-          <button className="shrink-0 rounded-full bg-[var(--purple-600)] px-3 py-1 text-[10px] font-extrabold text-white hover:bg-[var(--purple-750)] transition-all duration-200 cursor-pointer">
+          <button className="shrink-0 rounded-full bg-[var(--purple-600)] px-3 py-1 text-[10px] font-extrabold text-white hover:bg-[var(--purple-700)] transition-all duration-200 cursor-pointer">
             Connect
           </button>
         </div>
@@ -200,7 +200,7 @@ const collegeFeatures: Feature[] = [
           </div>
           <span className="shrink-0 text-[10.5px] font-bold text-emerald-600 uppercase">Reg Open</span>
         </div>
-        <button className="w-full rounded-lg bg-[var(--purple-600)] py-1.5 text-[11px] font-bold text-white hover:bg-[var(--purple-750)] cursor-pointer">
+        <button className="w-full rounded-lg bg-[var(--purple-600)] py-1.5 text-[11px] font-bold text-white hover:bg-[var(--purple-700)] cursor-pointer">
           Register Now
         </button>
       </div>
@@ -533,17 +533,15 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
 
       {/* Verified Workspaces Only callout */}
       {activeTab === 'college' && (
-        <div className="trust-callout relative z-20 mt-6">
-          <div className="flex items-start gap-3">
-            <span className="text-[20px]">🛡️</span>
-            <div>
-              <h4 className="mb-1.5 text-[14px] font-bold text-[#92400E]">Verified Workspaces Only</h4>
-              <p className="text-[13px] font-semibold leading-relaxed text-[#B45309]">
-                Each campus workspace goes live only after a verified student admin activates and manages it.<br />
-                We don&apos;t create empty campuses.<br />
-                Quality over scale — always.
-              </p>
+        <div className="relative z-20 mt-8 rounded-2xl border border-amber-250 bg-amber-50/50 p-4.5 shadow-[0_2px_12px_rgba(245,158,11,0.02)]">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-[18px]">🛡️</span>
+              <h4 className="text-[14px] font-extrabold text-[#92400E]">Verified Workspaces Only:</h4>
             </div>
+            <p className="text-[13px] font-semibold text-[#B45309] leading-normal">
+              Campus workspaces go live only after activation by a verified student admin. No empty campuses — quality over scale.
+            </p>
           </div>
         </div>
       )}
@@ -673,7 +671,7 @@ function LeftColumn({ activeTab }: { activeTab: TabId }) {
             href={ADMIN_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="naavik-btn naavik-btn-secondary inline-flex !rounded-2xl px-5 py-3 text-[14px] font-bold text-[var(--purple-600)] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-700)] px-6 py-3.5 text-[14px] font-bold text-white shadow-md shadow-[var(--purple-600)]/10 hover:shadow-lg hover:shadow-[var(--purple-600)]/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           >
             Apply to bring Naavik to your campus →
           </a>
@@ -733,7 +731,7 @@ export function TwoSpacesSection() {
             href={ADMIN_FORM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="naavik-btn naavik-btn-secondary inline-flex w-full !rounded-2xl px-6 py-3 font-bold text-[var(--purple-600)] sm:w-auto"
+            className="inline-flex items-center justify-center w-full rounded-2xl bg-gradient-to-r from-[var(--purple-600)] to-[var(--purple-700)] px-6 py-3.5 font-bold text-white shadow-md shadow-[var(--purple-600)]/10 hover:shadow-lg hover:shadow-[var(--purple-600)]/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
           >
             Apply to bring Naavik to your campus →
           </a>
