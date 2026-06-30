@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Briefcase,
@@ -11,7 +11,6 @@ import {
   FileText,
   Globe,
   MessageSquare,
-  ArrowRight,
 } from 'lucide-react'
 import { PageContainer, Section, Eyebrow } from '@/components/design/primitives'
 import { ADMIN_FORM_URL } from '@/lib/constants'
@@ -36,7 +35,7 @@ const growthFeatures: Feature[] = [
     tag: 'Featured',
     tagColor: 'text-orange-600 border-orange-100 bg-orange-50',
     previewContent: (
-      <div className="flex flex-col gap-2.5 text-left">
+      <div className="flex flex-col gap-2 text-left">
         <div className="flex items-start justify-between">
           <div>
             <h5 className="text-[13.5px] font-extrabold text-gray-900 sm:text-[14.5px]">Software Engineering Intern</h5>
@@ -84,7 +83,7 @@ const growthFeatures: Feature[] = [
   },
   {
     title: 'Connect',
-    desc: 'Find and chat with classmates or teammate co-founders across campuses.',
+    desc: 'Find and chat with teammates across engineering campuses.',
     icon: Users,
     tag: 'Community',
     tagColor: 'text-blue-600 border-blue-100 bg-blue-50',
@@ -216,12 +215,11 @@ const collegeFeatures: Feature[] = [
     previewContent: (
       <div className="flex flex-col gap-2 text-left">
         <p className="text-[12px] font-bold text-gray-800 leading-snug">
-          &quot;Is the DBMS mid-term syllabus strictly from unit-3 or unit-4 as well?&quot;
+          &quot;Is the DBMS syllabus strictly from unit-3 or unit-4?&quot;
         </p>
         <div className="flex items-center justify-between text-[11px] text-gray-400 font-bold">
           <span>💬 12 replies</span>
           <span>❤️ 24 likes</span>
-          <span>Active 2m ago</span>
         </div>
       </div>
     ),
@@ -303,48 +301,115 @@ function HighlightChips({ accent }: { accent: TabId }) {
   )
 }
 
+function FloatingStatCard({ accent }: { accent: TabId }) {
+  const stat =
+    accent === 'growth'
+      ? { value: '100+', label: 'Monthly Opportunities' }
+      : { value: '📚', label: 'Campus Resources' }
+
+  return (
+    <div className="pointer-events-none absolute bottom-2 right-0 z-[5] hidden lg:block">
+      <div
+        className={cn(
+          'rounded-2xl border bg-white px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.06)]',
+          accent === 'growth'
+            ? 'border-[var(--purple-100)]/80'
+            : 'border-emerald-100/80',
+        )}
+      >
+        <p
+          className={cn(
+            'text-[1.375rem] font-black leading-none tracking-tight',
+            accent === 'growth' ? 'text-[var(--purple-600)]' : 'text-emerald-700',
+          )}
+        >
+          {stat.value}
+        </p>
+        <p className="mt-1 text-[11px] font-semibold text-gray-500">{stat.label}</p>
+      </div>
+    </div>
+  )
+}
+
+function ConnectorLines({ accent }: { accent: TabId }) {
+  const stroke = accent === 'growth' ? 'rgba(124,58,237,0.18)' : 'rgba(16,185,129,0.2)'
+  return (
+    <svg
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full lg:block animate-pulse duration-1000"
+      viewBox="0 0 800 520"
+      preserveAspectRatio="none"
+      fill="none"
+    >
+      <path d="M 120 80 C 200 120, 280 60, 380 140" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
+      <path d="M 380 140 C 420 200, 500 180, 560 280" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
+      <path d="M 200 360 C 300 320, 400 380, 520 340" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
+      <path d="M 560 280 C 620 340, 680 400, 720 460" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
+    </svg>
+  )
+}
+
 function HeroCard({ feature, accent }: { feature: Feature; accent: TabId }) {
   return (
-    <article className="transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/80 bg-white p-7 shadow-[0_12px_40px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] sm:p-8">
+    <article className="transform-gpu relative h-full overflow-hidden rounded-[24px] border border-gray-200/80 bg-white p-5 shadow-[0_8px_32px_rgba(124,58,237,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(124,58,237,0.1)] sm:p-6">
       <div
         aria-hidden
         className={cn(
-          'pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-40 blur-3xl',
+          'pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 blur-2xl',
           accent === 'growth' ? 'bg-[var(--purple-150)]' : 'bg-emerald-100',
         )}
       />
-      <div className="relative flex flex-col gap-5 sm:gap-6">
+      <div className="relative flex gap-4">
         <div
           className={cn(
-            'flex h-14 w-14 items-center justify-center rounded-2xl ring-1 transition-transform duration-300 hover:scale-105',
+            'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ring-1 transition-transform duration-300 hover:scale-105',
             accent === 'growth'
               ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
               : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
           )}
         >
-          <feature.icon className="h-7 w-7" />
+          <feature.icon className="h-6 w-6" />
         </div>
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="text-[19px] font-extrabold tracking-[-0.025em] text-gray-900 lg:text-[21px]">{feature.title}</h4>
-            <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider', feature.tagColor)}>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <h4 className="text-[17px] font-extrabold tracking-[-0.02em] text-gray-900 lg:text-[19px]">{feature.title}</h4>
+            <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wider', feature.tagColor)}>
               {feature.tag}
             </span>
           </div>
-          <p className="mt-2 text-[14px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
-          <div className="mt-5 rounded-2xl bg-[#F8F8FA] p-5 ring-1 ring-gray-100/60 shadow-[0_4px_16px_rgba(0,0,0,0.02)]">{feature.previewContent}</div>
+          <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
+          <div className="mt-4 rounded-2xl bg-[#F8F8FA] p-4 ring-1 ring-gray-100/60 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">{feature.previewContent}</div>
         </div>
       </div>
     </article>
   )
 }
 
-function SupportingCard({ feature, accent }: { feature: Feature; accent: TabId }) {
-  const Icon = feature.icon ?? Briefcase
+function SatelliteCard({
+  label,
+  feature,
+  accent,
+  className,
+  delay = 0,
+  compact,
+}: {
+  label?: string
+  feature?: Feature
+  accent: TabId
+  className?: string
+  delay?: number
+  compact?: boolean
+}) {
+  const title = feature?.title ?? label ?? ''
+  const Icon = feature?.icon ?? Briefcase
 
   return (
     <article
-      className="group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white p-5 shadow-[0_8px_24px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]"
+      className={cn(
+        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
+        compact ? 'p-3' : 'p-4.5',
+        className,
+      )}
     >
       <div
         aria-hidden
@@ -355,26 +420,35 @@ function SupportingCard({ feature, accent }: { feature: Feature; accent: TabId }
             : 'bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.06),transparent_70%)]',
         )}
       />
-      <div className="relative flex flex-col gap-4">
-        <div className="flex items-center justify-between gap-3">
-          <div
-            className={cn(
-              'flex h-9 w-9 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105',
-              accent === 'growth'
-                ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
-                : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
-            )}
-          >
-            <Icon className="h-4.5 w-4.5" />
-          </div>
-          <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider', feature.tagColor)}>
-            {feature.tag}
-          </span>
+      <div className="relative flex items-start gap-3">
+        <div
+          className={cn(
+            'flex shrink-0 items-center justify-center rounded-xl ring-1 transition-transform duration-300 group-hover:scale-105',
+            compact ? 'h-7 w-7' : 'h-9 w-9',
+            accent === 'growth'
+              ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
+              : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
+          )}
+        >
+          <Icon className={compact ? 'h-3.5 w-3.5' : 'h-4.5 w-4.5'} />
         </div>
-        <div className="min-w-0">
-          <h4 className="text-[14.5px] font-extrabold text-gray-900 tracking-[-0.015em] sm:text-[15px]">{feature.title}</h4>
-          <p className="mt-1 text-[12.5px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
-          <div className="mt-4 rounded-xl bg-[#F8F8FA] p-3.5 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-2">
+            <h4 className={cn('font-extrabold text-gray-900 tracking-[-0.02em]', compact ? 'text-[12px] leading-none mt-1.5' : 'text-[14.5px]')}>
+              {title}
+            </h4>
+            {!compact && feature && (
+              <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider', feature.tagColor)}>
+                {feature.tag}
+              </span>
+            )}
+          </div>
+          {!compact && feature && (
+            <>
+              <p className="mt-1 text-[12px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
+              <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3.5 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
+            </>
+          )}
         </div>
       </div>
     </article>
@@ -384,86 +458,93 @@ function SupportingCard({ feature, accent }: { feature: Feature; accent: TabId }
 function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
   const isGrowth = activeTab === 'growth'
   const features = isGrowth ? growthFeatures : collegeFeatures
-  const [heroCard, ...supportingCards] = features
   const satellites = isGrowth ? growthSatellites : collegeSatellites
+  
+  const hero = features[0]
+  const second = features[1]
+  const third = features[2]
+  const fourth = features[3]
+  const fifth = features[4] // Leaderboards (only in College)
 
   return (
-    <div className="relative">
+    <div className="relative min-h-[420px] lg:min-h-[460px]">
       {/* Ambient background glows */}
       <div
         aria-hidden
         className={cn(
-          'pointer-events-none absolute -inset-10 rounded-[50px] opacity-40 blur-3xl transition-colors duration-500',
+          'pointer-events-none absolute -inset-8 rounded-[40px] opacity-60',
           isGrowth
-            ? 'bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.15),transparent_65%)]'
-            : 'bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.15),transparent_65%)]',
+            ? 'bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.1),transparent_65%)]'
+            : 'bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.1),transparent_65%)]',
         )}
       />
+      <div
+        aria-hidden
+        className={cn(
+          'pointer-events-none absolute -bottom-6 -right-4 h-48 w-56 rounded-full opacity-70 lg:h-56 lg:w-64',
+          isGrowth
+            ? 'bg-[radial-gradient(circle,rgba(124,58,237,0.1),transparent_70%)]'
+            : 'bg-[radial-gradient(circle,rgba(16,185,129,0.08),transparent_70%)]',
+        )}
+      />
+      
+      <ConnectorLines accent={activeTab} />
+      <FloatingStatCard accent={activeTab} />
 
-      {/* Spacious asymmetric layout */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start lg:gap-10">
-        {/* Left Side: Hero Card */}
-        <div className="col-span-1 lg:col-span-6">
-          <div className="lg:sticky lg:top-36">
-            <HeroCard feature={heroCard} accent={activeTab} />
-          </div>
+      <div className="relative z-10 grid grid-cols-12 gap-3 lg:gap-4">
+        {/* Main Hero Card (takes 7 columns on desktop) */}
+        <div className="col-span-12 lg:col-span-7 lg:row-span-3">
+          <HeroCard feature={hero} accent={activeTab} />
         </div>
 
-        {/* Right Side: Staggered supporting cards to let whitespace act as design element */}
-        <div className="col-span-1 lg:col-span-6">
-          <div className="flex flex-col gap-8">
-            {supportingCards.map((feature, idx) => {
-              const alignRight = idx % 2 === 1
-              return (
-                <div 
-                  key={feature.title} 
-                  className={cn(
-                    "w-full grid grid-cols-1 md:grid-cols-12 gap-6",
-                    alignRight ? "justify-end" : "justify-start"
-                  )}
-                >
-                  {/* Empty Spacer Column for Asymmetric grid spacing on desktop */}
-                  {alignRight && <div className="hidden md:block md:col-span-3 lg:col-span-4" aria-hidden />}
-                  
-                  <div className="md:col-span-9 lg:col-span-8">
-                    <SupportingCard feature={feature} accent={activeTab} />
-                  </div>
-                  
-                  {!alignRight && <div className="hidden md:block md:col-span-3 lg:col-span-4" aria-hidden />}
-                </div>
-              )
-            })}
+        {/* Top Right Card */}
+        {second && (
+          <div className="col-span-6 lg:col-span-5 lg:-mt-6 lg:translate-x-2">
+            <SatelliteCard feature={second} accent={activeTab} delay={0.12} className="lg:rotate-[1.5deg]" />
           </div>
-        </div>
+        )}
+
+        {/* Middle Right Card */}
+        {third && (
+          <div className="col-span-6 lg:col-span-5 lg:col-start-8 lg:-mt-4">
+            <SatelliteCard feature={third} accent={activeTab} delay={0.2} className="lg:-rotate-[1deg]" />
+          </div>
+        )}
+
+        {/* Bottom Right Card (Growth Feed / Project Hub / College Feed) */}
+        {fourth && (
+          <div className="col-span-6 lg:col-span-5 lg:col-start-8 lg:-mt-2">
+            <SatelliteCard feature={fourth} accent={activeTab} delay={0.25} className="lg:rotate-[0.5deg]" />
+          </div>
+        )}
+
+        {/* Fifth Card (Leaderboards - only for College) */}
+        {fifth && (
+          <div className="col-span-6 lg:col-span-5 lg:col-start-8 lg:-mt-1">
+            <SatelliteCard feature={fifth} accent={activeTab} delay={0.3} className="lg:-rotate-[0.5deg]" />
+          </div>
+        )}
+
+        {/* Floating compact satellite pills overlapping at the bottom */}
+        {satellites.slice(0, 4).map((label, i) => (
+          <div
+            key={label}
+            className={cn(
+              'col-span-4 lg:col-span-3 z-20',
+              i === 0 && 'lg:col-start-2 lg:-mt-3',
+              i === 1 && 'lg:col-start-5 lg:-mt-1',
+              i === 2 && 'lg:col-start-8 lg:-mt-4',
+              i === 3 && 'lg:col-start-10 lg:-mt-2',
+            )}
+          >
+            <SatelliteCard label={label} accent={activeTab} compact delay={0.28 + i * 0.06} />
+          </div>
+        ))}
       </div>
 
-      {/* Quick Tags bottom section with generous spacing */}
-      <div className="mt-12 border-t border-gray-150 pt-8 relative z-20">
-        <div className="flex flex-col md:flex-row md:items-center gap-4">
-          <span className="text-[11.5px] font-extrabold uppercase tracking-widest text-gray-400 shrink-0">
-            Quick Tags
-          </span>
-          <div className="flex flex-wrap gap-2">
-            {satellites.map((label, i) => (
-              <span
-                key={label}
-                className={cn(
-                  'inline-flex items-center rounded-full border px-3 py-1.5 text-[11px] font-bold shadow-[0_2px_8px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md cursor-default',
-                  isGrowth
-                    ? 'border-purple-100 bg-white text-[var(--purple-700)] hover:border-[var(--purple-300)] hover:text-[var(--purple-800)]'
-                    : 'border-emerald-100 bg-white text-emerald-800 hover:border-emerald-300 hover:text-emerald-900',
-                )}
-              >
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Verified Workspaces Only callout with clean top spacing */}
+      {/* Verified Workspaces Only callout with correct top spacing */}
       {activeTab === 'college' && (
-        <div className="trust-callout relative z-20 mt-8">
+        <div className="trust-callout relative z-20 mt-6">
           <div className="flex items-start gap-3">
             <span className="text-[20px]">🛡️</span>
             <div>
@@ -477,6 +558,49 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
           </div>
         </div>
       )}
+    </div>
+  )
+}
+
+function MobileFeatureCarousel({ features, accent }: { features: Feature[]; accent: TabId }) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  return (
+    <div className="relative -mx-5 sm:-mx-6">
+      <div
+        ref={scrollRef}
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 scrollbar-hide sm:px-6"
+      >
+        {features.map((feature) => (
+          <article
+            key={feature.title}
+            className="w-[min(88vw,320px)] shrink-0 snap-center overflow-hidden rounded-[24px] border border-gray-200/70 bg-white p-5 shadow-[0_16px_48px_rgba(124,58,237,0.08)]"
+          >
+            <div className="flex items-start gap-3">
+              <div
+                className={cn(
+                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1',
+                  accent === 'growth'
+                    ? 'bg-[var(--purple-50)] text-[var(--purple-600)] ring-[var(--purple-100)]'
+                    : 'bg-emerald-50 text-emerald-700 ring-emerald-100',
+                )}
+              >
+                <feature.icon className="h-5 w-5" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-start justify-between gap-2">
+                  <h4 className="text-[15px] font-extrabold text-gray-900 tracking-[-0.02em]">{feature.title}</h4>
+                  <span className={cn('shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider', feature.tagColor)}>
+                    {feature.tag}
+                  </span>
+                </div>
+                <p className="mt-1 text-[12px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
+              </div>
+            </div>
+            <div className="mt-4 rounded-2xl bg-[#F8F8FA] p-3 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
+          </article>
+        ))}
+      </div>
     </div>
   )
 }
@@ -581,7 +705,7 @@ export function TwoSpacesSection() {
       />
 
       <PageContainer size="full" className="relative">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,32%)_minmax(0,68%)] lg:items-start lg:gap-14">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,32%)_minmax(0,68%)] lg:items-start lg:gap-10">
           {/* Left Column Sticky Section */}
           <div className="sticky top-28 space-y-5 bg-white z-10">
             <Eyebrow tone="purple">INSIDE NAAVIK</Eyebrow>
