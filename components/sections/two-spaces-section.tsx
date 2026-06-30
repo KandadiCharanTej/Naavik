@@ -227,7 +227,7 @@ const collegeFeatures: Feature[] = [
   {
     title: 'Leaderboards',
     desc: 'Earn points and get recognized by contributing resources to your campus.',
-    icon: Trophy,
+    icon: BookOpen, // customized icon matching Study Vault uploader context
     tag: '🏆 Leaders',
     tagColor: 'text-amber-700 bg-amber-50 border-amber-200',
     previewContent: (
@@ -333,6 +333,7 @@ function FloatingStatCard({ accent }: { accent: TabId }) {
 
 function ConnectorLines({ accent }: { accent: TabId }) {
   const stroke = accent === 'growth' ? 'rgba(124,58,237,0.18)' : 'rgba(16,185,129,0.2)'
+  const isGrowth = accent === 'growth'
   return (
     <svg
       aria-hidden
@@ -341,10 +342,23 @@ function ConnectorLines({ accent }: { accent: TabId }) {
       preserveAspectRatio="none"
       fill="none"
     >
-      <path d="M 120 80 C 200 120, 280 60, 380 140" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
-      <path d="M 380 140 C 420 200, 500 180, 560 280" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
-      <path d="M 200 360 C 300 320, 400 380, 520 340" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
-      <path d="M 560 280 C 620 340, 680 400, 720 460" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" opacity="0.9" />
+      <path d="M 400 180 L 400 220" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+      {isGrowth ? (
+        <>
+          <path d="M 133 220 L 666 220" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 133 220 L 133 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 400 220 L 400 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 666 220 L 666 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+        </>
+      ) : (
+        <>
+          <path d="M 100 220 L 700 220" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 100 220 L 100 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 300 220 L 300 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 500 220 L 500 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+          <path d="M 700 220 L 700 250" stroke={stroke} strokeWidth="1.5" strokeDasharray="6 6" />
+        </>
+      )}
     </svg>
   )
 }
@@ -401,7 +415,7 @@ function SatelliteCard({
   return (
     <article
       className={cn(
-        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white p-4.5 shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
+        'group transform-gpu relative overflow-hidden rounded-[24px] border border-gray-200/60 bg-white p-4 shadow-[0_6px_20px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]',
         className,
       )}
     >
@@ -427,7 +441,7 @@ function SatelliteCard({
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
-            <h4 className="font-extrabold text-gray-900 tracking-[-0.02em] text-[14.5px]">
+            <h4 className="font-extrabold text-gray-900 tracking-[-0.02em] text-[14px]">
               {feature.title}
             </h4>
             <span className={cn('shrink-0 rounded-full border border-gray-150 bg-white px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider', feature.tagColor)}>
@@ -435,7 +449,7 @@ function SatelliteCard({
             </span>
           </div>
           <p className="mt-1 text-[12px] leading-relaxed text-gray-500 font-semibold">{feature.desc}</p>
-          <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3.5 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
+          <div className="mt-3 rounded-xl bg-[#F8F8FA] p-3 ring-1 ring-gray-100/60 shadow-sm">{feature.previewContent}</div>
         </div>
       </div>
     </article>
@@ -464,14 +478,21 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
       <ConnectorLines accent={activeTab} />
       <FloatingStatCard accent={activeTab} />
 
-      <div className="relative z-10 grid grid-cols-12 gap-4 lg:gap-6 items-start">
-        {/* Left Column: Hero Card (spans 7 columns on desktop) */}
-        <div className="col-span-12 lg:col-span-7">
+      <div className="relative z-10 flex flex-col gap-6">
+        {/* Top: Opportunities / Study Vault (Hero Card) spanning full canvas width */}
+        <div className="w-full">
           <HeroCard feature={hero} accent={activeTab} />
         </div>
 
-        {/* Right Column: Supporting Cards stack (spans 5 columns on desktop) */}
-        <div className="col-span-12 lg:col-span-5 flex flex-col gap-4">
+        {/* Bottom supporting cards arranged horizontally directly under the Hero Card */}
+        <div
+          className={cn(
+            'grid gap-4 w-full',
+            isGrowth
+              ? 'grid-cols-1 sm:grid-cols-3'
+              : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-4'
+          )}
+        >
           {supporting.map((feature, i) => (
             <SatelliteCard
               key={feature.title}
@@ -479,10 +500,10 @@ function EcosystemCanvas({ activeTab }: { activeTab: TabId }) {
               accent={activeTab}
               delay={0.12 + i * 0.05}
               className={cn(
-                i === 0 && 'lg:rotate-[0.5deg] lg:translate-x-1',
-                i === 1 && 'lg:-rotate-[0.5deg] lg:-translate-x-1',
+                i === 0 && 'lg:rotate-[0.5deg] lg:translate-x-0.5',
+                i === 1 && 'lg:-rotate-[0.5deg] lg:-translate-x-0.5',
                 i === 2 && 'lg:rotate-[0.8deg]',
-                i === 3 && 'lg:-rotate-[0.8deg] lg:translate-y-1',
+                i === 3 && 'lg:-rotate-[0.8deg] lg:translate-y-0.5',
               )}
             />
           ))}
@@ -673,6 +694,7 @@ export function TwoSpacesSection() {
       />
 
       <PageContainer size="full" className="relative">
+        {/* Desktop Layout - Horizontal Split Grid */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,32%)_minmax(0,68%)] lg:items-start lg:gap-10">
           {/* Left Column Sticky Section */}
           <div className="sticky top-28 space-y-5 bg-white z-10">
